@@ -1,6 +1,6 @@
 <?
 /*
-    copyright            : (C) 2002-2004 by Jonas Genannt
+    copyright            : (C) 2002-2005 by Jonas Genannt
     email                : jonasge@gmx.net
  ***************************************************************************/
 
@@ -17,17 +17,18 @@
 $seite=base64_encode("configpage.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
-?>
 
-<? echo "<div class=\"ueberschrift_seite\">$textdata[configpage_konfiguration]</div>"; ?>
-<br />
-<?
+$template->set_filenames(array('overall_body' => './templates/blueingrey/configpage.tpl'));
+$template->assign_vars(array('L_TITLE_OF_CONFIG_PAGE' => $textdata[configpage_konfiguration]));
+
 //ob er die Page anschauen darf:
  if (!$userconfig['showconfig'])
   {
-   echo "<div class=\"rot_mittig\">$textdata[configpage_nicht_berechtigt]</div>";
+   $template->assign_block_vars('userconfig_show_configpage', array(
+   	'L_NOT_SHOW_THIS_PAGE' => $textdata[configpage_nicht_berechtigt]));
+   $template->pparse('overall_body');
    include("./footer.inc.php");
-   die();
+   exit();
   }
 ?>
 
@@ -155,7 +156,7 @@ $result=$zugriff_mysql->sql_abfrage("UPDATE userliste SET showtyp='$wert' WHERE 
 <?
 $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
  $result=$zugriff_mysql->sql_abfrage("SELECT username,passwd,name,lastlogin_d, lastlogin_t, anzahl, showrueckruf, shownotiz,msns,showvorwahl,showmsn,showtyp FROM userliste WHERE username='".$_SESSION['username']."'");
- $daten=mysql_fetch_array($result);
+ $daten=mysql_fetch_assoc($result);
 
 $zugriff_mysql->close_mysql();
 //Xhtml konform das checkboxen gechecked sind.
@@ -168,88 +169,32 @@ for ($i=0;$i<=4;$i++)
    }
  }
 
-echo "
-<form action=\"$SELF_PHP\" method=\"post\" >
-<table border=\"0\" style=\"margin-right:auto;margin-left:auto;text-align:left;\">
- <tr>
-  <td>$textdata[configpage_username]:</td>
-  <td style=\"width:10px;\"></td>
-  <td>$daten[username]</td>
- </tr>
- <tr>
-  <td>$textdata[configpage_passwort_aendern]:</td>
-  <td style=\"width:10px;\"></td>
-  <td><input type=\"checkbox\" name=\"aendern\"/></td>
- </tr>
- <tr>
-  <td>$textdata[configpage_altes_passwd]:</td>
-  <td style=\"width:10px;\"></td>
-  <td><input type=\"password\" name=\"altespassword\"/></td>
- </tr>
- <tr>
-  <td>$textdata[configpage_neues_passwd]:<br />$textdata[configpage_wiederholen]:</td>
-  <td style=\"width:10px;\"></td>
-  <td><input type=\"password\" name=\"password1\"/><br /><input type=\"password\" name=\"password2\"/></td>
- </tr>
- <tr>
-  <td>$textdata[configpage_voller_name]:</td>
-  <td style=\"width:10px;\"></td>
-  <td><input type=\"text\" name=\"neuername\" value=\"$daten[name]\"/></td>
- </tr>
- <tr>
-   <td>$textdata[configpage_zeige_letzte_anrufe]:</td>
-   <td style=\"width:10px;\"></td>
-   <td><input type=\"text\" name=\"neueanzahl\" value=\"$daten[anzahl]\" maxlength=\"5\" size=\"10\"/></td>
- </tr>
-<tr>
- <td>$textdata[configpage_zeige_rueckruf]:</td>
- <td style=\"width:10px;\"></td>
- <td><input type=\"checkbox\" name=\"zeigerueckruf\"  $daten[showrueckruf] /></td>
-</tr>
-<tr>
- <td>$textdata[configpage_zeige_notiz]:</td>
- <td style=\"width:10px;\"></td>
- <td><input type=\"checkbox\" name=\"zeigenotiz\"  $daten[shownotiz] /></td>
-</tr>
-<tr>
- <td>$text[option_splate_vorwahl]</td>
- <td style=\"width:10px;\"></td>
- <td><input type=\"checkbox\" name=\"zeigevorwahl\"  $daten[showvorwahl] /></td>
-</tr>
+ 
+$template->assign_block_vars('tab1', array(
+	'L_USER_NAME' => $textdata[configpage_username],
+	'DATA_USER_NAME' => $daten[username],
+	'L_CHANGE_PASSWD' => $textdata[configpage_passwort_aendern],
+	'L_OLD_PASSWD' => $textdata[configpage_altes_passwd],
+	'L_NEW_PASSWD' => $textdata[configpage_neues_passwd],
+	'L_NEW_PASSWD_CONFIRM' => $textdata[configpage_wiederholen],
+	'L_FULL_NAME' => $textdata[configpage_voller_name],
+	'DATA_FULL_NAME' => $daten[name],
+	'L_SHOW_NUMBERS_OF_CALLS_IN_STAT' => $textdata[configpage_zeige_letzte_anrufe],
+	'DATA_NUMBERS' => $daten[anzahl],
+	'L_SHOW_CALL_BACK_FUNC' => $textdata[configpage_zeige_rueckruf],
+	'DATA_CALL_BACK_FUNC' => $daten[showrueckruf],
+	'L_SHOW_PREFIX_FUNC' => $text[option_splate_vorwahl],
+	'DATA_PREFIX_FUNC' => $daten[showvorwahl],
+	'L_SHOW_TYP_FROM_CALL' => $text[zeige_typ],
+	'DATA_SHOW_TYP_FROM_CALL' => $daten[showtyp],
+	'L_SHOW_MSN_FUNC' => $text[option_splate_msn],
+	'DATA_SHOW_MSN_FUNC' => $daten[showmsn],
+	'L_SHOW_MSN_FUNC' => $text[zeige_msns],
+	'DATA_SHOW_MSN_FUNC' => $daten[msns],
+	'L_WARNING_FOR_MSN_FUNC' => $text[warnung_msns],
+	'L_SAVE_DATA_TO_DB' => $text[speichern])); 
+ 
 
-<tr>
- <td style=\"vertical-align:top;\">$text[zeige_typ]</td>
- <td style=\"width:10px;\"></td>
- <td><input type=\"checkbox\" name=\"zeigetyp\" $daten[showtyp] /></td>
-</tr>
-
-
-<tr>
- <td>$text[option_splate_msn]</td>
- <td style=\"width:10px;\"></td>
- <td><input type=\"checkbox\" name=\"zeigemsn\" $daten[showmsn] /></td>
-</tr>
-
-<tr>
- <td style=\"vertical-align:top;\">$text[zeige_msns]</td>
- <td style=\"width:10px;\"></td>
- <td><input type=\"text\" name=\"zmsns\" value=\"$daten[msns]\"/><br />$text[warnung_msns] </td>
-</tr>
-
-
-
-
-
-</table>
-<ins><br/>
-<input type=\"hidden\" value=\"".$_SESSION['id']."\" />
- <input type=\"submit\" name=\"speichern\" value=\"$text[speichern]\"/></ins>
-</form>
-
-";
-?>
-
-
-<?
+$template->pparse('overall_body');
 include("./footer.inc.php");
 ?>
