@@ -13,7 +13,7 @@
  *                                                                         *
  ***************************************************************************/
 
-$seite=base64_encode("kalender.php");
+$seite=base64_encode("calendar.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
 

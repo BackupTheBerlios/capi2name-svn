@@ -132,7 +132,7 @@
    <div class="menuitem"><a href="./stat_gesamt.php">{L_CALL_ALL_STAT}</a></div>
    <div class="menuitem"><a href="./stat_monat.php">{L_CALL_STAT_MONTH}</a></div>
    <div class="menuitem"><a href="./globale_suche.php">{L_SEARCH}</a></div>
-   <div class="menuitem"><a href="./kalender.php">{L_CALENDAR}</a></div>
+   <div class="menuitem"><a href="./calendar.php">{L_CALENDAR}</a></div>
    <!-- BEGIN show_delete_page_unkown_calls_on -->
    <div class="menuitem"><a href="./stat_un_loeschen.php">{L_DELETE_FUNCTION}</a></div>
    <!-- END show_delete_page_unkown_calls_on -->

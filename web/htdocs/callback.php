@@ -13,9 +13,9 @@
  *                                                                         *
  ***************************************************************************/
 if (isset($add))
- { $seite=base64_encode("zurueckruf.php?add=yes");
+ { $seite=base64_encode("callback.php?add=yes");
  }
-else { $seite=base64_encode("zurueckruf.php"); }
+else { $seite=base64_encode("callback.php"); }
 include("./login_check.inc.php");
 include("./header.inc.php");
 

@@ -12,7 +12,7 @@
  *   any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-$seite=base64_encode("szurueckruf.php");
+$seite=base64_encode("callback_show.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
 
