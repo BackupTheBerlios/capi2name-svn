@@ -22,6 +22,8 @@
 	require_once("./cs_capisuite_config.inc.php");
 	require_once("./cs_functions.inc.php");
 	
+	if (checkUsername($_SESSION['username']) != 0) die("<h1>username does not match local user</h1>");
+	
 ?>
 <?php echo "<div class=\"ueberschrift_seite\">$textdata[cs_fax_headline]</div>"; ?>
 <div style="margin:5px;">

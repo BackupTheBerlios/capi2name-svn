@@ -14,8 +14,8 @@
 	$fileDir	= $cs_conf['cs_fax_user_dir'] . "/$user/received"; // supply a path name.
 	$fileName	= "fax-$file.sff"; // supply a file name.
 	$fileString	= $fileDir.'/'.$fileName; // combine the path and file
-	system("rm " . $cs_conf['cs_tmp_dir'] . "/capi2name.tmp.*");
-	system($cs_conf['sff2misc'] . " -j $fileString " . $cs_conf['cs_tmp_dir'] . "/capi2name.tmp");
+	exec("rm " . $cs_conf['cs_tmp_dir'] . "/capi2name.tmp.*");
+	exec($cs_conf['sff2misc'] . " -j $fileString " . $cs_conf['cs_tmp_dir'] . "/capi2name.tmp");
 	$fileString	= $cs_conf['cs_tmp_dir'] . "/capi2name.tmp.001.jpg";
 	
 	

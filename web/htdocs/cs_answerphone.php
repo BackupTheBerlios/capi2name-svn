@@ -22,6 +22,8 @@
 	require_once("./cs_capisuite_config.inc.php");
 	require_once("./cs_functions.inc.php");
 	
+	if (checkUsername($_SESSION['username']) != 0) die("<h1>username does not match local user</h1>");
+	
 ?>
 <?php echo "<div class=\"ueberschrift_seite\">$textdata[cs_ap_answerphone]</div>"; ?>
 	<h3><?php echo $textdata[cs_ap_liste]; ?></h3>
@@ -41,7 +43,7 @@
 	
 	$c = 0;
 	
-	$dir = $cs_conf['cs_voice_user_dir'] . "/" .$_SESSION['username'] . "/received/";
+	$dir = $cs_conf['cs_voice_user_dir'] . "/" . $_SESSION['username'] . "/received/";
 	if (is_dir($dir)) {
 		if ($dh = opendir($dir)) {
 			while (($file = readdir($dh)) !== false) {

@@ -14,7 +14,7 @@
 	$fileName = "voice-$file.la"; // supply a file name.
 	$fileString=$fileDir.'/'.$fileName; // combine the path and file
 	
-	system("sox $fileString " . $cs_conf['cs_tmp_dir'] . "/capi2name-tmp.mp3");
+	exec("sox $fileString " . $cs_conf['cs_tmp_dir'] . "/capi2name-tmp.mp3");
 	$fileString	= $cs_conf['cs_tmp_dir'] . "/capi2name-tmp.mp3";
 	$fileName	= "answerphone-$file.mp3";
 	

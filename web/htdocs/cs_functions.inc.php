@@ -17,4 +17,9 @@
 		}
 		return (preg_replace("/(.*;)(.*)/","\\1", $a) > preg_replace("/(.*;)(.*)/","\\1", $b)) ? -1 : 1;
 	}
+	
+	function checkUsername ($name) {
+		$a = exec("id -g $name",$a, $retval);
+		return $retval;
+	}
 ?>
