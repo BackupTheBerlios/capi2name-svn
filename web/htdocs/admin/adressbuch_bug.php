@@ -19,15 +19,12 @@ include("./header.inc.php");
 ?>
 
 
-<br>
-<center>
-<h3>Adressbuch BUG beheben</h3>
-</center>
+<div class="ueberschrift_seite">Adressbook BUG</div>
 
 <?
 if (isset($_GET[aufrufen]))
   {
-   echo "<br><b>Funktion Adressbuch BUG beheben wird gestartet. (Seite wird öfters neu geladen, warte bis FERTIG unten steht!)</b><br>";
+   echo "<br/><b>Funktion Adressbuch BUG beheben wird gestartet. (Seite wird öfters neu geladen, warte bis FERTIG unten steht!)</b><br/>";
     if (isset($_GET[start_zahl]))
       {
         $start=$_GET[start_zahl];
@@ -37,8 +34,7 @@ if (isset($_GET[aufrufen]))
        $start=1;
       }
       
-   mysql_connect($host, $dbuser, $dbpasswd);
-    mysql_select_db($db);
+   $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
      $res_anzahl=mysql_query("SELECT * FROM adressbuch");
      $rows_anzahl=mysql_num_rows($res_anzahl);
      $result=mysql_query("SELECT * FROM adressbuch LIMIT $start, 10");
@@ -50,26 +46,26 @@ if (isset($_GET[aufrufen]))
         if ($daten[tele1]==NULL)
 	  {
 	   $res=mysql_query("UPDATE adressbuch SET tele1='99' WHERE id='$daten[id]'");
-	    if ($res==1) { echo "<br>Tele 1 von Eintrag $daten[id] neu geschrieben: OK"; }
+	    if ($res==1) { echo "<br/>Tele 1 von Eintrag $daten[id] neu geschrieben: OK"; }
 	  }
         if ($daten[tele2]==NULL)
 	  {
 	   $res=mysql_query("UPDATE adressbuch SET tele2='99' WHERE id='$daten[id]'");
-	    if ($res==1) { echo "<br>Tele 2 von Eintrag $daten[id] neu geschrieben: OK"; }
+	    if ($res==1) { echo "<br/>Tele 2 von Eintrag $daten[id] neu geschrieben: OK"; }
 	 }
         if ($daten[tele3]==NULL)
 	  {
 	   $res=mysql_query("UPDATE adressbuch SET tele3='99' WHERE id='$daten[id]'");
-	    if ($res==1) { echo "<br>Tele 3 von Eintrag $daten[id] neu geschrieben: OK"; }
+	    if ($res==1) { echo "<br/>Tele 3 von Eintrag $daten[id] neu geschrieben: OK"; }
 	  }   
         if ($daten[handy]==NULL)
 	  {
 	   $res=mysql_query("UPDATE adressbuch SET handy='99' WHERE id='$daten[id]'");
-	    if ($res==1) { echo "<br>Handy von Eintrag $daten[id] neu geschrieben: OK"; }
+	    if ($res==1) { echo "<br/>Handy von Eintrag $daten[id] neu geschrieben: OK"; }
 	  }   
       }
       
-   mysql_close();    
+  $zugriff_mysql->close_mysql();    
    if ($wert <= $rows_anzahl)
  {
 
@@ -77,7 +73,7 @@ if (isset($_GET[aufrufen]))
  }
  else
  {
-  echo "<font color=\"red\"><b><br><h2>Fertig</h2></b><hr></font>";
+  echo "<font color=\"red\"><b><br/><h2>Fertig</h2></b><hr/></font>";
  }   
   } // isset aufrufen
 
@@ -91,11 +87,11 @@ Diese Funktion sollte einmal ausgeführt werden.<br>
 Wenn der Fehler in der Datenbank steht, kann es sein, das Anrufe falsch zugeordnet werden, oder die Gesamtstatistik nicht richtig zählt!!!<br>
 
 
-<br>
-<br>
+<br/>
+<br/>
 <center>
   <form action="./adressbuch_bug.php" method="GET">
-    <input type="SUBMIT" name="aufrufen" value="Bug in der Datenbank beheben">
+    <input type="submit" name="aufrufen" value="Bug in der Datenbank beheben"/>
   </form>
 </center>
 

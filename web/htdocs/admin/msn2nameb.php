@@ -27,8 +27,7 @@ include("./header.inc.php");
  if (isset($_POST[speichern]))
    {
    echo "ID: $_POST[id]";
-    mysql_connect($host,$dbuser, $dbpasswd);
-	mysql_select_db($db);
+  $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 	$res=mysql_query( "DELETE FROM msnzuname WHERE id=$_POST[id] ");
 	 if ($res==1)
 	  {
@@ -50,7 +49,7 @@ include("./header.inc.php");
 	  echo mysql_error();
 	  }
 
-	mysql_close();
+	$zugriff_mysql->close_mysql();
    }
 ?>
 
@@ -62,8 +61,7 @@ include("./header.inc.php");
  <td>Name</td>
 </tr>
 <?
-mysql_connect($host,$dbuser,$dbpasswd);
-mysql_select_db($db);
+$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
  $result=mysql_query("SELECT * FROM msnzuname WHERE id='$_GET[bid]'");
  $daten=mysql_fetch_array($result);
 
@@ -73,7 +71,7 @@ mysql_select_db($db);
 
 
  </tr>";
-mysql_close();
+$zugriff_mysql->close_mysql();
 ?>
 </table>
 <br>

@@ -17,12 +17,7 @@
 include("./check_it.php");
 include("./header.inc.php");
 ?>
-<br>
-<center>
-<h3>MSN zu einem Name zuordnen</h2>
-</center>
-<br>
-
+<div class="ueberschrift_seite">MSN to name</div>
 
 
 Hier kann man den lokaklen MSNs Namen zuordnen, diese Namen tauchen den in der Anrufstatistik anstatt der Nummer auf.<br><br>
@@ -30,8 +25,7 @@ Hier kann man den lokaklen MSNs Namen zuordnen, diese Namen tauchen den in der A
 <?
  if (isset($_GET[loeschen]))
   {
-   mysql_connect($host,$dbuser, $dbpasswd);
-   mysql_select_db($db);
+   $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
     $result=mysql_query("DELETE FROM msnzuname WHERE id=$_GET[loeschen]");
 	 if ($result==1)
 	   {
@@ -41,7 +35,7 @@ Hier kann man den lokaklen MSNs Namen zuordnen, diese Namen tauchen den in der A
 	   {
 	    echo "<center><br><font color=\"red\">Eintrag mit ID Nr. $_GET[loeschen] NICHT erflogreich gelöscht!<br></font></center>";
 	   }
-   mysql_close();
+   $zugriff_mysql->close_mysql(); 
   }
 
   if (isset($_GET[nreintrag]))
@@ -69,8 +63,7 @@ if (isset($_POST[absenden]))
    {
      if (isset($_POST[name]))
 	  {
-	   mysql_connect($host, $dbuser, $dbpasswd);
-	   mysql_select_db($db);
+	  $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 	    $res=mysql_query("INSERT INTO msnzuname VALUES('', '$_POST[msn]', '$_POST[name]')");
 		 if ($res==1)
 		  {
@@ -80,7 +73,7 @@ if (isset($_POST[absenden]))
 		  {
 		  echo "<center><font color=\"red\">Daten NICHT erflogreich eingetragen!</font></center>";
 		  }
-	   mysql_close();
+	   $zugriff_mysql->close_mysql(); 
 	  }
 	  else
 	  {
@@ -106,8 +99,7 @@ if (isset($_POST[absenden]))
    </tr>
 
 <?
-mysql_connect($host,$dbuser,$dbpasswd);
-mysql_select_db($db);
+$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 $result=mysql_query("SELECT * FROM msnzuname");
  while($row=mysql_fetch_array($result))
   {
@@ -118,7 +110,7 @@ $result=mysql_query("SELECT * FROM msnzuname");
 	<td><center><a href=\"./msn2name.php?loeschen=$row[id]\">OK</a></center></td>
    </tr>";
   }
-mysql_close();
+ $zugriff_mysql->close_mysql();
 ?>
 
 

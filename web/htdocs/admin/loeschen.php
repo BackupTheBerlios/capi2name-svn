@@ -18,12 +18,12 @@ include("./check_it.php");
 include("./header.inc.php");
 ?>
 <br>
-<center>
+
 
 <?
 if ($_POST[id]==1)
  {
- echo "<spn style=\"color:red;text-align:center;\">You can not delet the administator!!</span>";
+ echo "<spn style=\"color:red;text-align:center;font-weight:bold;\">You can not delet the administator!!</span>";
  include("footer.inc.php");
  exit();
  }
@@ -32,13 +32,12 @@ if ($_POST[id]==1)
 <?
 if (isset($_POST[loeschen]))
  {
- echo "<font color=\"red\">Lösche eintrag mit id $_POST[id]</font><br><br>";
-  mysql_connect($host, $dbuser, $dbpasswd);
-   $result=mysql_db_query($db, "DELETE FROM userliste WHERE id=$_POST[id]");
-  mysql_close();
+ $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+   $result=mysql_query("DELETE FROM userliste WHERE id=$_POST[id]");
+  $zugriff_mysql->close_mysql();
  if ($result == 1)
   {
-  echo "<b><font color=\"red\">Eintrag erfolgreich gelöscht, Sie werden in 2sec weitergeleitet.</font></b>";
+  echo "<span style=\"color:red;font-weight:bold;\">Eintrag mit $_POST[id] erfolgreich gelöscht, Sie werden in 2sec weitergeleitet.</span>";
   echo "<meta http-equiv=\"refresh\" content=\"2; URL=./index.php\">";
   }
  }
@@ -49,14 +48,14 @@ if (isset($_POST[loeschen]))
 <?
 if (!isset($_POST[loeschen]))
 {
-echo "<h3>Löschen von Benutzer \"$_GET[username]\" mit ID $_GET[id]</h3><br>";
-echo "<center><form action=\"$PHP_SELF\" method=\"post\">";
-echo "<input type=\"hidden\" name=\"id\" value=\"$_GET[id]\">";
-echo "<input type=\"submit\" value=\"Löschen\" name=\"loeschen\">";
+echo "<h3>Löschen von Benutzer \"$_GET[username]\" mit ID $_GET[id]</h3><br/>";
+echo "<form action=\"$PHP_SELF\" method=\"post\">";
+echo "<input type=\"hidden\" name=\"id\" value=\"$_GET[id]\"/>";
+echo "<input type=\"submit\" value=\"Löschen\" name=\"loeschen\"/>";
 echo "</form>";
 }
 ?>
-</center>
+
 
 
 

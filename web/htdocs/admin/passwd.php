@@ -19,11 +19,7 @@ include("./header.inc.php");
 ?>
 
 
-<br>
-<center>
-<h3>Admin Passwort ändern</h3>
-</center>
-
+<div class="ueberschrift_seite">Change Administrator password</div>
 
 <?
 if (isset($_POST[aendern]))
@@ -31,14 +27,14 @@ if (isset($_POST[aendern]))
 if ($_POST[passwd1]==$_POST[passwd2])
 {
 echo "<center><font color=\"red\">Neue Passwörter gleich!<br></center></font>";
- mysql_connect($host, $dbuser, $dbpasswd);
- $result = mysql_db_query($db, "SELECT username, passwd FROM userliste WHERE id=1");
+ $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+ $result = mysql_query("SELECT username, passwd FROM userliste WHERE id=1");
  $daten = mysql_fetch_array($result);
   if (md5($_POST[altespasswd]) == $daten[passwd])
    {
     $verschluesselt=md5($_POST[passwd2]);
     echo "<center><font color=\"red\">Altes Passwd OK !<br></center></font>";
-     $result = mysql_db_query($db, "UPDATE userliste SET passwd='$verschluesselt' WHERE id=1");
+     $result = mysql_query("UPDATE userliste SET passwd='$verschluesselt' WHERE id=1");
      if ($result ==1)
       {
       echo "<center><font color=\"red\"><b>Passwort erfolgreich geändert.<br></center></font></b>";
@@ -48,7 +44,7 @@ echo "<center><font color=\"red\">Neue Passwörter gleich!<br></center></font>";
    {
     echo "<center><font color=\"red\"><b>Altes Passwort nicht gleich !<br></center></font></b>";
    }
- mysql_close();
+  $zugriff_mysql->close_mysql();
 }
 else
 {
@@ -61,18 +57,18 @@ echo "<center><font color=\"red\"><b>Neue Passwörter nicht gleich!!</center></fo
 
 <center>
 <form action="<? $PHP_SELF ?>" method="post">
-<table border="1">
+<table border="0">
  <tr>
-  <td>Altes Passwort:</td>
-  <td><input type="password" name="altespasswd"></td>
+  <td>old password:</td>
+  <td><input type="password" name="altespasswd"/></td>
  </tr>
  <tr>
-  <td>Neues Passwort:<br>Wiederholen:</td>
-  <td><input type="password" name="passwd1"><br><input name="passwd2" type="password"></td>
+  <td>new password:<br>again:</td>
+  <td><input type="password" name="passwd1"/><br/><input name="passwd2" type="password"/></td>
  </tr>
 
 </table>
-<input type="submit" name="aendern" value="Ändern">
+<input type="submit" name="aendern" value="Ändern"/>
 </form>
 </center>
 

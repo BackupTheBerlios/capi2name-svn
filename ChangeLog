@@ -16,7 +16,7 @@ Capi2Name 0.6.7.4 YYYY-MM-DD - Jonas Genannt - <jonasge@gmx.net> ---BETA
 	o PHP: $userconfig[] eingefuehrt
 	o PHP: coockie eingebaut wieder zum eingeloggt bleiben.
 	o PHP: ein paar kleine Erweiterungen und Verbesserungen an den language files  (popel)
-	o PHP: Adminpanel Layout anpassungen.
+	o PHP: Adminpanel Layout anpassungen. 
 	o PHP: Adminpanel Anpassung an die Mysql-Klasse
 	o PHP: Ersatz Dateien fuer leute die unbedingt IE benutzen wollen 
 		und probs mit layout haben (web/sonstiges/) (popel)

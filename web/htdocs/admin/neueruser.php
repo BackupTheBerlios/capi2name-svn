@@ -29,8 +29,7 @@ if (isset($_POST[speichern]))
  $checked=2;
   if (isset($_POST[b_username]))
    {
-  mysql_connect($host, $dbuser, $dbpasswd);
-  mysql_select_db($db);
+$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 
   //checke ob Usernamen schon gibt
     $ch_res=mysql_query("SELECT id,username FROM userliste");
@@ -53,7 +52,7 @@ if ($checked==2)
   else { echo "<center><font color=\"red\">Benutzer hinzufügen: Failed</font></center>"; }
 }
 
-  mysql_close();
+  $zugriff_mysql->close_mysql();
   }
   else
   {

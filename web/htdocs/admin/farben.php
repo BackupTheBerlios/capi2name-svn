@@ -17,11 +17,7 @@
 include("./check_it.php");
 include("./header.inc.php");
 ?>
-<br>
-<center>
-<h3>Farben anpassen</h2>
-</center>
-<br>
+<div class="ueberschrift_seite">Colorsetup</div>
 
 <center>
 <?
@@ -97,55 +93,55 @@ echo "
 <table border=\"1\">
  <tr>
   <td>Link-Farbe:</td>
-  <td><input type=\"text\" name=\"f_link\" value=\"$daten[3]\"></td>
+  <td><input type=\"text\" name=\"f_link\" value=\"$daten[3]\"/></td>
  </tr>
  <tr>
   <td>Hover-Farbe:</td>
-  <td><input type=\"text\" name=\"f_hover\" value=\"$daten[4]\"></td>
+  <td><input type=\"text\" name=\"f_hover\" value=\"$daten[4]\"/></td>
  </tr>
  <tr>
   <td>Hintergrundfarbe der Seite:</td>
-  <td><input type=\"text\" name=\"f_hinter_seite\" value=\"$daten[5]\"></td>
+  <td><input type=\"text\" name=\"f_hinter_seite\" value=\"$daten[5]\"/></td>
  </tr>
  <tr>
   <td>Zeile mit Überschrift:</td>
-  <td><input type=\"text\" name=\"f_zeile_ueber\" value=\"$daten[6]\"></td>
+  <td><input type=\"text\" name=\"f_zeile_ueber\" value=\"$daten[6]\"/></td>
  </tr>
  <tr>
   <td>Schriftfarbe:</td>
-  <td><input type=\"text\" name=\"f_schrift\" value=\"$daten[7]\"></td>
+  <td><input type=\"text\" name=\"f_schrift\" value=\"$daten[7]\"/></td>
  </tr>
  <tr>
   <td>Hintergrundfarbe der Link-Liste:</td>
-  <td><input type=\"text\" name=\"f_hinter_link\" value=\"$daten[8]\"></td>
+  <td><input type=\"text\" name=\"f_hinter_link\" value=\"$daten[8]\"/></td>
  </tr>
  <tr>
   <td>Hintergrundfarbe des Hauptrahmens:</td>
-  <td><input type=\"text\" name=\"f_hinter_main\" value=\"$daten[9]\"></td>
+  <td><input type=\"text\" name=\"f_hinter_main\" value=\"$daten[9]\"/></td>
  </tr>
  <tr>
   <td>Rahmenfarbe der Link-Liste:</td>
-  <td><input type=\"text\" name=\"f_border_link\" value=\"$daten[10]\"></td>
+  <td><input type=\"text\" name=\"f_border_link\" value=\"$daten[10]\"/></td>
  </tr>
  <tr>
   <td>Rahmenfarbe der Hauptrahmens:</td>
-  <td><input type=\"text\" name=\"f_border_main\" value=\"$daten[11]\"></td>
+  <td><input type=\"text\" name=\"f_border_main\" value=\"$daten[11]\"/></td>
  </tr>
  <tr>
   <td>Hintergrundgfarbe der Haupttabelle:</td>
-  <td><input type=\"text\" name=\"f_hinter_haupt\" value=\"$daten[12]\"></td>
+  <td><input type=\"text\" name=\"f_hinter_haupt\" value=\"$daten[12]\"/></td>
  </tr>
  <tr>
   <td>Hintergrundfarbe für Zeile 1 in Statistik:</td>
-  <td><input type=\"text\" name=\"f_hinter_zeile1\" value=\"$daten[13]\"</td>
+  <td><input type=\"text\" name=\"f_hinter_zeile1\" value=\"$daten[13]\"/></td>
  </tr>
   <tr>
   <td>Hintergrundfarbe für Zeile 2 in Statistik:</td>
-  <td><input type=\"text\" name=\"f_hinter_zeile2\" value=\"$daten[14]\"</td>
+  <td><input type=\"text\" name=\"f_hinter_zeile2\" value=\"$daten[14]\"/></td>
  </tr>
 </table>";
 ?>
-<input type="submit" name="eigene" value="Speichern">
+<input type="submit" name="eigene" value="Speichern"/>
 </form>
 </center>
 
