@@ -19,16 +19,16 @@
 </tr>
 <!-- BEGIN tab -->
    <tr style="background-color:{tab.color}">
-   <td style="text-align:left;"><a href="./addressbook_show.php.php?show={tab.addr_id}" >{tab.addr_last_name}</a></td>
+   <td style="text-align:left;"><a href="./addressbook_show.php?show={tab.addr_id}" >{tab.addr_last_name}</a></td>
    <td style="text-align:left;"><a href="./addressbook_show.php?show={tab.addr_id}">{tab.addr_first_name}</a></td>
    <td style="text-align:center;">{tab.addr_tele_1}</td>
    <td style="text-align:center;">{tab.addr_cell_phone}</td>
    <td style="text-align:center;">
-    <a href="./editadress.php?bearbeiten={tab.addr_id}" title="{tab.addr_edit_entry}">
+    <a href="./addressbook_edit.php?bearbeiten={tab.addr_id}" title="{tab.addr_edit_entry}">
      <img src="./bilder/edit.png" style="border-width:0px;vertical-align:middle;" alt=""/></a></td>
    <td style="width:10px;"></td>
    <td style="text-align:center;">
-    <a href="./editadress.php?bearbeiten={tab.addr_id}&amp;loeschen=1" title="{tab.addr_delete_entry}">
+    <a href="./addressbook_edit.php?bearbeiten={tab.addr_id}&amp;loeschen=1" title="{tab.addr_delete_entry}">
    <img src="./bilder/edittrash.png" style="border-width:0px;vertical-align:middle;" alt=""/></a></td>
    <td style="width:10px;">&nbsp;</td>
    <td style="text-align:center;">

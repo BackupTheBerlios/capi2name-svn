@@ -21,8 +21,8 @@
  <!-- BEGIN tab1 -->
  <tr style="background-color:{tab1.DATA_COLOR}">
   <td style="width:30px;text-align:left;">{tab1.DATA_INDEX}</td>
-  <td><a href="./adressbuch.php?id={tab1.DATA_ID}#find">{tab1.DATA_LAST_NAME}</a></td>
-  <td><a  href="./adressbuch.php?id={tab1.DATA_ID}#find">{tab1.DATA_FIRST_NAME}</a></td>
+  <td><a href="./addressbook.php?id={tab1.DATA_ID}#find">{tab1.DATA_LAST_NAME}</a></td>
+  <td><a  href="./addressbook.php?id={tab1.DATA_ID}#find">{tab1.DATA_FIRST_NAME}</a></td>
   <td style="text-align:right;">{tab1.DATA_COUNT}</td>
   <td style="text-align:center;">{tab1.DATA_LAST_CALL}</td>
   <td style="width:10px;"></td>

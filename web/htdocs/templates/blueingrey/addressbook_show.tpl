@@ -66,4 +66,4 @@
  </tr>
 </table>
 <br />
-<a href="./editadress.php?bearbeiten={L_DB_ID_ENTRY}">{L_EDIT_THIS_ENTRY}</a>
+<a href="./addressbook_edit.php?bearbeiten={L_DB_ID_ENTRY}">{L_EDIT_THIS_ENTRY}</a>
