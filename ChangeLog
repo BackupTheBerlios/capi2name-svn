@@ -1,4 +1,7 @@
 Capi2Name 0.6.7.5 YYYY-MM-DD - Jonas Genannt - <jonasge@gmx.net> ---BETA
+	o PHP: neueruser.php html4.0 css2.0 xhtml (popel)
+	o PHP: .htaccess hinzugefuegt fuer mehr Sicherheit (Verbietet *.inc.*)
+	o PHP: header.inc.php aufgespalten in header.inc.php und navigator.inc.php (design kompatibilität)
 
 
 
