@@ -33,7 +33,7 @@ $config['language']         = "de";
 
 
 //VERSIONS INFO UND CODENAMEN:
-$codenamen="BETA-VERSION";
+$codenamen="pepy-BETA-VERSION";
 $version="0.6.7.6";
 //Tabellennamen:
 $prefixtab="";

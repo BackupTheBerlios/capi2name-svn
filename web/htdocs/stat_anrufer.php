@@ -67,7 +67,7 @@ $anrufe_woche= round($ges_anzahl/$wochen_genau, 2);
 
 <table border="0" width="100%" style="margin-right:auto;margin-left:auto;text-align:left;">
   <tr>
-    <td valign="top">
+    <td valign="top" >
     <h3>Detailansicht</h3>
       <table border="0" cellpadding="1" cellspacing="2">
        <tr>
@@ -145,7 +145,8 @@ echo "
 	<td>$anrufe_woche</td>
    </tr>
   </table>";
-
+  
+echo "<br/><img src=\"./stat-user.png.php?id=$_GET[id]\" style=\"border-width:0px;\"/>";
  echo "
     </td>
     <td style=\"vertical-align:top;\">
