@@ -10,7 +10,7 @@
 
 $sql["host"]                = "localhost";
 $sql["dbuser"]              = "capi";
-$sql["dbpasswd"]            = "kljm";
+$sql["dbpasswd"]            = "kljmkgd";
 $sql["db"]                  = "capidb";
 $config['domain']           = "www.mein-lokal.de";
 $config['capi2name_status'] = "yes";
