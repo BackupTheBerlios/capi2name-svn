@@ -1,9 +1,9 @@
-/*
- * $Id: config_api.h,v 1.6 2002/04/09 17:23:15 flv Exp $
- *
- * Copyright (C) 2001, 2002, 2003 Flavio de Ayra Mendes <h4@locked.org>
- */
+/* capi2name - ISDN capi monitor
+   Copyright (C) 2001-2003  Flavio de Ayra Mendes <h4@locked.org>
 
+   capi2name comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+   This is free software, and you are welcome to redistribute it
+   under certain conditions; see COPYING for details. */
 #ifndef _CONFIG_API_H
 #define _CONFIG_API_H
 

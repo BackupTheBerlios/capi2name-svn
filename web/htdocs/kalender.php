@@ -146,21 +146,18 @@ for ($i=1; $i<=$index; $i++)
       }
 
 
-  /*    
-echo "<form action=\"./kalender.php\"  method=\"get\">$textdata[kalender_schnellsprung]:";
-echo "<ins><select name=\"monat\">";
-  for ($i=1; $i<=12; $i++)
-    {
-     echo "<option>$i</option>";
-    }
-echo "</select>";
-echo "<select name=\"jahr\">";
-  for ($i=1970;$i<=2010;$i++)
-   {
-    echo "<option>$i</option>";
-   }
-echo "</select>";
-echo "<input type=\"submit\" name=\"datum\" value=\"$textdata[kalender_los]\"/></ins></form>"; */
+$template->assign_vars(array(
+		'L_MSG_GO_TO' => $textdata[kalender_schnellsprung],
+		'L_MSG_GO' => $textdata[kalender_los]));
+for ($i=1; $i<=12; $i++)
+ {
+  $template->assign_block_vars('month_data',array('DATA_MONTH' => $i));
+ }
+for ($i=1970;$i<=2010;$i++)
+ {
+  $template->assign_block_vars('year_data',array('DATA_YEAR' => $i));
+ }
+
 $template->pparse('overall_body');
 include("footer.inc.php");
 ?>

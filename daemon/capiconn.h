@@ -1,6 +1,6 @@
 /*
- * $Id: capiconn.h,v 1.1.1.1 2001/03/11 13:23:28 calle Exp $
- *
+ * capi2name - ISDN capi monitor
+ *  
  * Copyright 2000 Carsten Paeth (calle@calle.in-berlin.de)
  * Copyright 2000 AVM GmbH Berlin (info@avm.de)
  *

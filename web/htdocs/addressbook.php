@@ -53,31 +53,15 @@ while($data_addr=mysql_fetch_assoc($result))
      $i=0; }
   if ($data_addr[handy]== 99) { $data_addr[handy]=""; }
   if ($data_addr[tele1]== 99) { $data_addr[tele1]=""; }
-  if (isset($_GET[findnr]) )
-   {
-    $findnr=$_GET[findnr];
-    if(  $data_addr[tele1] == $findnr or
-    	 $data_addr[tele2] == $findnr or 
-	 $data_addr[tele3] == $findnr or
-	 $data_addr[handy] == $findnr or
-	 $data_addr[fax]   == $findnr  )
-      {
-       $color="yellow";
-       $data_addr[tele1]="<a name=\"find\">$data_addr[tele1]</a>";
-      }
-   } 
-
   if (isset($_GET[id]) )
    {
-    $findid=$_GET[id];
-    if($findid==$data_addr[id] )
+    if($_GET[id]==$data_addr[id] )
      {
       $color="yellow";
       $data_addr[tele1]="<a name=\"find\">$data_addr[tele1]</a>";
      }
-      
-        
-    }
+   }
+   
 $template->assign_block_vars('tab', array(
 				'color' => $color,
 				'addr_id' => $data_addr[id],

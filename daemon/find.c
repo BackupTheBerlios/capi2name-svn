@@ -1,9 +1,9 @@
-/*
- * $Id: find.c,v 1.5 2002/04/09 19:31:07 flv Exp $
- * 
- * Copyright (C) 2001, 2002, 2003 Flavio de Ayra Mendes <h4@locked.org>
- */
+/* capi2name - ISDN capi monitor
+   Copyright (C) 2001-2003  Flavio de Ayra Mendes <h4@locked.org>
 
+   capi2name comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+   This is free software, and you are welcome to redistribute it
+   under certain conditions; see COPYING for details. */
 #include <stdio.h>
 #define __USE_XOPEN
 #include <unistd.h>

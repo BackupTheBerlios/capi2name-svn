@@ -1,23 +1,30 @@
-Readme ist auf http://capi2name.berlios.de zu haben!
+README OF CAPI2NAME - AN ISDN CAPI MONITOR WITH WEB INTERFACE
+--------------------------------------------------------------
 
 
+quick install:
+-------------
+1.) create a database and user in the mysql
+2.) copy the htdocs-Directory to a apache accessable path
+3.) open your web browser and open http://localhost/htdocs/up_inst/
+4.) Gotto the install selection
+5.) write down your database and user information and press the button
+6.) open with vi or anther editor the htdocs/includes/conf.inc.php
+7.) write down your database and user information and save the file.
+8.) Delete the up_inst/ folder
+9.) open your webbrowser and open http://localhost/htdocs/admin/
+10.) Login with the admin password 'admin' and create a now user and change the admin password
+11.) go to the daemon directory and type 'make' and make 'install'
+12.) open with vi or another editor /etc/capi2name.conf 
+13.) write down your database and user inforation
+14.) call yourself and test if you can see your can in the webbrowser
 
 
-Verzeichnisse:
----------------
-capi2name/ Capi2Name Version, mit Config-File support.
-htdocs/ PHP-Dateien.
-contrib/SuSE/ Start-Stop-Script für SuSE
-contrib/isdn4linux/ Perlscript damit Capi2Name mit isdn4linux zusammenarbeitet.
+->On the Webpage you can find an better install manual and FAQ selection.
 
 
-Dateien:
-----------
-COPYING Lizenz von Capi2Name GPL v2
-README Readmedatei von Capi2Name
-database.sql Aktuelles Layout der Datenbank für Capi2name
-update-database-0.1-0.2.sql Updatefile der Datenbank von Version 0.1 auf 0.2
-update-database-0.2-0.3.sql Updatefile der Datenbank von Version 0.2 auf 0.3
-update-database-0.4-0.4.sql Updatefile der Datenbank von Version 0.4 auf 0.5
-update-database-0.5.2-0.6.sql Updatefile der Datenbank von Version 0.5.2 auf 0.6
-update-database-0.6-0.6.5.sql Updatefile der Datenbank von Version 0.6 auf 0.6.5
+When you have problems go to the user help forum, you can find it on the webpage.
+
+
+Capi2Name Webpage:
+http://www.capi2name.de

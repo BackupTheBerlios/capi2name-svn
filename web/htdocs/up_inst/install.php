@@ -1,6 +1,6 @@
 <html>
  <head>
-   <title>Datenbank Installation</title>
+   <title>Capi2Name: Database installtion</title>
  </head>
 <body>
 
@@ -35,7 +35,7 @@ if (!isset($_POST[absenden]))
     </tr>
     <tr>
      <td colspan=\"3\" style=\"text-align:center;\">
-      <input name=\"absenden\" type=\"submit\" name=\"start update...\">
+      <input name=\"absenden\" type=\"submit\" value=\"start install...\">
      </td>
     </tr>
    </table>
@@ -98,7 +98,7 @@ $control=mysql_close();
 	die();
    }
 
-echo "<br>Datenbank installation abgeschlossen.....";
+echo "<br>installtion has finished. Check your conf.inc.php and delete the up_inst folder.";
 }//ende isset (absenden)
 
 ?>

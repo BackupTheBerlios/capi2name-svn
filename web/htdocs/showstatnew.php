@@ -200,7 +200,7 @@ if ($userconfig['loeschen'])
        $full_name="$adress_data[1] $adress_data[2]";
        }
      $anz_name1_d=$full_name;
-     $anz_name="<a href=\"./addressbook.php?findnr=$data[1]#find\">$full_name</a>";
+     $anz_name="<a href=\"./addressbook.php?id=$adress_data[0]#find\">$full_name</a>";
      $anz_statistik="<a href=\"./stat_anrufer.php?id=$adress_data[0]\" title=\"$textdata[showstatnew_zeige_anrufstat] $adress_data[1] $adress_data[2]\">
       <img  src=\"./bilder/data.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
     } // else ende adresse in DB gefunden

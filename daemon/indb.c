@@ -1,3 +1,9 @@
+/* capi2name - ISDN capi monitor
+   Copyright (C) 2002-2005  Jonas Genannt <jonasge@gmx.net>
+
+   capi2name comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+   This is free software, and you are welcome to redistribute it
+   under certain conditions; see COPYING for details. */
 #include "capi.h"
 
 int indb(	char rufnummer[80],

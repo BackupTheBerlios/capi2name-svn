@@ -9,7 +9,7 @@
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
  *   the Free Software Foundation; either version 2 of the License, or     *
- *   any later version.                                   *
+ *   any later version.                                                    *
  *                                                                         *
  ***************************************************************************/
 if (isset($add))
@@ -62,7 +62,7 @@ $addzeit= $_POST[addzeit];
  $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
  $result=$zugriff_mysql->sql_abfrage("INSERT INTO zurueckrufen VALUES(NULL, '$_POST[addname]', '$_POST[addrufnummer]', '$adddatum', '$addzeit', '$grund','$_POST[addzurueckzeit]')");
  $zugriff_mysql->close_mysql();
- echo "<meta http-equiv=\"refresh\" content=\"1; URL=./zurueckruf.php?show=yes\">";
+ echo "<meta http-equiv=\"refresh\" content=\"1; URL=./callback.php?show=yes\">";
 
  }
 

@@ -18,7 +18,7 @@ $config['capisuite']        = "no";
 $config['language']         = "de";
 
 //BETA MUSS WIEDER RAUS!!!!!!!!!!!!!
-include("./templates/blueingrey/config.php");
+//include("./templates/blueingrey/config.php");
 
 
 /******************************************************************************************************

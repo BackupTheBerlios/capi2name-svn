@@ -1,16 +1,9 @@
-/*
-    copyright            : (C) 2002,2003 by Jonas Genannt
-    email                : jonasge@gmx.net
- ***************************************************************************/
+/* capi2name - ISDN capi monitor
+   Copyright (C) 2002-2005  Jonas Genannt <jonasge@gmx.net>
 
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+   capi2name comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+   This is free software, and you are welcome to redistribute it
+   under certain conditions; see COPYING for details. */
 #ifndef CAPI_H
 #define CAPI_H
 #include <stdio.h>

@@ -1,8 +1,8 @@
 Capi2name 0.6.7.6 YYYY-MM-DD - Jonas Genannt - <jonasge@gmx.net> ---BETA
-	o PHP: Fixed: stat_loeschen.php weiterleitung auf showstatnew.php
-	o PHP: Fixed: configpage.php konnte nichtmehr zugegriffen werden, wenn cookies im spiel waren
+	o PHP: Fixed: stat_loeschen.php forward to showstatnew.php
+	o PHP: Fixed: configpage.php no access with cookies enables
 	o PHP: Added file stat-user.png.php
-	o PHP: Monatsuebersicht ueber anrufe bei stat_anrufer.php
+	o PHP: Added: overview over monthly calls from one user stat_anrufer.php
 	o PHP: Fixed: possible SQL injection
 	o PHP: Added template system base
 	o PHP: Removed navigator.inc.php

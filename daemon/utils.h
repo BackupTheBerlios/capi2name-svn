@@ -1,9 +1,9 @@
-/*
- * $Id: utils.h,v 1.3 2002/04/08 01:23:39 flv Exp $
- *
- * Copyright (C) 2001, 2002, 2003 Flavio de Ayra Mendes <h4@locked.org>
- */
+/* capi2name - ISDN capi monitor
+   Copyright (C) 2001-2003  Flavio de Ayra Mendes <h4@locked.org>
 
+   capi2name comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+   This is free software, and you are welcome to redistribute it
+   under certain conditions; see COPYING for details. */
 #ifndef _UTILS_H
 #define _UTILS_H
 

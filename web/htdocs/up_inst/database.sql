@@ -80,17 +80,6 @@ CREATE TABLE `msnzuname` (
 
 
 
-CREATE TABLE `notiz` (
-  `id` int(11) NOT NULL auto_increment,
-  `datum` varchar(10) default NULL,
-  `uhrzeit` time default NULL,
-  `topic` varchar(100) default NULL,
-  `schreiber` varchar(75) default NULL,
-  `text` text,
-  PRIMARY KEY  (`id`)
-) TYPE=MyISAM AUTO_INCREMENT=1 ;
-
-
 CREATE TABLE `userliste` (
   `id` int(11) NOT NULL auto_increment,
   `username` varchar(50) default NULL,

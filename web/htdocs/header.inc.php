@@ -16,12 +16,12 @@
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
  *   the Free Software Foundation; either version 2 of the License, or     *
- *   any later version.                                   *
+ *   any later version.                                                    *
  *                                                                         *
  ***************************************************************************/
 -->
 <?php
-include("./templates/template.php");
+include("./includes/template.php");
 include("./language/".$config['language'].".inc.php");
 $template = new Template("./templates/blueingey/");
 $template->set_filenames(array('overall_header' => 'templates/blueingrey/header.tpl'));
@@ -73,11 +73,18 @@ if ($config['capisuite'] == "yes")
 
 
 
-
-//if ( is_dir("up_inst")) {
-//		echo "<div style\"text-align:center;\">Verzeichnis <b>up_inst</b> existiert noch! Bitte löschen!</div>";     
-//		die("");
-//}
+/*
+if ( is_dir("up_inst")) {
+ <!--BEGIN up_inst -->
+<div style"text-align:center;">{L_MSG_UP_INST}</div>
+<!-- END up_inst -->
+	$template->assign_block_vars('up_inst',array(
+	'L_MSG_UP_INST' => 'The installtions directory <b>up_inst</b> exists.<br/> Please delete it after updating or installation!!'));
+	$template->pparse('overall_header');
+	include("footer.inc.php");
+	die();
+}
+*/
 $template->pparse('overall_header');
 
 

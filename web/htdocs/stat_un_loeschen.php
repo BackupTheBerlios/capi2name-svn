@@ -36,8 +36,16 @@ $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql[
  if ($_POST[alle_unbekannten]=="on") //loesche alle unbekannten Eintraege
   {
    $result_loeschen=$zugriff_mysql->sql_abfrage("DELETE FROM angerufene WHERE rufnummer='unbekannt'");
-   if ($result_loeschen==true) { echo "<div class=\"blau_mittig\">Löschen erflogreich....</div>"; }
-   else { echo "<div class=\"rot_mittig\">Löschen fehlgeschlagen...</div>"; }
+   if ($result_loeschen==true)
+    { 
+     $template->assign_block_vars('delete_ok',array(
+     		'L_MSG_DELTE_OK' => 'Löschen erflogreich....'));
+    }
+   else 
+    {
+      $template->assign_block_vars('delete_failed',array(
+      		'L_MSG_DELETE_FAILED' => 'Löschen fehlgeschlagen...'));
+    }
     
   }
  else if ($_POST[nur_ruf_unbekannten]=="on") //loesche alle unbekannten Eintraege und lasse die eintraege mit namen
@@ -114,21 +122,17 @@ $result_angerufene=$zugriff_mysql->sql_abfrage("SELECT * FROM angerufene WHERE r
    }//if true
    else
    {
-    echo "<div class=\"rot_mittig\">Keine Anrufe mit Nummer/Name unbekannt gefunden.</div>";
+    $template->assign_block_vars('no_calls_found',array(
+    	'L_MSG_CALLS_NOT_FOUND' => 'Keine Anrufe mit Nummer/Name unbekannt gefunden.'));
    }
-  $zugriff_mysql->close_mysql();
-  ?>
+$zugriff_mysql->close_mysql();
+
+$template->assign_vars(array(
+		'L_MSG_DELETE_UNKOWN' => 'Lösche alle unbekannten Einträge',
+		'L_MSG_DELETE_ONLY_NO_NAME' => 'Lösche nur Einträge mit Nummer unbekannt, wo kein Name vergeben wurde.',
+		'L_DELETE' => 'Löschen' ));
 
 
-<p><input type="checkbox" name="alle_unbekannten"/>Lösche alle unbekannten Einträge</p>
-<p><input type="checkbox" name="nur_ruf_unbekannten"/>Lösche nur Einträge mit Nummer unbekannt, wo kein Name vergeben wurde.</p>
-<ins><input type="submit" name="absenden" value="Löschen"/></ins>
-</form>
-
-
-
-
-<?
 $template->pparse('overall_body');
 include("./footer.inc.php");
 ?>

@@ -12,8 +12,41 @@
  *   any later version.                                   *
  *                                                                         *
  ***************************************************************************/
- ?>
-<?
+ 
+ 
+ /*
+ CREATE TABLE `users` (
+`id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
+`username` CHAR( 8 ) NOT NULL ,
+`passwd` CHAR( 40 ) NOT NULL ,
+`lastlogin_d` DATE,
+`lastlogin_t` TIME,
+`name_first` CHAR( 15 ) ,
+`name_last` CHAR( 15 ) ,
+`show_lines` TINYINT UNSIGNED DEFAULT '15' NOT NULL ,
+`msn_listen` CHAR( 30 ) ,
+`show_callback` TINYINT( 1 ) UNSIGNED DEFAULT '0' NOT NULL ,
+`show_prefix` TINYINT( 1 ) UNSIGNED DEFAULT '0' NOT NULL ,
+`show_msn` TINYINT( 1 ) UNSIGNED DEFAULT '0' NOT NULL ,
+`show_type` TINYINT( 1 ) UNSIGNED DEFAULT '0' NOT NULL ,
+`allow_delete` TINYINT( 1 ) UNSIGNED DEFAULT '0' NOT NULL ,
+PRIMARY KEY ( `id` ) ,
+UNIQUE (
+`username`
+)
+);
+ 
+ 
+INSERT INTO `users` ( `id` , `username` , `passwd` , `lastlogin_d` , `lastlogin_t` , `name_first` , `name_last` , `show_lines` , `msn_listen` , `show_callback` , `show_prefix` , `show_msn` , `show_type` , `allow_delete` )
+VALUES (
+'', 'admin', '05af4beac24997bccaa4a90301c6cb63', '2005-03-17', NULL , NULL , NULL , '15', NULL , '0', '0', '0', '0', '0'
+);
+
+
+ */
+ 
+ 
+ 
 $seite=base64_encode("configpage.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
@@ -30,10 +63,6 @@ $template->assign_vars(array('L_TITLE_OF_CONFIG_PAGE' => $textdata[configpage_ko
    include("./footer.inc.php");
    exit();
   }
-?>
-
-
-<?
 // Einstellungen speichern ANFANG
 if ($_POST[speichern])
 {
@@ -138,18 +167,15 @@ else
 
 $zugriff_mysql->close_mysql();
 }// Einstellungen speichern ENDE
-?>
 
 
-
-<?
 $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
- $result=$zugriff_mysql->sql_abfrage("SELECT id,username,passwd,name,lastlogin_d, lastlogin_t, anzahl, showrueckruf, shownotiz,msns,showvorwahl,showmsn,showtyp FROM userliste WHERE username='".$_SESSION['username']."'");
+$result=$zugriff_mysql->sql_abfrage("SELECT id,username,passwd,name,lastlogin_d, lastlogin_t, anzahl, showrueckruf,msns,showvorwahl,showmsn,showtyp FROM userliste WHERE username='".$_SESSION['username']."'");
  $daten=mysql_fetch_assoc($result);
 $zugriff_mysql->close_mysql();
 //Xhtml konform das checkboxen gechecked sind.
-$array=array(showrueckruf,shownotiz,showvorwahl,showmsn,showtyp);
-for ($i=0;$i<=4;$i++)
+$array=array(showrueckruf,showvorwahl,showmsn,showtyp);
+for ($i=0;$i<=3;$i++)
  {
   if ($daten[$array[$i]]=="checked")
    {

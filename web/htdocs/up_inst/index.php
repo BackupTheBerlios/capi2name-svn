@@ -1,14 +1,13 @@
 <html>
 <head>
-<title>Capi2Name Datenbank updaten oder installieren</title>
+<title>Capi2Name: installtion or update with the automatic script</title>
 </head>
 
 <body>
-<center><h2>Capi2Name Datenbank</h2><br>
-<font color="red">Bitte vor dem Updaten der Datenbank eine Sicherung der Datenbank machen!!!</font><br>
-(Keine Garantie, das das Script funktioniert) :-/<br><br>
-<a href="./install.php">Capi2Name Datenbank installieren</a><br><br><br>
-<a href="./update.php">Capi2Name Datenbank updaten</a><br>
+<center><h2>Capi2Name database installtion/update</h2><br>
+<br/>
+<a href="./install.php">install capi2name database</a><br><br><br>
+<a href="./update.php">update capi2name database</a><br>
 
 </center>
 </body>
