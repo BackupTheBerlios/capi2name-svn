@@ -29,11 +29,12 @@
 <td style="text-align:center;background-color:{tab2.DATA_COLOR}">
 <a href="./showstatnew.php?sdatum={tab2.DATA_DAY}.{tab2.DATA_MONTH}.{tab2.DATA_YEAR}">{tab2.DATA_E}</a>
 </td>
-<!-- END tab2 -->
 <!-- BEGIN tab3 -->
 </tr>
 <tr>
 <!-- END tab3 -->
+<!-- END tab2 -->
+
 <!-- BEGIN tab4 -->
 <td style="text-align:center;background-color:{tab4.DATA_COLOR}">
 <a href="./showstatnew.php?sdatum=0{tab4.DATA_DAY}.{tab4.DATA_MONTH}.{tab4.DATA_YEAR}">{tab4.DATA_DAY}</a></td>

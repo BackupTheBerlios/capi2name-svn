@@ -121,10 +121,10 @@ for ($i=1; $i<=$index; $i++)
 		'DATA_MONTH' => $cur_monat,
 		'DATA_YEAR' => $cur_jahr,
 		'DATA_E' => $e));
-      $index++;
+      ++$index;
       if ($index==7)
        {
-        $template->assign_block_vars('tab3', array('test' => 'test'));
+        $template->assign_block_vars('tab2.tab3', array('test' => 'test'));
 	$index=0;
        }
     
