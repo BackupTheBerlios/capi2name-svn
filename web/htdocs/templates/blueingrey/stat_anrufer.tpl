@@ -80,7 +80,7 @@
 </table>
 <!-- END tab2 -->
 <br/>
-<img src="./stat-user.png.php?id={DATA_ID_CALLERS}" style="border-width:0px;"/>
+<img src="./stat-user.png.php?id={DATA_ID_CALLERS}" style="border-width:0px;" alt="" />
 
 <!-- BEGIN tab3 -->
 </td>

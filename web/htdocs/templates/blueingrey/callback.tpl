@@ -87,7 +87,7 @@
 </tr>
 <tr>
  <td colspan="3" style="text-align:right;">
-  <textarea name="message" ></textarea>
+  <textarea name="message" cols="20" rows="3" ></textarea>
  </td>
 </tr>
 </table>
@@ -105,13 +105,13 @@
 <!-- BEGIN insert_without_addr -->
 <br /><br /><hr/>
 <div class="ueberschrift_seite">{insert_without_addr.L_TITLE_NEW}</div>
-<form action="callback.php" method="post" name="form">
+<form action="callback.php" method="post" name="form" >
 <table border="0" style="margin-right:auto;margin-left:auto;text-align:left;">
 <tr>
  <td>{insert_without_addr.L_NAME}:</td>
  <td style="width:10px;"></td>
  <td>
-   <select name="addname" onChange="enableNUMBER('form.addnumber')">
+   <select name="addname" OnChange="enableNUMBER('form.addnumber')">
    <!-- BEGIN tab1 -->
    <option value="{insert_without_addr.tab1.DATA_ADDR_ID}">{insert_without_addr.tab1.DATA_ADDR_NAME}</option>
    <!-- END tab1 -->
@@ -122,7 +122,7 @@
 <tr>
  <td>{insert_without_addr.L_NUMBER}:</td>
  <td style="width:10px;"></td>
- <td><input name="addnumber" disabled="true" /></td>
+ <td><input name="addnumber" disabled="disabled" /></td>
 </tr>
 <tr>
  <td>{insert_without_addr.L_CALL_BACK_TIME}:</td>
@@ -154,7 +154,7 @@
 </tr>
 <tr>
  <td colspan="3" style="text-align:right;">
-  <textarea name="message" ></textarea>
+  <textarea name="message" cols="20" rows="3" ></textarea>
  </td>
 </tr>
 </table>

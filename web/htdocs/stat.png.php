@@ -22,17 +22,16 @@ include("./includes/functions.php");
 	$bild_breite=600;
 	$max_pixel_anzahl=$bild_hoehe-60;
 	
+	for ($e=0;$e<=5;$e++) {
 	
-	$datum_jahr[0]=date("Y");
-	$datum_monat[0]=date("m");
-	
-	for ($e=1;$e<=5;$e++) {
-		$tstamp  = mktime(0, 0, 0, date("m")-$e, date("d"), date("Y"));
+		$tstamp  = mktime(0, 0, 0, date("m")-$e, 1, date("Y"));
 		$datum_jahr[$e]=date("Y",$tstamp);
 		$datum_monat[$e]=date("m", $tstamp);
+	
 	}
 	$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 	for ($e=0;$e<=5;$e++) {
+		
 		$result_alle=$zugriff_mysql->sql_abfrage("SELECT id,rufnummer FROM angerufene WHERE MONTH(datum)=$datum_monat[$e] AND YEAR(datum)=$datum_jahr[$e]");
 		$result_unbekannt=$zugriff_mysql->sql_abfrage("SELECT id,rufnummer FROM angerufene WHERE MONTH(datum)=$datum_monat[$e] AND YEAR(datum)=$datum_jahr[$e] AND rufnummer='unbekannt'");
 		

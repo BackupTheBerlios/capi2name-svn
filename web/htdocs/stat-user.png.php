@@ -24,13 +24,12 @@
 	$max_pixel_anzahl=$bild_hoehe-60;
 	
 	
-	$datum_jahr[0]=date("Y");
-	$datum_monat[0]=date("m");
+	for ($e=0;$e<=9;$e++) {
 	
-	for ($e=1;$e<=9;$e++) {
-		$tstamp  = mktime(0, 0, 0, date("m")-$e, date("d"), date("Y"));
+		$tstamp  = mktime(0, 0, 0, date("m")-$e, 1, date("Y"));
 		$datum_jahr[$e]=date("Y",$tstamp);
 		$datum_monat[$e]=date("m", $tstamp);
+	
 	}
 	$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 	$sql_query=$zugriff_mysql->sql_abfrage("SELECT id,tele1,tele2,tele3,handy FROM adressbuch WHERE id=$_GET[id]");

@@ -2,9 +2,9 @@
 <html>
  <head>
   <title>{CAPI2NAME_PAGE_TITLE}</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-15"/> 
-  <link rel="stylesheet" type="text/css" href="templates/blueingrey/css.css"/>
-  <script>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-15" /> 
+  <link rel="stylesheet" type="text/css" href="templates/blueingrey/css.css" />
+  <script type="text/javascript">
    function addValue(form,forma)
    {
     var value = prompt("Please enter the new option");

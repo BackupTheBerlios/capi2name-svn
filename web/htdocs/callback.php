@@ -161,18 +161,26 @@ if ($_GET[add]== "yes")
 		'L_MESSAGE' => $text[grund]));
    while($daten_users=mysql_fetch_assoc($result_users))
     {
+     if (empty($daten_users[name_first]) && empty($daten_users[name_last]))
+      {
+	$full_name="$daten_users[username]";
+      }
+     else 
+      {
+        $full_name=$daten_users[name_first]." ".$daten_users[name_last];
+      }
      if ($daten_users[username]==$_SESSION[username] && $daten_users[username]!="admin")
       {
        //selectet=selected
        $template->assign_block_vars('insert_with_addr.select_users',array(
-       			'L_DATA_NAME' => $daten_users[name_first]." ".$daten_users[name_last],
+       			'L_DATA_NAME' => $full_name,
 			'L_DATA_ID' => $daten_users[id],
 			'L_DATA_SELECTED' => 'selected="selected"'));
       }
      elseif($daten_users[username]!="admin")
       {
        $template->assign_block_vars('insert_with_addr.select_users',array(
-       			'L_DATA_NAME' => $daten_users[name_first]." ".$daten_users[name_last],
+       			'L_DATA_NAME' => $full_name,
 			'L_DATA_ID' => $daten_users[id]));
       }
     }//WHILE ZU ENDE
@@ -193,18 +201,26 @@ if ($_GET[add]== "yes")
 		'L_MESSAGE' => $text[grund]));
   while($daten_users=mysql_fetch_assoc($result_users))
     {
+    if (empty($daten_users[name_first]) && empty($daten_users[name_last]))
+      {
+	$full_name="$daten_users[username]";
+      }
+     else 
+      {
+        $full_name=$daten_users[name_first]." ".$daten_users[name_last];
+      }
      if ($daten_users[username]==$_SESSION[username] && $daten_users[username]!="admin")
       {
        //selectet=selected
        $template->assign_block_vars('insert_without_addr.select_users',array(
-       			'L_DATA_NAME' => $daten_users[name_first]." ".$daten_users[name_last],
+       			'L_DATA_NAME' => $full_name,
 			'L_DATA_ID' => $daten_users[id],
 			'L_DATA_SELECTED' => 'selected="selected"'));
       }
      elseif($daten_users[username]!="admin")
       {
        $template->assign_block_vars('insert_without_addr.select_users',array(
-       			'L_DATA_NAME' => $daten_users[name_first]." ".$daten_users[name_last],
+       			'L_DATA_NAME' => $full_name,
 			'L_DATA_ID' => $daten_users[id]));
       }
     }

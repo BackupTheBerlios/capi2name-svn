@@ -19,7 +19,8 @@
 <!-- END entry_not_found -->
 
 <!-- BEGIN tab1 -->
-<form action="./addressbook_edit.php" method="post">
+
+<ins><form action="./addressbook_edit.php" method="post">
 <table border="0" cellpadding="3" style="margin-right:auto;margin-left:auto;">
  <tr>
   <td style="text-align:left;">{tab1.L_FIRST_NAME}:</td>
@@ -84,32 +85,32 @@
   <td><input name="bemail" type="text" value="{tab1.DATA_E_MAIL}"/></td>
  </tr>
 </table>
-
-<ins>
 <br/>
-<input name="id" type="hidden" value="{tab1.DATA_ID_USER}"/>
-<input type="submit" name="aendern" value="{tab1.CHANGE_ADDR}"/>
-</ins>
-<p></p>
+<ins><input name="id" type="hidden" value="{tab1.DATA_ID_USER}" /><input type="submit" name="aendern" value="{tab1.CHANGE_ADDR}" /><p></p></ins>
+
 <!-- END tab1 -->
 
 <!-- BEGIN now_delete_really_entry -->
 <ins>
-<input type="hidden" name="loeschenID" value="{now_delete_really_entry.ID_FROM_ADDR}"/>
-<input type="submit" name="wloeschen" value="{now_delete_really_entry.REMOVE_ENTRY}"/>
+<input type="hidden" name="loeschenID" value="{now_delete_really_entry.ID_FROM_ADDR}" />
+<input type="submit" name="wloeschen" value="{now_delete_really_entry.REMOVE_ENTRY}" />
 </ins>
 <!-- END now_delete_really_entry -->
 
 <!-- BEGIN ask_for_delete_entry -->
 <ins>
-<input type="hidden" name="loeschen_OK" value="{ask_for_delete_entry.ID_FROM_ADDR}"/>
-<input type="submit" name="loeschen" value="{ask_for_delete_entry.DELETE_ENTRY}"/>
+<input type="hidden" name="loeschen_OK" value="{ask_for_delete_entry.ID_FROM_ADDR}" />
+<input type="submit" name="loeschen" value="{ask_for_delete_entry.DELETE_ENTRY}" />
 </ins>
 <!-- END ask_for_delete_entry -->
-
 </form>
+</ins>
+
+<p>
 <span style="text-align:center">
-  <form action="./addressbook.php" method="post">
-    <p><input type="submit" value="{CANCEL_EDIT_ADDR}"/></p>
+<form action="./addressbook.php" method="post">
+<input type="submit" value="{CANCEL_EDIT_ADDR}" />
 </form>
 </span>
+</p>
+
