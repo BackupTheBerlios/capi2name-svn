@@ -14,9 +14,8 @@
  ***************************************************************************/
  ?>
 <?
-setcookie("ck_username","", time()-172800 );
-setcookie("ck_passwd","", time()-172800 );
-setcookie("ck_name","", time()-172800 );
+session_start();
+session_destroy();
 
 ?>
 <html>

@@ -25,7 +25,7 @@ echo "<div class=\"ueberschrift_seite\">Einträge mit unbekant aus Datenbank lösc
 <br />
 <?
 //ob er die Page anschauen darf:
- if ($showloeschen=="no")
+ if (!$userconfig['loeschen'])
   {
    echo "<div class=\"rot_mittig\">$text[nichtberechtigt]</div>";
    include("./footer.inc.php");

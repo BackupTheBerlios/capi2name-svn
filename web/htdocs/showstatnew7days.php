@@ -15,7 +15,7 @@
  ?>
 <?
 
-$seite=base64_encode("showstatnew.php");
+$seite=base64_encode("showstatnew7days.php");
 
 include("./login_check.inc.php");
 include("./header.inc.php");
@@ -85,17 +85,17 @@ echo "
   <td style=\"text-align:center\">$textdata[stat_anrufer_datum]</td>
   <td style=\"text-align:center\">$textdata[stat_anrufer_uhrzeit]</td>
   <td style=\"width:110px; text-align:center\">$textdata[stat_anrufer_rufnummer]</td>";
-  if ($showtyp=="yes") 
+  if ($userconfig['showtyp']) 
    { echo "<td style=\"text-align:center\">$textdata[showstatnew_anrufertyp]</td>"; } 
-  if ($show_vorwahl=="yes")
+  if ($userconfig['showvorwahl'])
    { echo "<td style=\"text-align:center\">$textdata[showstatnew_aus_ort]</td>"; } 
-  if ($show_msn=="yes")
+  if ($userconfig['showmsn'])
   { echo "<td style=\"text-align:center\">$textdata[stat_anrufer_MSN]</td>"; } 
   echo "<td style=\"text-align:center\">$textdata[showstatnew_name]</td>";
-  if ($show_rueckruf=="yes")
+  if ($userconfig['showrueckruf'])
     { echo "<td style=\"text-align:center\">$textdata[showstatnew_zurueckrufen]</td>"; } 
   echo "<td style=\"text-align:center\">$textdata[showstatnew_ins_addr]</td>";
-  if ($showloeschen=="yes")
+  if ($userconfig['loeschen'])
     { echo "<td>$textdata[showstatnew_loeschen]</td>"; } 
 echo "</tr>";
  $i=0;
@@ -119,7 +119,7 @@ echo "</tr>";
       { $color="$c_color[12]"; }
 
     //MSNS überprüfen:
-    $show_entry_msns=msns_ueberpruefen($msns,$data[6]);
+    $show_entry_msns=msns_ueberpruefen($userconfig['msns'],$data[6]);
      
      
    
@@ -173,7 +173,7 @@ $anz_statistik="<a href=\"./stat_anrufer.php?id=$adress_data[0]\" title=\"$textd
    <img src=\"./bilder/1leftarrow.gif\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
    
 //show_vorwahl
-if ($show_vorwahl=="yes")
+if ($userconfig['showvorwahl'])
   {
    $anz_vorwahl=$data[7];
   }
@@ -193,15 +193,15 @@ $msn_data="";
 $rueckruf_data="";
 $anruftyp="";
 $anruf_loeschen="";
- if ($show_vorwahl=="yes") 
+ if ($userconfig['showvorwahl']) 
      { $vorwahl_data="<td style=\"text-align:center\">$anz_vorwahl</td>";  }
- if ($show_msn=="yes") 
+ if ($userconfig['showmsn']) 
      { $msn_data="<td>$anz_msn</td>";  }
- if ($show_rueckruf=="yes") 
+ if ($userconfig['showrueckruf']) 
      { $rueckruf_data="<td style=\"text-align:center\">$anz_rueckruf</td>";  }
- if ($showtyp=="yes")
+ if ($userconfig['showtyp'])
      { $anruftyp="<td style=\"text-align:center\">$anz_dienst</td>"; }
- if ($showloeschen=="yes")
+ if ($userconfig['loeschen'])
      { $anruf_loeschen="<td style=\"text-align:center\"><a href=\"./stat_loeschen.php?id=$data[0]$loeschen_seiten\" title=\"$textdata[showstatnew_loesche_db]\">
  <img  src=\"./bilder/edittrash.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a></td>"; }
  

@@ -30,7 +30,7 @@ include("./header.inc.php");
 
 <?
 //ob er die Page anschauen darf:
- if ($shownotiz=="no")
+ if (!$userconfig['shownotiz'])
   {
    echo "<center><font color=\"red\">$textdata[configpage_nicht_berechtigt]</font></center>";
    include("./footer.inc.php");

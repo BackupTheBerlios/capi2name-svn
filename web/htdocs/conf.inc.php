@@ -10,6 +10,7 @@ header ("Pragma: no-cache");
 
 
 
+
 $sql["host"]                = "localhost";
 $sql["dbuser"]              = "capi";
 $sql["dbpasswd"]            = "kljm";

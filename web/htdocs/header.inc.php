@@ -51,7 +51,7 @@
 			<div class="menuitem"><a href="./index.php"><? echo "$textdata[header_inc_index]"; ?></a></div>
 			<div class="menuitem"><a href="./powered.php"><? echo "$textdata[header_inc_powered]"; ?></a></div>
 <?php
-	if ($showconfig=="yes")
+	if ($userconfig['showconfig'])
 		echo "	<div class=\"menuitem\"><a href=\"./configpage.php\">$textdata[header_inc_configpage]</a></div>";
 ?>
 			<div style="font-weight:bold; margin-top: 1em;"><?php echo "$textdata[header_inc_telefon]:"; ?></div>
@@ -65,14 +65,14 @@
 			<div class="menuitem"><a href="./globale_suche.php"><? echo "Suche"; ?></a></div>
 			<div class="menuitem"><a href="./kalender.php"><? echo "$textdata[header_inc_kalender]"; ?></a></div>
 <?
-if ($showloeschen=="yes")
+if ($userconfig['loeschen'])
 echo "<div class=\"menuitem\">
 	<a href=\"./stat_un_loeschen.php\">Löschfunktion</a></div>";
 ?>			
 			
     
 <?php
-	if ($show_rueckruf=="yes") {
+	if ($userconfig['showrueckruf']) {
 ?>
 			<div style="font-weight:bold; margin-top: 1em;"><?php echo $textdata[header_inc_rueckruf]; ?></div>
 			<div class="menuitem"><a href="./zurueckruf.php"><?php echo $textdata[header_inc_rueckruf]; ?></a></div>
@@ -85,7 +85,7 @@ echo "<div class=\"menuitem\">
 			<div class="menuitem"><a href="./addadress.php"><? echo "$textdata[header_inc_neuer_eintrag]"; ?></a></div>
     
 <?php
-	if ($shownotiz=="yes"){ 
+	if ($userconfig['shownotiz']){ 
 ?>
 			<div style="font-weight:bold; margin-top: 1em;"><? echo $textdata[header_inc_notizen];?></div>
 			<div class="menuitem"><a href="./notiz.php"><? echo $textdata[header_inc_notizen]; ?></a></div>

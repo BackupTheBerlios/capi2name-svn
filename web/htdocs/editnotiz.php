@@ -27,7 +27,7 @@ if (isset($_POST[aendern])) { $ueberschrift="$textdata[editnotiz_bearbeitetet_an
 
 <?
 //ob er die Page anschauen darf:
- if ($shownotiz=="no")
+ if (!$userconfig['shownotiz'])
   {
    echo "<div class=\"rot_mittig\">$textdata[configpage_nicht_berechtigt]</div>";
    include("./footer.inc.php");

@@ -24,18 +24,21 @@ if (isset($_POST['absenden']))
 {
 
 $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-$result_userlist=$zugriff_mysql->sql_abfrage("SELECT username,passwd,name FROM userliste WHERE username='".$_POST['login_name']."'");
+$result_userlist=$zugriff_mysql->sql_abfrage("SELECT id,username,passwd,name FROM userliste WHERE username='".$_POST['login_name']."'");
  if ($result_userlist && $_POST['login_name']!="" && $_POST['login_passwd']!="")
   {
   $row_userlist=mysql_fetch_array($result_userlist);
     if (md5($_POST['login_passwd'])==$row_userlist['passwd'])
     {
      
-     echo "PASSWD Richtig...";
+     echo "PASSWD Richtig... Sie werden weitergeleitet...";
+     $seite=base64_decode($_POST['seite']);
+     echo "<meta http-equiv=\"refresh\" content=\"2; URL=./$seite\">";
       
       $_SESSION['realname']=$row_userlist['name'];
       $_SESSION['username']=$_POST['login_name'];
       $_SESSION['password']=$row_userlist['passwd'];
+      $_SESSION['id']=$row_userlist['id'];
      $loginok=1;
     }
     else

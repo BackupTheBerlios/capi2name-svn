@@ -60,7 +60,7 @@ $addzeit= $_POST[addzeit];
 ?>
 <?
 //ob er die Page anschauen darf:
- if ($show_rueckruf=="no")
+ if (!$userconfig['showrueckruf'])
   {
    echo "<div class=\"rot_mittig\">$text[nichtberechtigt]</div>";
    include("./footer.inc.php");

@@ -17,12 +17,12 @@ $result_userlist=$zugriff_mysql->sql_abfrage("SELECT * FROM userliste WHERE user
   $row_userlist=mysql_fetch_array($result_userlist);
     if ($password==$row_userlist['passwd'])
     {
-     echo "PASSWD Richtig...";
+    // echo "PASSWD Richtig...";
      $login_ok=1;
      //Usersettings auslesen und in $userconfig[] schreiben...
      $userconfig['anzahl']=$row_userlist['anzahl'];
-     $userconfig['msns' ]=$row_userlist['msns'];
-     if ($row_userlist['showrueckruf ']=="checked")
+     $userconfig['msns']=$row_userlist['msns'];
+     if ($row_userlist['showrueckruf']=="checked")
       {
        $userconfig['showrueckruf']=true;
       }

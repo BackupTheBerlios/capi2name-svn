@@ -37,8 +37,8 @@ if (isset($_GET[sdatum]))
 include("./login_check.inc.php");
 include("./header.inc.php");
 if ($_GET[maxlist] == "alle") { $maxlist="1000000"; }
-if (!isset($_GET[maxlist])) { $maxlist=$zeigteintrage; }
-if ($_GET[showallmsns]=="yes") { $msns=""; }
+if (!isset($_GET[maxlist])) { $maxlist=$userconfig['anzahl']; }
+if ($_GET[showallmsns]=="yes") { $userconfig['msns']=""; }
 ?>
 
 <?
@@ -94,20 +94,21 @@ if (isset($_POST[eintragen]))
   <td style="text-align:center"><? echo "$textdata[stat_anrufer_uhrzeit]"; ?></td>
   <td style="width:110px; text-align:center">
        <? echo "$textdata[stat_anrufer_rufnummer]"; ?></td>
-  <? if ($showtyp=="yes") 
+  <? if ($userconfig['showtyp']) 
   { echo "<td style=\"text-align:center\">$textdata[showstatnew_anrufertyp]</td>"; } ?>
-  <? if ($show_vorwahl=="yes")
+  <? if ($userconfig['showvorwahl'])
   { echo "<td style=\"text-align:center\">$textdata[showstatnew_aus_ort]</td>"; } ?>
-  <? if ($show_msn=="yes")
+  <? if ($userconfig['showmsn'])
   { echo "<td style=\"text-align:center\">$textdata[stat_anrufer_MSN]</td>"; } ?>
   <td style="text-align:center"><? echo "$textdata[showstatnew_name]"; ?></td>
-  <? if ($show_rueckruf=="yes")
+  <? if ($userconfig['showrueckruf'])
  { echo "<td style=\"text-align:center\">$textdata[showstatnew_zurueckrufen]</td>"; } ?>
   <td style="text-align:center"><? echo "$textdata[showstatnew_ins_addr]";  ?></td>
-  <? if ($showloeschen=="yes") { echo "<td>$textdata[showstatnew_loeschen]</td>"; } ?>
+  <? if ($userconfig['loeschen']) { echo "<td>$textdata[showstatnew_loeschen]</td>"; } ?>
   </tr>
 <?
  $i=0;
+ $up=0;
  $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
  if (isset($_GET[datum]))
   {
@@ -144,7 +145,7 @@ if (isset($_POST[eintragen]))
       { $color="$c_color[12]"; }
 
     //MSNS überprüfen:
-    $show_entry_msns=msns_ueberpruefen($msns,$data[6]);
+    $show_entry_msns=msns_ueberpruefen($userconfig['msns'],$data[6]);
 
    $tab_adressbuch =$zugriff_mysql->sql_abfrage("SELECT id,vorname,nachname,tele1,tele2,tele3,handy FROM adressbuch WHERE tele1='$data[1]' OR tele2='$data[1]' OR tele3='$data[1]' OR handy='$data[1]'");
   $adress_data=mysql_fetch_row($tab_adressbuch);
@@ -198,7 +199,7 @@ if (isset($_POST[eintragen]))
    <img src=\"./bilder/1leftarrow.gif\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
 
 //show_vorwahl ende   
-if ($show_vorwahl=="yes")
+if ($userconfig['showvorwahl'])
  {
   $anz_vorwahl=$data[7];
  }
@@ -219,15 +220,15 @@ $msn_data="";
 $rueckruf_data="";
 $anruftyp="";
 $anruf_loeschen="";
- if ($show_vorwahl=="yes") 
+ if ($userconfig['showvorwahl']) 
      { $vorwahl_data="<td style=\"text-align:center\">$anz_vorwahl</td>";  }
- if ($show_msn=="yes") 
+ if ($userconfig['showmsn']) 
      { $msn_data="<td>$anz_msn</td>";  }
- if ($show_rueckruf=="yes") 
+ if ($userconfig['showrueckruf']) 
      { $rueckruf_data="<td style=\"text-align:center\">$anz_rueckruf</td>";  }
- if ($showtyp=="yes")
+ if ($userconfig['showtyp'])
      { $anruftyp="<td style=\"text-align:center\">$anz_dienst</td>"; }
- if ($showloeschen=="yes")
+ if ($userconfig['loeschen'])
      { $anruf_loeschen="<td style=\"text-align:center\"><a href=\"./stat_loeschen.php?id=$data[0]$loeschen_seiten\" title=\"$textdata[showstatnew_loesche_db]\">
  <img  src=\"./bilder/edittrash.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a></td>"; }
  
@@ -247,7 +248,7 @@ $anruf_loeschen="";
        </tr>";
    
 
-if ($show_entry_msns=="true") {  echo "$ALL"; $i++;   }
+if ($show_entry_msns) {  echo "$ALL"; $i++;   }
 
 $up++;
 } // maxlist ende
