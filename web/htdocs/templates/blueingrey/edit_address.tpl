@@ -9,6 +9,10 @@
 <div class="rot_mittig">{check_if_delete_entry.L_check_if_you_will_delete}</div>
 <!-- END check_if_delete_entry -->
 
+<!-- BEGIN entry_not_found -->
+<div class="rot_mittig">{entry_not_found.SHOW_ENTRY_NOT_FOUND}</div>
+<!-- END entry_not_found -->
+
 <!-- BEGIN tab1 -->
 <form action="editadress.php" method="post">
 <table border="0" cellpadding="3" style="margin-right:auto;margin-left:auto;">

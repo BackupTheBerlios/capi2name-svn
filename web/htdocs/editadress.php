@@ -62,9 +62,7 @@ if (isset($_POST[aendern]))
  }
 
 
-// ======================================================================================
-// =======================================================================================
-// auslesen, baerbeiten = muss gesetzt sein.
+//=======================================================================================// auslesen, baerbeiten = muss gesetzt sein.
 $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 if (isset($_POST[id]))
  {
@@ -77,22 +75,21 @@ if (isset($_POST[id]))
 $result=$zugriff_mysql->sql_abfrage("SELECT * FROM adressbuch WHERE id='$eintrag'");
 $zugriff_mysql->close_mysql();
 $daten=mysql_fetch_assoc($result);
-if ($daten==false)
+if (!$daten)
  {
- echo "<div class=\"rot_mittig\">$textdata[editadress_eintrag_mit_nicht_gefunden]</div>";
- include("footer.inc.php");
- exit();
+  $template->assign_block_vars('entry_not_found', array(
+  	'SHOW_ENTRY_NOT_FOUND' => $textdata[editadress_eintrag_mit_nicht_gefunden]));
+  include("footer.inc.php");
+  exit();
  }
- $tele1 = $row[7];   if ($tele1 == "99") { $tele1="";}
- $tele2 = $row[8];   if ($tele2 == "99") { $tele2="";}
- $tele3 = $row[9];   if ($tele3 == "99") { $tele3="";}
- $handy = $row[10];   if ($handy == "99") { $handy="";}
- $fax = $row[11];
- $email = $row[12];
+if ($daten[tele1]=="99") { $daten[tele1]=""; }
+if ($daten[tele2]=="99") { $daten[tele2]=""; }
+if ($daten[tele3]=="99") { $daten[tele3]=""; }
+if ($daten[handy]=="99") { $daten[handy]=""; }
+if ($daten[fax]=="99")   { $daten[fax]=""; }
  
- 
- $template->assign_block_vars('tab1', array(
- 	'L_FIRST_NAME' => $textdata[addadress_vorname],
+$template->assign_block_vars('tab1', array(
+	'L_FIRST_NAME' => $textdata[addadress_vorname],
 	'DATA_FIRST_NAME' => $daten[vorname],
 	'DATA_ID_USER' => $daten[id],
 	'L_LAST_NAME' => $textdata[addadress_nachname],
@@ -120,9 +117,6 @@ if ($daten==false)
 	'CHANGE_ADDR' => $textdata[editadress_eintrag_aendern]));
  
  
-
-
-
 
 if (isset($_POST[loeschen_OK]) or $_GET[loeschen]==1)
  {

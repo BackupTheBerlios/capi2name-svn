@@ -52,7 +52,7 @@
 	$im = imagecreate($bild_breite, $bild_hoehe_org) or die("Cannot Initialize new GD image stream");
 	$bc = imagecolorallocate($im, 130, 130, 130);
 	$col = imagecolorallocate($im, 255,255,255);
-	$rc = imagerectangle($im, 3,3, $bild_breite-3,$bild_hoehe-3,$col); //weisser rahmen
+	$rc = imagerectangle($im, 3,3, $bild_breite-3,$bild_hoehe_org-3,$col); //weisser rahmen
 	$col = imagecolorallocate($im, 0,0,0);
 	$ln =imageline($im,25,$bild_hoehe-30,$bild_breite-30,$bild_hoehe-30,$col);
 	$ln =imageline($im, 35,$bild_hoehe-20,35,20, $col);
@@ -69,8 +69,12 @@
 	$col_gruen= imagecolorallocate($im, 0,255,0);
 	
 	//Rot,gruen,blau definieren:
-	$is =imagestring($im, 2,35,412, "Alle Anrufe:" , $col );
-	$rc =imagefilledrectangle($im,115,414,150,425, $col_rot);
+	$is =imagestring($im, 2,35,410, "Alle Anrufe:" , $col );
+	$rc =imagefilledrectangle($im,115,412,150,425, $col_rot);
+	$is =imagestring($im, 2,180,410, "Bekannte Anrufe:" , $col );
+	$rc =imagefilledrectangle($im,280,412,315,425, $col_blau);
+	$is =imagestring($im, 2,345,410, "Unbekannte Anrufe:" , $col );
+	$rc =imagefilledrectangle($im,460,412,495,425, $col_gruen);
 	
 	$e=10;
 	do {

@@ -23,28 +23,10 @@ echo "<div class=\"ueberschrift_seite\">Monatsübersicht</div>";
 ?>
 
 <img src="./stat.png.php" border="0"/>
-<br/>
-<table border="0">
- <tr>
-  <td style="width:50px;">
-  <img src="./bilder/balken_rot.jpg" border="0" width="30" height="10"/></td>
-  <td style="text-align:left">Alle Anrufe</td>
- </tr>
- <tr>
-  <td style="width:50px;">
-  <img src="./bilder/balken_blau.jpg" border="0" width="30" height="10"/></td>
-  <td style="text-align:left">Bekannte Anrufe</td>
- </tr>
- <tr>
-  <td style="width:50px;">
-  <img src="./bilder/balken_gruen.jpg" border="0" width="30" height="10"/></td>
-   <td style="text-align:left">Unbekannte Anrufe</td>
- </tr>
-</table>
 
 
 
-<br /><br />
+<br /><br/>
 
 <?
 include("./footer.inc.php");
