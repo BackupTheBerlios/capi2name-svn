@@ -169,6 +169,8 @@ $textdata[header_inc_cs_answerphone]="my answerphone";
 $textdata[header_inc_cs_fax]="my fax";
 $textdata[header_inc_cs_config]="configuration";
 $textdata[header_inc_cs_help]="help";
+// cs_install.php
+$textdata[cs_config_headline] = "Capi2Name CapiSuite integration manager";
 // cs_answerphone.php
 $textdata[cs_ap_answerphone]="CapiSuite answerphone";
 $textdata[cs_ap_liste]="list of incoming messages";

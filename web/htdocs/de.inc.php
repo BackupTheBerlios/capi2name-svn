@@ -246,6 +246,8 @@ $textdata[cs_fax_from]="von";
 $textdata[cs_fax_to]="an";
 $textdata[cs_fax_view]="ansehen";
 $textdata[cs_fax_incoming]="Eingegangenes Fax";
+// cs_install
+$textdata[cs_config_headline] = "Capi2Name CapiSuite Integrations Manager";
 
 /*
 
