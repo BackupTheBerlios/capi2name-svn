@@ -42,6 +42,10 @@ if (isset($_POST[btn_loeschen]))
       {
        $datum="?datum=$_POST[datum]";
       }
+    else
+      {
+       $datum="";
+      }
  if ($res == 1)
   {
   echo "<div class=\"blau_mittig\">Eintrag erfolgreich gelöscht, Sie werden in 2sec weitergeleitet.</div>";
