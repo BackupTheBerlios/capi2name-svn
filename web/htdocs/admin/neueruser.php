@@ -1,6 +1,6 @@
 <?
 /*
-    copyright            : (C) 2002-2003 by Jonas Genannt
+    copyright            : (C) 2002-2005 by Jonas Genannt
     email                : jonasge@gmx.net
  ***************************************************************************/
 
@@ -139,7 +139,7 @@ if (isset($_POST[speichern])) {
       <td style="text-align:right;"><input type="password" name="b_passwd"/></td>
    </tr>
  </table><br/>
- <input type="submit" name="speichern" value="Speichern"/>
+ <input type="submit" name="speichern" value="add new user"/>
 </form>
 
 

@@ -22,7 +22,7 @@ include("./header.inc.php");
 
 
 
-<table border="1" style="margin-right:auto;margin-left:auto;">
+<table border="0" style="margin-right:auto;margin-left:auto;">
  <tr>
   <td style="width:150px;">uesername</td>
   <td>password</td>

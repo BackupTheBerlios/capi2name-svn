@@ -96,7 +96,14 @@ $result_userlist=$zugriff_mysql->sql_abfrage("SELECT * FROM userliste WHERE user
       {
        $userconfig['loeschen']=false;
       }
-     
+      //update lastlogin_d and lastlogin_t
+      //UPDATE capi_version SET version='0.6.7.2' WHERE id='1'
+      $datum=$zugriff_mysql->sql_abfrage("SELECT lastlogin_d FROM userliste WHERE username='$username'");
+      if (date("Y-m-d")!= $datum)
+       {
+      $zugriff_mysql->sql_abfrage("UPDATE userliste SET login_t=NOW() WHERE username='$username'");
+      $zugriff_mysql->sql_abfrage("UPDATE userliste SET login_d=NOW() WHERE username='$username'");
+       }
     }//if passwd OK
    else
     {

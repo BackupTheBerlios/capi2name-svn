@@ -1,6 +1,6 @@
 <?
 /*
-    copyright            : (C) 2002-2003 by Jonas Genannt
+    copyright            : (C) 2002-2005 by Jonas Genannt
     email                : jonasge@gmx.net
  ***************************************************************************/
 
@@ -215,8 +215,11 @@ echo "
       <td style=\"width:5px;\"></td>
       <td style=\"text-align:right;\"><input type=\"password\" name=\"b_passwd\"/></td>
    </tr>
- </table><br/>
- <input type=\"submit\" name=\"speichern\" value=\"Speichern\"/>
+   <tr>
+    <td colspan=\"3\"><input type=\"submit\" name=\"speichern\" value=\"save data\"/></td>
+   </tr>
+ </table>
+ 
 </form>
 ";
 //------------------------ Daten aus DB auslesen: ENDE---------------------------------------

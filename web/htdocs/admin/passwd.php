@@ -1,6 +1,6 @@
 <?
 /*
-    copyright            : (C) 2002-2003 by Jonas Genannt
+    copyright            : (C) 2002-2005 by Jonas Genannt
     email                : jonasge@gmx.net
  ***************************************************************************/
 
@@ -55,22 +55,27 @@ echo "<center><font color=\"red\"><b>Neue Passwörter nicht gleich!!</center></fo
 
 
 
-<center>
+
 <form action="<? $PHP_SELF ?>" method="post">
-<table border="0">
+<table border="0" style="margin-right:auto;margin-left:auto;">
  <tr>
-  <td>old password:</td>
-  <td><input type="password" name="altespasswd"/></td>
+  <td style="text-align:left;">old password:</td>
+  <td style="width:10px;"></td>
+  <td style="text-align:right;"><input type="password" name="altespasswd"/></td>
  </tr>
  <tr>
-  <td>new password:<br>again:</td>
-  <td><input type="password" name="passwd1"/><br/><input name="passwd2" type="password"/></td>
+  <td style="text-align:left;">new password:<br>again:</td>
+  <td style="width:10px;"></td>
+  <td style="text-align:right;"><input type="password" name="passwd1"/><br/><input name="passwd2" type="password"/></td>
+ </tr>
+ <tr>
+  <td colspan="3"><input type="submit" name="aendern" value="save data"/></td>
  </tr>
 
 </table>
-<input type="submit" name="aendern" value="Ändern"/>
+
 </form>
-</center>
+
 
 <?
 include("./footer.inc.php");
