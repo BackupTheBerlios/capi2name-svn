@@ -77,7 +77,7 @@ $dbhost=$_SESSION['dbhost'];
 //Variablen:
 $capi_version_tabelle=false;
 $db_layout_version="";
-$db_layout_neue_version="0.6.7.2";
+$db_layout_neue_version="0.6.7.5";
 
 echo "<br><b>Warten bis unten in Grün OK
 steht<br></b><br>";
@@ -384,6 +384,44 @@ if ($control==FALSE)
  }
 /*************************ENDE Version 0.6.5 auf 0.6.7.2 ************************
 ***************************************************************************/
+
+
+/****************************Version 0.6.7.2 auf 0.6.7.5*********************
+***************************************************************************/
+if ($db_layout_version=="0.6.7.2")
+ {
+  echo "Found Version 0.6.7.2 updating to 0.6.7.5...........<br>";
+  $control=mysql_select_db($dbname);
+  if ($control==FALSE)
+   {
+    echo "Verbindung (Select_DB) fehlgeschlagen!\nMysql-Error: ". mysql_error();
+    die();
+   }
+  $control=mysql_query("UPDATE capi_version SET version='0.6.7.5' WHERE id='1'");
+  if ($control==FALSE)
+    {
+          echo "Insert fehlgeschlagen: <br>Mysql-Error: ". mysql_error();
+          die();
+   } 
+   
+  $control=mysql_query("alter table userliste change lastlogin_d lastlogin_d date");
+  if ($control==FALSE)
+    {
+          echo "Insert fehlgeschlagen: <br>Mysql-Error: ". mysql_error();
+          die();
+   } 
+  $control=mysql_query("alter table userliste change lastlogin_t lastlogin_t time");
+  if ($control==FALSE)
+    {
+          echo "Insert fehlgeschlagen: <br>Mysql-Error: ". mysql_error();
+          die();
+   } 
+   
+ }
+ /****************************ENDE Version 0.6.7.2 auf 0.6.7.5*********************
+***************************************************************************/
+
+
 
 
 $control=mysql_close();
