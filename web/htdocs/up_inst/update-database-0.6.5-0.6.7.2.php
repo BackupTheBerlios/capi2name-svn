@@ -1,8 +1,10 @@
 <?
-$host=$_GET[dbhost];
-$db=$_GET[dbname];
-$username=$_GET[dbuser];
-$passwd=$_GET[dbpasswd];
+session_start();
+$host=$_SESSION['dbhost'];
+$db=$_SESSION['dbname'];
+$username=$_SESSION['dbuser'];
+$passwd=$_SESSION['dbpasswd'];
+
 
 echo "<br>Seite laed sich oefters neu bitte warten bis FERTIG da steht!!! danke....<br><br>";
 
@@ -43,7 +45,7 @@ if ($result==false)
    mysql_close();
  
 
-echo "<meta http-equiv=\"refresh\" content=\"3; URL=./update-database-0.6.5-0.6.7.2.php?start_id=0&dbhost=$host&dbname=$db&dbuser=$username&dbpasswd=$passwd\">";
+echo "<meta http-equiv=\"refresh\" content=\"3; URL=./update-database-0.6.5-0.6.7.2.php?start_id=0\">";
 } //!isset  ENDE
 else
  {
@@ -72,7 +74,7 @@ $wert=$start_id+50;
 if ($wert <= $rows_anzahl)
   {
   
-  echo "<meta http-equiv=\"refresh\" content=\"3; URL=./update-database-0.6.5-0.6.7.2.php?start_id=$wert&dbhost=$host&dbname=$db&dbuser=$username&dbpasswd=$passwd\">";
+  echo "<meta http-equiv=\"refresh\" content=\"3; URL=./update-database-0.6.5-0.6.7.2.php?start_id=$wert\">";
   }
 else
 {
@@ -92,7 +94,7 @@ else
     }
  echo "<font color=red><b>FERTIG</b></font>";
  echo "<br>Going to the update.php script now...... (10sec) please wait<br>";       
- echo "<meta http-equiv=\"refresh\" content=\"10; URL=./update.php?dbhost=$host&dbname=$db&dbuser=$username&dbpasswd=$passwd\">";
+ echo "<meta http-equiv=\"refresh\" content=\"10; URL=./update.php?update=yes\">";
 }
 mysql_close();
 }

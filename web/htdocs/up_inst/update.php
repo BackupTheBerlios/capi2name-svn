@@ -1,3 +1,6 @@
+<?
+session_start();
+?>
 <html>
  <head>
    <title>Datenbank Update</title>
@@ -7,7 +10,7 @@
 <?php
 
 
-if (!isset($_POST[absenden]) && !isset($_GET[dbhost]))
+if (!isset($_POST[absenden]) && !isset($_GET[update]))
  {
 
  echo "<br/><br/>please enter the connect informations for access the database.<br/><br/>";
@@ -48,7 +51,7 @@ if (!isset($_POST[absenden]) && !isset($_GET[dbhost]))
  }
 
 
-if (isset($_POST[absenden]) or isset($_GET[dbhost]))
+if (isset($_POST[absenden]) or isset($_GET[update]))
  {
 if (isset($_POST[absenden]))
 { 
@@ -56,13 +59,17 @@ $dbuser=$_POST[dbuser];
 $dbpasswd=$_POST[dbpasswd];
 $dbname=$_POST[dbname];
 $dbhost=$_POST[dbhost];
+$_SESSION['dbuser']=$dbuser;
+$_SESSION['dbpasswd']=$dbpasswd;
+$_SESSION['dbname']=$dbname;
+$_SESSION['dbhost']=$dbhost;
 }
 else
 {
-$dbuser=$_GET[dbuser];
-$dbpasswd=$_GET[dbpasswd];
-$dbname=$_GET[dbname];
-$dbhost=$_GET[dbhost];
+$dbuser=$_SESSION['dbuser'];
+$dbpasswd=$_SESSION['dbpasswd'];
+$dbname=$_SESSION['dbname'];
+$dbhost=$_SESSION['dbhost'];
 
 }
 
@@ -371,7 +378,7 @@ if ($control==FALSE)
           die();
          } 
   echo "<br>Big database update. Starting his own script. Please wait........"; 
-  echo "<meta http-equiv=\"refresh\" content=\"0; URL=./update-database-0.6.5-0.6.7.2.php?dbhost=$dbhost&dbname=$dbname&dbuser=$dbuser&dbpasswd=$dbpasswd\">";
+  echo "<meta http-equiv=\"refresh\" content=\"0; URL=./update-database-0.6.5-0.6.7.2.php\">";
   sleep(5);
 
  }
