@@ -6,14 +6,15 @@ Capi2Name 0.6.7.4 YYYY-MM-DD - Jonas Genannt - <jonasge@gmx.net> ---BETA
 	o PHP: Mysql-PHP Klasse verbessert.
 	o PHP: $config[] eingefuehert
 	o PHP: showstatnew/showstatnew7days: Heute/Gesten anstatt dem Datum eingefuehrt
-	o PHP: CAPISUITE: Anrufbeantworter Abfrage integriert
-	o PHP: CAPISUITE: Online Hilfe zu capisuite integriert
-	o PHP: CAPISUITE: FAX Betrachter integriert
-	o PHP: CAPISUITE: AdminModule um CS Configurationseinstellungen zu aendern
+	o PHP: CAPISUITE: Anrufbeantworter Abfrage integriert (popel)
+	o PHP: CAPISUITE: Online Hilfe zu capisuite integriert (popel)
+	o PHP: CAPISUITE: FAX Betrachter integriert (popel)
+	o PHP: CAPISUITE: AdminModule um CS Configurationseinstellungen zu aendern  (popel)
 	o PHP: Loginverfahren von coockie auf PHP sessions umgestellt
 	o PHP: login1.php geloescht, nicht mehr notwendig
 	o PHP: $userconfig[] eingefuehrt
 	o PHP: coockie eingebaut wieder zum eingeloggt bleiben.
+	o PHP: ein paar kleine Erweiterungen und Verbesserungen an den language files  (popel)
 
 Capi2Name 0.6.7.3 2004-11-28 - Jonas Genannt - <jonasge@gmx.net>
 	o PHP: shownewstat.php in verbindung mit Kalender. zeigt wieder Eintraege an
