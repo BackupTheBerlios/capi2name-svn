@@ -1,8 +1,9 @@
 <?
 header ("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
 header ("Last-Modified: " . gmdate ("D, d M Y H:i:s") . " GMT");
-header ("Cache-Control: no-cache, must-revalidate");
+header ("Cache-Control: no-cache,private, must-revalidate");
 header ("Pragma: no-cache");
+
 
 
 
@@ -11,8 +12,8 @@ header ("Pragma: no-cache");
 
 $sql["host"]                = "localhost";
 $sql["dbuser"]              = "capi";
-$sql["dbpasswd"]            = "mein_passwd";
-$sql["db"]                  = "capi";
+$sql["dbpasswd"]            = "kljm";
+$sql["db"]                  = "capidb";
 $config['domain']           = "www.mein-lokal.de";
 $config['capi2name_status'] = "yes";
 $config['capisuite']        = "no";
