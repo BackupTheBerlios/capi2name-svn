@@ -5,6 +5,8 @@ Capi2name 0.6.7.6 YYYY-MM-DD - Jonas Genannt - <jonasge@gmx.net> ---BETA
 	o PHP: Monatsuebersicht ueber anrufe bei stat_anrufer.php
 	o PHP: Fixed: possible SQL injection
 	o PHP: Added template system base
+	o PHP: Removed navigator.inc.php
+	o PHP: Removed memo function (notiz.php and editnotiz.php)
 Capi2Name 0.6.7.5 2005-01-24 - Jonas Genannt - <jonasge@gmx.net> 
 	o PHP: neueruser.php 0 css2.0 xhtml (popel)
 	o PHP: .htaccess hinzugefuegt fuer mehr Sicherheit (Verbietet *.inc.*)
