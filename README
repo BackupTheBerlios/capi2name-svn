@@ -5,20 +5,31 @@ README OF CAPI2NAME - AN ISDN CAPI MONITOR WITH WEB INTERFACE
 quick install:
 -------------
 1.) create a database and user in the mysql
-2.) copy the htdocs-Directory to a apache accessable path
-3.) open your web browser and open http://localhost/htdocs/up_inst/
+2.) type make and make install
+3.) Now capi2name HTDOCS-File are installed in /usr/share/capi2name
+4.) You can configure your apache Webserver (see below)
+3.) open your web browser and open http://localhost/c2n/up_inst/
 4.) Gotto the install selection
 5.) write down your database and user information and press the button
-6.) open with vi or anther editor the htdocs/includes/conf.inc.php
+6.) open with vi or anther editor the /usr/sharecapi2name/includes/conf.inc.php
 7.) write down your database and user information and save the file.
 8.) Delete the up_inst/ folder
-9.) open your webbrowser and open http://localhost/htdocs/admin/
+9.) open your webbrowser and open http://localhost/c2n/admin/
 10.) Login with the admin password 'admin' and create a now user and change the admin password
-11.) go to the daemon directory and type 'make' and make 'install'
 12.) open with vi or another editor /etc/capi2name.conf 
 13.) write down your database and user inforation
 14.) call yourself and test if you can see your can in the webbrowser
 
+
+
+Apache Configuration:
+---------------------------------
+Alias /c2n    "/usr/share/capi2name"
+<Directory /usr/share/capi2name>
+     AllowOverride None
+     Options -ExecCGI -Indexes -MultiViews -SymLinksIfOwnerMatch -FollowSymlinks</Directory>
+
+---------------------------------
 
 ->On the Webpage you can find an better install manual and FAQ selection.
 

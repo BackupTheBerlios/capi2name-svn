@@ -31,8 +31,8 @@ $config['language']         = "de";
 
 
 //VERSIONS INFO UND CODENAMEN:
-$codenamen="pepy-BETA-VERSION";
-$version="0.6.7.6";
+$codenamen="AN-BETA-VERSION-NI";
+$version="0.6.7.7";
 //Tabellennamen:
 $prefixtab="";
 $tabelle["adressbuch"]=$prefixtab."adressbuch";

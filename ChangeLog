@@ -1,4 +1,6 @@
-Capi2name 0.6.7.6 YYYY-MM-DD - Jonas Genannt - <jonasge@gmx.net> ---BETA
+Capi2name 0.6.7.7 YYYY-MM-DD - Jonas Genannt - <jonasge@gmx.net>  ----BETA
+
+Capi2name 0.6.7.6 2005-03-05 - Jonas Genannt - <jonasge@gmx.net> 
 	o PHP: Fixed: stat_loeschen.php forward to showstatnew.php
 	o PHP: Fixed: configpage.php no access with cookies enables
 	o PHP: Fixed: stat.png.php and stat-user.png.php the graph with Feb 05
@@ -19,6 +21,7 @@ Capi2name 0.6.7.6 YYYY-MM-DD - Jonas Genannt - <jonasge@gmx.net> ---BETA
 	o PHP: Added: table callback (more features for callback)
 	o PHP: Added: popup MSG if new callbackentry exists	
 	o PHP: Added: New callback functions
+	o Added: new toplevel MakeFile
 Capi2Name 0.6.7.5 2005-01-24 - Jonas Genannt - <jonasge@gmx.net> 
 	o PHP: neueruser.php 0 css2.0 xhtml (popel)
 	o PHP: .htaccess hinzugefuegt fuer mehr Sicherheit (Verbietet *.inc.*)
