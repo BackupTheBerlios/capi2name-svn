@@ -16,7 +16,7 @@
 
 ?>
 <?php
-	$seite=base64_encode("cs_answerphone.php");
+	$seite=base64_encode("cs_fax.php");
 	include("./login_check.inc.php");
 	include("./header.inc.php");
 	require_once("./cs_capisuite_config.inc.php");

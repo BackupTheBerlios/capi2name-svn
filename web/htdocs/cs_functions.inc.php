@@ -22,4 +22,4 @@
 		$a = exec("id -g $name",$a, $retval);
 		return $retval;
 	}
-?>
+?> 
