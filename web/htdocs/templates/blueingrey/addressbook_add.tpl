@@ -12,7 +12,7 @@
 
 <!-- BEGIN show_success_msg_forward_msg -->
 <span style="text-algin:center;color:blue;">{L_MSG_SUCCESS_FORWARD}</span>
-<meta http-equiv="refresh" content="2; URL=./adressbuch.php">
+<meta http-equiv="refresh" content="2; URL=./addressbook.php">
 <!-- END show_success_msg_forward_msg -->
 
 <!-- BEGIN show_error_msg_add_entry -->

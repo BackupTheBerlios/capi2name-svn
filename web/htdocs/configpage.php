@@ -52,19 +52,23 @@ if (!empty($_POST[old_passwd]))
       $result=$zugriff_mysql->sql_abfrage("UPDATE users SET passwd='$passwd' WHERE id='$_POST[id]'");
       if (!$result) 
        {
-        echo "<div class=\"rot_mittig\">Updating passwd in database failed!!</div>";
+        $template->assign_block_vars('update_passwd_failed',array(
+			'L_MSG_PASSWD_FAILED' => 'Updating passwd in database failed!!'));
        }
      }
      else
      {
-      echo "<div class=\"rot_mittig\">The new passwords are not the same or empty new password field</div>";
+      $template->assign_block_vars('update_empty_passwd',array(
+      	'L_MSG_NEW_PASSWD' => 'The new passwords are not the same or empty new password field'));
      }
    }
    else
    {
-   echo "<div class=\"rot_mittig\">Old Password is not the same like in the Database</div>";
+   $template->assign_block_vars('update_old_passwd',array(
+   		'L_MSG_OLD_PASSWD' => 'Old Password is not the same like in the Database'));
    }
  }
+ /*********************************/
 $result_config=$zugriff_mysql->sql_abfrage("SELECT * FROM config WHERE conf='template'"); 
 $daten_config=mysql_fetch_assoc($result_config);
 if ($daten_config[value]==NULL)
@@ -72,56 +76,61 @@ if ($daten_config[value]==NULL)
   $result=$zugriff_mysql->sql_abfrage("UPDATE users SET template='$_POST[template]' WHERE id='$_POST[id]'");
 if (!$result) 
    {
-    echo "<div class=\"rot_mittig\">Updating template in database failed!!</div>";
+    $template->assign_block_vars('db_update_tempalte',array(
+    		'L_MSG_TEMPLATE_FAILED' => 'Updating template in database failed!!'));
    }
  } 
 $result=$zugriff_mysql->sql_abfrage("UPDATE users SET name_first='$_POST[name_first]' WHERE id='$_POST[id]'");
 if (!$result) 
    {
-    echo "<div class=\"rot_mittig\">Updating first name in database failed!!</div>";
+    $template->assign_block_vars('db_update_first_name',array(
+    			'L_MSG_FIRST_NAME' => 'Updating first name in database failed!!'));
    }
 $result=$zugriff_mysql->sql_abfrage("UPDATE users SET name_last='$_POST[name_last]' WHERE id='$_POST[id]'");
-if (!result) 
+if (!$result) 
    {
-    echo "<div class=\"rot_mittig\">Updating last name in database failed!!</div>";
+    $template->assign_block_vars('db_update_last_name',array(
+    			'L_MSG_LAST_NAME' => 'Updating last name in database failed!!'));
    }
 $result=$zugriff_mysql->sql_abfrage("UPDATE users SET show_callback='$_POST[show_callback]' WHERE id='$_POST[id]'");
-if (!result) 
+if (!$result) 
    {
-    echo "<div class=\"rot_mittig\">Updating show callback in database failed!!</div>";
+    $template->assign_block_vars('db_update_callback', array(
+    		'L_MSG_SHOW_CALLBACK' => 'Updating show callback in database failed!!'));
    }
 $result=$zugriff_mysql->sql_abfrage("UPDATE users SET msn_listen='$_POST[msn_listen]' WHERE id='$_POST[id]'");
-if (!result) 
+if (!$result) 
    {
-    echo "<div class=\"rot_mittig\">Updating msn listen in database failed!!</div>";
+    $template->assign_block_vars('db_update_msn_listen', array(
+    			'L_MSG_MSN_LISTEN' => 'Updating msn listen in database failed!!'));
    }
 $result=$zugriff_mysql->sql_abfrage("UPDATE users SET show_lines='$_POST[show_lines]' WHERE id='$_POST[id]'");
-if (!result) 
+if (!$result) 
    {
-    echo "<div class=\"rot_mittig\">Updating show lines in database failed!!</div>";
+    $template->assign_block_vars('db_update_show_lines',array(
+    			'L_MSG_SHOW_LINES' => 'Updating show lines in database failed!!'));
    }
 $result=$zugriff_mysql->sql_abfrage("UPDATE users SET show_prefix='$_POST[show_prefix]' WHERE id='$_POST[id]'");
-if (!result) 
+if (!$result) 
    {
-    echo "<div class=\"rot_mittig\">Updating show prefix in database failed!!</div>";
+    $template->assign_block_vars('db_update_show_prefix',array(
+    		'L_MSG_SHOW_PREFIX' => 'Updating show prefix in database failed!!'));
    }
 $result=$zugriff_mysql->sql_abfrage("UPDATE users SET show_msn='$_POST[show_msn]' WHERE id='$_POST[id]'");
-if (!result) 
+if (!$result) 
    {
-    echo "<div class=\"rot_mittig\">Updating show msn in database failed!!</div>";
+    $template->assign_block_vars('db_update_show_msn',array(
+    			'L_MSG_SHOW_MSN' => 'Updating show msn in database failed!!'));
    }
 $result=$zugriff_mysql->sql_abfrage("UPDATE users SET show_type='$_POST[show_type]' WHERE id='$_POST[id]'");
-if (!result) 
+if (!$result) 
    {
-    echo "<div class=\"rot_mittig\">Updating show type in database failed!!</div>";
-   }
-$result=$zugriff_mysql->sql_abfrage("UPDATE users SET allow_delete='$_POST[allow_delete]' WHERE id='$_POST[id]'");
-if (!result) 
-   {
-    echo "<div class=\"rot_mittig\">Updating allow delete in database failed!!</div>";
+    $template->assign_block_vars('db_update_show_type',array(
+    		'L_MSG_SHOW_TYPE' => 'Updating show type in database failed!!'));
    }
 $zugriff_mysql->close_mysql();
-echo "<div class=\"blau_mittig\">data saved to database...</div>";
+$template->assign_block_vars('db_update',array(
+			'L_MSG_SAVED' => 'data saved to database...'));
 }// Einstellungen speichern ENDE
 
 

@@ -2,7 +2,7 @@
 
 <!-- BEGIN delete_entry_from_db -->
 <div class="blau_mittig">{delete_entry_from_db.L_ADDRESS_BOOK_ENTRY_REMOVED</div>
-<meta http-equiv="refresh" content="2; URL=./adressbuch.php">
+<meta http-equiv="refresh" content="2; URL=./addressbook.php">
 <!-- END delete_entry_from_db -->
 
 <!-- BEGIN check_if_delete_entry -->

@@ -78,8 +78,9 @@ $dbhost=$_SESSION['dbhost'];
 
 //Variablen:
 $capi_version_tabelle=false;
+$capi_config_tabelle=false;
 $db_layout_version="";
-$db_layout_neue_version="0.6.7.5";
+$db_layout_neue_version="0.6.7.6";
 
 echo "<br><b>Warten bis unten in Grün OK
 steht<br></b><br>";
@@ -113,8 +114,13 @@ while ($row=mysql_fetch_row($result))
    //echo "Tabelle: $row[0]<br>";
      if ($row[0]=="capi_version")
       {
-       echo "Tabelle capi_version gefunden! - DB-Layout: < 0.6<br><br>";
+       echo "table 'capi_version' found! - DB-Layout:  0.6 - 0.6.7.5<br/><br/>";
        $capi_version_tabelle=true;
+      }
+      elseif ($row[0]=="config")
+      {
+       echo "table 'config' found! - DB-Layout: < 0.6.7.6<br/><br/>";
+       $capi_config_tabelle=true;
       }
   }
 
@@ -124,7 +130,7 @@ while ($row=mysql_fetch_row($result))
 
 
 /******************************************************************
-   CAPI2NAME DB-Layout ueber 0.6 ANFANG
+   CAPI2NAME DB-Layout  0.6 <-> 0.6.7.5 ANFANG
 *******************************************************************/
 if ($capi_version_tabelle==true)
 {
@@ -140,9 +146,27 @@ $db_layout_version=$row[0];
  
 }
 /********************************************************************
-  CAPI2NAME DB-Layout ueber 0.6 ENDE
+  CAPI2NAME DB-Layout 0.6 <-> 0.6.7.6 ENDE
 ********************************************************************/
 
+
+/********************************************************************
+ CAPI2NAME DB-Layout ober 0.6.7.6 FOUND ANFANG
+ ********************************************************************/
+if ($capi_config_tabelle)
+{
+  $result=mysql_query("SELECT * FROM config WHERE conf='db_version'");
+  if($result==false)
+  {
+   echo "Mysql-Query fehlgeschlagen!<br>Mysql-Error: ". mysql_error();
+   die();
+  }
+  $daten=mysql_fetch_assoc($result);
+  $db_layout_version=$daten[value];
+}
+/********************************************************************
+ CAPI2NAME DB-Layout ober 0.6.7.6 FOUND END
+ ********************************************************************/
 
 
 
@@ -150,7 +174,7 @@ $db_layout_version=$row[0];
 /*********************************************************************
    CAPI2NAME DB-Layout unter 0.6 ANFANG
 *********************************************************************/
-if($capi_version_tabelle==false)
+if($capi_version_tabelle==false && !$capi_config_tabelle)
  {
   echo "Capi2Name DB-Layout unter 0.6 gefunden! Erkennung wird gestartet............<br><br>"; 
   
@@ -181,6 +205,7 @@ if($capi_version_tabelle==false)
 /****************************************
 ****************************************/
 echo "<br><b>DB-Version gefunden: $db_layout_version</b><br>";
+
 
 
 /***************************************** Version 0.1 auf 0.2
@@ -340,7 +365,7 @@ if ($db_layout_version=="0.6")
     die();
    }
   
-      $file=fopen("update-database-0.6-0.6.5.sql", "rb");
+ $file=fopen("update-database-0.6-0.6.5.sql", "rb");
  $inhalt= fread ($file, filesize("update-database-0.6-0.6.5.sql"));
   $array_inhalt=split("(;\n|;\r)",$inhalt);
 
@@ -424,6 +449,93 @@ if ($db_layout_version=="0.6.7.2")
 ***************************************************************************/
 
 
+/******************++ VERSION 0.6.7.5 -> 0.6.7.6 **************************/
+if ($db_layout_version=="0.6.7.5")
+ {
+ $control=mysql_select_db($dbname);
+  if ($control==FALSE)
+  {
+  echo "Verbindung (Select_DB) fehlgeschlagen!\nMysql-Error: ". mysql_error();
+  die();
+  }
+ $control=mysql_query("DROP TABLE capi_version");
+  if ($control==FALSE)
+   {
+     echo "Insert fehlgeschlagen: <br>Mysql-Error: ". mysql_error();
+     die();
+   } 
+  $control=mysql_query("DROP TABLE notiz");
+  if ($control==FALSE)
+   {
+     echo "Insert fehlgeschlagen: <br>Mysql-Error: ". mysql_error();
+     die();
+   } 
+  $control=mysql_query("DROP TABLE angerufene_");
+  if ($control==FALSE)
+   {
+     echo "Insert fehlgeschlagen: <br>Mysql-Error: ". mysql_error();
+     die();
+   }
+ $capi_version_tabelle=false;  
+ $file=fopen("update-database-0.6.7.5-0.6.7.6.sql", "rb");
+ $inhalt= fread ($file, filesize("update-database-0.6.7.5-0.6.7.6.sql"));
+  $array_inhalt=split("(;\n|;\r)",$inhalt);
+
+   for($i=0;$i<sizeof($array_inhalt)-1; $i++)
+     {
+      $array_inhalt[$i]=trim($array_inhalt[$i]);
+      $control=mysql_query($array_inhalt[$i]);
+       if ($control==FALSE)
+        {
+          echo "Insert fehlgeschlagen: $array_inhalt[$i]<br>Mysql-Error: ". mysql_error();
+          die();
+         }
+     }
+  
+fclose($file);   
+//we musst copy user form userliste to users...... 
+$result_user=mysql_query("SELECT * FROM userliste");
+while ($daten=mysql_fetch_assoc($result_user))
+ {
+  echo "User: $daten[username]<br/>";
+  if ($daten[username]=="admin")
+   {
+    $result=mysql_query("UPDATE users SET passwd='$daten[passwd]' WHERE username='admin'");
+    if (!$result)
+        {
+          echo "Insert fehlgeschlagen: $array_inhalt[$i]<br>Mysql-Error: ". mysql_error();
+          die();
+         }
+   }
+   else
+   {
+   if ($daten[showrueckruf]=="checked")  $daten[showrueckruf]=1;
+   if ($daten[showmsn]=="checked")       $daten[showmsn]=1;
+   if ($daten[showvorwahl]=="checked")   $daten[showvorwahl]=1;
+   if ($daten[showconfig]=="checked")    $daten[showconfig]=1;
+   if ($daten[loeschen]=="checked")      $daten[loeschen]=1;
+   if ($daten[showtyp]=="checked")      $daten[showtyp]=1;
+    $result=mysql_query("INSERT INTO users VALUES('', '$daten[username]',
+    	'$daten[passwd]', NULL,NULL,NULL,NULL,
+	'$daten[anzahl]', '$daten[msns]','$daten[showrueckruf]',
+	'$daten[showvorwahl]', '$daten[showmsn]','$daten[showtyp]',
+	'$daten[showconfig]','$daten[loeschen]', 'blueingrey')");
+       if (!$result)
+        {
+          echo "Insert fehlgeschlagen: $array_inhalt[$i]<br>Mysql-Error: ". mysql_error();
+          die();
+         }
+   }
+ }
+  $control=mysql_query("DROP TABLE userliste");
+  if ($control==FALSE)
+   {
+     echo "Insert fehlgeschlagen: <br>Mysql-Error: ". mysql_error();
+     die();
+   }
+
+ }//ende if ()
+/******************++ VERSION 0.6.7.5 -> 0.6.7.6 END **************************/
 
 
 $control=mysql_close();
@@ -435,6 +547,7 @@ $control=mysql_close();
 }
 
 while($db_layout_version!=$db_layout_neue_version);
+
 if ($db_layout_version==$db_layout_neue_version)
  {
  echo "<br><br><font color=green>OK! DB-Layout update fertig!</font><br>";

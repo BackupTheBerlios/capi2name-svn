@@ -22,31 +22,29 @@ include("./header.inc.php");
 <?
 if (isset($_POST[aendern]))
  { //isset
-if ($_POST[passwd1]==$_POST[passwd2])
+if ($_POST[passwd1]==$_POST[passwd2] && ! empty($_POST[passwd1]))
 {
-echo "<center><font color=\"red\">Neue Passwörter gleich!<br></center></font>";
  $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
  $result = mysql_query("SELECT username, passwd FROM users WHERE id=1");
  $daten = mysql_fetch_array($result);
   if (md5($_POST[altespasswd]) == $daten[passwd])
    {
     $verschluesselt=md5($_POST[passwd2]);
-    echo "<center><font color=\"red\">Altes Passwd OK !<br></center></font>";
-     $result = mysql_query("UPDATE users SET passwd='$verschluesselt' WHERE id=1");
-     if ($result ==1)
+    $result = mysql_query("UPDATE users SET passwd='$verschluesselt' WHERE id=1");
+     if ($result)
       {
-      echo "<center><font color=\"red\"><b>Passwort erfolgreich geändert.<br></center></font></b>";
+      echo "<div class=\"blau_mittig\">Password successfully changed!</div>";
       }
    }
    else
    {
-    echo "<center><font color=\"red\"><b>Altes Passwort nicht gleich !<br></center></font></b>";
+    echo "<div class=\"rot_mittig\">Old password not the same like in the database.</div>";
    }
   $zugriff_mysql->close_mysql();
 }
 else
 {
-echo "<center><font color=\"red\"><b>Neue Passwörter nicht gleich!!</center></font></b>";
+echo "<div class=\"rot_mittig\">The new passwords are not the same or the new password is empty!</div>";
 }
 } //isset
 ?>

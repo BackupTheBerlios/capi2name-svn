@@ -4,6 +4,49 @@
 <div class="rot_mittig">{userconfig_show_configpage.L_NOT_SHOW_THIS_PAGE}</div>
 <!-- END userconfig_show_configpage -->
 
+<!-- BEGIN update_passwd_failed -->
+<div class="rot_mittig">{update_passwd_failed.L_MSG_PASSWD_FAILED}</div>
+<!-- END update_passwd_failed -->
+<!-- BEGIN update_empty_passwd -->
+<div class="rot_mittig">{update_empty_passwd.L_MSG_NEW_PASSWD}</div>
+<!-- END update_empty_passwd -->
+<!-- BEGIN update_old_passwd -->
+<div class="rot_mittig">{update_old_passwd.L_MSG_OLD_PASSWD}</div>
+<!-- END update_old_passwd -->
+
+
+<!-- BEGIN db_update_tempalte -->
+<div class="rot_mittig">{db_update_tempalte.L_MSG_TEMPLATE_FAILED}</div>
+<!-- END db_update_tempalte -->
+<!-- BEGIN db_update_first_name -->
+<div class="rot_mittig">{db_update_first_name.L_MSG_FIRST_NAME}</div>
+<!-- END db_update_first_name -->
+<!-- BEGIN db_update_last_name -->
+<div class="rot_mittig">{db_update_last_name.L_MSG_LAST_NAME}</div>
+<!-- END db_update_last_name -->
+<!-- BEGIN db_update_callback -->
+<div class="rot_mittig">{db_update_callback.L_MSG_SHOW_CALLBACK}</div>
+<!-- END db_update_callback -->
+<!-- BEGIN db_update_msn_listen -->
+<div class="rot_mittig">{db_update_msn_listen.L_MSG_MSN_LISTEN}</div>
+<!-- END db_update_msn_listen -->
+<!-- BEGIN db_update_show_lines -->
+<div class="rot_mittig">{db_update_show_lines.L_MSG_SHOW_LINES}</div>
+<!-- END db_update_show_lines -->
+<!-- BEGIN db_update_show_prefix -->
+<div class="rot_mittig">{db_update_show_prefix.L_MSG_SHOW_PREFIX}</div>
+<!-- END db_update_show_prefix -->
+<!-- BEGIN db_update_show_msn -->
+<div class="rot_mittig">{db_update_show_msn.L_MSG_SHOW_MSN}</div>
+<!-- END db_update_show_msn -->
+<!-- BEGIN db_update_show_type -->
+<div class="rot_mittig">{db_update_show_type.L_MSG_SHOW_TYPE}</div>
+<!-- END db_update_show_type -->
+<!-- BEGIN db_update -->
+<div class="blau_mittig">{db_update.L_MSG_SAVED}</div>
+<!-- END db_update -->
+
+
 <!-- BEGIN tab1 -->
 <form action="./configpage.php" method="post" >
 <table border="0" style="margin-right:auto;margin-left:auto;text-align:left;">
