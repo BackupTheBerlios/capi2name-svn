@@ -12,6 +12,7 @@ Capi2Name 0.6.7.5 YYYY-MM-DD - Jonas Genannt - <jonasge@gmx.net> ---BETA
 	o PHP: showstatnew7days.php (FAX) wird nun angzeigt, wenn im Addr bei Fax eine Nummer steht
 	o PHP: adressbuch.php angepasst, damit auch die FAX-NR gefunden wird wenn man sie von showstat* sucht.
 	o PHP: up_inst/install.php xhtml anpassungen
+	o PHP: stat.png in stat.png.php keine schreibrechte mehr fuer den webserver
 	o PHP: up_inst/update.php xhtml anpassungen/ PHP Sessions eingebaut
 	o PHP: up_inst/update-database-0.6.5-0.6.7.2.php PHP Sessions eingebaut
 	o PHP: alter table userliste change lastlogin_d lastlogin_d date;
