@@ -1,6 +1,6 @@
 <?
 /*
-    copyright            : (C) 2002-2004 by Jonas Genannt
+    copyright            : (C) 2002-2005 by Jonas Genannt
     email                : jonasge@gmx.net
  ***************************************************************************/
 
@@ -17,9 +17,12 @@
 $seite=base64_encode("addadress.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
+
+$template->set_filenames(array('overall_body' => './templates/blueingrey/add_address.tpl'));
+$template->assign_vars(array('L_NEW_ENTRY_TO_ADDR' => $textdata[addadress_neuer_adressbuch_eintrag]));
 ?>
-<? echo "<div class=\"ueberschrift_seite\">$textdata[addadress_neuer_adressbuch_eintrag]</div>"; ?>
-<br />
+
+
 <?
 // Eintrag eintragen.
 if (isset($_POST[eintragen]))
@@ -61,78 +64,23 @@ else
  }//ende if
 
 
-
-echo "
-<form action=\"$SELF_PHP\" method=\"post\" >
-<table border=\"0\" cellpadding=\"3\" style=\"margin-right:auto;margin-left:auto;\">
- <tr>
-  <td>$textdata[addadress_vorname]:</td>
-  <td style=\"width:12px;\"></td>
-  <td><input name=\"bvorname\" type=\"text\"/></td>
- </tr>
- <tr>
-  <td>$textdata[addadress_nachname]:</td>
-  <td style=\"12px;\"></td>
-  <td><input name=\"bnachname\" type=\"text\"/></td>
- </tr>
- <tr>
-  <td>$textdata[addadress_strasse]:</td>
-  <td style=\"12px;\"></td>
-  <td><input name=\"bstrasse\" type=\"text\"/></td>
- </tr>
- <tr>
-  <td>$textdata[addadress_hausnummer]:</td>
-  <td style=\"12px;\"></td>
-  <td><input name=\"bhausnr\" type=\"text\"/></td>
- </tr>
- <tr>
-  <td>$textdata[addadress_plz]:</td>
-  <td style=\"12px;\"></td>
-  <td><input name=\"bplz\" type=\"text\"/></td>
- </tr>
- <tr>
-  <td>$textdata[addadress_ort]:</td>
-  <td style=\"12px;\"></td>
-  <td><input name=\"bort\" type=\"text\"/></td>
- </tr>
- <tr>
-  <td>$textdata[addadress_telefonnummer1]:</td>
-  <td style=\"12px;\"></td>
-  <td><input name=\"btele1\" type=\"text\" value=\"$_GET[rufnr]\"/></td>
- </tr>
- <tr>
-  <td>$textdata[addadress_telefonnummer2]:</td>
-  <td style=\"12px;\"></td>
-  <td><input name=\"btele2\" type=\"text\"/></td>
- </tr>
- <tr>
-  <td>$textdata[addadress_telefonnummer3]:</td>
-  <td style=\"12px;\"></td>
-  <td><input name=\"btele3\" type=\"text\"/></td>
- </tr>
- <tr>
-  <td>$textdata[addadress_handy]:</td>
-  <td style=\"12px;\"></td>
-  <td><input name=\"bhandy\" type=\"text\" value=\"$_GET[handy]\"/></td>
- </tr>
-  <tr>
-  <td>$textdata[addadress_fax]:</td>
-  <td style=\"12px;\"></td>
-  <td><input name=\"bfax\" type=\"text\"/></td>
- </tr>
-
- <tr>
-  <td>$textdata[addadress_email]:</td>
-  <td style=\"12px;\"></td>
-  <td><input name=\"bemail\" type=\"text\"/></td>
- </tr>
-</table>
-<ins><br/><input type=\"submit\" name=\"eintragen\" value=\"$textdata[addadress_eintrag_aufnehmen]\"/></ins>
-</form>";
-
-?>
+$template->assign_block_vars('tab',array(
+		'L_ADDR_FRIST_NAME' => $textdata[addadress_vorname],
+		'L_ADDR_LAST_NAME' => $textdata[addadress_nachname],
+		'L_ADDR_STREET' => $textdata[addadress_strasse],
+		'L_ADDR_HOUSE_NR' => $textdata[addadress_hausnummer],
+		'L_ADDR_ZIP_CODE' => $textdata[addadress_plz],
+		'L_ADDR_CITY' => $textdata[addadress_ort],
+		'L_ADDR_TELE_1' => $textdata[addadress_telefonnummer1],
+		'L_ADDR_TELE_2' => $textdata[addadress_telefonnummer2],
+		'L_ADDR_TELE_3' => $textdata[addadress_telefonnummer3],
+		'L_ADDR_CELL_PHONE' => $textdata[addadress_handy],
+		'L_ADDR_FAX' => $textdata[addadress_fax],
+		'L_ADDR_E_MAIL' => $textdata[addadress_email],
+		'L_ADDR_ADD_NEW_ENTRY' => $textdata[addadress_eintrag_aufnehmen]));
+ 
 
 
-<?
+$template->pparse('overall_body');
 include("./footer.inc.php");
 ?>
