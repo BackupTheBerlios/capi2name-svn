@@ -21,27 +21,47 @@
 	include("./header.inc.php");
 	
 ?>
-<?php echo "<div class=\"ueberschrift_seite\">CapiSuite Anrufbeantworter</div>"; ?>
-	<h3>Liste der eingegangenen Nachrichten</h3>
+<?php echo "<div class=\"ueberschrift_seite\">CapiSuite Fax Betrachter</div>"; ?>
+<div style="text-align:left;">
+<?php
+	$dir = "/var/spool/capisuite/users/$login_name/received/";
+	$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+	
+	if(isset($_GET['viewfax'])) {
+		$fax = $_GET['fax'];
+		$file = "fax-$fax.txt";
+		$lines = file($dir . $file);
+		
+?>
+	<h3>Eingegangenes Fax</h3>
+	<p>
+		Datum: <?php echo preg_replace("/(.*=\")(.*)(\")/", "\\2", $lines[7]); ?><br />
+		Absender: <?php echo preg_replace("/(.*=\")(.*)(\")/", "\\2", $lines[5]); ?><br />
+		Empfänger: <?php echo msnzuname(preg_replace("/(.*=\")(.*)(\")/", "\\2", $lines[6])); ?><br />
+	</p>
+	<p><img align="middle" alt="fax" src="cs_viewfax.php?file=<?php echo $fax; ?>&amp;csuser=<?php echo $login_name; ?>" /></p>
+	
+<?
+	}
+	else {
+?>
+	<h3>Liste der eingegangenen Faxe</h3>
 	<table width="80%" align="center">
 		<thead style="text-size:large;">
 			<tr>
 				<td>Zeit</td>
 				<td>von</td>
 				<td>an</td>
-				<td>abspielen</td>
-				<td>löschen</td>
+				<td>ansehen</td>
 			</tr>
 		</thead>
 		<tbody>
 		
 <?php
-	$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-	$dir = "/var/spool/capisuite/users/$login_name/received/";
 	if (is_dir($dir)) {
 		if ($dh = opendir($dir)) {
 			while (($file = readdir($dh)) !== false) {
-				if(preg_match("/voice.*\.txt/i", $file)) {
+				if(preg_match("/.*\.\wff/i", $file)) {
 					$lines = file($dir . $file);
 					echo "<tr><td>";
 					echo preg_replace("/(.*=\")(.*)(\")/", "\\2", $lines[7]);
@@ -51,21 +71,22 @@
 					echo msnzuname(preg_replace("/(.*=\")(.*)(\"\n)/", "\\2", $lines[6]));
 					echo "</td><td>";
 					$a = preg_replace("/(.*-)(\d{1,4})(\.l.*)/", "\\2",$lines[4]);
-					echo "<a href=\"cs_hearmessage.php?file=$a&amp;csuser=$login_name\">abspielen</a>";
-					echo "</td><td>";
-					echo "löschen";
+					echo "<a href=\"cs_fax.php?viewfax&amp;fax=$a\">ansehen</a>";
 					echo "</td></tr>";
 				}
 			}
 			closedir($dh);
 		}
 	}
-	$zugriff_mysql->close_mysql();
 ?>
 			<tr><td></td></tr>
 		</tbody>
 	</table>
-
+<?php 
+	}
+	$zugriff_mysql->close_mysql();
+?>
+</div>
 <?php
 include("./footer.inc.php");
 ?>

@@ -7,15 +7,14 @@
 	
 	$file = $_GET['file'];
 	$user = $_GET['csuser'];
-
 	
 	$fileDir = "/var/spool/capisuite/users/$user/received/"; // supply a path name.
-	$fileName = "voice-$file.la"; // supply a file name.
+	$fileName = "fax-$file.sff"; // supply a file name.
 	$fileString=$fileDir.'/'.$fileName; // combine the path and file
 	
-	system("sox $fileString /tmp/tmp.mp3");
-	$fileString	= "/tmp/tmp.mp3";
-	$fileName	= "answerphone-$file.mp3";
+	system("sff2mix -j $fileString /tmp/tmp");
+	$fileString	= "/tmp/tmp.jpeg";
+	$fileName	= "fax-$file.jpeg";
 	// translate file name properly for Internet Explorer.
 	if (strstr($_SERVER['HTTP_USER_AGENT'], "MSIE")){
 		$fileName = preg_replace('/\./', '%2e', $fileName, substr_count($fileName, '.') - 1);
