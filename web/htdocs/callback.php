@@ -41,10 +41,28 @@ if(isset($_GET[loeschen]))
  echo "<meta http-equiv=\"refresh\" content=\"1; URL=./callback.php\">";
  }
 
+ 
+if(isset($_POST[save_without_addr]))
+ {
+  $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+  if (is_numeric($_POST[addname]))
+   {
+   
+    $sql_query="INSERT INTO callback VALUES(NULL,'$_POST[addname]','$_POST[user_id]',NOW(),NOW(),'$_POST[callback_time]','$_POST[message]', '1',NULL,NULL)";
+   }
+  else
+   {
+    $sql_query="INSERT INTO callback VALUES(NULL,'-1','$_POST[user_id]',NOW(),NOW(),'$_POST[callback_time]','$_POST[message]', '1','$_POST[addnumber]','$_POST[addname]')";
+   }
+  $zugriff_mysql->sql_abfrage($sql_query);
+  $zugriff_mysql->close_mysql();
+  $template->assign_block_vars('saved_with_addr',array('L_MSG_SAVED' => 'saved to database'));
+ } 
+ 
 if(isset($_POST[save_with_addr]))
  {
   $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-  $zugriff_mysql->sql_abfrage("INSERT INTO callback VALUES (NULL,'$_POST[addid]','$_POST[user_id]',NOW(),NOW(),'$_POST[callback_time]','$_POST[message]', '1', NULL)");
+  $zugriff_mysql->sql_abfrage("INSERT INTO callback VALUES (NULL,'$_POST[addid]','$_POST[user_id]',NOW(),NOW(),'$_POST[callback_time]','$_POST[message]', '1', NULL,NULL)");
   $zugriff_mysql->close_mysql();
   $template->assign_block_vars('saved_with_addr',array('L_MSG_SAVED' => 'saved to database'));
  }
@@ -65,7 +83,11 @@ while($daten=mysql_fetch_assoc($result_callback))
      {
       $number=$daten[handy];
      }
-    else
+   elseif($daten[addr_id]==-1)
+   {
+    $number=$daten[number];
+   }
+   else
      {
       $number=$daten[tele1];
      }
@@ -85,10 +107,17 @@ while($daten=mysql_fetch_assoc($result_callback))
 	break;
      
      };
+  if ($daten[addr_id]==-1)
+   {
+    $full_name=$daten[full_name];
+   }
+  else  
+   {
+    $full_name="<a href=\"./addressbook.php?id=$daten[addr_id]\">$daten[vorname] $daten[nachname]</a>";
+   }
   $template->assign_block_vars('tab2',array(
-  	'DATA_NAME' => $daten[vorname]." ".$daten[nachname],
+  	'DATA_NAME' => $full_name,
 	'DATA_ID' => $daten[id],
-	'DATA_ADDR_ID' => $daten[addr_id],
 	'DATA_NUMBER' => $number,
 	'L_SHOW_REASON' => 'Grund anzeigen.',
 	'DATA_TIME' => $daten[en_time],
@@ -148,28 +177,49 @@ if ($_GET[add]== "yes")
       }
     }//WHILE ZU ENDE
   }
+  else
+  {//ANFANG insert_without_addr
+  $template->assign_block_vars('insert_without_addr',array(
+  		'L_TITLE_NEW' => 'Neuer Eintrag',
+		'L_NAME' => $text[name1],
+		'L_NUMBER' => $text[rufnummer],
+		'L_CALL_BACK_TIME' => $text[zurueck_zeit],
+		'L_MORING' => 'Morgens',
+		'L_SOON_AS_POSSIBLE' => 'So bald wie moeglich',
+		'L_EVENING' => 'Abends',
+		'L_MIDDAY' => 'Mittags',
+		'L_USERNAME' => 'Capi2name Benutzer',
+		'L_SAVE_DATA' => $text[speichern],
+		'L_MESSAGE' => $text[grund]));
+  while($daten_users=mysql_fetch_assoc($result_users))
+    {
+     if ($daten_users[username]==$_SESSION[username] && $daten_users[username]!="admin")
+      {
+       //selectet=selected
+       $template->assign_block_vars('insert_without_addr.select_users',array(
+       			'L_DATA_NAME' => $daten_users[name_first]." ".$daten_users[name_last],
+			'L_DATA_ID' => $daten_users[id],
+			'L_DATA_SELECTED' => 'selected="selected"'));
+      }
+     elseif($daten_users[username]!="admin")
+      {
+       $template->assign_block_vars('insert_without_addr.select_users',array(
+       			'L_DATA_NAME' => $daten_users[name_first]." ".$daten_users[name_last],
+			'L_DATA_ID' => $daten_users[id]));
+      }
+    }
+  $result_addr=$zugriff_mysql->sql_abfrage("SELECT id,vorname,nachname,tele1,handy FROM adressbuch ORDER BY nachname");
+  while($daten_addr=mysql_fetch_assoc($result_addr))
+   {
+    $template->assign_block_vars('insert_without_addr.tab1',array(
+  		'DATA_ADDR_ID' => $daten_addr[id],
+		'DATA_ADDR_NAME' => $daten_addr[vorname]." ".$daten_addr[nachname]));
+   }  
+
+  }//END insert_without_addr
 
  
-/* if ($_GET[no] == "yes")
-  {
-   $anzeige="<input type=\"hidden\" name=\"datumno\" value=\"yes\"/>";
-  } 
- $addname= base64_decode($_GET[addname]);
- $uhrzeit=base64_decode($_GET[zuhrzeit]);
- $datum=base64_decode($_GET[zdatum]);
- $template->assign_block_vars('add_new_entry',array(
- 	'L_TITLE_NEW' => 'Neuer Eintrag',
-	'L_NAME' => $text[name1],
-	'DATA_ADD_NAME' => $addname,
-	'DATA_ADD_TIME' => $uhrzeit,
-	'DATA_ADD_DATE' => $datum,
-	'L_NUMBER' => $text[rufnummer],
-	'DATA_NUMBER' => $_GET[addrufnummer],
-	'L_CALL_BACK_TIME' => $text[zurueck_zeit],
-	'L_REASON' => $text[grund],
-	'L_VIEW' => $anzeige,
-	'L_SAVE_DATA' => $text[speichern]));
- */
+
  $zugriff_mysql->close_mysql();
  }
 

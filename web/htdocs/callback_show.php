@@ -46,6 +46,10 @@ if ($daten==false)
      {
       $number=$daten[handy];
      }
+   elseif ($daten[addr_id]==-1)
+     {
+      $number=$daten[number];
+     }
     else
      {
       $number=$daten[tele1];
@@ -66,7 +70,14 @@ if ($daten==false)
 	break;
      
      }; 
-
+  if ($daten[addr_id]==-1)
+   {
+    $full_name=$daten[full_name];
+   }
+  else
+   {
+   $full_name="<a href=\"./addressbook.php?id=$daten[addr_id]#find\">$daten[vorname] $daten[nachname]</a>";
+   }
 
 $template->assign_vars(array('L_SITE_TITLE' =>$text[detail]." ".$text[zurueckrufen]));
 
@@ -76,8 +87,7 @@ $template->assign_block_vars('tab1',array(
 	'DATA_CALLBACK_TIME' => $callback_time,
 	'DATA_DATE' => mysql_datum($daten[en_date]),
 	'L_NAME' =>  'Name',
-	'DATA_NAME' => $daten[vorname]. " ".$daten[nachname],
-	'DATA_ADDR_ID' => $daten[addr_id],
+	'DATA_NAME' => $full_name,
 	'L_TIME' => $text[uhrzeit],
 	'DATA_TIME' => $daten[en_time],
 	'L_NUMBER' => $text[rufnummer],

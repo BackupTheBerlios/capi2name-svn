@@ -16,7 +16,7 @@
   <td>{tab1.DATA_DATE}</td>
   <td style="width:100px;"></td>
   <td style="font-weight:bold;">{tab1.L_NAME}:</td>
-  <td><a href="./addressbook.php?id={tab1.DATA_ADDR_ID}#find">{tab1.DATA_NAME}</a></td>
+  <td>{tab1.DATA_NAME}</td>
  </tr>
  <tr>
   <td style="height:30px;font-weight:bold;">{tab1.L_TIME}:</td>

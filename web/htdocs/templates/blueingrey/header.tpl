@@ -4,6 +4,31 @@
   <title>{CAPI2NAME_PAGE_TITLE}</title>
   <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-15"/> 
   <link rel="stylesheet" type="text/css" href="templates/blueingrey/css.css"/>
+  <script>
+   function addValue(form,forma)
+   {
+    var value = prompt("Please enter the new option");
+    var select = eval('document.' + form);
+    var number = eval('document.'+forma);
+    if (value == "")
+    {
+        alert("You must specify a value");
+        return false;
+    }
+    if (value != null)
+    {
+        var newOpt = new Option(value, value);
+        select.options[select.length] = newOpt;
+        select.options.selectedIndex = select.length-1;
+	number.disabled=false;
+    }
+  }
+  function enableNUMBER(form)
+   {
+    var number =eval('document.'+form);
+    number.disabled=true;
+   }
+</script>
   
 </head>
 <body>

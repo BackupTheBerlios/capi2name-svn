@@ -79,6 +79,11 @@ if (!$result)
    {
     echo "<div class=\"rot_mittig\">Updating show type in database failed!!</div>";
    }
+$result=$zugriff_mysql->sql_abfrage("UPDATE users SET template='$_POST[template]' WHERE id='$_POST[id]'");
+if (!$result) 
+   {
+    echo "<div class=\"rot_mittig\">Updating template in database failed!!</div>";
+   }
 $result=$zugriff_mysql->sql_abfrage("UPDATE users SET allow_delete='$_POST[allow_delete]' WHERE id='$_POST[id]'");
 if (!$result) 
    {
@@ -111,6 +116,15 @@ if ($daten[show_prefix]==0) $option[show_prefix]="selected";
 if ($daten[show_msn]==0) $option[show_msn]="selected";
 if ($daten[show_type]==0) $option[show_type]="selected";
 if ($daten[allow_delete]==0) $option[allow_delete]="selected";
+$dir= "../templates/";
+$dh=opendir($dir);
+ while (false!== ($filename=readdir($dh)))
+ {
+  if ($filename!="." AND $filename!=".." AND $filename!="index.html")
+   {
+    $files[] =$filename;
+   }
+ }
 ?>
 <form action="user_edit.php" method="POST">
 <table border="0" style="margin-right:auto;margin-left:auto;">
@@ -199,6 +213,29 @@ if ($daten[allow_delete]==0) $option[allow_delete]="selected";
      <td style="text-align:right;"><select name="allow_delete">
      <option value="1">Yes</option>
      <option <?=$option[allow_delete]?> value="0">No</option></select></td>
+   </tr>
+   <tr>
+    <td style="text-align:left;">
+    <span style="font-weight:bold;">[<a href="./doc.html#13" onClick="showDoc()" target="showDoc">i</a>]</span>&nbsp;template:</td>
+    <td style="width:5px;"></td>
+    <td style="text-align:right;">
+    <select name="template">
+    <?
+    foreach ($files as $dirs)  
+    {     
+    if ($dirs==$daten[template])
+      {
+       
+	echo "<option selected=\"selected\" value=\"$daten[template]\">$daten[template]</option>";
+      }
+    else
+      {
+       echo "<option value=\"$dirs\">$dirs</option>";
+      }
+    }
+    ?>
+    </select>
+    </td>
    </tr>
    <tr>
       <td style="text-align:left;"><span style="font-weight:bold;">[<a href="./doc.html#12" onClick="showDoc()" target="showDoc">i</a>]</span>&nbsp;new password:</td>

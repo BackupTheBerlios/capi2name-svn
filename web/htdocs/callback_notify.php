@@ -1,4 +1,17 @@
 <?
+/*
+    copyright            : (C) 2002-2005 by Jonas Genannt
+    email                : jonasge@gmx.net
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   any later version.                                                    *
+ *                                                                         *
+ ***************************************************************************/
 include("./includes/conf.inc.php");
 include("./includes/functions.php");
 include("./includes/template.php");
@@ -16,6 +29,10 @@ if ($_SESSION['show_callback_notify'])
     if ($daten_callback[tele1]=="99")
      {
       $number=$daten_callback[handy];
+     }
+   elseif ($daten_callback[addr_id]==-1)
+     {
+      $number=$daten_callback[number];
      }
     else
      {
@@ -36,9 +53,17 @@ if ($_SESSION['show_callback_notify'])
       	$callback_time="Abends";
 	break;
      
-     };
+  };
+   if ($daten_callback[addr_id]==-1)
+   {
+    $full_name=$daten_callback[full_name];
+   }
+  else
+   {
+   $full_name="$daten_callback[vorname] $daten_callback[nachname]";
+   }
     $template->assign_block_vars('tab1',array(
-    		'L_DATA_NAME' => $daten_callback[vorname]." ".$daten_callback[nachname],
+    		'L_DATA_NAME' => $full_name,
 		'L_DATA_NUMBER' => $number,
 		'L_DATA_CREATED_ON' => $daten_callback[en_time]." / ". mysql_datum($daten_callback[en_date]),
 		'L_DATA_CALLBACK_TIME' => $callback_time,

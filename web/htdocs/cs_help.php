@@ -1,6 +1,6 @@
 <?php
 /*
-    copyright            : (C) 2002-2004 by Jonas Genannt
+    copyright            : (C) 2002-2005 by Jonas Genannt
     email                : jonasge@gmx.net
  ***************************************************************************/
 
@@ -13,12 +13,9 @@
  *                                                                         *
  ***************************************************************************/
  // 	editor: Kai Römer 
-
-?>
-<?php
-	$seite=base64_encode("cs_help.php");
-	include("./login_check.inc.php");
-	include("./header.inc.php");
+$seite=base64_encode("cs_help.php");
+include("./login_check.inc.php");
+include("./header.inc.php");
 	
 ?>
 <?php echo "<div class=\"ueberschrift_seite\">CapiSuite Hilfe</div>"; ?>
