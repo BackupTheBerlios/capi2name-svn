@@ -38,7 +38,7 @@ CREATE TABLE `capi_version` (
 ) TYPE=MyISAM AUTO_INCREMENT=2 ;
 
 
-INSERT INTO `capi_version` VALUES (1, '0.6.7.2');
+INSERT INTO `capi_version` VALUES (1, '0.6.7.5');
 
 
 CREATE TABLE `farben` (
