@@ -29,11 +29,99 @@ $template->set_filenames(array('overall_body' => './templates/'.$userconfig['tem
 $template->assign_vars(array('L_TITLE_OF_CONFIG_PAGE' => $textdata[configpage_konfiguration]));
 
 // Einstellungen speichern ANFANG
-if ($_POST[speichern])
+if ($_POST[save_data])
 {
- $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] ); 
- 
+$array=array(show_callback,show_prefix,show_msn,show_type);
+for ($i=0;$i<=3;$i++)
+ {
+  if ($_POST[$array[$i]]=="on")
+   {
+    $_POST[$array[$i]]=1;
+   }
+ }
+$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+if (!empty($_POST[old_passwd]))
+ {
+  $result_users=$zugriff_mysql->sql_abfrage("SELECT passwd,id FROM users WHERE id='$_POST[id]'");
+  $daten_users=mysql_fetch_assoc($result_users);
+  if ($daten_users[passwd]==(md5($_POST[old_passwd])))
+   {
+    if ($_POST[password1]==$_POST[password2] && !empty($_POST[password1]))
+     {
+      $passwd=md5($_POST[password1]);
+      $result=$zugriff_mysql->sql_abfrage("UPDATE users SET passwd='$passwd' WHERE id='$_POST[id]'");
+      if (!$result) 
+       {
+        echo "<div class=\"rot_mittig\">Updating passwd in database failed!!</div>";
+       }
+     }
+     else
+     {
+      echo "<div class=\"rot_mittig\">The new passwords are not the same or empty new password field</div>";
+     }
+   }
+   else
+   {
+   echo "<div class=\"rot_mittig\">Old Password is not the same like in the Database</div>";
+   }
+ }
+$result_config=$zugriff_mysql->sql_abfrage("SELECT * FROM config WHERE conf='template'"); 
+$daten_config=mysql_fetch_assoc($result_config);
+if ($daten_config[value]==NULL)
+ {
+  $result=$zugriff_mysql->sql_abfrage("UPDATE users SET template='$_POST[template]' WHERE id='$_POST[id]'");
+if (!$result) 
+   {
+    echo "<div class=\"rot_mittig\">Updating template in database failed!!</div>";
+   }
+ } 
+$result=$zugriff_mysql->sql_abfrage("UPDATE users SET name_first='$_POST[name_first]' WHERE id='$_POST[id]'");
+if (!$result) 
+   {
+    echo "<div class=\"rot_mittig\">Updating first name in database failed!!</div>";
+   }
+$result=$zugriff_mysql->sql_abfrage("UPDATE users SET name_last='$_POST[name_last]' WHERE id='$_POST[id]'");
+if (!result) 
+   {
+    echo "<div class=\"rot_mittig\">Updating last name in database failed!!</div>";
+   }
+$result=$zugriff_mysql->sql_abfrage("UPDATE users SET show_callback='$_POST[show_callback]' WHERE id='$_POST[id]'");
+if (!result) 
+   {
+    echo "<div class=\"rot_mittig\">Updating show callback in database failed!!</div>";
+   }
+$result=$zugriff_mysql->sql_abfrage("UPDATE users SET msn_listen='$_POST[msn_listen]' WHERE id='$_POST[id]'");
+if (!result) 
+   {
+    echo "<div class=\"rot_mittig\">Updating msn listen in database failed!!</div>";
+   }
+$result=$zugriff_mysql->sql_abfrage("UPDATE users SET show_lines='$_POST[show_lines]' WHERE id='$_POST[id]'");
+if (!result) 
+   {
+    echo "<div class=\"rot_mittig\">Updating show lines in database failed!!</div>";
+   }
+$result=$zugriff_mysql->sql_abfrage("UPDATE users SET show_prefix='$_POST[show_prefix]' WHERE id='$_POST[id]'");
+if (!result) 
+   {
+    echo "<div class=\"rot_mittig\">Updating show prefix in database failed!!</div>";
+   }
+$result=$zugriff_mysql->sql_abfrage("UPDATE users SET show_msn='$_POST[show_msn]' WHERE id='$_POST[id]'");
+if (!result) 
+   {
+    echo "<div class=\"rot_mittig\">Updating show msn in database failed!!</div>";
+   }
+$result=$zugriff_mysql->sql_abfrage("UPDATE users SET show_type='$_POST[show_type]' WHERE id='$_POST[id]'");
+if (!result) 
+   {
+    echo "<div class=\"rot_mittig\">Updating show type in database failed!!</div>";
+   }
+$result=$zugriff_mysql->sql_abfrage("UPDATE users SET allow_delete='$_POST[allow_delete]' WHERE id='$_POST[id]'");
+if (!result) 
+   {
+    echo "<div class=\"rot_mittig\">Updating allow delete in database failed!!</div>";
+   }
 $zugriff_mysql->close_mysql();
+echo "<div class=\"blau_mittig\">data saved to database...</div>";
 }// Einstellungen speichern ENDE
 
 

@@ -32,7 +32,6 @@ echo "<div class=\"ueberschrift_seite\">Change settings for user $username with 
 //------------------- Daten in DB schreiben: ---------------------------------
 if (isset($_POST[edit]))
  {
-$passwd=md5($_POST[passwd]); 
 //UPDATE userliste SET showrueckruf='$wert' WHERE id=".$_POST[id]
 $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 $result=$zugriff_mysql->sql_abfrage("UPDATE users SET name_first='$_POST[first_name]' WHERE id='$_POST[id]'");
@@ -85,11 +84,16 @@ if (!result)
    {
     echo "<div class=\"rot_mittig\">Updating allow delete in database failed!!</div>";
    }
+if (!empty($_POST[passwd]))
+{
+$passwd=md5($_POST[passwd]);
 $result=$zugriff_mysql->sql_abfrage("UPDATE users SET passwd='$passwd' WHERE id='$_POST[id]'");
+
 if (!result) 
    {
     echo "<div class=\"rot_mittig\">Updating passwd in database failed!!</div>";
    }
+}
 $zugriff_mysql->close_mysql();
 echo "<div class=\"blau_mittig\">data saved to database...</div>";
  }
