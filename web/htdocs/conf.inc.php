@@ -16,7 +16,7 @@ $config['domain']           = "www.mein-lokal.de";
 $config['capi2name_status'] = "yes";
 $config['capisuite']        = "no";
 $config['language']         = "de";
-
+include("./templates/blueingrey/config.php");
 
 
 /******************************************************************************************************

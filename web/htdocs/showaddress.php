@@ -1,6 +1,6 @@
 <?php
 /*
-    copyright            : (C) 2002-2004 by Jonas Genannt
+    copyright            : (C) 2002-2005 by Jonas Genannt
     email                : jonasge@gmx.net
  ***************************************************************************/
 
@@ -17,95 +17,60 @@
 $seite=base64_encode("showaddress.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
-?>
-<? echo "<div class=\"ueberschrift_seite\">$textdata[showaddress_deteilansicht]</div>"; ?>
 
-<?php
+$template->set_filenames(array('overall_show_address' => 'templates/blueingrey/show_address.tpl'));
+$template->assign_vars(array('L_ADDRESS_BOOK_VIEW_ENTRY' => $textdata[showaddress_deteilansicht]));
+
 $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] ); 
 $result=$zugriff_mysql->sql_abfrage("SELECT * FROM adressbuch WHERE id='$_GET[show]'");
-$row=mysql_fetch_row($result);
+$data_addr=mysql_fetch_array($result);
 $zugriff_mysql->close_mysql();
 
-if ($row==false)
+if ($data_addr==false)
  {
-  echo "<div class=\"rot_mittig\">
-  $textdata[showaddress_eintrag_nicht] $_GET[show] $textdata[showaddress_admin_wenden]</div>";
+  $template->assign_block_vars('show_msg_entry_not_found', array());
+  $template->assign_vars(array('L_MSG_ENTRY_NOT_FOUND'=> $textdata[showaddress_eintrag_nicht] . $_GET[show] . $textdata[showaddress_admin_wenden]));
   
  }
 
-if ($row[7] == "99") { $row[7]="";}
-if ($row[8] == "99") { $row[8]="";}
-if ($row[9] == "99") { $row[9]="";}
-if ($row[10] == "99") { $row[10]="";}
-echo "
+if ($data_addr[tele1] == "99") { $data_addr[tele1]="";}
+if ($data_addr[tele2] == "99") { $data_addr[tele2]="";}
+if ($data_addr[tele3] == "99") { $data_addr[tele3]="";}
+if ($data_addr[handy] == "99") { $data_addr[handy]="";}
 
-<table border=\"0\"cellpadding=\"3\" style=\"margin-right:auto;margin-left:auto;text-align:left;\">
- <tr>
-  <td>$textdata[addadress_vorname]:</td>
-  <td style=\"width:12px;\"></td>
-  <td>$row[1]</td>
- </tr>
- <tr>
-  <td>$textdata[addadress_nachname]:</td>
-  <td style=\"width:12px;\"></td>
-  <td>$row[2]</td>
- </tr>
- <tr>
-  <td>$textdata[addadress_strasse]:</td>
-  <td style=\"width:12px;\"></td>
-  <td>$row[3]</td>
- </tr>
- <tr>
-  <td>$textdata[addadress_hausnummer]:</td>
-  <td style=\"width:12px;\"></td>
-  <td>$row[4]</td>
- </tr>
- <tr>
-  <td>$textdata[addadress_plz]:</td>
-  <td style=\"width:12px;\"></td>
-  <td>$row[5]</td>
- </tr>
- <tr>
-  <td>$textdata[addadress_ort]:</td>
-  <td style=\"width:12px;\"></td>
-  <td>$row[6]</td>
- </tr>
- <tr>
-  <td>$textdata[addadress_telefonnummer1]:</td>
-  <td style=\"width:12px;\"></td>
-  <td>$row[7]</td>
- </tr>
- <tr>
-  <td>$textdata[addadress_telefonnummer2]:</td>
-  <td style=\"width:12px;\"></td>
-  <td>$row[8]</td>
- </tr>
-  <tr>
-  <td>$textdata[addadress_telefonnummer3]:</td>
-  <td style=\"width:12px;\"></td>
-  <td>$row[9]</td>
- </tr>
- <tr>
-  <td>$textdata[addadress_handy]:</td>
-  <td style=\"width:12px;\"></td>
-  <td>$row[10]</td>
- </tr>
- <tr>
-  <td>$textdata[addadress_fax]:</td>
-  <td style=\"width:12px;\"></td>
-  <td>$row[11]</td>
- </tr>
- <tr>
-  <td>$textdata[addadress_email]:</td>
-  <td style=\"width:12px;\"></td>
-  <td>$row[12]</td>
- </tr>
-</table><br /><a href=\"./editadress.php?bearbeiten=$row[0]\">$textdata[adressbuch_eintrag_bearbeiten]</a>
+$template->assign_vars(array('L_FIRST_NAME' => $textdata[addadress_vorname]));
+$template->assign_vars(array('L_LAST_NAME' => $textdata[addadress_nachname]));
+$template->assign_vars(array('L_STREET' => $textdata[addadress_strasse]));
+$template->assign_vars(array('L_HOUSE_NUMBER' => $textdata[addadress_hausnummer]));
+$template->assign_vars(array('L_ZIP_CODE' => $textdata[addadress_plz]));
+$template->assign_vars(array('L_CITY' => $textdata[addadress_ort]));
+$template->assign_vars(array('L_TELE_1' => $textdata[addadress_telefonnummer1]));
+$template->assign_vars(array('L_TELE_2' => $textdata[addadress_telefonnummer2]));
+$template->assign_vars(array('L_TELE_3' => $textdata[addadress_telefonnummer3]));
+$template->assign_vars(array('L_CELL_PHONE' => $textdata[addadress_handy]));
+$template->assign_vars(array('L_FAX' => $textdata[addadress_fax]));
+$template->assign_vars(array('L_E_MAIL' => $textdata[addadress_email]));
+$template->assign_vars(array('L_EDIT_THIS_ENTRY' => $textdata[adressbuch_eintrag_bearbeiten]));
 
-";
-?>
+//Fill form the Database:
+$template->assign_vars(array('L_DB_ID_ENTRY' => $data_addr[id]));
+$template->assign_vars(array('L_DB_FIRST_NAME' => $data_addr[vorname])); 
+$template->assign_vars(array('L_DB_LAST_NAME' => $data_addr[nachname]));
+$template->assign_vars(array('L_DB_STREET' => $data_addr[strasse]));
+$template->assign_vars(array('L_DB_HOUSE_NUMBER' => $data_addr[hausnr]));
+$template->assign_vars(array('L_DB_ZIP_CODE' => $data_addr[plz]));
+$template->assign_vars(array('L_DB_CITY' => $data_addr[ort] ));
+$template->assign_vars(array('L_DB_TELE_1' => $data_addr[tele1]));
+$template->assign_vars(array('L_DB_TELE_2' => $data_addr[tele2]));
+$template->assign_vars(array('L_DB_TELE_3' => $data_addr[tele3]));
+$template->assign_vars(array('L_DB_CELL_PHONE' => $data_addr[handy]));
+$template->assign_vars(array('L_DB_FAX' => $data_addr[fax]));
+$template->assign_vars(array('L_DB_E_MAIL' => $data_addr[email]));
 
 
-<?php
+
+
+$template->pparse('overall_show_address');
+
 include("./footer.inc.php");
 ?>
