@@ -34,6 +34,7 @@ window.open("", "showDoc", "width=500,height=300,toolbar=0,status=0,scrollbars=1
 	<td bgcolor="#F1F1F1"><a href="./farben.php">Farben Anpassen</a></td>
 	<td bgcolor="#F1F1F1"><a href="./msn2name.php">MSN zu Name</a></td>
 	<td bgcolor="#F1F1F1"><a href="./adressbuch_bug.php">Adressbuch BUG</a></td>
+	<td bgcolor="#F1F1F1"><a href="./cs_install.php">CapiSuite Integrator</a></td>
   </tr>
  </table>
  </center>
