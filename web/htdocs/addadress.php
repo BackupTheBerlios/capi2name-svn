@@ -27,11 +27,12 @@ $template->assign_vars(array('L_NEW_ENTRY_TO_ADDR' => $textdata[addadress_neuer_
 // Eintrag eintragen.
 if (isset($_POST[eintragen]))
  {
-   if ($_POST[bvorname]=="" or $_POST[bnachname]=="")
+   if (empty($_POST[bvorname]) or empty($_POST[bnachname]))
      {
-     echo "<br /><span style=\"text-algin:center;color:red;\">$textdata[adddress_nicht_eingetragen]</span>
-     <br /><span style=\"text-algin:center;\">- 
-      <a href=\"javascript:history.back()\">$textdata[adddress_zurueck]</a> -</span>";
+      $template->assign_block_vars('show_error_msg_name_not_set', array());
+      $template->assign_vars(array('L_ADD_MSG_NAME_NOT_SET' => $textdata[adddress_nicht_eingetragen]));
+      $template->assign_vars(array('L_BACK' => $textdata[adddress_zurueck]));
+     $template->pparse('overall_body');
      include("footer.inc.php");
      exit();
      }
@@ -50,14 +51,15 @@ $zugriff_mysql->close_mysql();
 
 if($res_value)
  {
-  echo "
- <span style=\"text-algin:center;color:blue;\">$textdata[addadress_eintrag_aufgenommen_weiterleitung]</span>";
-  echo "<meta http-equiv=\"refresh\" content=\"2; URL=./adressbuch.php\">";
+  $template->assign_block_vars('show_success_msg_forward_msg', array());
+  $template->assign_vars(array('L_MSG_SUCCESS_FORWARD' => $textdata[addadress_eintrag_aufgenommen_weiterleitung]));
 
  }
 else
  {
-  echo "<span style=\"text-algin:center;color:red;\">Eintrag nicht aufgenommen - Fehler</span>";
+  $template->assign_block_vars('show_error_msg_add_entry', array());
+  $template->assign_vars(array('L_MSG_ERROR_ADD_ENTRY' => 'Eintrag nicht aufgenommen - Fehler'));
+  echo "";
  }
 
 
@@ -77,7 +79,9 @@ $template->assign_block_vars('tab',array(
 		'L_ADDR_CELL_PHONE' => $textdata[addadress_handy],
 		'L_ADDR_FAX' => $textdata[addadress_fax],
 		'L_ADDR_E_MAIL' => $textdata[addadress_email],
-		'L_ADDR_ADD_NEW_ENTRY' => $textdata[addadress_eintrag_aufnehmen]));
+		'L_ADDR_ADD_NEW_ENTRY' => $textdata[addadress_eintrag_aufnehmen],
+		'L_GET_RUFNR' => $_GET[rufnr],
+		'L_GET_HANDYNR' => $_GET[handy]));
  
 
 

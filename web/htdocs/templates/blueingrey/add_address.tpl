@@ -1,7 +1,24 @@
 <div class="ueberschrift_seite">{L_NEW_ENTRY_TO_ADDR}</div>
 <br />
 
-<form action="$SELF_PHP" method="post" >
+<form action="addadress.php" method="post" >
+
+<!-- BEGIN show_error_msg_name_not_set -->
+<br />
+<span style="text-algin:center;color:red;">{L_ADD_MSG_NAME_NOT_SET}</span>
+<br /><span style="text-algin:center;">- 
+<a href="javascript:history.back()">{L_BACK}</a> -</span>
+<!-- END show_error_msg_name_not_set -->
+
+<!-- BEGIN show_success_msg_forward_msg -->
+<span style="text-algin:center;color:blue;">{L_MSG_SUCCESS_FORWARD}</span>
+<meta http-equiv="refresh" content="2; URL=./adressbuch.php">
+<!-- END show_success_msg_forward_msg -->
+
+<!-- BEGIN show_error_msg_add_entry -->
+<span style="text-algin:center;color:red;">{L_MSG_ERROR_ADD_ENTRY}</span>
+<!-- END show_error_msg_add_entry -->
+
 <table border="0" cellpadding="3" style="margin-right:auto;margin-left:auto;">
 <!-- BEGIN tab -->
  <tr>
@@ -37,7 +54,7 @@
  <tr>
   <td>{tab.L_ADDR_TELE_1}:</td>
   <td style="12px;"></td>
-  <td><input name="btele1" type="text" value="$_GET[rufnr]"/></td>
+  <td><input name="btele1" type="text" value="{tab.L_GET_RUFNR}"/></td>
  </tr>
  <tr>
   <td>{tab.L_ADDR_TELE_2}:</td>
@@ -52,9 +69,9 @@
  <tr>
   <td>{tab.L_ADDR_CELL_PHONE}:</td>
   <td style="12px;"></td>
-  <td><input name="bhandy" type="text" value="$_GET[handy]"/></td>
+  <td><input name="bhandy" type="text" value="{tab.L_GET_HANDYNR}"/></td>
  </tr>
-  <tr>
+ <tr>
   <td>{tab.L_ADDR_FAX}:</td>
   <td style="12px;"></td>
   <td><input name="bfax" type="text"/></td>

@@ -22,7 +22,7 @@
 -->
 <?php
 include("./templates/template.php");
-include("./".$config['language'].".inc.php");
+include("./language/".$config['language'].".inc.php");
 $template = new Template("./templates/blueingey/");
 $template->set_filenames(array('overall_header' => 'templates/blueingrey/header.tpl'));
 
