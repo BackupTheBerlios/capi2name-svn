@@ -48,7 +48,7 @@ $seite=base64_encode("configpage.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
 
-$template->set_filenames(array('overall_body' => './templates/blueingrey/configpage.tpl'));
+$template->set_filenames(array('overall_body' => './templates/'.$userconfig['template'].'/configpage.tpl'));
 $template->assign_vars(array('L_TITLE_OF_CONFIG_PAGE' => $textdata[configpage_konfiguration]));
 
 //ob er die Page anschauen darf:

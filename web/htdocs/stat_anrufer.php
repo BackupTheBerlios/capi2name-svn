@@ -24,7 +24,7 @@ $data_adressbuch=mysql_fetch_array($result_adressbuch);
 $zugriff_mysql->close_mysql();
 
 
-$template->set_filenames(array('overall_body' => 'templates/blueingrey/stat_anrufer.tpl'));
+$template->set_filenames(array('overall_body' => 'templates/'.$userconfig['template'].'/stat_anrufer.tpl'));
 $template->assign_vars(array(
 		'L_SITE_TITLE'  => $textdata[stat_anrufer_ueberschrift]." ".$data_adressbuch[vorname]." ".$data_adressbuch[nachname]));
 

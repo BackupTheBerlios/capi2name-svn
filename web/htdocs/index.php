@@ -16,7 +16,7 @@ $seite=base64_encode("index.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
 
-$template->set_filenames(array('overall_body' => 'templates/blueingrey/index.tpl'));
+$template->set_filenames(array('overall_body' => 'templates/'.$userconfig['template'].'/index.tpl'));
 $template->assign_vars(array(
 	'L_WELCOME_TO_INDEX' => $textdata[index_willkommen],
 	'L_INDEX_TO' => $textdata[index_zu],

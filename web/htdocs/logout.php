@@ -18,9 +18,9 @@ setcookie("ck_username","", time()-172800000 );
 setcookie("ck_passwd","", time()-172800000 );  
 setcookie("ck_realname","", time()-172800000 );
   
-include("./templates/template.php");
-$template = new Template("./templates/blueingey/");
-$template->set_filenames(array('overall_body' => 'templates/blueingrey/logout.tpl'));
+include("./includes/template.php");
+$template = new Template("./templates/".$userconfig['template']);
+$template->set_filenames(array('overall_body' => 'templates/'.$userconfig['template'].'/logout.tpl'));
 $template->assign_vars(array('L_LOGOUT' => 'Ausgeloggt'));
 $template->pparse('overall_body');
 ?>

@@ -64,7 +64,7 @@ else
   $anz_title=$textdata[header_inc_anrufstatistik];
   }
 
-$template->set_filenames(array('overall_body' => './templates/blueingrey/show_call_stat.tpl'));
+$template->set_filenames(array('overall_body' => './templates/'.$userconfig['template'].'/show_call_stat.tpl'));
 $template->assign_vars(array('L_CALL_STAT_TITLE' => $anz_title));
 
 

@@ -12,8 +12,6 @@
  *   any later version.                                   *
  *                                                                         *
  ***************************************************************************/
- ?>
-<?
 include("./check_it.php");
 include("./header.inc.php");
 ?>
@@ -28,13 +26,13 @@ if ($_POST[passwd1]==$_POST[passwd2])
 {
 echo "<center><font color=\"red\">Neue Passwörter gleich!<br></center></font>";
  $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
- $result = mysql_query("SELECT username, passwd FROM userliste WHERE id=1");
+ $result = mysql_query("SELECT username, passwd FROM users WHERE id=1");
  $daten = mysql_fetch_array($result);
   if (md5($_POST[altespasswd]) == $daten[passwd])
    {
     $verschluesselt=md5($_POST[passwd2]);
     echo "<center><font color=\"red\">Altes Passwd OK !<br></center></font>";
-     $result = mysql_query("UPDATE userliste SET passwd='$verschluesselt' WHERE id=1");
+     $result = mysql_query("UPDATE users SET passwd='$verschluesselt' WHERE id=1");
      if ($result ==1)
       {
       echo "<center><font color=\"red\"><b>Passwort erfolgreich geändert.<br></center></font></b>";
@@ -52,10 +50,6 @@ echo "<center><font color=\"red\"><b>Neue Passwörter nicht gleich!!</center></fo
 }
 } //isset
 ?>
-
-
-
-
 <form action="<? $PHP_SELF ?>" method="post">
 <table border="0" style="margin-right:auto;margin-left:auto;">
  <tr>

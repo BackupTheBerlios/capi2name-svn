@@ -59,11 +59,6 @@ $zugriff_mysql->close_mysql();
 
 ?>
 </table>
-
-
-
-
-
 <?
 include("footer.inc.php");
 ?>

@@ -26,7 +26,7 @@ for ($e=1;$e<=6;$e++)
  $datum[$e]=date("d.m.Y",$tstamp);
  $tag[$e]=date("D",$tstamp );
  }
-$template->set_filenames(array('overall_body' => './templates/blueingrey/show_call_stat7.tpl'));
+$template->set_filenames(array('overall_body' => './templates/'.$userconfig['template'].'/show_call_stat7.tpl'));
 $template->assign_vars(array('L_SITE_TITLE' => $textdata[days7_7tage_uebersicht]));
 
 

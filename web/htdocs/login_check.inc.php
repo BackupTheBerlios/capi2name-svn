@@ -28,19 +28,19 @@ if ($_COOKIE['ck_username']!="" && $_COOKIE['ck_passwd']!="" && $_COOKIE['ck_rea
 
 
 $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-$result_userlist=$zugriff_mysql->sql_abfrage("SELECT * FROM userliste WHERE username='$username'");
+$result_userlist=$zugriff_mysql->sql_abfrage("SELECT * FROM users WHERE username='$username'");
 
  if ($result_userlist && $username!="" && $password!="")
   {
-  $row_userlist=mysql_fetch_array($result_userlist);
+  $row_userlist=mysql_fetch_assoc($result_userlist);
     if ($password==$row_userlist['passwd'])
     {
     // echo "PASSWD Richtig...";
      $login_ok=1;
      //Usersettings auslesen und in $userconfig[] schreiben...
-     $userconfig['anzahl']=$row_userlist['anzahl'];
-     $userconfig['msns']=$row_userlist['msns'];
-     if ($row_userlist['showrueckruf']=="checked")
+     $userconfig['anzahl']=$row_userlist['show_lines'];
+     $userconfig['msns']=$row_userlist['msn_listen'];
+     if ($row_userlist['show_callback'])
       {
        $userconfig['showrueckruf']=true;
       }
@@ -48,15 +48,7 @@ $result_userlist=$zugriff_mysql->sql_abfrage("SELECT * FROM userliste WHERE user
       {
        $userconfig['showrueckruf']=false;
       }
-     if ($row_userlist['shownotiz']=="checked" ) 
-      {
-       $userconfig['shownotiz']=true;
-      }
-     else
-      {
-       $userconfig['shownotiz']=false;
-      }
-     if ($row_userlist['showvorwahl']=="checked")
+     if ($row_userlist['show_prefix'])
       {
        $userconfig['showvorwahl']=true;
       }
@@ -64,7 +56,7 @@ $result_userlist=$zugriff_mysql->sql_abfrage("SELECT * FROM userliste WHERE user
       {
        $userconfig['showvorwahl']=false;
       }
-     if ($row_userlist['showmsn']=="checked")
+     if ($row_userlist['show_msn'])
       {
        $userconfig['showmsn']=true;
       }
@@ -72,7 +64,7 @@ $result_userlist=$zugriff_mysql->sql_abfrage("SELECT * FROM userliste WHERE user
       {
        $userconfig['showmsn']=false;
       }
-     if ($row_userlist['showconfig']=="checked")
+     if ($row_userlist['show_config'])
       {
        $userconfig['showconfig']=true;
       }
@@ -80,7 +72,7 @@ $result_userlist=$zugriff_mysql->sql_abfrage("SELECT * FROM userliste WHERE user
       {
        $userconfig['showconfig']=false;
       }
-     if ($row_userlist['showtyp']=="checked")
+     if ($row_userlist['show_type'])
       {
        $userconfig['showtyp']=true;
       }
@@ -88,7 +80,7 @@ $result_userlist=$zugriff_mysql->sql_abfrage("SELECT * FROM userliste WHERE user
       {
        $userconfig['showtyp']=false;
       }
-     if ($row_userlist['loeschen']=="checked")
+     if ($row_userlist['allow_delete'])
       {
        $userconfig['loeschen']=true;
       }
@@ -96,12 +88,23 @@ $result_userlist=$zugriff_mysql->sql_abfrage("SELECT * FROM userliste WHERE user
       {
        $userconfig['loeschen']=false;
       }
+      //template suchen und schauen wegen global oder nicht ;)
+      $result_config=$zugriff_mysql->sql_abfrage("SELECT * FROM config WHERE conf='template'");
+      $daten_config=mysql_fetch_assoc($result_config);
+      if ($daten_config[value]=="NO")
+        {
+	 $userconfig['template']=$row_userlist[template];
+	}
+      else
+        {
+	 $userconfig['template']=$daten_config[value];
+	}
       //update lastlogin_d and lastlogin_t
       //UPDATE capi_version SET version='0.6.7.2' WHERE id='1'
-      $datum=mysql_fetch_assoc($zugriff_mysql->sql_abfrage("SELECT lastlogin_d FROM userliste WHERE username='$username'"));
+      $datum=mysql_fetch_assoc($zugriff_mysql->sql_abfrage("SELECT lastlogin_d FROM users WHERE username='$username'"));
      if ($datum[lastlogin_d]!=date("Y-m-d"))
        {
-      $zugriff_mysql->sql_abfrage("UPDATE userliste SET lastlogin_t=NOW(),lastlogin_d=NOW() WHERE username='$username'");
+      $zugriff_mysql->sql_abfrage("UPDATE users SET lastlogin_t=NOW(),lastlogin_d=NOW() WHERE username='$username'");
        }
     }//if passwd OK
    else
@@ -123,7 +126,7 @@ $zugriff_mysql->close_mysql();
 if ($login_ok == 0)
  {
 include("./header.inc.php");
-$template->set_filenames(array('overall_body' => 'templates/blueingrey/login_site.tpl'));
+$template->set_filenames(array('overall_body' => 'templates/'.$userconfig['template'].'/login_site.tpl'));
 $template->assign_vars(array(
 	'L_USERNAME' => $text[username],
 	'L_PASSWD' => $text[passwd],

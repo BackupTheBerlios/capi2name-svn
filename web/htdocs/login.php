@@ -16,17 +16,17 @@ include("./includes/conf.inc.php");
 include("./includes/functions.php");
 session_start(); 
 include("./header.inc.php");
-$template->set_filenames(array('overall_body' => 'templates/blueingrey/login.tpl'));
+$template->set_filenames(array('overall_body' => 'templates/'.$userconfig['template'].'/login.tpl'));
 $loginok=0;
 
 if (isset($_POST['absenden']))
 {
 
 $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-$result_userlist=$zugriff_mysql->sql_abfrage("SELECT id,username,passwd,name FROM userliste WHERE username='".$_POST['login_name']."'");
+$result_userlist=$zugriff_mysql->sql_abfrage("SELECT id,username,passwd,name_first,name_last FROM users WHERE username='".$_POST['login_name']."'");
  if ($result_userlist && $_POST['login_name']!="" && $_POST['login_passwd']!="")
   {
-  $row_userlist=mysql_fetch_array($result_userlist);
+  $row_userlist=mysql_fetch_assoc($result_userlist);
     if (md5($_POST['login_passwd'])==$row_userlist['passwd'])
     {
      $seite=base64_decode($_POST['seite']);
@@ -34,7 +34,7 @@ $result_userlist=$zugriff_mysql->sql_abfrage("SELECT id,username,passwd,name FRO
       {
        $_SESSION['remember_login']=true;
       }
-     $_SESSION['realname']=$row_userlist['name'];
+     $_SESSION['realname']=$row_userlist['name_first']." ".$row_userlist['name_last'];
      $_SESSION['username']=$_POST['login_name'];
      $_SESSION['password']=$row_userlist['passwd'];
      $loginok=1;

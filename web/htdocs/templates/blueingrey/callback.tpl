@@ -4,6 +4,19 @@
 
 <div class="ueberschrift_seite">{L_SITE_TITLE}</div>
 
+
+<!-- BEGIN no_name_set -->
+<br/>
+<div class="rot_mittig">{L_MSG_NO_NAME}</div>
+<br/>
+<!-- END no_name_set -->
+<!-- BEGIN no_number_set -->
+<br/>
+<div class="rot_mittig">{L_MSG_NO_NUMBER}</div>
+<br/>
+<!-- END no_number_set -->
+
+
 <!-- BEGIN tab1 -->
 <table border="0" style="margin-right:auto;margin-left:auto;text-align:left;">
  <tr>

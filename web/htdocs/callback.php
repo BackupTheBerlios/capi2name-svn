@@ -19,7 +19,7 @@ else { $seite=base64_encode("zurueckruf.php"); }
 include("./login_check.inc.php");
 include("./header.inc.php");
 
-$template->set_filenames(array('overall_body' => 'templates/blueingrey/callback.tpl'));
+$template->set_filenames(array('overall_body' => 'templates/'.$userconfig['template'].'/callback.tpl'));
 
 
 
@@ -44,19 +44,31 @@ if(isset($_GET[loeschen]))
 if(isset($_POST[eintragen]))
  {
  if (!$_POST[addname]) 
- 	{echo "<br/><div class=\"rot_mittig\">Bitte Name eingeben.</div><br/>"; die(); }
+   {
+    $template->assign_block_vars('no_name_set',array(
+    		'L_MSG_NO_NAME' => 'Bitte Name eingeben.'));
+    $template->pparse('overall_body');
+    include("footer.inc.php");
+    die();
+   }
  if (!$_POST[addrufnummer])
- 	 {echo "<br/><div class=\"rot_mittig\">Bitte Rufnummer eingeben.</div><br/>"; die(); }
-if ($_POST[datumno]=="yes")
- {
- $adddatum = date("d.m.Y");
- $addzeit= date("G:i:s");
-}
-else
-{
-$adddatum = $_POST[adddatum];
-$addzeit= $_POST[addzeit];
-}
+   {
+    $template->assign_block_vars('no_number_set',array(
+    		'L_MSG_NO_NUMBER' => 'Bitte Rufnummer eingeben.'));
+    $template->pparse('overall_body');
+    include("footer.inc.php");
+    die();
+   }
+ if ($_POST[datumno]=="yes")
+   {
+    $adddatum = date("d.m.Y");
+    $addzeit= date("G:i:s");
+   } 
+ else
+   {
+    $adddatum = $_POST[adddatum];
+    $addzeit= $_POST[addzeit]; 
+   }
  $grund =  strip_tags($_POST[grund]);
  $grund =  nl2br($grund);
  $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
@@ -86,9 +98,6 @@ while($daten=mysql_fetch_assoc($result))
 	'DATA_DATE' => $daten[datum],
 	'DATA_CALL_BACK_TIME' => $daten[rueckzeit]));
  }
-
-  
- 
 $zugriff_mysql->close_mysql();
 
 if ($_GET[add]== "yes")

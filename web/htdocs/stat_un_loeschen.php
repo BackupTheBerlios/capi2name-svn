@@ -16,9 +16,7 @@ $seite=base64_encode("stat_un_loeschen.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
  
-$template->set_filenames(array('overall_body' => 'templates/blueingrey/stat_un_loeschen.tpl')); 
-$template->assign_vars(array('SITE_TITLE' => 'Einträge mit unbekant aus Datenbank löschen'));
-
+$template->set_filenames(array('overall_body' => 'templates/'.$userconfig['template'].'/stat_un_loeschen.tpl')); 
 //ob er die Page anschauen darf:
 if (!$userconfig['loeschen'])
  {
@@ -27,16 +25,17 @@ if (!$userconfig['loeschen'])
   include("./footer.inc.php");
   die();
  }
-
+$template->assign_vars(array('SITE_TITLE' => 'Einträge mit unbekant aus Datenbank löschen'));
   
 //abfrage:
 if (isset($_POST[absenden]))
 {
 $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
- if ($_POST[alle_unbekannten]=="on") //loesche alle unbekannten Eintraege
+ if ($_POST[alle_unbekannten]=="on") 
+ //loesche alle unbekannten Eintraege
   {
    $result_loeschen=$zugriff_mysql->sql_abfrage("DELETE FROM angerufene WHERE rufnummer='unbekannt'");
-   if ($result_loeschen==true)
+   if ($result_loeschen)
     { 
      $template->assign_block_vars('delete_ok',array(
      		'L_MSG_DELTE_OK' => 'Löschen erflogreich....'));
@@ -48,44 +47,54 @@ $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql[
     }
     
   }
- else if ($_POST[nur_ruf_unbekannten]=="on") //loesche alle unbekannten Eintraege und lasse die eintraege mit namen
+ else if ($_POST[nur_ruf_unbekannten]=="on") 
+ //loesche alle unbekannten Eintraege und lasse die eintraege mit namen
   {
    $result_loeschen=$zugriff_mysql->sql_abfrage("DELETE FROM angerufene WHERE rufnummer='unbekannt' AND name='unbekannt'");
-   if ($result_loeschen) { echo "<div class=\"blau_mittig\">Löschen erflogreich....</div>"; }
-   else { echo "<div class=\"rot_mittig\">Löschen fehlgeschlagen...</div>"; }
+   if ($result_loeschen)
+    { 
+     $template->assign_block_vars('delete_ok',array(
+     		'L_MSG_DELTE_OK' => 'Löschen erflogreich....'));
+    }
+   else 
+    {
+      $template->assign_block_vars('delete_failed',array(
+      		'L_MSG_DELETE_FAILED' => 'Löschen fehlgeschlagen...'));
+    }
     
   }
   else
   {
    $sqlabfrage="DELETE FROM angerufene WHERE";
-   $result=$zugriff_mysql->sql_abfrage("SELECT * FROM angerufene WHERE rufnummer='unbekannt'");
-   $anzahl=mysql_num_rows($result);
-   $id_letzer=mysql_result($result, $anzahl-1, "id");
-   $id_erster=mysql_result($result, "0", "id");
+   $result=$zugriff_mysql->sql_abfrage("SELECT id FROM angerufene WHERE rufnummer='unbekannt'");
    $first=true;
-   for ($e=$id_erster;$e<=$id_letzer;$e++)
+   while($daten=mysql_fetch_assoc($result))
     {
-     if ($_POST[$e]=="on")
+     if ($_POST[$daten[id]]=="on")
       {
        if ($first)
         {
-	 $sqlabfrage=$sqlabfrage." id=$e";
+	 $sqlabfrage .=" id=$daten[id]";
 	 $first=false;
 	}
        else
         {
-	$sqlabfrage=$sqlabfrage." OR id=$e";
+	 $sqlabfrage .=" OR id=$daten[id]";
 	}
       }
-    }
-  // echo "<br>SQL-Abfrage: $sqlabfrage<br>";
-  $result_loeschen=$zugriff_mysql->sql_abfrage($sqlabfrage);
-   if ($result_loeschen) { echo "<div class=\"blau_mittig\">Löschen erflogreich....</div><br/>"; }
-   else { echo "<div class=\"rot_mittig\">Löschen fehlgeschlagen...</div>"; }
-  }
-  
-
- 
+    }//END WHILE
+    //echo "<br>SQL-Abfrage: $sqlabfrage<br>";
+ $result_loeschen=$zugriff_mysql->sql_abfrage($sqlabfrage);
+ if ($result_loeschen)
+   { 
+    $template->assign_block_vars('delete_ok',array(
+    		'L_MSG_DELTE_OK' => 'Löschen erflogreich....'));
+   }
+ else 
+   {
+    $template->assign_block_vars('delete_failed',array(
+      		'L_MSG_DELETE_FAILED' => 'Löschen fehlgeschlagen...'));
+   }
 $zugriff_mysql->close_mysql();
 }//if isset absenden
 
@@ -99,9 +108,9 @@ $template->assign_block_vars('tab2',array(
 		'L_NAME' => $textdata[showstatnew_name]));
 $i=0;
 $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-$result_angerufene=$zugriff_mysql->sql_abfrage("SELECT * FROM angerufene WHERE rufnummer='unbekannt' ORDER BY 'id'  DESC");
+$result_angerufene=$zugriff_mysql->sql_abfrage("SELECT id,rufnummer,name,datum,uhrzeit FROM angerufene WHERE rufnummer='unbekannt' ORDER BY 'id'  DESC");
   
- if ($result_angerufene==true)
+if ($result_angerufene)
   {
    while($daten=mysql_fetch_assoc($result_angerufene))
     {

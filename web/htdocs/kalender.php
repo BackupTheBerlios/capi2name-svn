@@ -17,7 +17,7 @@ $seite=base64_encode("kalender.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
 
-$template->set_filenames(array('overall_body' => 'templates/blueingrey/calendar.tpl'));
+$template->set_filenames(array('overall_body' => 'templates/'.$userconfig['template'].'/calendar.tpl'));
 $template->assign_vars(array('L_SITE_TITLE' => $textdata[header_inc_kalender]));
 
 

@@ -16,7 +16,7 @@ $seite=base64_encode("stat_monat.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
 
-$template->set_filenames(array('overall_body' => 'templates/blueingrey/stat_monat.tpl')); 
+$template->set_filenames(array('overall_body' => 'templates/'.$userconfig['template'].'/stat_monat.tpl')); 
 $template->assign_vars(array('L_SITE_TITLE' => 'Monatsübersicht')); 
 $template->pparse('overall_body');
 include("./footer.inc.php");

@@ -17,7 +17,7 @@ include("./login_check.inc.php");
 include("./header.inc.php");
 
 
-$template->set_filenames(array('overall_body' => 'templates/blueingrey/stat_del_entry.tpl'));
+$template->set_filenames(array('overall_body' => 'templates/'.$userconfig['template'].'/stat_del_entry.tpl'));
 $template->assign_vars(array('L_SITE_TITLE' => $text[stat_loeschen]));
 
 //ob er die Page anschauen darf:

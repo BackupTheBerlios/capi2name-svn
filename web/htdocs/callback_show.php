@@ -16,7 +16,7 @@ $seite=base64_encode("szurueckruf.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
 
-$template->set_filenames(array('overall_body' => 'templates/blueingrey/callback_show.tpl'));
+$template->set_filenames(array('overall_body' => 'templates/'.$userconfig['template'].'/callback_show.tpl'));
 //ob er die Page anschauen darf:
  if (!$userconfig['showrueckruf'])
   {

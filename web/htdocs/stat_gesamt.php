@@ -17,7 +17,7 @@ $seite=base64_encode("stat_gesamt.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
 
-$template->set_filenames(array('overall_body' => 'templates/blueingrey/stat_gesamt.tpl'));
+$template->set_filenames(array('overall_body' => 'templates/'.$userconfig['template'].'/stat_gesamt.tpl'));
 $template->assign_vars(array('L_SITE_TITLE' => $textdata[stat_gesamt_stat_alle_anrufe]));
    
 

@@ -43,43 +43,30 @@ $result_userlist=$zugriff_mysql->sql_abfrage("SELECT username,passwd FROM users 
   {
    $login_ok=0;
   }
-  
 $zugriff_mysql->close_mysql();
-
-
-
-
 
 //printf("ENDE: CHECK: Loginok: $loginok");
 if ($login_ok == 0)
  {
- include("./header.inc.php");
+  include("./header.inc.php");
   echo "
-<center><h3>Login</h3>
-
-
-<form action=\"./login.php\" method=\"post\">
-<table border=\"0\" >
-
- <tr>
-  <td>Password:</td>
-  <td style=\"width:5px\"></td>
-  <td><input name=\"login_passwd\" type=\"password\"/></td>
- </tr>
-  <tr>
-  <td colspan=\"3\" style=\"text-align:center;\">
-   <input name=\"absenden\" value=\"Login to Admin-Interface\" type=\"submit\"/></td>
- </tr>
-
-</form>
-</table>
-</center>
-
-";
-
-
- include("./footer.inc.php");
- exit();
+  <center><h3>Login</h3>
+  <form action=\"./login.php\" method=\"post\">
+  <table border=\"0\" >
+   <tr>
+    <td>Password:</td>
+    <td style=\"width:5px\"></td>
+    <td><input name=\"login_passwd\" type=\"password\"/></td>
+   </tr>
+   <tr>
+    <td colspan=\"3\" style=\"text-align:center;\">
+    <input name=\"absenden\" value=\"Login to Admin-Interface\" type=\"submit\"/></td>
+   </tr>
+  </table> 
+  </form>
+  </center>";
+  include("./footer.inc.php");
+  exit();
  }
 
 ?>
