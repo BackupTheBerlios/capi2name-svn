@@ -151,4 +151,27 @@ $text[zurueck_zeit]="Zurueckrufszeit";
 
 $text[]="";
 $text[]="";
+
+
+
+// capisuite module --------------
+$textdata[header_inc_cs_answerphone]="my answerphone";
+$textdata[header_inc_cs_fax]="my fax";
+$textdata[header_inc_cs_config]="configuration";
+$textdata[header_inc_cs_help]="help";
+// cs_answerphone.php
+$textdata[cs_ap_answerphone]="CapiSuite answerphone";
+$textdata[cs_ap_liste]="list of incoming messages";
+$textdata[cs_ap_time]="time";
+$textdata[cs_ap_from]="from";
+$textdata[cs_ap_to]="to";
+$textdata[cs_ap_play]="play";
+// cs_fax.php
+$textdata[cs_fax_headline]="CapiSuite fax viewer";
+$textdata[cs_fax_liste]="list of incoming fax";
+$textdata[cs_fax_time]="time";
+$textdata[cs_fax_from]="from";
+$textdata[cs_fax_to]="to";
+$textdata[cs_fax_view]="view";
+$textdata[cs_fax_incoming]="view fax";
 ?>
