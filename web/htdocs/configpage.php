@@ -154,7 +154,8 @@ $result=$zugriff_mysql->sql_abfrage("UPDATE userliste SET showtyp='$wert' WHERE 
 
 <?
 $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
- $result=$zugriff_mysql->sql_abfrage("SELECT username,passwd,name,lastlogin_d, lastlogin_t, anzahl, showrueckruf, shownotiz,msns,showvorwahl,showmsn,showtyp FROM userliste WHERE id=". $_SESSION['id']); $daten=mysql_fetch_array($result);
+ $result=$zugriff_mysql->sql_abfrage("SELECT username,passwd,name,lastlogin_d, lastlogin_t, anzahl, showrueckruf, shownotiz,msns,showvorwahl,showmsn,showtyp FROM userliste WHERE username='".$_SESSION['username']."'");
+ $daten=mysql_fetch_array($result);
 
 $zugriff_mysql->close_mysql();
 //Xhtml konform das checkboxen gechecked sind.

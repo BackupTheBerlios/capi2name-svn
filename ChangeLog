@@ -1,6 +1,6 @@
 Capi2name 0.6.7.6 YYYY-MM-DD - Jonas Genannt - <jonasge@gmx.net> ---BETA
 	o PHP: Fixed: stat_loeschen.php weiterleitung auf showstatnew.php
-
+	o PHP: Fixed: configpage.php konnte nichtmehr zugegriffen werden, wenn cookies im spiel waren
 Capi2Name 0.6.7.5 2005-01-24 - Jonas Genannt - <jonasge@gmx.net> 
 	o PHP: neueruser.php 0 css2.0 xhtml (popel)
 	o PHP: .htaccess hinzugefuegt fuer mehr Sicherheit (Verbietet *.inc.*)

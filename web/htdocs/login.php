@@ -40,7 +40,7 @@ $result_userlist=$zugriff_mysql->sql_abfrage("SELECT id,username,passwd,name FRO
      $_SESSION['realname']=$row_userlist['name'];
      $_SESSION['username']=$_POST['login_name'];
      $_SESSION['password']=$row_userlist['passwd'];
-     $_SESSION['id']=$row_userlist['id'];
+    //$_SESSION['id']=$row_userlist['id'];
      $loginok=1;
      echo "<meta http-equiv=\"refresh\" content=\"2; URL=./$seite\">";
     }
