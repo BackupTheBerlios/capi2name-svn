@@ -1,0 +1,108 @@
+
+	body
+	{
+  	 background-color:		#9EA3A3;
+   	 position:			static;
+	}
+	a:link, a:visited, a:active
+	{
+	 color:				#213D56;
+	}
+	a:hover
+	{
+	 color:				#346763;
+	}
+	#mainframe
+	{
+	 background-color:		#B8BEBE;
+	 padding:			3px;
+	 padding-top:			0.6cm;
+	 min-height:			630px;
+	 padding-bottom:		20px;
+	}
+	#menu
+	{
+	 background-color:		#C8CECE;
+	 border-width:			1px;
+	 border-style:			solid;
+	 border-color:			#294C6B;
+	 width:				148px;
+	 position:			fixed;
+	}
+	*.header
+	{
+	 background-color:		#6DA5D6;
+	 border-width:			1px;
+	 border-bottom-style:		solid;
+	 font-weight:			bold;
+     	 color:				#19242A;
+	 padding-top:			3px;
+	 padding-left:			11px;
+	 padding-bottom:		3px;
+	 margin:			0cm;
+	 height:			20px;
+	}
+	*.header2
+	{
+	 background-color:		#6DA5D6;
+	 border-width:			0px;
+	 border-style:			solid;
+	 border-color:			#B8BEBE;
+	 border-bottom-width:		0px;
+	 border-bottom-color:		#C8CECE;
+	 font-weight:			bold;
+	 text-align:			center;
+	 color:				#19242A;
+	 padding-top:			3px;
+	 padding-bottom:		3px;
+	 margin:			0cm;
+	 height:			20px;
+	}
+	*.menulist
+	{
+	 font-family:			arial,helvetica,geneva;
+	 font-size:			small;
+	 background-color:		#C8CECE;
+	 padding:			3px;
+	 padding-left:			3px;
+	 margin:			0cm;
+	}
+	*.menuitem {
+	margin:				0px;
+	padding:			0px;
+	}
+
+	*.menuitem:before {
+	content:			"· ";
+	font-size:			large;
+	}
+	#main
+	{
+	 font-family:			arial,helvetica,geneva;
+	 background-color:		#C8CECE;
+	 margin-left:			158px;
+	 border-width:			1px;
+	 border-style:			solid;
+	 border-color:			#294C6B;
+	 text-align:			center;
+	 padding-bottom:		7px;
+	}
+	.ueberschrift_seite
+	{
+	 text-align:			center;
+	 font-size:			22pt;
+	 font-weight:			bold;
+	 padding-top:			23px;
+	 padding-bottom:		23px;
+	 
+	}
+	.rot_mittig
+	{
+	 text-align:			center;
+	 color:				red;
+	}
+	.blau_mittig
+	{
+	 text-align:			center;
+	 color:				blue;
+	}
