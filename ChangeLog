@@ -9,6 +9,7 @@ Capi2Name 0.6.7.4 YYYY-MM-DD - Jonas Genannt - <jonasge@gmx.net> ---BETA
 	o PHP: CAPISUITE: Anrufbeantworter Abfrage integriert
 	o PHP: CAPISUITE: Online Hilfe zu capisuite integriert
 	o PHP: CAPISUITE: FAX Betrachter integriert
+	o PHP: CAPISUITE: AdminModule um CS Configurationseinstellungen zu aendern
 	o PHP: Loginverfahren von coockie auf PHP sessions umgestellt
 	o PHP: login1.php geloescht, nicht mehr notwendig
 	o PHP: $userconfig[] eingefuehrt
