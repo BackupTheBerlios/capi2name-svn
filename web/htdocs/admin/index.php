@@ -12,8 +12,6 @@
  *   any later version.                                   *
  *                                                                         *
  ***************************************************************************/
- ?>
-<?
 include("./check_it.php");
 include("./header.inc.php");
 
@@ -33,9 +31,9 @@ include("./header.inc.php");
 
 <?
 $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-$result=$zugriff_mysql->sql_abfrage("SELECT id,username,passwd,lastlogin_d,lastlogin_t FROM userliste");
+$result=$zugriff_mysql->sql_abfrage("SELECT id,username,passwd,lastlogin_d,lastlogin_t FROM users");
 $zugriff_mysql->close_mysql();
- while($daten =mysql_fetch_array($result))
+ while($daten =mysql_fetch_assoc($result))
   {
   if ($daten[id]!=1)
   {
