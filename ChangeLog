@@ -3,6 +3,8 @@ Capi2Name 0.6.7.5 YYYY-MM-DD - Jonas Genannt - <jonasge@gmx.net> ---BETA
 	o PHP: .htaccess hinzugefuegt fuer mehr Sicherheit (Verbietet *.inc.*)
 	o PHP: header.inc.php aufgespalten in header.inc.php und navigator.inc.php (design kompatibilität)
 	o PHP: admin/neueruser.php auf XHTML gebracht, layout angepasst
+	o PHP: admin/msn2name.php auf XHTML gebracht, layout angepasst
+	o PHP: admin/msn2nameb.php auf XHTML gebracht, layout angepasst
 
 
 
