@@ -388,6 +388,18 @@ if ($db_layout_version=="0.6.7.5")
      echo "Insert failed: <br/>Mysql-Error: ". mysql_error();
      die();
    }
+  $control=mysql_query("DROP TABLE farben");
+  if ($control==FALSE)
+   {
+     echo "Insert failed: <br/>Mysql-Error: ". mysql_error();
+     die();
+   }  
+ $control=mysql_query("DROP TABLE zurueckrufen");
+  if ($control==FALSE)
+   {
+     echo "Insert failed: <br/>Mysql-Error: ". mysql_error();
+     die();
+   } 
  $capi_version_tabelle=false;  
  $file=fopen("update-database-0.6.7.5-0.6.7.6.sql", "rb");
  $inhalt= fread ($file, filesize("update-database-0.6.7.5-0.6.7.6.sql"));

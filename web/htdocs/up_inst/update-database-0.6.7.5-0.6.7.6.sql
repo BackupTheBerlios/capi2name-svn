@@ -34,3 +34,19 @@ INSERT INTO `config` VALUES (1, 'template', 'blueingrey'),
 
 INSERT INTO `users` VALUES (1, 'admin', '123', NULL, NULL, NULL, NULL, 15, NULL, 0, 0, 0, 0, 0, 0, NULL);
 
+
+
+
+CREATE TABLE `callback` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `addr_id` int(11) NOT NULL default '0',
+  `user_id` int(10) unsigned NOT NULL default '0',
+  `en_date` date NOT NULL default '0000-00-00',
+  `en_time` time NOT NULL default '00:00:00',
+  `callback_time` tinyint(1) unsigned NOT NULL default '0',
+  `message` char(255) NOT NULL default '',
+  `notify` tinyint(1) unsigned NOT NULL default '0',
+  `number` char(15) default NULL,
+  `full_name` char(25) default NULL,
+  PRIMARY KEY  (`id`)
+) TYPE=MyISAM;
