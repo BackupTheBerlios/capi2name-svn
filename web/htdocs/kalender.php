@@ -1,6 +1,6 @@
 <?
 /*
-    copyright            : (C) 2002-2004 by Jonas Genannt
+    copyright            : (C) 2002-2005 by Jonas Genannt
     email                : jonasge@gmx.net
  ***************************************************************************/
 
@@ -12,16 +12,17 @@
  *   any later version.                                   *
  *                                                                         *
  ***************************************************************************/
- ?>
-<?
+
 $seite=base64_encode("kalender.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
-?>
-<div class="ueberschrift_seite"><? echo "$textdata[header_inc_kalender]"; ?></div>
+
+$template->set_filenames(array('overall_body' => 'templates/blueingrey/calendar.tpl'));
+$template->assign_vars(array('L_SITE_TITLE' => $textdata[header_inc_kalender]));
 
 
-<?
+
+
 //uebergabe kalender.php?datum=yes&monat=04&jahr=2004
 //wenn nicht gesetzt, dann diesen Monat nehmen:
 if  (!isset($_GET[datum]))
@@ -39,7 +40,7 @@ if  (!isset($_GET[datum]))
   $monat_zeichen=date(M, mktime(0,0,0,$cur_monat,01,$cur_jahr));
 
 if ($cur_monat != 10)  { $cur_monat = str_replace("0","",$cur_monat); }
-if ( $cur_monat < 10) {  $cur_monat="0$cur_monat"; }
+if ( $cur_monat < 10)  {  $cur_monat="0$cur_monat"; }
 
 if ($cur_monat==01 OR $cur_monat==1)
  {
@@ -61,61 +62,47 @@ if ($cur_monat==12)
   $cur_monat_2=$cur_monat +1;
   $cur_jahr_2=$cur_jahr ;
   }
-$tage_vormonat=date(t,mktime(0,0,0,$cur_monat_1,01,$cur_jahr_1)); //FIX ME FIX ME was passier wenn aktuller Monat Januar ist, dann -1??? MÜSSTE PASSEN???? 
-//passt :-) Denke ich! 
- if ( $cur_monat_1 < 10) {  $cur_monat_1="0$cur_monat_1"; } 
-  if ( $cur_monat_2 < 10) {  $cur_monat_2="0$cur_monat_2"; } 
-/*echo "<BR />Kalender sollte das anzeigen: $cur_monat - $cur_jahr<BR />";
-echo "Tage des Monats: $tage_des_monats<BR />";
-echo "Tage des Vormonats: $tage_vormonat<BR />";
-echo "Erster Tag: $erster_tag<BR />";
-echo "Monat: $monat_zeichen<BR />"; 
- */
-?>
+$tage_vormonat=date(t,mktime(0,0,0,$cur_monat_1,01,$cur_jahr_1)); 
+if ( $cur_monat_1 < 10) {  $cur_monat_1="0$cur_monat_1"; } 
+if ( $cur_monat_2 < 10) {  $cur_monat_2="0$cur_monat_2"; } 
 
 
-<table border="0" cellpadding="3" cellspacing="2" style="margin-right:auto;margin-left:auto;text-align:left">
-  <tr>
-    <td style="font-weight:bold;">
-     <a href="<? echo "./kalender.php?datum=yes&amp;monat=$cur_monat_1&amp;jahr=$cur_jahr_1";?>">&laquo;</a></td>
-    <td colspan="5" style="text-align:center;font-weight:bold; font-size:large;">
-    <? echo "$monat_zeichen $cur_jahr"; ?></td>
-    <td style="font-weight:bold;">
-    <a href="<? echo "./kalender.php?datum=yes&amp;monat=$cur_monat_2&amp;jahr=$cur_jahr_2"; ?>">&raquo;</a></td>
-   </tr>
-  <?
-  echo "<tr>
-    <td style=\"font-weight:bold; font-size:large;\">$textdata[kalender_tag_mo]</td>
-    <td style=\"font-weight:bold; font-size:large;\">$textdata[kalender_tag_di]</td>
-    <td style=\"font-weight:bold; font-size:large;\">$textdata[kalender_tag_mi]</td>
-    <td style=\"font-weight:bold; font-size:large;\">$textdata[kalender_tag_do]</td>
-    <td style=\"font-weight:bold; font-size:large;\">$textdata[kalender_tag_fr]</td>
-    <td style=\"font-weight:bold; font-size:large;\">$textdata[kalender_tag_sa]</td>
-    <td style=\"font-weight:bold; font-size:large;\">$textdata[kalender_tag_so]</td>
-  </tr>
-  
-  <tr>";
-  
-  
+ $template->assign_vars(array(
+ 		'DATA_CUR_MONTH1' => $cur_monat_1,
+		'DATA_CUR_YEAR1'  => $cur_jahr_1,
+		'DATA_CUR_MONTH2' => $cur_monat_2,
+		'DATA_CUR_YEAR2'  => $cur_jahr_2,
+		'DATA_TITLE_YEAR' => $monat_zeichen ." ". $cur_jahr,
+		'L_DAY_MO'  => $textdata[kalender_tag_mo],
+		'L_DAY_TUE' => $textdata[kalender_tag_di],
+		'L_DAY_WED' => $textdata[kalender_tag_mi],
+		'L_DAY_THU' => $textdata[kalender_tag_do],
+		'L_DAY_FRI' => $textdata[kalender_tag_fr],
+		'L_DAY_SAT' => $textdata[kalender_tag_sa],
+		'L_DAY_SUN' => $textdata[kalender_tag_so]));
 
+
+if ($erster_tag=="Mo")  {  $index=0; }
+if ($erster_tag=="Tue") {  $index=1; }
+if ($erster_tag=="Wed") {  $index=2; }
+if ($erster_tag=="Thu") {  $index=3; }
+if ($erster_tag=="Fri") {  $index=4; }
+if ($erster_tag=="Sat") {  $index=5; }
+if ($erster_tag=="Sun") {  $index=6; } 
   
- 
-  if ($erster_tag=="Mo")    {  $index=0; }
-  if ($erster_tag=="Tue")  {  $index=1; }
-  if ($erster_tag=="Wed") {  $index=2; }
-  if ($erster_tag=="Thu") {  $index=3; }
-  if ($erster_tag=="Fri") {   $index=4; }
-  if ($erster_tag=="Sat") {  $index=5; }
-  if ($erster_tag=="Sun") {   $index=6; } 
-  
-  $tage_vormonat=$tage_vormonat-$index+1;
-   for ($i=1; $i<=$index; $i++)
-     {
-        if($i%2==1)
-      { $color="$c_color[11]"; }
-    else
-      { $color="$c_color[12]"; }
-      echo "<td style=\"text-align:center;background-color:$color\"><a href=\"./showstatnew.php?sdatum=$tage_vormonat.$cur_monat_1.$cur_jahr_1\">$tage_vormonat</a></td>";
+$tage_vormonat=$tage_vormonat-$index+1;
+for ($i=1; $i<=$index; $i++)
+  {
+   if($i%2==1)
+     { $color=$row_color_1; }
+   else
+     { $color=$row_color_2; }
+   $template->assign_block_vars('tab1',array(
+   		'DATA_COLOR' => $color,
+		'DATA_DAY_BEFOR' =>$tage_vormonat,
+		'DATA_MONTH' => $cur_monat_1,
+		'DATA_YEAR' => $cur_jahr_1));  
+
       $tage_vormonat++;
      }
   
@@ -123,17 +110,21 @@ echo "Monat: $monat_zeichen<BR />";
   
   for ( $e=1;  $e<=$tage_des_monats;  $e++)
     {
-         if($index%2==0)
-      { $color="$c_color[11]"; }
+    if($index%2==0)
+      { $color=$row_color_1; }
     else
-      { $color="$c_color[12]"; }
+      { $color=$row_color_2; }
        if ( $e < 10) {  $tag_neu="0$e"; } else { $tag_neu=$e; }
-      echo "<td style=\"text-align:center;background-color:$color\">
-        <a href=\"./showstatnew.php?sdatum=$tag_neu.$cur_monat.$cur_jahr\">$e</a></td>";
+       $template->assign_block_vars('tab2',array(
+       		'DATA_COLOR' => $color,
+		'DATA_DAY' => $tag_neu,
+		'DATA_MONTH' => $cur_monat,
+		'DATA_YEAR' => $cur_jahr,
+		'DATA_E' => $e));
       $index++;
       if ($index==7)
        {
-        echo "</tr><tr>";
+        $template->assign_block_vars('tab3', array('test' => 'test'));
 	$index=0;
        }
     
@@ -143,19 +134,19 @@ echo "Monat: $monat_zeichen<BR />";
     for ($r=$index; $r<7;$r++)
       {
       if($r%2==0)
-      { $color="$c_color[11]"; }
+      { $color=$row_color_1; }
     else
-      { $color="$c_color[12]"; }
-       echo "<td style=\"text-align:center;background-color:$color\">
-        <a href=\"./showstatnew.php?sdatum=0$tag.$cur_monat_2.$cur_jahr_2\">$tag</a></td>";
+      { $color=$row_color_2; }
+       $template->assign_block_vars('tab4',array(
+       		'DATA_COLOR' => $color,
+		'DATA_DAY' => $tag,
+		'DATA_MONTH' => $cur_monat_2,
+		'DATA_YEAR' => $cur_jahr_2));
        $tag++;
       }
 
-  ?>
- </tr>
-</table>
-<br />
-<?
+
+  /*    
 echo "<form action=\"./kalender.php\"  method=\"get\">$textdata[kalender_schnellsprung]:";
 echo "<ins><select name=\"monat\">";
   for ($i=1; $i<=12; $i++)
@@ -169,8 +160,7 @@ echo "<select name=\"jahr\">";
     echo "<option>$i</option>";
    }
 echo "</select>";
-echo "<input type=\"submit\" name=\"datum\" value=\"$textdata[kalender_los]\"/></ins></form>";
-?>
-<?
+echo "<input type=\"submit\" name=\"datum\" value=\"$textdata[kalender_los]\"/></ins></form>"; */
+$template->pparse('overall_body');
 include("footer.inc.php");
 ?>

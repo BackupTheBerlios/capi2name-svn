@@ -1,6 +1,6 @@
 <?
 include("./includes/conf.inc.php");
-include("./func.inc.php");
+include("./includes/functions.php");
 session_start(); 
 $realname=$_SESSION['realname'];
 $username=$_SESSION['username']; 

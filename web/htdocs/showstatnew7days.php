@@ -1,6 +1,6 @@
 <?
 /*
-    copyright            : (C) 2002-2004 by Jonas Genannt
+    copyright            : (C) 2002-2005 by Jonas Genannt
     email                : jonasge@gmx.net
  ***************************************************************************/
 
@@ -12,16 +12,11 @@
  *   any later version.                                   *
  *                                                                         *
  ***************************************************************************/
- ?>
-<?
-
 $seite=base64_encode("showstatnew7days.php");
 
 include("./login_check.inc.php");
 include("./header.inc.php");
-?>
 
-<?
 $datum[0]=date("d.m.Y");
 $tag[0]=date("D");
 
@@ -31,7 +26,9 @@ for ($e=1;$e<=6;$e++)
  $datum[$e]=date("d.m.Y",$tstamp);
  $tag[$e]=date("D",$tstamp );
  }
-echo "<div class=\"ueberschrift_seite\">$textdata[days7_7tage_uebersicht]</div>";
+$template->set_filenames(array('overall_body' => './templates/blueingrey/show_call_stat7.tpl'));
+$template->assign_vars(array('L_SITE_TITLE' => $textdata[days7_7tage_uebersicht]));
+
 
 
 if (isset($_GET[unbekannt]))
@@ -75,33 +72,42 @@ switch ($tag[$es])
     break;
    }
 
-echo "<p style=\"text-align:left; margin-bottom:0px; font-weight:bold\">
-       $datum[$es] - $tag[$es]</p><br />";
 
-echo "
-<table border=\"0\" cellpadding=\"5\" cellspacing=\"2\" style=\"margin-right:auto;margin-left:auto;\">
- <tr>
- <td></td>
-  <td style=\"text-align:center\">$textdata[stat_anrufer_datum]</td>
-  <td style=\"text-align:center\">$textdata[stat_anrufer_uhrzeit]</td>
-  <td style=\"width:110px; text-align:center\">$textdata[stat_anrufer_rufnummer]</td>";
-  if ($userconfig['showtyp']) 
-   { echo "<td style=\"text-align:center\">$textdata[showstatnew_anrufertyp]</td>"; } 
-  if ($userconfig['showvorwahl'])
-   { echo "<td style=\"text-align:center\">$textdata[showstatnew_aus_ort]</td>"; } 
-  if ($userconfig['showmsn'])
-  { echo "<td style=\"text-align:center\">$textdata[stat_anrufer_MSN]</td>"; } 
-  echo "<td style=\"text-align:center\">$textdata[showstatnew_name]</td>";
-  if ($userconfig['showrueckruf'])
-    { echo "<td style=\"text-align:center\">$textdata[showstatnew_zurueckrufen]</td>"; } 
-  echo "<td style=\"text-align:center\">$textdata[showstatnew_ins_addr]</td>";
-  if ($userconfig['loeschen'])
-    { echo "<td>$textdata[showstatnew_loeschen]</td>"; } 
-echo "</tr>";
- $i=0;
-  $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
- $tmp=datum_mysql($datum[$es]);
- $tab_angerufene=$zugriff_mysql->sql_abfrage("SELECT * FROM angerufene WHERE datum='$tmp' ORDER BY 'id'  DESC");
+
+$template->assign_block_vars('tab0',array(
+		'L_DATE_P' => $datum[$es],
+		'L_DAY_P' => $tag[$es],
+  		'L_DATE' => $textdata[stat_anrufer_datum],
+		'L_CLOCK' => $textdata[stat_anrufer_uhrzeit],
+		'L_CALL_NUMBER' => $textdata[stat_anrufer_rufnummer],
+		'L_CALLERS_NAME' =>$textdata[showstatnew_name],
+		'L_COPY_TO_ADDR' => $textdata[showstatnew_ins_addr]));
+if ($userconfig['showtyp'])
+ {
+  $template->assign_block_vars('tab0.userconfig_show_typ',array('L_CALLERS_TYP' => $textdata[showstatnew_anrufertyp]));
+ }
+if ($userconfig['showvorwahl'])
+ {
+  $template->assign_block_vars('tab0.userconfig_show_prefix',array('L_FROM_CITY' => $textdata[showstatnew_aus_ort]));
+ }
+if ($userconfig['showmsn'])
+ {
+  $template->assign_block_vars('tab0.userconfig_show_msn',array('L_CALL_TO_MSN' => $textdata[stat_anrufer_MSN]));
+ }
+if ($userconfig['showrueckruf'])
+ {
+  
+  $template->assign_block_vars('tab0.userconfig_show_call_back',array('L_SHOW_CALL_BACK' => $textdata[showstatnew_zurueckrufen]));
+ }
+if ($userconfig['loeschen']) 
+ {
+  $template->assign_block_vars('tab0.userconfig_show_delete',array('L_DELETE_ENTRY_TITLE' => $textdata[showstatnew_loeschen]));
+ }
+ 
+$i=0;
+$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+$tmp=datum_mysql($datum[$es]);
+$tab_angerufene=$zugriff_mysql->sql_abfrage("SELECT * FROM angerufene WHERE datum='$tmp' ORDER BY 'id'  DESC");
   while($data=mysql_fetch_row($tab_angerufene))
    {
     //alles zurücksetzten:
@@ -114,9 +120,9 @@ echo "</tr>";
     $anz_typ="";
 
     if($i%2==0)
-      { $color="$c_color[11]"; }
+      { $color=$row_color_1; }
     else
-      { $color="$c_color[12]"; }
+      { $color=$row_color_2; }
 
     //MSNS überprüfen:
     $show_entry_msns=msns_ueberpruefen($userconfig['msns'],$data[6]);
@@ -185,55 +191,59 @@ if ($userconfig['showvorwahl'])
 //MSN zu Name
 $anz_msn=msnzuname($data[6]);
 // Anruftyp bzw Dienstkennung erkennen:
-$anz_typ=ermittle_typ_anruf($data[8]);
+$anz_dienst=ermittle_typ_anruf($data[8]);;
 
 //Datum umwandeln wenn heute oder gestern, dann schreibe heute/gestern
 $anz_datum=anzeige_datum($data[2]);
 
 // SCHREIBE DATEN in TABELLE:
 //datenblock in eine Variable schreiben:
-$vorwahl_data="";
-$msn_data="";
-$rueckruf_data="";
-$anruftyp="";
-$anruf_loeschen="";
- if ($userconfig['showvorwahl']) 
-     { $vorwahl_data="<td style=\"text-align:center\">$anz_vorwahl</td>";  }
- if ($userconfig['showmsn']) 
-     { $msn_data="<td>$anz_msn</td>";  }
- if ($userconfig['showrueckruf']) 
-     { $rueckruf_data="<td style=\"text-align:center\">$anz_rueckruf</td>";  }
- if ($userconfig['showtyp'])
-     { $anruftyp="<td style=\"text-align:center\">$anz_dienst</td>"; }
- if ($userconfig['loeschen'])
-     { $anruf_loeschen="<td style=\"text-align:center\"><a href=\"./stat_loeschen.php?id=$data[0]$loeschen_seiten\" title=\"$textdata[showstatnew_loesche_db]\">
- <img  src=\"./bilder/edittrash.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a></td>"; }
- 
- 
- $ALL="<tr style=\"background-color:$color\">
-       <td>$anz_statistik</td>
-       <td style=\"text-align:center\">$anz_datum</td>
-       <td style=\"text-align:center\">$data[3]</td>
-       <td style=\"text-align:center\">$data[1]</td>
-       $anruftyp
-       $vorwahl_data
-       $msn_data
-       <td style=\"text-align:center\">$anz_name</td>
-       $rueckruf_data
-       <td style=\"text-align:center\">$anz_insaddr</td>
-       $anruf_loeschen
-       </tr>";
-   
 
-if ($show_entry_msns=="true") {  echo "$ALL"; $i++;   }
+
+
+
+if ($show_entry_msns) 
+{  
+  $template->assign_block_vars('tab0.tab1', array(
+  'DATA_ROW_COLOR' => $color,
+  'DATA_SHOW_SINGEL_STAT' => $anz_statistik,
+  'DATA_SHOW_DATE' => $anz_datum,
+  'DATA_SHOW_CLOCK' => $data[3],
+  'DATA_SHOW_NUMBER' => $data[1],
+  'DATA_SHOW_CALLERS_NAME' => $anz_name,
+  'DATA_TO_ADDR' => $anz_insaddr));
+
+if ($userconfig['showtyp'])
+ {
+  $template->assign_block_vars('tab0.tab1.show_typ', array('DATA_CALLERS' =>$anz_dienst));
+ }
+if ($userconfig['showvorwahl'])
+ {
+  $template->assign_block_vars('tab0.tab1.show_prefix', array('DATA_SHOW_PREFIX' => $data[7]));
+ }
+if ($userconfig['showmsn']) 
+ {
+  $template->assign_block_vars('tab0.tab1.show_msn', array('DATA_SHOW_MSN' => $anz_msn));
+ }
+if ($userconfig['showrueckruf']) 
+ {
+  $template->assign_block_vars('tab0.tab1.show_call_back',array('DATA_SHOW_CALL_BACK' =>$anz_rueckruf ));
+ }
+if ($userconfig['loeschen'])
+ {
+  $template->assign_block_vars('tab0.tab1.show_delete_func', array(
+  	'DATA_LINK_DELETE_FUNC' => $data[0].$loeschen_seiten,
+	'L_DELETE_ENTRY_FROM_DB' => $textdata[showstatnew_loesche_db]));
+ }
+//END WRITE DATA TO TABLE
+  $i++;
+}
   
      
 } // while zu ende
 $zugriff_mysql->close_mysql(); 
-echo " </table>";
-echo "<br /><br /><br />";
 }//ende FOR schleife
 
-
+$template->pparse('overall_body');
 include("./footer.inc.php");
 ?>
