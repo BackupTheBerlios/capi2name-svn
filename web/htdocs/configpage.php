@@ -44,9 +44,6 @@ VALUES (
 
 ALTER TABLE `users` ADD `show_config` TINYINT( 1 ) UNSIGNED DEFAULT '0' NOT NULL AFTER `show_type` ;
  */
- 
- 
- 
 $seite=base64_encode("configpage.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
