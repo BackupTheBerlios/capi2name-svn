@@ -1,6 +1,6 @@
 <?
 /*
-    copyright            : (C) 2002-2004 by Jonas Genannt
+    copyright            : (C) 2002-2005 by Jonas Genannt
     email                : jonasge@gmx.net
  ***************************************************************************/
 
@@ -12,27 +12,23 @@
  *   any later version.                                   *
  *                                                                         *
  ***************************************************************************/
- ?>
-<?
 $seite=base64_encode("stat_un_loeschen.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
  
- 
-echo "<div class=\"ueberschrift_seite\">Einträge mit unbekant aus Datenbank löschen</div>";
-?>
+$template->set_filenames(array('overall_body' => 'templates/blueingrey/stat_un_loeschen.tpl')); 
+$template->assign_vars(array('SITE_TITLE' => 'Einträge mit unbekant aus Datenbank löschen'));
 
-<br />
-<?
 //ob er die Page anschauen darf:
- if (!$userconfig['loeschen'])
-  {
-   echo "<div class=\"rot_mittig\">$text[nichtberechtigt]</div>";
-   include("./footer.inc.php");
-   die();
-  }
-?>
-<?
+if (!$userconfig['loeschen'])
+ {
+  $template->assign_block_vars('tab1',array('L_MSG_NOT_ALLOWED' => $text[nichtberechtigt]));
+  $template->pparse('overall_body');
+  include("./footer.inc.php");
+  die();
+ }
+
+  
 //abfrage:
 if (isset($_POST[absenden]))
 {
@@ -84,43 +80,35 @@ $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql[
  
 $zugriff_mysql->close_mysql();
 }//if isset absenden
-?>
 
 
 
-<form action="stat_un_loeschen.php" method="post">
-<table border="0" cellpadding="1" cellspacing="2" style="margin-right:auto;margin-left:auto;" >
- <tr>
-  <td></td>
-  <td style="text-align:center"><? echo "$textdata[stat_anrufer_datum]"; ?></td>
-  <td style="text-align:center"><? echo "$textdata[stat_anrufer_uhrzeit]"; ?></td>
-  <td style="width:110px; text-align:center">
-       <? echo "$textdata[stat_anrufer_rufnummer]"; ?></td>
-  <td style="text-align:center"><? echo "$textdata[stat_anrufer_MSN]"; ?></td>
-  <td style="text-align:center"><? echo "$textdata[showstatnew_name]"; ?></td>
-  </tr>
-  <?
-   $i=0;
-   $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-   $result_angerufene=$zugriff_mysql->sql_abfrage("SELECT * FROM angerufene WHERE rufnummer='unbekannt' ORDER BY 'id'  DESC");
-   
-   if ($result_angerufene==true)
-   {
-   
-    while($daten=mysql_fetch_row($result_angerufene))
-     {
-      if($i%2==0){ $color="$c_color[11]"; }
-      else       { $color="$c_color[12]"; }
-     $datum=mysql_datum($daten[2]);
-     $msn=msnzuname($daten[6]);
-      echo "<tr style=\"background-color:$color\">
-      		<td><input type=\"checkbox\" name=\"$daten[0]\"/></td>
-		<td>$datum</td>
-		<td>$daten[3]</td>
-		<td style=\"text-align:center\">$daten[1]</td>
-		<td style=\"text-align:center\">$msn</td>
-		<td style=\"text-align:center\">$daten[5]</td>
-	    </tr>";
+$template->assign_block_vars('tab2',array(
+		'L_DATE' => $textdata[stat_anrufer_datum],
+		'L_TIME' => $textdata[stat_anrufer_uhrzeit],
+		'L_NUMBER' => $textdata[stat_anrufer_rufnummer],
+		'L_MSN' => $textdata[stat_anrufer_MSN],
+		'L_NAME' => $textdata[showstatnew_name]));
+$i=0;
+$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+$result_angerufene=$zugriff_mysql->sql_abfrage("SELECT * FROM angerufene WHERE rufnummer='unbekannt' ORDER BY 'id'  DESC");
+  
+ if ($result_angerufene==true)
+  {
+   while($daten=mysql_fetch_assoc($result_angerufene))
+    {
+     if($i%2==0){ $color=$row_color_1; }
+     else       { $color=$row_color_2; }
+     $datum=mysql_datum($daten[datum]);
+     $msn=msnzuname($daten[msn]);
+     $template->assign_block_vars('tab3',array(
+     		'DATA_COLOR' => $color,
+		'DATA_ID' =>$daten[id],
+		'DATA_DATE' => $datum,
+		'DATA_TIME' => $daten[uhrzeit],
+		'DATA_NUMBER' => $daten[rufnummer],
+		'DATA_MSN' => $msn,
+		'DATA_NAME' => $daten[name]));
      $i++;
      }
    }//if true
@@ -130,7 +118,7 @@ $zugriff_mysql->close_mysql();
    }
   $zugriff_mysql->close_mysql();
   ?>
- </table>
+
 
 <p><input type="checkbox" name="alle_unbekannten"/>Lösche alle unbekannten Einträge</p>
 <p><input type="checkbox" name="nur_ruf_unbekannten"/>Lösche nur Einträge mit Nummer unbekannt, wo kein Name vergeben wurde.</p>
@@ -141,5 +129,6 @@ $zugriff_mysql->close_mysql();
 
 
 <?
+$template->pparse('overall_body');
 include("./footer.inc.php");
 ?>

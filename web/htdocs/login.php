@@ -16,6 +16,7 @@ include("./includes/conf.inc.php");
 include("./includes/functions.php");
 session_start(); 
 include("./header.inc.php");
+$template->set_filenames(array('overall_body' => 'templates/blueingrey/login.tpl'));
 $loginok=0;
 
 if (isset($_POST['absenden']))
@@ -28,8 +29,6 @@ $result_userlist=$zugriff_mysql->sql_abfrage("SELECT id,username,passwd,name FRO
   $row_userlist=mysql_fetch_array($result_userlist);
     if (md5($_POST['login_passwd'])==$row_userlist['passwd'])
     {
-     
-     echo "PASSWD Richtig... Sie werden weitergeleitet...";
      $seite=base64_decode($_POST['seite']);
      if ($_POST['remember_login']=="on")
       {
@@ -39,7 +38,11 @@ $result_userlist=$zugriff_mysql->sql_abfrage("SELECT id,username,passwd,name FRO
      $_SESSION['username']=$_POST['login_name'];
      $_SESSION['password']=$row_userlist['passwd'];
      $loginok=1;
-     echo "<meta http-equiv=\"refresh\" content=\"2; URL=./$seite\">";
+     $template->assign_block_vars('tab1',array(
+     		'L_PASSWD_OK' => 'PASSWD Richtig... Sie werden weitergeleitet...',
+		'DATA_SITE_FORWARD' => $seite));
+     $template->pparse('overall_body');
+     include("./footer.inc.php");
     }
     else
     {
@@ -55,10 +58,21 @@ $zugriff_mysql->close_mysql();
 }
 else
  {
-  echo "Falscher Aufruf...... EXIT";
+  $template->assign_block_vars('tab2', array('L_MSG_ERROR' => 'Bad syntax for open login.php'));
+  $template->pparse('overall_body');
   include("./footer.inc.php");
   exit();
  }
+if ($loginok==0)
+ {
+  $template->assign_block_vars('tab3',array(
+  	'L_LOGIN_FAILED' => 'Login failed, username or password wrong. Please go back!',
+	'L_BACK' => 'go back'));
+  $template->pparse('overall_body');
+  include("./footer.inc.php");
+ }
+ 
+ 
+ 
 
-include("./footer.inc.php");
 ?>
