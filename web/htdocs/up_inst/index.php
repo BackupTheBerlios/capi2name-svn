@@ -3,7 +3,7 @@
 <title>Capi2Name Datenbank updaten oder installieren</title>
 </head>
 
-<bodY>
+<body>
 <center><h2>Capi2Name Datenbank</h2><br>
 <font color="red">Bitte vor dem Updaten der Datenbank eine Sicherung der Datenbank machen!!!</font><br>
 (Keine Garantie, das das Script funktioniert) :-/<br><br>

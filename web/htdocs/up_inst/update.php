@@ -1,42 +1,47 @@
-<HTML>
- <HEAD>
-   <TITLE>Datenbank Update</TITLE>
- </HEAD>
-<BODY>
+<html>
+ <head>
+   <title>Datenbank Update</title>
+ </head>
+<body>
 
 <?php
 
 
 if (!isset($_POST[absenden]) && !isset($_GET[dbhost]))
  {
- echo "<br><b>Bitte nochmal eingeben....... (Auch wenn du es schonmal eingegeben hast!!!)</b>";
- echo "Bitte die Daten für das Update eintragen!<br>";
-  echo "<FORM action=\"$PHP_SELF\" method=\"POST\">
-  <CENTER> 
-  <TABLE border=\"1\">
-    <TR>
-     <TD>DB-Hostname:</TD>
-     <TD> </TD>
-     <TD><INPUT NAME=\"dbhost\"></TD>
-    </TR>
-    <TR>
-     <TD>DB-User:</TD>
-     <TD> </TD>
-     <TD><INPUT NAME=\"dbuser\"></TD>
-    </TR>
-    <TR>
-     <TD>DB-Passwort:</TD>
-     <TD> </TD>
-     <TD><INPUT NAME=\"dbpasswd\" TYPE=\"password\"></TD>
-    </TR>
-    <TR>
-     <TD>DB-Name:</TD>
-     <TD> </TD>
-     <TD><INPUT NAME=\"dbname\"></TD>
-    </TR>
-   </TABLE><br>
-   <INPUT NAME=\"absenden\" TYPE=\"submit\" name=\"Update..\"></CENTER>
-  </FORM>
+
+ echo "<br/><br/>please enter the connect informations for access the database.<br/><br/>";
+  echo "<form action=\"$PHP_SELF\" method=\"post\">
+   
+  <table border=\"0\" style=\"margin-right:auto;margin-left:auto;text-align:left;\">
+    <tr>
+     <td style=\"text-align:left;\">database hostname:</td>
+     <td style=\"width:10px;\"></td>
+     <td ><input name=\"dbhost\" value=\"localhost\"/></td>
+    </tr>
+    <tr>
+     <td style=\"text-align:left;\">database username:</td>
+     <td style=\"width:10px;\"></td>
+     <td><input name=\"dbuser\"/></td>
+    </tr>
+    <tr>
+     <td style=\"text-align:left;\">database password:</td>
+     <td style=\"width:10px;\"></td>
+     <td><INPUT name=\"dbpasswd\" type=\"password\"/></td>
+    </tr>
+    <tr>
+     <td style=\"text-align:left;\">database name:</td>
+     <td style=\"width:10px;\"></td>
+     <td><input name=\"dbname\"/></td>
+    </tr>
+    <tr>
+     <td colspan=\"3\" style=\"text-align:center;\">
+      <input name=\"absenden\" type=\"submit\" name=\"start update...\">
+     </td>
+    </tr>
+   </table>
+  
+  </form>
   
   
   "; 
