@@ -28,8 +28,7 @@ include("./header.inc.php");
 if (isset($_POST[wechseln])) //Style waechseln:
  {
 //  echo "$farbeW";
-   mysql_connect($host,$dbuser, $dbpasswd);
-    mysql_select_db($db);
+    $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 	$result=mysql_query("SELECT id FROM farben WHERE name='$_POST[farbeW]'");
 	$row=mysql_fetch_array($result);
 //	echo "---ID:$row[0]:";
@@ -42,13 +41,12 @@ if (isset($_POST[wechseln])) //Style waechseln:
 	  {
         echo "<center><font color=\"red\"><b>Style NICHT erflogreich geändert!<br></center></font></b>";
 	  }
-   mysql_close();
+$zugriff_mysql->close_mysql();
  }
 
 if (isset($_POST[eigene]))
  {
-  mysql_connect($host, $dbuser, $dbpasswd);
-  mysql_select_db($db);
+  $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
   $result=mysql_query("DELETE FROM farben WHERE id='2'");
    if($result==1)
     {
@@ -59,7 +57,7 @@ if (isset($_POST[eigene]))
 	echo "<center><font color=\"red\"><b>NICHT Erflogreich gelöscht!<br></center></font></b>";
 	}
   $result2=mysql_query("INSERT INTO farben VALUES ('2','Eigene Farbwahl','','$_POST[f_link]','$_POST[f_hover]', '$_POST[f_hinter_seite]', '$_POST[f_zeile_ueber]', '$_POST[f_schrift]','$_POST[f_hinter_link]','$_POST[f_hinter_main]', '$_POST[f_border_link]','$_POST[f_border_main]', '$_POST[f_hinter_haupt]', '$_POST[f_hinter_zeile1]', '$_POST[f_hinter_zeile2]')");
-  mysql_close();
+$zugriff_mysql->close_mysql();
  }
 
 ?>
@@ -68,8 +66,7 @@ if (isset($_POST[eigene]))
 <tr><td>
   <select name="farbeW" size="6">
    <?
-    mysql_connect($host,$dbuser, $dbpasswd);
-	mysql_select_db($db);
+   $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 	$result=mysql_query("SELECT * FROM farben");
 	$result2=mysql_query("SELECT * FROM farben WHERE id='1'");
 	$wert_default=mysql_fetch_array($result2);
@@ -81,7 +78,7 @@ if (isset($_POST[eigene]))
 			else echo "<option>$row[1]</option>";
 		}
 	  }
-   mysql_close();
+  $zugriff_mysql->close_mysql();
    ?>
 </select></td>
 <td><input type="submit" name="wechseln" value="Wählen"></td>
@@ -92,11 +89,10 @@ if (isset($_POST[eigene]))
 <form action="farben.php" method="post">
 Eigene Farbwahl:
 <?
-mysql_connect($host, $dbuser, $dbpasswd);
-mysql_select_db($db);
+$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 $result=mysql_query("SELECT * FROM farben WHERE id=2");
 $daten=mysql_fetch_row($result);
-mysql_close();
+$zugriff_mysql->close_mysql();
 echo "
 <table border=\"1\">
  <tr>

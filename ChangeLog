@@ -15,7 +15,9 @@ Capi2Name 0.6.7.4 YYYY-MM-DD - Jonas Genannt - <jonasge@gmx.net> ---BETA
 	o PHP: $userconfig[] eingefuehrt
 	o PHP: coockie eingebaut wieder zum eingeloggt bleiben.
 	o PHP: ein paar kleine Erweiterungen und Verbesserungen an den language files  (popel)
-
+	o PHP: Adminpanel Layout anpassungen.
+	o PHP: Adminpanel Anpassung an die Mysql-Klasse
+	
 Capi2Name 0.6.7.3 2004-11-28 - Jonas Genannt - <jonasge@gmx.net>
 	o PHP: shownewstat.php in verbindung mit Kalender. zeigt wieder Eintraege an
 	o PHP: html 4.01 anpassungen (header.inc.php,footer.inc.php)

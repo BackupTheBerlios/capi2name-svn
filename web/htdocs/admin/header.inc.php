@@ -1,42 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
  <head>
-  <title>Capi2Name: Benutzerkonfiguration</title>
-  <style>
-A:link, A:visited, A:active {
-	COLOR: #2b5696;
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-15"/> 
+  <title>Capi2Name: Administration Panel</title>
+  <style type="text/css">
+  body
+	{
+  	 background-color:		#9EA3A3;
+   	 position:			static;
+	}
+a:link, a:visited, a:active
+	{
+	 color:				#213D56;
+	}
+a:hover
+	{
+	 color:				#346763;
+	}
+ #mainframe
+	{
+	 background-color:		#B8BEBE;
+	 padding:			3px;
+	 padding-top:			0.6cm;
+	 min-height:			550px;
+	 padding-bottom:		20px;
+	}
+#menu
+	{
+	 background-color:		#C8CECE;
+	 border-width:			1px;
+	 border-style:			solid;
+	 border-color:			#294C6B;
+	 width:				148px;
+	 position:			fixed;
+	}
+*.header
+	{
+	 background-color:		#6DA5D6;
+	 border-width:			1px;
+	 border-bottom-style:		solid;
+	 font-weight:			bold;
+     	 color:				#19242A;
+	 padding-top:			3px;
+	 padding-left:			11px;
+	 padding-bottom:		3px;
+	 margin:			0cm;
+	 height:			20px;
+	}
+*.header2
+	{
+	 background-color:		#6DA5D6;
+	 border-width:			0px;
+	 border-style:			solid;
+	 border-color:			#B8BEBE;
+	 border-bottom-width:		0px;
+	 border-bottom-color:		#C8CECE;
+	 font-weight:			bold;
+	 text-align:			center;
+	 color:				#19242A;
+	 padding-top:			3px;
+	 padding-bottom:		3px;
+	 margin:			0cm;
+	 height:			20px;
+	}
+*.menulist
+	{
+	 font-family:			arial,helvetica,geneva;
+	 font-size:			small;
+	 background-color:		#C8CECE;
+	 padding:			3px;
+	 padding-left:			3px;
+	 margin:			0cm;
+	}
+*.menuitem {
+	margin:				0px;
+	padding:			0px;
 }
-A:hover {
-	COLOR: #FF4400;
-}
-</style>
-<script type="text/javascript">
-//<!--
 
-function showDoc(){
-window.open("", "showDoc", "width=500,height=300,toolbar=0,status=0,scrollbars=1,location=0,menubar=1,resizable=1");}
-//-->
-</script>
+*.menuitem:before {
+	content:			"· ";
+	font-size:			large;
+}
+#main
+	{
+	 font-family:			arial,helvetica,geneva;
+	 background-color:		#C8CECE;
+	 margin-left:			158px;
+	 border-width:			1px;
+	 border-style:			solid;
+	 border-color:			#294C6B;
+	 text-align:			center;
+	 padding-bottom:		7px;
+	}
+.ueberschrift_seite
+	{
+	 text-align:			center;
+	 font-size:			22pt;
+	 font-weight:			bold;
+	 padding-top:			23px;
+	 padding-bottom:		23px;
+	 
+	}
+  </style>
+  <script type="text/javascript">
+   //<!--
+   function showDoc(){
+     window.open("", "showDoc", "width=500,height=300,toolbar=0,status=0,scrollbars=1,location=0,menubar=1,resizable=1");}
+   //-->
+  </script>
  </head>
+ <body>
+ <div id="mainframe">
+  <div id="menu">
+   <div class="header">Menuitem</div>
+   <div class="menulist"><!--	Menupunkte	Anfang	-->
+   <div style="font-weight:bold; margin-top: 1em;"></div>
+   
+   <div class="menuitem"><a href="../index.php">Go to Webinterface</a></div>
+   <br/>
+   <div class="menuitem"><a href="./index.php">Index</a></div>
+   <div class="menuitem"><a href="./neueruser.php">Add new User</a></div>
+   <div class="menuitem"><a href="./passwd.php">Change Password</a></div>
+   <div class="menuitem"><a href="./vorwahl.php">Change Prefix</a></div>
+   <div class="menuitem"><a href="./farben.php">Colorsetup</a></div>
+   <div class="menuitem"><a href="./msn2name.php">MSN to name</a></div>
+   <div class="menuitem"><a href="./adressbuch_bug.php">Adressbook BUG</a></div>
+   <div class="menuitem"><a href="./cs_install.php">CapiSuite Integrator</a></div>
+   </div><!-- Menupunkte Ende-->
+  </div><!--Menu ENDE -->
+  <div id="main"><!--	Tabelle		Anfang	-->
+   <div class="header2">Capi2Name: Administration Panel</div>
 
- <body bgcolor="#DFDFDF">
- <br>
- <center>
- <table border="0" cellpadding="5" cellspacing="5" backgroundcolor="#DFDFDF">
-  <tr>
-   <td colspan="8"><center><a href="../index.php">User Webinterface</A></center></td>
-  </tr>
-  <tr>
-    <td bgcolor="#606096"><font color="#FFF788">Menü:</font></td>
-    <td bgcolor="#F1F1F1"><a href="./index.php">Übersicht</a></td>
-    <td bgcolor="#F1F1F1"><a href="./neueruser.php">Benutzer anlegen</a></td>
-    <td bgcolor="#F1F1F1"><a href="./passwd.php">Admin Passwort ändern</a></td>
-    <td bgcolor="#F1F1F1"><a href="./vorwahl.php">Vorwahl Anpassen</a></td>
-	<td bgcolor="#F1F1F1"><a href="./farben.php">Farben Anpassen</a></td>
-	<td bgcolor="#F1F1F1"><a href="./msn2name.php">MSN zu Name</a></td>
-	<td bgcolor="#F1F1F1"><a href="./adressbuch_bug.php">Adressbuch BUG</a></td>
-	<td bgcolor="#F1F1F1"><a href="./cs_install.php">CapiSuite Integrator</a></td>
-  </tr>
- </table>
- </center>
 
 

@@ -21,9 +21,10 @@ include("./header.inc.php");
 <center>
 
 <?
-if ($id==1)
+if ($_POST[id]==1)
  {
- echo "ADMIN KANN NICHT GELÖSCHT WERDEN!!!!!!!!";
+ echo "<spn style=\"color:red;text-align:center;\">You can not delet the administator!!</span>";
+ include("footer.inc.php");
  exit();
  }
 ?>

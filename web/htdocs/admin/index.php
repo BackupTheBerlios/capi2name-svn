@@ -1,6 +1,6 @@
 <?
 /*
-    copyright            : (C) 2002-2003 by Jonas Genannt
+    copyright            : (C) 2002-2005 by Jonas Genannt
     email                : jonasge@gmx.net
  ***************************************************************************/
 
@@ -18,22 +18,17 @@ include("./check_it.php");
 include("./header.inc.php");
 
 ?>
-<br>
-<center>
-<h3>Übersicht über die Benutzer von Capi2Name</h2>
-</center>
-<br>
+<div class="ueberschrift_seite">Capi2Name Users</div>
 
 
-<center>
-<table border="1">
+
+<table border="1" style="margin-right:auto;margin-left:auto;">
  <tr>
-  <td>Benutername</td>
-  <td><center>Passwort</center></td>
-  <td>Datum des letzten Logins</td>
-  <td>Uhrzeit des letzten Logins</td>
-  <td>Bearbeiten</td>
-  <td>Löschen</td>
+  <td style="width:150px;">uesername</td>
+  <td>password</td>
+  <td style="width:200px;">last login</td>
+  <td style="width:70px;">edit</td>
+  <td style="width:70px;">delete</td>
  </tr>
 
 <?
@@ -46,12 +41,15 @@ $zugriff_mysql->close_mysql();
   {
    echo "
     <tr>
-     <td><center>$daten[username]</center></td>
-     <td><center>$daten[passwd]</center></td>
-     <td><center>$daten[lastlogin_d]</center></td>
-     <td><center>$daten[lastlogin_t]</center></td>
-     <td><center><a href=\"./bearbeiten.php?id=$daten[id]&username=$daten[username]\">OK</a></center></td>
-     <td><center><a href=\"./loeschen.php?id=$daten[id]&username=$daten[username]\">OK</a></center></td>
+     <td>$daten[username]</td>
+     <td>$daten[passwd]</td>
+     <td>$daten[lastlogin_d] / $daten[lastlogin_t]</td>
+     
+     <td style=\"text-align:center;\">
+     <a href=\"./bearbeiten.php?id=$daten[id]&username=$daten[username]\">
+     <img src=\"../bilder/edit.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a></td>
+     <td><a href=\"./loeschen.php?id=$daten[id]&username=$daten[username]\">
+     <img src=\"../bilder/edittrash.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a></td>
     </tr>
    ";
  }
@@ -60,8 +58,7 @@ $zugriff_mysql->close_mysql();
 
 ?>
 </table>
-</center>
-<br><br>
+
 
 
 

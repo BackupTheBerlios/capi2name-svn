@@ -1,6 +1,6 @@
 <?php
 /*
-    copyright            : (C) 2002-2004 by Jonas Genannt
+    copyright            : (C) 2002-2005 by Jonas Genannt
     email                : jonasge@gmx.net
  ***************************************************************************/
 
@@ -50,7 +50,6 @@
 	}
 ?>
 <?php
-	$seite=base64_encode("cs_install.php");
 	include("./check_it.php");
 	include("./header.inc.php");
 	$cs_conf = parse_ini_file("cs_conf.inc.ini");	
