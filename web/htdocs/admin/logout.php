@@ -14,15 +14,14 @@
  ***************************************************************************/
  ?>
 <?
-setcookie("ck_ausername","", time()-172800 );
-setcookie("ck_apasswd","", time()-172800 );
-
+session_start();
+session_destroy();
 ?>
 <html>
 <head>
-<title>Ausgeloggt.</title>
+<title>Log off</title>
 </head>
 <body bgcolor="#DFDFDF">
-<div align="center"><h2></h2></div>
+<div align="center"><h2>Log Off</h2></div>
 </body>
 </html>

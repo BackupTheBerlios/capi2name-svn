@@ -1,60 +1,72 @@
 <?
+include("../conf.inc.php");
+include("../func.inc.php");
+session_start(); 
+$password=$_SESSION['adminpassword'];
+$login_ok=0;
 
 
-$login_name =$_COOKIE[ck_ausername];
-$login_passwd =$_COOKIE[ck_apasswd];
-$loginok="0";
-mysql_connect($host, $dbuser, $dbpasswd);
-$result=mysql_db_query($db, "SELECT username, passwd FROM userliste WHERE username=\"admin\"");
-$daten=mysql_fetch_array($result);
-mysql_close();
 
-if ($login_name==md5($daten[username]))
- {
-  if ($login_passwd==md5($daten[passwd]))
-   {
-  //  echo "LOGIN OK";
-    $loginok="1";
-   }
+$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+$result_userlist=$zugriff_mysql->sql_abfrage("SELECT * FROM userliste WHERE username='admin'");
+
+ if ($result_userlist && $password!="")
+  {
+  $row_userlist=mysql_fetch_array($result_userlist);
+    if ($password==$row_userlist['passwd'])
+    {
+    // echo "PASSWD Richtig...";
+     $login_ok=1;
+     
+      
+     
+    }//if passwd OK
    else
     {
- //   echo "LOGIN Failed! 1";
-    $loginok="0";
+     $login_ok=0;
     }
- }
+  }//if username es gibt
  else
- {
-// echo "LOGIN Failed! username";
- $loginok="0";
- }
-
-
- if ($loginok!=1)
   {
+   $login_ok=0;
+  }
+  
+$zugriff_mysql->close_mysql();
+
+
+
+
+
+//printf("ENDE: CHECK: Loginok: $loginok");
+if ($login_ok == 0)
+ {
+ include("./header.inc.php");
   echo "
-  <br><br><br><br>
-   <FORM action=\"./login.php?seite=$seite\" method=\"post\">
-<center>
-<table border=\"0\">
- <tr>
-  <td>Username:</td>
-  <td width=\"5\"></td>
-  <td><INPUT name=\"login\" type=\"hidden\" value=\"admin\">admin</td>
- </tr>
+<center><h3>Login</h3>
+
+
+<form action=\"./login.php\" method=\"post\">
+<table border=\"0\" >
+
  <tr>
   <td>Password:</td>
-  <td width=\"5\"></td>
-  <td><INPUT name=\"login_passwd\" type=\"password\"></td>
+  <td style=\"width:5px\"></td>
+  <td><input name=\"login_passwd\" type=\"password\"/></td>
  </tr>
-
   <tr>
-  <td colspan=\"3\"><center><INPUT name=\"absenden\" value=\"Login\" type=\"submit\"></center></td>
+  <td colspan=\"3\" style=\"text-align:center;\">
+   <input name=\"absenden\" value=\"Login to Admin-Interface\" type=\"submit\"/></td>
  </tr>
 
-</FORM>
+</form>
 </table>
-</center>";
+</center>
 
-exit();
+";
 
-  }
+
+ include("./footer.inc.php");
+ exit();
+ }
+
+?>
