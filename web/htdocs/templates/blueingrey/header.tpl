@@ -146,12 +146,6 @@
    <div class="menuitem"><a href="./adressbuch.php">{L_ADDRESS_BOOK}</a></div>
    <div class="menuitem"><a href="./addadress.php">{L_NEW_ENTRY}</a></div>
    
-   <!-- BEGIN show_memo_pages_on -->
-   <div style="font-weight:bold; margin-top: 1em;">{L_MEMO}:</div>
-   <div class="menuitem"><a href="./notiz.php">{L_MEMO}</a></div>
-   <div class="menuitem"><a href="./notiz.php?new=yes">{L_NEW_MEMO}</a></div>
-   <!-- END show_memo_pages_on -->
-   
    <!-- BEGIN show_capi_suite_on -->
    <div style="font-weight:bold; margin-top: 1em;">{L_CAPI_SUITE}</div>
    <div class="menuitem"><a href="./cs_answerphone.php"><? echo $textdata[header_inc_cs_answerphone]; ?></a></div>

@@ -37,127 +37,115 @@ $template->assign_vars(array('L_TITLE_OF_CONFIG_PAGE' => $textdata[configpage_ko
 // Einstellungen speichern ANFANG
 if ($_POST[speichern])
 {
-
-  $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] ); 
-  if ($_POST[aendern]=="on")
+ $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] ); 
+ $result=$zugriff_mysql->sql_abfrage("UPDATE userliste SET name='$_POST[neuername]' WHERE id=".$_POST[id]);
+ if ($result==1)
   {
+   echo "<div class=\"blau_mittig\">$textdata[configpage_name_geaendert_ok]</div>";
+  }
+ else
+  {
+   echo "<div class=\"rot_mittig\">$textdata[configpage_name_geaendert_failed]</div>";
+  }
 
-   $result=$zugriff_mysql->sql_abfrage("SELECT passwd FROM userliste WHERE id=".$_SESSION['id']);
-    $data=mysql_fetch_array($result);
-     if ($data[passwd]==md5($_POST[altespassword]))
-      {
-       echo "<div class=\"blau_mittig\">$textdata[configpage_altes_passwd_gleich]</div>";
-        if ($_POST[password1]==$_POST[password2])
-	 {
-          $verschluesselt=md5($_POST[password2]);
-	  echo "<div class=\"blau_mittig\">$textdata[configpage_neues_passwd_gleich]</div>";
-	  $result=mysql_db_query($db, "UPDATE userliste SET passwd='$verschluesselt' WHERE id=".$_SESSION['id']);
-             if ($result==1)
-	     { echo "<div class=\"blau_mittig\">$textdata[configpage_geaendert_ok]</div>";
-	      }
-	      else
-	       {
-		echo "<div class=\"rot_mittig\">$textdata[configpage_geaendert_failed]</div>>";
-	       }
-
-	 }
-	 else { echo "<div class=\"rot_mittig\">$textdata[configpage_neues_passwd_failed]</div>"; }
-      }
-     else { echo "<div class=\"rot_mittig\">$textdata[configpage_altes_passwd_failed]</div>"; }
-} // ENDE PASSWD ändern!!!
-
-   $result=$zugriff_mysql->sql_abfrage("UPDATE userliste SET name='$_POST[neuername]' WHERE id=".$_SESSION['id']);
-    if ($result==1)
-    {
-    echo "<div class=\"blau_mittig\">$textdata[configpage_name_geaendert_ok]</div>";
-    }
-    else
-    {echo "<div class=\"rot_mittig\">$textdata[configpage_name_geaendert_failed]</div>";
-    }
-
-  $result=$zugriff_mysql->sql_abfrage("UPDATE userliste SET anzahl='$_POST[neueanzahl]' WHERE id=".$_SESSION['id']);
-    if ($result==1) { echo "<div class=\"blau_mittig\">$textdata[configpage_anzahl_geaendert_ok]</div>"; }
-  else
-  { echo "<div class=\"rot_mittig\">$textdata[configpage_anzahl_geaendert_failed]</div>";  }
-
+$result=$zugriff_mysql->sql_abfrage("UPDATE userliste SET anzahl='$_POST[neueanzahl]' WHERE id=".$_POST[id]);
+if ($result==1)
+ { 
+  echo "<div class=\"blau_mittig\">$textdata[configpage_anzahl_geaendert_ok]</div>"; 
+ }
+else
+ { 
+  echo "<div class=\"rot_mittig\">$textdata[configpage_anzahl_geaendert_failed]</div>";  
+ }
+ 
 if ($_POST[zeigerueckruf]=="on")
  {
   $wert="checked";
  }
- else { $wert=""; }
-$result=$zugriff_mysql->sql_abfrage( "UPDATE userliste SET showrueckruf='$wert' WHERE id=".$_SESSION['id']);
-    if ($result==1) { echo "<div class=\"blau_mittig\">$textdata[configpage_option_rueckruf_ok]</div>"; }
 else
-{
-echo "<div class=\"rot_mittig\">$textdata[configpage_option_rueckruf_failed]</div>";
-}
-
-if ($_POST[zeigenotiz]=="on")
  {
-  $wert="checked";
+  $wert="";
  }
- else { $wert=""; }
-$result=$zugriff_mysql->sql_abfrage("UPDATE userliste SET shownotiz='$wert' WHERE id=".$_SESSION['id']);
-    if ($result==1) { echo "<div class=\"blau_mittig\">$textdata[configpage_option_notiz_ok]</div>"; }
+$result=$zugriff_mysql->sql_abfrage( "UPDATE userliste SET showrueckruf='$wert' WHERE id=".$_POST[id]);
+if ($result==1)
+ { 
+  echo "<div class=\"blau_mittig\">$textdata[configpage_option_rueckruf_ok]</div>"; 
+ }
 else
-{ echo "<div class=\"rot_mittig\">$textdata[configpage_option_notiz_failed]</div>"; }
-
-
+ {
+  echo "<div class=\"rot_mittig\">$textdata[configpage_option_rueckruf_failed]</div>";
+ }
 if ($_POST[zeigevorwahl]=="on")
  {
   $wert="checked";
  }
- else { $wert=""; }
-$result=$zugriff_mysql->sql_abfrage("UPDATE userliste SET showvorwahl='$wert' WHERE id=".$_SESSION['id']);
-    if ($result==1) { echo "<div class=\"blau_mittig\">$textdata[configpage_option_ausOrt_ok]</div>"; }
 else
-{ echo "<div class=\"rot_mittig\">$textdata[configpage_option_ausOrt_failed]</div>"; }
-
-
+ { 
+  $wert="";
+ }
+$result=$zugriff_mysql->sql_abfrage("UPDATE userliste SET showvorwahl='$wert' WHERE id=".$_POST[id]);
+if ($result==1)
+ {
+   echo "<div class=\"blau_mittig\">$textdata[configpage_option_ausOrt_ok]</div>";
+ }
+else
+ { 
+  echo "<div class=\"rot_mittig\">$textdata[configpage_option_ausOrt_failed]</div>";
+ }
 if ($_POST[zeigemsn]=="on")
  {
   $wert="checked";
  }
- else { $wert=""; }
-$result=$zugriff_mysql->sql_abfrage("UPDATE userliste SET showmsn='$wert' WHERE id=".$_SESSION['id']);
-    if ($result==1) { echo "<div class=\"blau_mittig\">$textdata[configpage_option_msn_ok]</div>"; }
-    else
-    {
-    echo "<div class=\"rot_mittig\">$textdata[configpage_option_msn_failed]</div>";
-    }
-
+else
+ { 
+  $wert="";
+ }
+$result=$zugriff_mysql->sql_abfrage("UPDATE userliste SET showmsn='$wert' WHERE id=".$_POST[id]);
+if ($result==1)
+ { 
+  echo "<div class=\"blau_mittig\">$textdata[configpage_option_msn_ok]</div>";
+ }
+else
+ {
+  echo "<div class=\"rot_mittig\">$textdata[configpage_option_msn_failed]</div>";
+ }
 if ($_POST[zeigetyp]=="on")
  {
   $wert="checked";
  }
- else { $wert=""; }
-$result=$zugriff_mysql->sql_abfrage("UPDATE userliste SET showtyp='$wert' WHERE id=".$_SESSION['id']);
-    if ($result==1) { echo "<div class=\"blau_mittig\">$textdata[configpage_option_dienst_ok]</div>"; }
-    else
-    {
-    echo "<div class=\"rot_mittig\">$textdata[configpage_option_dienst_failed]</div>";
-    }
+else 
+ { 
+  $wert="";
+ }
+$result=$zugriff_mysql->sql_abfrage("UPDATE userliste SET showtyp='$wert' WHERE id=".$_POST[id]);
+if ($result==1)
+ {
+  echo "<div class=\"blau_mittig\">$textdata[configpage_option_dienst_ok]</div>";
+ }
+else
+ {
+  echo "<div class=\"rot_mittig\">$textdata[configpage_option_dienst_failed]</div>";
+ }
+$result=$zugriff_mysql->sql_abfrage("UPDATE userliste SET msns='$_POST[zmsns]' WHERE id=".$_POST[id]);
+if ($result==1) 
+ { 
+  echo "<div class=\"blau_mittig\">$textdata[configpage_msn_ok]</div>";
+ }
+else
+ {
+  echo "<div class=\"rot_mittig\">$textdata[configpage_msn_failed]</div>"; 
+ }
 
-
-
-
-  $result=$zugriff_mysql->sql_abfrage("UPDATE userliste SET msns='$_POST[zmsns]' WHERE id=".$_SESSION['id']);
-    if ($result==1) { echo "<div class=\"blau_mittig\">$textdata[configpage_msn_ok]</div>"; }
-    else
-    { echo "<div class=\"rot_mittig\">$textdata[configpage_msn_failed]</div>"; }
-
-  $zugriff_mysql->close_mysql();
-}
-// Einstellungen speichern ENDE
+$zugriff_mysql->close_mysql();
+}// Einstellungen speichern ENDE
 ?>
 
 
 
 <?
 $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
- $result=$zugriff_mysql->sql_abfrage("SELECT username,passwd,name,lastlogin_d, lastlogin_t, anzahl, showrueckruf, shownotiz,msns,showvorwahl,showmsn,showtyp FROM userliste WHERE username='".$_SESSION['username']."'");
+ $result=$zugriff_mysql->sql_abfrage("SELECT id,username,passwd,name,lastlogin_d, lastlogin_t, anzahl, showrueckruf, shownotiz,msns,showvorwahl,showmsn,showtyp FROM userliste WHERE username='".$_SESSION['username']."'");
  $daten=mysql_fetch_assoc($result);
-
 $zugriff_mysql->close_mysql();
 //Xhtml konform das checkboxen gechecked sind.
 $array=array(showrueckruf,shownotiz,showvorwahl,showmsn,showtyp);
@@ -187,11 +175,12 @@ $template->assign_block_vars('tab1', array(
 	'DATA_PREFIX_FUNC' => $daten[showvorwahl],
 	'L_SHOW_TYP_FROM_CALL' => $text[zeige_typ],
 	'DATA_SHOW_TYP_FROM_CALL' => $daten[showtyp],
-	'L_SHOW_MSN_FUNC' => $text[option_splate_msn],
+	'L_SHOW_MSN' => $text[option_splate_msn],
 	'DATA_SHOW_MSN_FUNC' => $daten[showmsn],
 	'L_SHOW_MSN_FUNC' => $text[zeige_msns],
 	'DATA_SHOW_MSN_FUNC' => $daten[msns],
 	'L_WARNING_FOR_MSN_FUNC' => $text[warnung_msns],
+	'DATA_ID_FROM_DB' => $daten[id],
 	'L_SAVE_DATA_TO_DB' => $text[speichern])); 
  
 

@@ -56,7 +56,7 @@
 </tr>
 
 <tr>
- <td>{tab1.L_SHOW_MSN_FUNC}</td>
+ <td>{tab1.L_SHOW_MSN}</td>
  <td style="width:10px;"></td>
  <td><input type="checkbox" name="zeigemsn" {tab1.DATA_SHOW_MSN_FUNC} /></td>
 </tr>
@@ -71,6 +71,7 @@
 </table>
 
 <ins>
+<input type="hidden" name="id" value="{tab1.DATA_ID_FROM_DB}"/>
 <br/>
 <input type="submit" name="speichern" value="{tab1.L_SAVE_DATA_TO_DB}"/></ins>
 </form>

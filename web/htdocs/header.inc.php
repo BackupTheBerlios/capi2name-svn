@@ -62,12 +62,6 @@ if ($userconfig['showrueckruf'])
    }
 $template->assign_vars(array('L_ADDRESS_BOOK' => $textdata[header_inc_adressbuch]));
 $template->assign_vars(array('L_NEW_ENTRY' => $textdata[header_inc_neuer_eintrag]));
-if ($userconfig['shownotiz'])
-   {
-    $template->assign_block_vars('show_memo_pages_on', array());
-    $template->assign_vars(array('L_MEMO' => $textdata[header_inc_notizen]));
-    $template->assign_vars(array('L_NEW_MEMO' => $textdata[header_inc_neue_notiz]));
-   }
 if ($config['capisuite'] == "yes")
    {
     $template->assign_block_vars('show_capi_suite_on', array());
