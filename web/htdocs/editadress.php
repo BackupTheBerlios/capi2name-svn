@@ -1,6 +1,6 @@
 <?
 /*
-    copyright            : (C) 2002-2004 by Jonas Genannt
+    copyright            : (C) 2002-2005 by Jonas Genannt
     email                : jonasge@gmx.net
  ***************************************************************************/
 
@@ -17,26 +17,28 @@
 $seite=base64_encode("editadress.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
-?>
 
-<? echo "<div class=\"ueberschrift_seite\">$textdata[editadress_adressbucheintrag_editieren]</div>"; ?>
+$template->set_filenames(array('overall_body' => 'templates/blueingrey/edit_address.tpl'));
+$template->assign_vars(array('L_SITE_TITLE' => $textdata[editadress_adressbucheintrag_editieren]));
 
-<?
+
 // Eintrag loeschen:
 if (isset($_POST[wloeschen]))
  {
   $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
   $result=$zugriff_mysql->sql_abfrage("DELETE FROM adressbuch WHERE id = $_POST[loeschenID]");
   $zugriff_mysql->close_mysql();
- echo "<div class=\"blau_mittig\">$textdata[editadress_eintrag_geloescht]</div>";
- echo "<meta http-equiv=\"refresh\" content=\"2; URL=./adressbuch.php\">";
- include("./footer.inc.php");
- exit;
+  $template->assign_block_vars('delete_entry_from_db', array(
+  	'L_ADDRESS_BOOK_ENTRY_REMOVED' => $textdata[editadress_eintrag_geloescht]));
+  $template->pparse('overall_body');
+  include("./footer.inc.php");
+  exit;
  }
 
 if (isset($_POST[loeschen]) or $_GET[loeschen]==1)
  {
- echo "<div class=\"rot_mittig\">$textdata[editadress_wirklich_loeschen]</div>";
+ $template->assign_block_vars('check_if_delete_entry', array(
+ 	'L_check_if_you_will_delete' => $textdata[editadress_wirklich_loeschen]));
  }
 
 // Eintrag loeschen und neu mit gleicher ID reinschreiben.
@@ -74,114 +76,74 @@ if (isset($_POST[id]))
  }
 $result=$zugriff_mysql->sql_abfrage("SELECT * FROM adressbuch WHERE id='$eintrag'");
 $zugriff_mysql->close_mysql();
-$row=mysql_fetch_row($result);
-if ($row==false)
+$daten=mysql_fetch_assoc($result);
+if ($daten==false)
  {
  echo "<div class=\"rot_mittig\">$textdata[editadress_eintrag_mit_nicht_gefunden]</div>";
+ include("footer.inc.php");
+ exit();
  }
- $id = $row[0];
- $vorname = $row[1];
- $nachname = $row[2];
- $strasse = $row[3];
- $hausnr = $row[4];
- $plz = $row[5];
- $ort = $row[6];
  $tele1 = $row[7];   if ($tele1 == "99") { $tele1="";}
  $tele2 = $row[8];   if ($tele2 == "99") { $tele2="";}
  $tele3 = $row[9];   if ($tele3 == "99") { $tele3="";}
  $handy = $row[10];   if ($handy == "99") { $handy="";}
  $fax = $row[11];
  $email = $row[12];
-echo "
-<form action=\"$PHP_SELF\" method=\"post\">
-<table border=\"0\" cellpadding=\"3\" style=\"margin-right:auto;margin-left:auto;\">
- <tr>
-  <td>$textdata[addadress_vorname]:</td>
-  <td style=\"width:12px\"></td>
-  <td><input name=\"bvorname\" type=\"text\" value=\"$vorname\"/><input name=\"bid\" value=\"$id\" type=\"hidden\"/></td>
- </tr>
- <tr>
-  <td>$textdata[addadress_nachname]:</td>
-  <td style=\"width:12px\"></td>
-  <td><input name=\"bnachname\" type=\"text\" value=\"$nachname\"/></td>
- </tr>
- <tr>
-  <td>$textdata[addadress_strasse]:</td>
-  <td style=\"width:12px\"></td>
-  <td><input name=\"bstrasse\" type=\"text\" value=\"$strasse\"/></td>
- </tr>
- <tr>
-  <td>$textdata[addadress_hausnummer]:</td>
-  <td style=\"width:12px\"></td>
-  <td><input name=\"bhausnr\" type=\"text\" value=\"$hausnr\"/></td>
- </tr>
- <tr>
-  <td>$textdata[addadress_plz]:</td>
-  <td style=\"width:12px\"></td>
-  <td><input name=\"bplz\" type=\"text\" value=\"$plz\"/></td>
- </tr>
- <tr>
-  <td>$textdata[addadress_ort]:</td>
-  <td style=\"width:12px\"></td>
-  <td><input name=\"bort\" type=\"text\" value=\"$ort\"/></td>
- </tr>
- <tr>
-  <td>$textdata[addadress_telefonnummer1]:</td>
-  <td style=\"width:12px\"></td>
-  <td><input name=\"btele1\" type=\"text\" value=\"$tele1\"/></td>
- </tr>
- <tr>
-  <td>$textdata[addadress_telefonnummer2]:</td>
-  <td style=\"width:12px\"></td>
-  <td><input name=\"btele2\" type=\"text\" value=\"$tele2\"/></td>
- </tr>
-  <tr>
-  <td>$textdata[addadress_telefonnummer3]:</td>
-  <td style=\"width:12px\"></td>
-  <td><input name=\"btele3\" type=\"text\" value=\"$tele3\"/></td>
- </tr>
- <tr>
-  <td>$textdata[addadress_handy]:</td>
-  <td style=\"width:12px\"></td>
-  <td><input name=\"bhandy\" type=\"text\" value=\"$handy\"/></td>
- </tr>
- <tr>
-  <td>$textdata[addadress_fax]:</td>
-  <td style=\"width:12px\"></td>
-  <td><input name=\"bfax\" type=\"text\" value=\"$fax\"/></td>
- </tr>
- <tr>
-  <td>$textdata[addadress_email]:</td>
-  <td style=\"width:12px\"></td>
-  <td><input name=\"bemail\" type=\"text\" value=\"$email\"/></td>
- </tr>
-</table>
-<ins><br/><input name=\"id\" type=\"hidden\" value=\"$id\"/>
-<input type=\"submit\" name=\"aendern\" value=\"$textdata[editadress_eintrag_aendern]\"/></ins><p></p>";
+ 
+ 
+ $template->assign_block_vars('tab1', array(
+ 	'L_FIRST_NAME' => $textdata[addadress_vorname],
+	'DATA_FIRST_NAME' => $daten[vorname],
+	'DATA_ID_USER' => $daten[id],
+	'L_LAST_NAME' => $textdata[addadress_nachname],
+	'DATA_LAST_NAME' => $daten[nachname],
+	'L_STREET_NAME' => $textdata[addadress_strasse],
+	'DATA_STREET_NAME' => $daten[strasse],
+	'L_HOUSE_NUMBER' => $textdata[addadress_hausnummer],
+	'DATA_HOUSE_NUMBER' => $daten[hausnr],
+	'L_ZIP_CODE' => $textdata[addadress_plz],
+	'DATA_ZIP_CODE' => $daten[plz],
+	'L_CITY' => $textdata[addadress_ort],
+	'DATA_CITY' => $daten[ort],
+	'L_TELE_1' => $textdata[addadress_telefonnummer1],
+	'L_TELE_2' => $textdata[addadress_telefonnummer2],
+	'L_TELE_3' => $textdata[addadress_telefonnummer3],
+	'DATA_TELE_1' => $daten[tele1],
+	'DATA_TELE_2' => $daten[tele2],
+	'DATA_TELE_3' => $daten[tele3],
+	'L_CELL_PHONE' => $textdata[addadress_handy],
+	'DATA_CELL_PHONE' => $daten[handy],
+	'L_FAX' => $textdata[addadress_fax],
+	'DATA_FAX' => $daten[fax],
+	'L_E_MAIL' => $textdata[addadress_email],
+	'DATA_E_MAIL' => $daten[email],
+	'CHANGE_ADDR' => $textdata[editadress_eintrag_aendern]));
+ 
+ 
+
+
+
+
 if (isset($_POST[loeschen_OK]) or $_GET[loeschen]==1)
  {
- echo "<ins><input type=\"hidden\" name=\"loeschenID\" value=\"$id\"/>";
- echo "<input type=\"submit\" name=\"wloeschen\" value=\"$textdata[adressbuch_eintrag_loeschen]\"/></ins>"; 
+  $template->assign_block_vars('now_delete_really_entry', array(
+  		'ID_FROM_ADDR' => $daten[id],
+		'REMOVE_ENTRY' => $textdata[adressbuch_eintrag_loeschen]));
  }
 else
  {
- 
- echo "<ins><input type=\"hidden\" name=\"loeschen_OK\" value=\"$id\"/>";
-  echo "<input type=\"submit\" name=\"loeschen\" value=\"$textdata[adressbuch_eintrag_loeschen]\"/></ins>";
+ $template->assign_block_vars('ask_for_delete_entry',array(
+ 		'ID_FROM_ADDR' => $daten[id],
+		'DELETE_ENTRY' => $textdata[adressbuch_eintrag_loeschen]));
  }  
 
-echo "</form>";
-
-?>
 
 
-<span style="text-align:center">
-  <form action="./adressbuch.php" method="post">
-    <p><input type="submit" value="<? echo "$textdata[editadress_abbrechen]"; ?>"/></p>
-</form>
-</span>
 
 
-<?
+$template->assign_vars(array('CANCEL_EDIT_ADDR' => $textdata[editadress_abbrechen]));
+
+
+$template->pparse('overall_body');
 include("./footer.inc.php");
 ?>

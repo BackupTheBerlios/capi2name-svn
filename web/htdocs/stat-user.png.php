@@ -20,14 +20,14 @@
 	
 	//Bilddaten:
 	$bild_hoehe=400;
-	$bild_breite=600;
+	$bild_breite=570; //600
 	$max_pixel_anzahl=$bild_hoehe-60;
 	
 	
 	$datum_jahr[0]=date("Y");
 	$datum_monat[0]=date("m");
 	
-	for ($e=1;$e<=5;$e++) {
+	for ($e=1;$e<=9;$e++) {
 		$tstamp  = mktime(0, 0, 0, date("m")-$e, date("d"), date("Y"));
 		$datum_jahr[$e]=date("Y",$tstamp);
 		$datum_monat[$e]=date("m", $tstamp);
@@ -36,7 +36,7 @@
 	$sql_query=$zugriff_mysql->sql_abfrage("SELECT id,tele1,tele2,tele3,handy FROM adressbuch WHERE id=$_GET[id]");
 	$result=mysql_fetch_array($sql_query);
 	//echo "$result[tele1], $result[fax]";
-	for ($e=0;$e<=5;$e++) {
+	for ($e=0;$e<=9;$e++) {
 		$result_alle=$zugriff_mysql->sql_abfrage("SELECT id,rufnummer FROM angerufene WHERE MONTH(datum)=$datum_monat[$e] AND YEAR(datum)=$datum_jahr[$e]  AND (rufnummer=$result[tele1] OR rufnummer=$result[handy] OR rufnummer=$result[tele2] OR rufnummer=$result[tele3])");
 		$anzahl_monat_alle[$e]=mysql_num_rows($result_alle);
 		//echo "Anzahl: $e: ". $anzahl_monat_alle[$e];
@@ -76,8 +76,8 @@
 		$e+=10;
 	}while($e<=$max_anrufe);
 	
-	$einheit=45;
-	for ($i=0;$i<=5;$i++) {
+	$einheit=45; 
+	for ($i=0;$i<=9;$i++) {
 		$pixel_alle=$hoehe_ein_anruf*$anzahl_monat_alle[$i];
 		//$pixel_unbekannt=$hoehe_ein_anruf*$anzahl_monat_unbekannt[$i];
 		//$pixel_bekannt=$hoehe_ein_anruf*$anzahl_monat_bekannt[$i];
@@ -88,7 +88,7 @@
 		//$rc = imagefilledrectangle($im, $einheit+20,$bild_hoehe-30-$pixel_unbekannt,$einheit+7+20,$bild_hoehe-30, $col_gruen);
 		
 		
-		$einheit+=90;
+		$einheit+=50; //90
 	}
 	
 	$fileName	= "stats.png";

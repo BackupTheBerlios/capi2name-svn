@@ -20,6 +20,7 @@
 	
 	//Bilddaten:
 	$bild_hoehe=400;
+	$bild_hoehe_org=440;
 	$bild_breite=600;
 	$max_pixel_anzahl=$bild_hoehe-60;
 	
@@ -48,7 +49,7 @@
 	
 	
 	//header("Content-type: image/png");
-	$im = imagecreate($bild_breite, $bild_hoehe) or die("Cannot Initialize new GD image stream");
+	$im = imagecreate($bild_breite, $bild_hoehe_org) or die("Cannot Initialize new GD image stream");
 	$bc = imagecolorallocate($im, 130, 130, 130);
 	$col = imagecolorallocate($im, 255,255,255);
 	$rc = imagerectangle($im, 3,3, $bild_breite-3,$bild_hoehe-3,$col); //weisser rahmen
@@ -66,6 +67,10 @@
 	$col_rot = imagecolorallocate($im, 255,0,0);
 	$col_blau= imagecolorallocate($im, 0,0,255);
 	$col_gruen= imagecolorallocate($im, 0,255,0);
+	
+	//Rot,gruen,blau definieren:
+	$is =imagestring($im, 2,35,412, "Alle Anrufe:" , $col );
+	$rc =imagefilledrectangle($im,115,414,150,425, $col_rot);
 	
 	$e=10;
 	do {
