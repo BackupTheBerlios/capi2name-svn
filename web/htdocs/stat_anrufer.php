@@ -12,8 +12,6 @@
  *   any later version.                                   *
  *                                                                         *
  ***************************************************************************/
- ?>
-<?
 $seite=base64_encode("stat_anrufer.php");
 include("./login_check.inc.php");
 include("./header.inc.php");

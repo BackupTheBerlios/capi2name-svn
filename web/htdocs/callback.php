@@ -68,13 +68,11 @@ $addzeit= $_POST[addzeit];
 
 
 $template->assign_vars(array('L_SITE_TITLE' => $text[zurueckrufen]));
-
 $template->assign_block_vars('tab1',array(
 		'L_NAME' => $text[name1],
 		'L_NUMBER' => $text[rufnummer],
 		'L_CALL_TIME' => $text[anruf_zeit],
 		'L_CALL_BACK_TIME' => $text[zurueck_zeit]));
-
 $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 $result=$zugriff_mysql->sql_abfrage("SELECT * FROM zurueckrufen");
 while($daten=mysql_fetch_assoc($result))
@@ -102,47 +100,22 @@ if ($_GET[add]== "yes")
  $addname= base64_decode($_GET[addname]);
  $uhrzeit=base64_decode($_GET[zuhrzeit]);
  $datum=base64_decode($_GET[zdatum]);
- echo "
-<br /><br /><hr/>
-<div class=\"ueberschrift_seite\">Neuer Eintrag</div>
-<form action=\"$PHP_SELF\" method=\"post\">
-<table border=\"0\" style=\"margin-right:auto;margin-left:auto;text-align:left;\">
- <tr>
-  <td>$text[name1]:</td>
-  <td><input name=\"addname\" value=\"$addname\" type=\"text\"/>
-   <input type=\"hidden\" name=\"addzeit\" value=\"$uhrzeit\"/>
-   <input type=\"hidden\" name=\"adddatum\" value=\"$datum\"/>
-  </td>
- </tr>
- <tr>
-  <td>$text[rufnummer]:</td>
-  <td><input name=\"addrufnummer\" value=\"$_GET[addrufnummer]\" type=\"text\"/></td>
- </tr>
- <tr>
-  <td>$text[zurueck_zeit]:</td>
-  <td>
-   <select name=\"addzurueckzeit\">
-   <option value=\"Morgens\" >Morgens</option>
-   <option value=\"Mittags\" >Mittags</option>
-   <option value=\"Abends\"  >Abends</option>
-   <option value=\"So bald wie moeglich\" >So bald wie moeglich</option>
-   </select></td>
-   </tr>
-   <tr>
-   <td>$text[grund]</td>
-    <td>$anzeige
-     <textarea rows=\"10\" cols=\"30\" name=\"grund\"></textarea>
-    </td>
- </tr>
-</table>
-<ins><br /><input name=\"eintragen\" value=\"$text[speichern]\" type=\"submit\"/></ins>
-</form>
- ";
+ $template->assign_block_vars('add_new_entry',array(
+ 	'L_TITLE_NEW' => 'Neuer Eintrag',
+	'L_NAME' => $text[name1],
+	'DATA_ADD_NAME' => $addname,
+	'DATA_ADD_TIME' => $uhrzeit,
+	'DATA_ADD_DATE' => $datum,
+	'L_NUMBER' => $text[rufnummer],
+	'DATA_NUMBER' => $_GET[addrufnummer],
+	'L_CALL_BACK_TIME' => $text[zurueck_zeit],
+	'L_REASON' => $text[grund],
+	'L_VIEW' => $anzeige,
+	'L_SAVE_DATA' => $text[speichern]));
+ 
  }
-?>
-<br /><br />
 
-<?
+ 
 $template->pparse('overall_body');
 include("./footer.inc.php");
 ?>

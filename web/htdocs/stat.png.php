@@ -12,10 +12,8 @@
  *   any later version.                                   *
  *                                                                         *
  ***************************************************************************/
- ?>
-<?php
-	include("conf.inc.php");
-	include("./func.inc.php");
+include("./includes/conf.inc.php");
+include("./includes/functions.php");
 	
 	
 	//Bilddaten:

@@ -29,3 +29,47 @@
 </tr>
 <!-- END tab2 -->
 </table>
+
+
+<!-- BEGIN add_new_entry -->
+<br /><br /><hr/>
+<div class="ueberschrift_seite">{add_new_entry.L_TITLE_NEW}</div>
+<form action=callback.php" method="post">
+<table border="0" style="margin-right:auto;margin-left:auto;text-align:left;">
+ <tr>
+  <td>{add_new_entry.L_NAME}:</td>
+  <td>
+   <input name="addname" value="{add_new_entry.DATA_ADD_NAME}" type="text"/>
+   <input type="hidden" name="addzeit" value="{add_new_entry.DATA_ADD_TIME}"/>
+   <input type="hidden" name="adddatum" value="{add_new_entry.DATA_ADD_DATE}"/>
+  </td>
+ </tr>
+ <tr>
+  <td>{add_new_entry.L_NUMBER}:</td>
+  <td><input name="addrufnummer" value="{add_new_entry.DATA_NUMBER}" type="text"/></td>
+ </tr>
+ <tr>
+  <td>{add_new_entry.L_CALL_BACK_TIME}:</td>
+  <td>
+   <select name="addzurueckzeit">
+   <option value="Morgens" >Morgens</option>
+   <option value="Mittags" >Mittags</option>
+   <option value="Abends"  >Abends</option>
+   <option value="So bald wie moeglich" >So bald wie moeglich</option>
+   </select></td>
+ </tr>
+   <tr>
+   <td>{add_new_entry.L_REASON}</td>
+    <td>{add_new_entry.L_VIEW}
+     <textarea rows="10" cols="30" name="grund"></textarea>
+    </td>
+ </tr>
+</table>
+<ins>
+<br />
+ <input name="eintragen" value="{add_new_entry.L_SAVE_DATA}" type="submit"/>
+</ins>
+</form>
+<!-- END add_new_entry -->
+
+<br /><br />

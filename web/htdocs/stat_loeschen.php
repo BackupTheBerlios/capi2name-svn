@@ -50,11 +50,7 @@ if (isset($_POST[btn_loeschen]))
 	'DATA_DATE' => $datum));
     }
   }
-?>
 
-
-
-<?
 if (isset($_GET[id]))
   {
     $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );

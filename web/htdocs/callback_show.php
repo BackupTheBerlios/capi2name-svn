@@ -1,6 +1,6 @@
 <?
 /*
-    copyright            : (C) 2002-2004 by Jonas Genannt
+    copyright            : (C) 2002-2005 by Jonas Genannt
     email                : jonasge@gmx.net
  ***************************************************************************/
 
@@ -12,61 +12,51 @@
  *   any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-?>
-<?
 $seite=base64_encode("szurueckruf.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
+
+$template->set_filenames(array('overall_body' => 'templates/blueingrey/callback_show.tpl'));
+//ob er die Page anschauen darf:
+ if (!$userconfig['showrueckruf'])
+  {
+   $template->assign_block_vars('not_allowed_show',array(
+   		'L_MSG_NOT_ALLOWED' => $text[nichtberechtigt]));
+   $template->pparse('overall_body');
+   include("./footer.inc.php");
+   die();
+  }
+
+
 $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 $result=$zugriff_mysql->sql_abfrage("SELECT * FROM zurueckrufen WHERE id=$_GET[anz]");
 $zugriff_mysql->close_mysql();
 $daten=mysql_fetch_array($result);
 if ($daten==false)
  {
-  echo "<div class=\"rot_mittig\">$text[eintragmit_id] $_GET[anz] $text[anadmin_wenden]</div>";
+  $template->assign_block_vars('entry_not_found',array(
+  	'L_NOT_FOUND' =>$text[eintragmit_id]." ".$_GET[anz]." ".$text[anadmin_wenden] ));
+  $template->pparse('overall_body');
+  include("footer.inc.php");
+  die();
  }
-$name=$daten[name];
-$nummer=$daten[nummer];
-$uhrzeit=$daten[uhrzeit];
-$datum=$daten[datum];
-$zurueckzeit=$daten[rueckzeit];
-$grund=$daten[grund];
 
-?>
-<?
-//ob er die Page anschauen darf:
- if (!$userconfig['showrueckruf'])
-  {
-   echo "<div class=\"rot_mittig\">$text[nichtberechtigt]</div>";
-   include("./footer.inc.php");
-   die();
-  }
-echo "<div class=\"ueberschrift_seite\">$text[detail] $text[zurueckrufen]</div>"; 
-?>
-<table border="0" style="margin-right:auto;margin-left:auto;text-align:left;">
- <tr>
-  <td style="height:30px;"><b><? echo "$text[datum]:"; ?></b></td>
-  <td><? echo $datum; ?></td>
-  <td style="width:100px;"></td>
-  <td style="font-weight:bold;">Name:</td>
-  <td><? echo "$name"; ?></td>
- </tr>
- <tr>
-  <td style="height:30px;"><b><? echo "$text[uhrzeit]:"; ?></b></td>
-  <td><? echo "$uhrzeit"; ?></td>
-  <td  style="width:100px;"></td>
-  <td style="font-weight:bold;"><? echo "$text[rufnummer]:"; ?></td>
-  <td><? echo "$nummer"; ?></td>
- </tr>
- <tr>
-  <td colspan="5" style="font-weight:bold;">
-  <? echo $text[grund] ?><br />
-   <? echo "$grund"; ?>
 
-  </td>
- </tr>
-</table>
-<br /><br />
-<?
+
+$template->assign_vars(array('L_SITE_TITLE' =>$text[detail]." ".$text[zurueckrufen]));
+
+$template->assign_block_vars('tab1',array(
+	'L_DATE' => $text[datum],
+	'DATA_DATE' => $daten[datum],
+	'L_NAME' =>  'Name',
+	'DATA_NAME' => $daten[name],
+	'L_TIME' => $text[uhrzeit],
+	'DATA_TIME' => $daten[uhrzeit],
+	'L_NUMBER' => $text[rufnummer],
+	'DATA_NUMBER' => $daten[nummer],
+	'DATA_REASON' => $daten[grund],
+	'L_REASON' => $text[grund]));
+
+$template->pparse('overall_body');
 include("./footer.inc.php");
 ?>
