@@ -33,13 +33,16 @@ $result_userlist=$zugriff_mysql->sql_abfrage("SELECT id,username,passwd,name FRO
      
      echo "PASSWD Richtig... Sie werden weitergeleitet...";
      $seite=base64_decode($_POST['seite']);
-     echo "<meta http-equiv=\"refresh\" content=\"2; URL=./$seite\">";
-      
-      $_SESSION['realname']=$row_userlist['name'];
-      $_SESSION['username']=$_POST['login_name'];
-      $_SESSION['password']=$row_userlist['passwd'];
-      $_SESSION['id']=$row_userlist['id'];
+     if ($_POST['remember_login']=="on")
+      {
+       $_SESSION['remember_login']=true;
+      }
+     $_SESSION['realname']=$row_userlist['name'];
+     $_SESSION['username']=$_POST['login_name'];
+     $_SESSION['password']=$row_userlist['passwd'];
+     $_SESSION['id']=$row_userlist['id'];
      $loginok=1;
+     echo "<meta http-equiv=\"refresh\" content=\"2; URL=./$seite\">";
     }
     else
     {

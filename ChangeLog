@@ -11,7 +11,7 @@ Capi2Name 0.6.7.4 YYYY-MM-DD - Jonas Genannt - <jonasge@gmx.net> ---BETA
 	o PHP: Loginverfahren von coockie auf PHP sessions umgestellt
 	o PHP: login1.php geloescht, nicht mehr notwendig
 	o PHP: $userconfig[] eingefuehrt
-	o 
+	o PHP: coockie eingebaut wieder zum eingeloggt bleiben.
 
 Capi2Name 0.6.7.3 2004-11-28 - Jonas Genannt - <jonasge@gmx.net>
 	o PHP: shownewstat.php in verbindung mit Kalender. zeigt wieder Eintraege an

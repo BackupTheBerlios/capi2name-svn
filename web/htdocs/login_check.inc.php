@@ -7,6 +7,24 @@ $username=$_SESSION['username'];
 $password=$_SESSION['password'];
 $login_ok=0;
 
+if ($_SESSION['remember_login'])
+ {
+  setcookie("ck_username",$username, time()+172800000 );  
+  setcookie("ck_passwd",$password, time()+172800000 );  
+  setcookie("ck_realname",$realname, time()+172800000 );  
+  $_SESSION['remember_login']=false;
+ }
+
+if ($_COOKIE['ck_username']!="" && $_COOKIE['ck_passwd']!="" && $_COOKIE['ck_realname']!="")
+ {
+  $_SESSION['realname']=$_COOKIE['ck_realname'];
+  $_SESSION['username']=$_COOKIE['ck_username']; 
+  $_SESSION['password']=$_COOKIE['ck_passwd'];
+  $realname=$_SESSION['realname'];
+  $username=$_SESSION['username']; 
+  $password=$_SESSION['password'];
+ }
+
 
 
 $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
@@ -176,6 +194,9 @@ if ($login_ok == 0)
   <td>$text[passwd]</td>
   <td style=\"width:5px\"></td>
   <td><input name=\"login_passwd\" type=\"password\"/></td>
+ </tr>
+ <tr>
+  <td colspan=\"3\"><input name=\"remember_login\" type=\"checkbox\"/> Eingeloggt bleiben</td>
  </tr>
   <tr>
   <td colspan=\"3\" style=\"text-align:center;\"><input name=\"seite\" type=\"hidden\" value=\"$seite\"/>

@@ -16,6 +16,9 @@
 <?
 session_start();
 session_destroy();
+setcookie("ck_username","", time()-172800000 );  
+setcookie("ck_passwd","", time()-172800000 );  
+setcookie("ck_realname","", time()-172800000 );  
 
 ?>
 <html>
