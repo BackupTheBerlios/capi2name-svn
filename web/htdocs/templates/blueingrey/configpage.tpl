@@ -72,7 +72,7 @@
  <td>
  <select name="new_template">
   <!-- BEGIN tab2 -->
-  <option value="{tab1.template_on.tab2.DATA_TEMPLATE}" {tab1.template_on.tab2.DATA_SELECTED}>{tab1.template_on.tab2.DATA_TEMPLATE}</option>
+  <option {tab1.template_on.tab2.DATA_SELECT} value="{tab1.template_on.tab2.DATA_TEMPLATE}" >{tab1.template_on.tab2.DATA_TEMPLATE}</option>
   <!-- END tab2 -->
  </select>
  

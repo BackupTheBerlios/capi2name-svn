@@ -53,10 +53,6 @@ for ($i=0;$i<=3;$i++)
    }
  }
 
-
-
- 
- 
 $template->assign_block_vars('tab1', array(
 	'L_USER_NAME' => $textdata[configpage_username],
 	'DATA_USER_NAME' => $daten[username],
@@ -83,8 +79,8 @@ $template->assign_block_vars('tab1', array(
 	'L_WARNING_FOR_MSN_FUNC' => $text[warnung_msns],
 	'DATA_ID_FROM_DB' => $daten[id],
 	'L_SAVE_DATA_TO_DB' => $text[speichern])); 
- 
-if (!$daten_config[option])
+
+if ($daten_config[value]==NULL)
  {
   $template->assign_block_vars('tab1.template_on',array(
   		'L_SET_TEMPLATE' => 'Template setzten'));
@@ -97,10 +93,19 @@ if (!$daten_config[option])
       $files[] =$filename;
      }
    }
-  foreach ($files as $value)
+  foreach ($files as $value)  
    {
-   $template->assign_block_vars('tab1.template_on.tab2',array('DATA_TEMPLATE' => $value));
-    //echo ": $value<br/>";
+    if ($value==$daten[template])
+      {
+       $template->assign_block_vars('tab1.template_on.tab2',array(
+       		'DATA_TEMPLATE' => $value,
+		'DATA_SELECT' => 'selected="selected"'));
+      }
+    else
+      {
+       $template->assign_block_vars('tab1.template_on.tab2',array('DATA_TEMPLATE' => $value));
+      }
+    
    }
   
  }//wenn user selber template setzten darf
