@@ -1,0 +1,38 @@
+28a29,33
+> 	# Added by Kai Rmer
+>         # BEGIN ADD
+>         abas='/usr/lib/capisuite/capi2name.pl %(d)d %(e)s %(f)s &' % {'d': service, "e": call_from, "f": call_to}
+>         os.system(abas)
+>         # END ADD
+99c104
+< 			os.mkdir(udir,0700)
+---
+> 			os.mkdir(udir,0755)
+103c108
+< 			os.mkdir(udir+"received/",0700)
+---
+> 			os.mkdir(udir+"received/",0755)
+139c144
+< 		os.chmod(filename,0600)
+---
+> 		os.chmod(filename,0644)
+141c146
+< 		os.chmod(filename[:-3]+"txt",0600)
+---
+> 		os.chmod(filename[:-3]+"txt",0644)
+173c178
+< 			os.mkdir(udir,0700)
+---
+> 			os.mkdir(udir,0755)
+177c182
+< 			os.mkdir(udir+"received/",0700)
+---
+> 			os.mkdir(udir+"received/",0755)
+237c242
+< 		os.chmod(filename,0600)
+---
+> 		os.chmod(filename,0644)
+239c244
+< 		os.chmod(filename[:-2]+"txt",0600)
+---
+> 		os.chmod(filename[:-2]+"txt",0644)
