@@ -21,7 +21,7 @@
 	include("./header.inc.php");
 	
 ?>
-<?php echo "<div class=\"ueberschrift_seite\">CapiSuite Fax Betrachter</div>"; ?>
+<?php echo "<div class=\"ueberschrift_seite\">$textdata[cs_fax_headline]</div>"; ?>
 <div style="text-align:left;">
 <?php
 	$dir = "/var/spool/capisuite/users/$login_name/received/";
@@ -33,11 +33,11 @@
 		$lines = file($dir . $file);
 		
 ?>
-	<h3>Eingegangenes Fax</h3>
+	<h3>$textdata[cs_fax_incoming]</h3>
 	<p>
-		Datum: <?php echo preg_replace("/(.*=\")(.*)(\")/", "\\2", $lines[7]); ?><br />
-		Absender: <?php echo preg_replace("/(.*=\")(.*)(\")/", "\\2", $lines[5]); ?><br />
-		Empfänger: <?php echo msnzuname(preg_replace("/(.*=\")(.*)(\")/", "\\2", $lines[6])); ?><br />
+		<?php echo $textdata[cs_fax_time]; ?>: <?php echo preg_replace("/(.*=\")(.*)(\")/", "\\2", $lines[7]); ?><br />
+		<?php echo $textdata[cs_fax_from]; ?>: <?php echo preg_replace("/(.*=\")(.*)(\")/", "\\2", $lines[5]); ?><br />
+		<?php echo $textdata[cs_fax_to]; ?>: <?php echo msnzuname(preg_replace("/(.*=\")(.*)(\")/", "\\2", $lines[6])); ?><br />
 	</p>
 	<p><img align="middle" alt="fax" src="cs_viewfax.php?file=<?php echo $fax; ?>&amp;csuser=<?php echo $login_name; ?>" /></p>
 	
@@ -45,14 +45,14 @@
 	}
 	else {
 ?>
-	<h3>Liste der eingegangenen Faxe</h3>
-	<table width="80%" align="center">
+	<h3><?php echo $textdata[cs_fax_liste]; ?></h3>
+	<table width="650px" align="center">
 		<thead style="text-size:large;">
 			<tr>
-				<td>Zeit</td>
-				<td>von</td>
-				<td>an</td>
-				<td>ansehen</td>
+				<td><?php echo $textdata[cs_fax_time]; ?></td>
+				<td><?php echo $textdata[cs_fax_from]; ?></td>
+				<td><?php echo $textdata[cs_fax_to]; ?></td>
+				<td></td>
 			</tr>
 		</thead>
 		<tbody>
@@ -71,7 +71,7 @@
 					echo msnzuname(preg_replace("/(.*=\")(.*)(\"\n)/", "\\2", $lines[6]));
 					echo "</td><td>";
 					$a = preg_replace("/(.*-)(\d{1,4})(\.l.*)/", "\\2",$lines[4]);
-					echo "<a href=\"cs_fax.php?viewfax&amp;fax=$a\">ansehen</a>";
+					echo "<a href=\"cs_fax.php?viewfax&amp;fax=$a\">$textdata[cs_fax_view]</a>";
 					echo "</td></tr>";
 				}
 			}

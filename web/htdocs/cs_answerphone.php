@@ -21,16 +21,15 @@
 	include("./header.inc.php");
 	
 ?>
-<?php echo "<div class=\"ueberschrift_seite\">CapiSuite Anrufbeantworter</div>"; ?>
-	<h3>Liste der eingegangenen Nachrichten</h3>
-	<table width="80%" align="center">
+<?php echo "<div class=\"ueberschrift_seite\">$textdata[cs_ap_answerphone]</div>"; ?>
+	<h3><?php echo $textdata[cs_ap_liste]; ?></h3>
+	<table width="650px" align="center">
 		<thead style="text-size:large;">
 			<tr>
-				<td>Zeit</td>
-				<td>von</td>
-				<td>an</td>
-				<td>abspielen</td>
-				<td>löschen</td>
+				<td><?php echo $textdata[cs_ap_time]; ?></td>
+				<td><?php echo $textdata[cs_ap_from]; ?></td>
+				<td><?php echo $textdata[cs_ap_to]; ?></td>
+				<td></td>
 			</tr>
 		</thead>
 		<tbody>
@@ -51,9 +50,7 @@
 					echo msnzuname(preg_replace("/(.*=\")(.*)(\"\n)/", "\\2", $lines[6]));
 					echo "</td><td>";
 					$a = preg_replace("/(.*-)(\d{1,4})(\.l.*)/", "\\2",$lines[4]);
-					echo "<a href=\"cs_hearmessage.php?file=$a&amp;csuser=$login_name\">abspielen</a>";
-					echo "</td><td>";
-					echo "löschen";
+					echo "<a href=\"cs_hearmessage.php?file=$a&amp;csuser=$login_name\">$textdata[cs_ap_play]</a>";
 					echo "</td></tr>";
 				}
 			}

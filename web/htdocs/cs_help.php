@@ -22,7 +22,7 @@
 	
 ?>
 <?php echo "<div class=\"ueberschrift_seite\">CapiSuite Hilfe</div>"; ?>
-<div style="text-align:left">
+<div style="text-align:left; margin: 5px;">
 	<h2>Installation</h2>
 	<p>Folgende Veränderungen müssen auf <a href="http://www.capisuite.de" target="_blank">capisuite</a> angewandt werden, damit es zusammen mit <a href="http://www.capi2name.de" target="_blank">capi2name</a> läuft:</p>
 	<ul>
@@ -34,7 +34,7 @@
 	<h2>Anrufbeantworter</h2>
 	<p>nix besonderes</p>
 	<h2>Fax</h2>
-	<p>nix besonderes</p>
+	<p>Um Faxe einfach online ansehen zu können, empfiehlt es sich auf dem capi2name Server sff2mix installiert zu haben. Den Source gibts <a href="http://capircvd.berlios.de/download/sff2misc/sff-1.0-jpegx2.tar.gz">hier</a></p>
 </div>
 <?php
 include("./footer.inc.php");
