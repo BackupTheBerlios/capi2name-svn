@@ -35,7 +35,7 @@ include("./header.inc.php");
 if (isset($_POST[btn_loeschen]))
   {
    //Eintrag löschen:
-   $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+   $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] ); 
    $res=$zugriff_mysql->sql_abfrage("DELETE FROM angerufene WHERE id=$_POST[id]");
    $zugriff_mysql->close_mysql();
      if ($_POST[datum]!="")
@@ -64,7 +64,7 @@ if (isset($_GET[id]))
     $result=$zugriff_mysql->sql_abfrage("SELECT * FROM angerufene WHERE id=$_GET[id]");
     $zugriff_mysql->close_mysql();
     $daten=mysql_fetch_array($result);
-    $datum=mysql_datum($daten[datum]);
+    $datum1=mysql_datum($daten[datum]);
      echo "
      <br />
       <table border=\"0\" style=\"margin-right:auto;margin-left:auto;\">
@@ -76,7 +76,7 @@ if (isset($_GET[id]))
 	</tr>
 	<tr>
 	 <td style=\"text-align:center\">$daten[id]</td>
-	 <td style=\"text-align:center\">$datum</td>
+	 <td style=\"text-align:center\">$datum1</td>
 	 <td style=\"text-align:center\">$daten[uhrzeit]</td>
 	 <td style=\"text-align:center\">$daten[rufnummer]</td>
 	</tr>
