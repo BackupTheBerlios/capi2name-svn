@@ -1,10 +1,11 @@
-<?
-/*/
-Download a file using fpassthru()
-/*/
-$fileDir = ""; // supply a path name.
-$fileName = ""; // supply a file name.
-$fileString=$fileDir.'/'.$fileName; // combine the path and file
+<?php
+	
+	$file = $_GET['file'];
+	$user = $_GET['csuser'];
+
+	$fileDir = "/var/spool/capisuite/users/$user/received/"; // supply a path name.
+	$fileName = "voice-$file.la"; // supply a file name.
+	$fileString=$fileDir.'/'.$fileName; // combine the path and file
 // translate file name properly for Internet Explorer.
 if (strstr($_SERVER['HTTP_USER_AGENT'], "MSIE")){
   $fileName = preg_replace('/\./', '%2e', $fileName, substr_count($fileName, '.') - 1);
