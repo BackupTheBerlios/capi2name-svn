@@ -67,7 +67,7 @@ Name: <input name="newname" type="text">
   <!-- BEGIN show_delete_func -->
   <td style="text-align:center">
    <a href="./stat_loeschen.php?id={tab0.tab1.show_delete_func.DATA_LINK_DELETE_FUNC}" title="{tab0.tab1.show_delete_func.L_DELETE_ENTRY_FROM_DB}">
-   <img  src="./bilder/edittrash.png" style="border-width:0px;vertical-align:middle;"
+   <img  src="./images/edittrash.png" style="border-width:0px;vertical-align:middle;"
    alt=""/>
    </a>
    </td>

@@ -181,7 +181,7 @@ if ($userconfig['loeschen'])
   $wertaddaddr=handynr_vorhanden($data[1]); 
        
 
-      $anz_insaddr="<a href=\"./addressbook_add.php?$wertaddaddr\"><img src=\"./bilder/1rightarrow.gif\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
+      $anz_insaddr="<a href=\"./addressbook_add.php?$wertaddaddr\"><img src=\"./images/1rightarrow.gif\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
       }
     $anz_name1=$anz_name;
     } // if adresse gefunden in DB ENDE
@@ -202,13 +202,13 @@ if ($userconfig['loeschen'])
      $anz_name1_d=$full_name;
      $anz_name="<a href=\"./addressbook.php?id=$adress_data[0]#find\">$full_name</a>";
      $anz_statistik="<a href=\"./stat_anrufer.php?id=$adress_data[0]\" title=\"$textdata[showstatnew_zeige_anrufstat] $adress_data[1] $adress_data[2]\">
-      <img  src=\"./bilder/data.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
+      <img  src=\"./images/data.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
     } // else ende adresse in DB gefunden
    $d_name=base64_encode($anz_name1_d);
    $d_uhrzeit=base64_encode($data[3]);
    $d_datum=base64_encode($data[2]);
    $anz_rueckruf="<a href=\"./callback.php?add=yes&amp;addname=$d_name&amp;addrufnummer=$data[1]&amp;zuhrzeit=$d_uhrzeit&amp;zdatum=$d_datum\">
-   <img src=\"./bilder/1leftarrow.gif\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
+   <img src=\"./images/1leftarrow.gif\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
 
 
 //MSN zu Name

@@ -32,7 +32,7 @@
   <!-- BEGIN call_from_user -->
   <td style="text-align:center;">
   <a href="./stat_anrufer.php?id={tab1.call_from_user.DATA_ID}" title="{tab1.call_from_user.L_SEARCH_ENTRY}">
-  <img src="./bilder/search.png" style="border-width:0px;vertical-align:middle;" alt=""/></a>
+  <img src="./images/search.png" style="border-width:0px;vertical-align:middle;" alt=""/></a>
   </td>
   <!-- END call_from_user -->
  </tr>

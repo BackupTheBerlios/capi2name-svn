@@ -11,12 +11,12 @@ This program is free software; you can redistribute it and/or modify it under th
 Version: <b>{DATA_CODENAME}</b> {DATA_C2N_VERSION}
 <br />
 <a href="http://www.php.net" target="_blank">
-<img src="./bilder/php_logo.gif" style="border-width:0px;vertical-align:middle;" alt=""/></a>
+<img src="./images/php_logo.gif" style="border-width:0px;vertical-align:middle;" alt=""/></a>
 <a href="http://www.kernel.org" target="_blank">
-<img src="./bilder/linux.gif" width="177" height="210" style="border-width:0px;vertical-align:middle;" alt=""/></a>
+<img src="./images/linux.gif" width="177" height="210" style="border-width:0px;vertical-align:middle;" alt=""/></a>
 <a href="http://www.mysql.com" target="_blank">
-<img src="./bilder/mysql_logo.png" style="border-width:0px;vertical-align:middle;" alt=""/></a>
+<img src="./images/mysql_logo.png" style="border-width:0px;vertical-align:middle;" alt=""/></a>
 <a href="http://www.apache.org" target="_blank">
-<img src="./bilder/httpd_logo.gif" style="border-width:0px;vertical-align:middle;" alt=""/></a>
+<img src="./images/httpd_logo.gif" style="border-width:0px;vertical-align:middle;" alt=""/></a>
 <br />
 </span>

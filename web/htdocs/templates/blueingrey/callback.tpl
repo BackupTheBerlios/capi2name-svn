@@ -38,7 +38,7 @@
   <td style="width:150px; text-align:center;">{tab2.DATA_CALL_BACK_TIME}</td>
   <td style="text-align:center;">
   <a href="./callback.php?loeschen={tab2.DATA_ID}" title="Loeschen">
-  <img src="./bilder/edittrash.png" style="border-width:0px;vertical-align:middle;" alt=""/></a></td>
+  <img src="./images/edittrash.png" style="border-width:0px;vertical-align:middle;" alt=""/></a></td>
 </tr>
 <!-- END tab2 -->
 </table>

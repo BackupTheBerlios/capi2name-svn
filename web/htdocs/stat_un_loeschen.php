@@ -95,11 +95,10 @@ $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql[
     $template->assign_block_vars('delete_failed',array(
       		'L_MSG_DELETE_FAILED' => 'Löschen fehlgeschlagen...'));
    }
+
+}
 $zugriff_mysql->close_mysql();
 }//if isset absenden
-
-
-
 $template->assign_block_vars('tab2',array(
 		'L_DATE' => $textdata[stat_anrufer_datum],
 		'L_TIME' => $textdata[stat_anrufer_uhrzeit],
@@ -109,7 +108,6 @@ $template->assign_block_vars('tab2',array(
 $i=0;
 $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 $result_angerufene=$zugriff_mysql->sql_abfrage("SELECT id,rufnummer,name,datum,uhrzeit FROM angerufene WHERE rufnummer='unbekannt' ORDER BY 'id'  DESC");
-  /*
 if ($result_angerufene)
   {
    while($daten=mysql_fetch_assoc($result_angerufene))
@@ -135,13 +133,13 @@ if ($result_angerufene)
     	'L_MSG_CALLS_NOT_FOUND' => 'Keine Anrufe mit Nummer/Name unbekannt gefunden.'));
    }
 $zugriff_mysql->close_mysql();
-*/
-/*$template->assign_vars(array(
+
+$template->assign_vars(array(
 		'L_MSG_DELETE_UNKOWN' => 'Lösche alle unbekannten Einträge',
 		'L_MSG_DELETE_ONLY_NO_NAME' => 'Lösche nur Einträge mit Nummer unbekannt, wo kein Name vergeben wurde.',
 		'L_DELETE' => 'Löschen' ));
-*/
 
-//$template->pparse('overall_body');
-//include("./footer.inc.php");
+
+$template->pparse('overall_body');
+include("./footer.inc.php");
 ?>
