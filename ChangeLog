@@ -1,4 +1,8 @@
-Capi2Name 0.6.7.4 YYYY-MM-DD - Jonas Genannt - <jonasge@gmx.net> ---BETA
+Capi2Name 0.6.7.5 YYYY-MM-DD - Jonas Genannt - <jonasge@gmx.net> ---BETA
+
+
+
+Capi2Name 0.6.7.4 2005-01-06 - Jonas Genannt - <jonasge@gmx.net> 
 	o PHP: Weitere anpassungen an W3c validierten Code (alle Files fertig)
 	o PHP: weiter meine classe in mehr datein uebernommen
 	o PHP: stat_un_loeschen.php zum loesch von 'unbekannt' anrufen.
