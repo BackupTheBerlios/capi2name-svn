@@ -18,6 +18,8 @@ Capi2Name 0.6.7.5 YYYY-MM-DD - Jonas Genannt - <jonasge@gmx.net> ---BETA
 	o PHP: alter table userliste change lastlogin_d lastlogin_d date;
 	o PHP: alter table userliste change lastlogin_t lastlogin_t time;
 	o PHP: login_check.php wegen lastlogin_* angepasst zeigt wieder last login an. (admin)
+	o PHP: Ersatz Dateien fuer IE mit Farbunterstuezung (popel)
+
 
 
 Capi2Name 0.6.7.4 2005-01-06 - Jonas Genannt - <jonasge@gmx.net> 
