@@ -51,10 +51,6 @@ $tabelle["vorwahl"]=$prefixtab."vorwahl";
 $tabelle["zurueckrufen"]=$prefixtab."zurueckrufen";
 
 
-$host=$sql["host"];
-$dbuser=$sql["dbuser"];
-$dbpasswd=$sql["dbpasswd"];
-$db=$sql["db"];
 
 
 ?>
