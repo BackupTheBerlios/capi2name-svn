@@ -32,7 +32,7 @@
    <img src="./bilder/edittrash.png" style="border-width:0px;vertical-align:middle;" alt=""/></a></td>
    <td style="width:10px;">&nbsp;</td>
    <td style="text-align:center;">
-   <a href="./stat_anrufer.php?id=${tab.addr_id}" title="{tab.addr_search_entry}">
+   <a href="./stat_anrufer.php?id={tab.addr_id}" title="{tab.addr_search_entry}">
    <img src="./bilder/search.png" style="border-width:0px;vertical-align:middle;" alt=""/></a></td>
   </tr>
 <!-- END tab -->

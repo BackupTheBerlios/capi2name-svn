@@ -1,6 +1,6 @@
 <?
 /*
-    copyright            : (C) 2002-2004 by Jonas Genannt
+    copyright            : (C) 2002-2005 by Jonas Genannt
     email                : jonasge@gmx.net
  ***************************************************************************/
 
@@ -12,24 +12,16 @@
  *   any later version.                                   *
  *                                                                         *
  ***************************************************************************/
- ?>
-<?
 session_start();
 session_destroy();
 setcookie("ck_username","", time()-172800000 );  
 setcookie("ck_passwd","", time()-172800000 );  
-setcookie("ck_realname","", time()-172800000 );  
-
+setcookie("ck_realname","", time()-172800000 );
+  
+include("./templates/template.php");
+$template = new Template("./templates/blueingey/");
+$template->set_filenames(array('overall_body' => 'templates/blueingrey/logout.tpl'));
+$template->assign_vars(array('L_LOGOUT' => 'Ausgeloggt'));
+$template->pparse('overall_body');
 ?>
-<html>
-<head>
-<title>Ausgeloggt.</title>
-</head>
-<body bgcolor="#DFDFDF">
-             
-<p style="text-align:center;font-size:22pt;font-weight:bold;">Ausgeloggt</p>
 
-<br />
-
-</body>
-</html>

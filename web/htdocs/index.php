@@ -12,38 +12,50 @@
  *   any later version.                                   *
  *                                                                         *
  ***************************************************************************/
- ?>
-<?php
-	$seite=base64_encode("index.php");
-	include("./login_check.inc.php");
-	include("./header.inc.php");
-	
-?>	
-	<h2 style="text-align:center"><?php echo $textdata[index_willkommen]; ?></h2><br />
-	<div style="text-align:right;"><?php echo $textdata[index_zu];?> <i>Capi2Name</i>
-	 <?php echo $textdata[index_Version];?> <b><?php echo $codenamen;?></b> 
-	 (<?php echo $version;?>)</div>
-	<br />
-	
-<?php
-	if ($config['capi2name_status']=="yes" && $config['capisuite'] != "yes") {
-		if (exec("ps -A | grep capi2name")!="") {
-			$status_capi2name="<span style=\"color:blue\">$textdata[index_status_laeuft]</span>";
-		} else {
-			$status_capi2name="<span style=\"color:red\">$textdata[index_status_laeft_nicht]</span>";
-		}
-		echo "<br /><br /><div style=\"text-align:left\">$textdata[index_status_capi2name]: &nbsp; $status_capi2name</div>";
-	}
-	else if($config['capi2name_status']=="yes" && $config['capisuite'] == "yes") {
-		if (exec("ps -A | grep capisuite")!="") {
-			$status_capi2name="<span style=\"color:blue\">$textdata[index_status_laeuft]</span>";
-		} else {
-			$status_capi2name="<span style=\"color:red\">$textdata[index_status_laeft_nicht]</span>";
-		}
-		echo "<br /><br /><div style=\"text-align:left\">$textdata[index_status_capisuite]: &nbsp; $status_capi2name</div>";
-	}
-?>
+$seite=base64_encode("index.php");
+include("./login_check.inc.php");
+include("./header.inc.php");
 
-<?php
-	include("footer.inc.php");
+$template->set_filenames(array('overall_body' => 'templates/blueingrey/index.tpl'));
+$template->assign_vars(array(
+	'L_WELCOME_TO_INDEX' => $textdata[index_willkommen],
+	'L_INDEX_TO' => $textdata[index_zu],
+	'L_TO_VERSION' => $textdata[index_Version],
+	'DATA_C2N_CODE_NAME' => $codenamen,
+	'DATA_C2N_VERSION' => $version));
+
+
+if ($config['capi2name_status']=="yes" && $config['capisuite'] != "yes") 
+    {
+      if (exec("ps -A | grep capi2name")!="") 
+        {
+	 $template->assign_block_vars('c2n_running',array(
+	 	'MSG_C2N_RUN' => $textdata[index_status_laeuft],
+		'L_STAT' => $textdata[index_status_capi2name]));
+	} 
+      else 
+        {
+	 $template->assign_block_vars('c2n_not_running',array(
+	 	'MSG_C2N_RUN' => $textdata[index_status_laeft_nicht],
+		'L_STAT' => $textdata[index_status_capi2name]));
+	}
+   }
+else if($config['capi2name_status']=="yes" && $config['capisuite'] == "yes") 
+   {
+    if (exec("ps -A | grep capisuite")!="") 
+       {
+	 $template->assign_block_vars('capisuite_running',array(
+	 	'MSG_CSU_RUN' => $textdata[index_status_laeuft],
+		'L_STAT' => $textdata[index_status_capisuite]));
+	}
+    else 
+        {
+	 $template->assign_block_vars('capisuite_not_running',array(
+	 	'MSG_CSU_RUN' => $textdata[index_status_laeuft_nicht],
+		'L_STAT' => $textdata[index_status_capisuite]));
+	}
+   }
+
+$template->pparse('overall_body');	
+include("footer.inc.php");
 ?>

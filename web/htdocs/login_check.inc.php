@@ -123,40 +123,16 @@ $zugriff_mysql->close_mysql();
 
 if ($login_ok == 0)
  {
- include("./header.inc.php");
-  echo "
-<div class=\"ueberschrift_seite\">Login</div>
-
-
-<form action=\"./login.php\" method=\"post\">
-<table border=\"0\" style=\"margin-right:auto;margin-left:auto;text-align:left\">
- <tr>
-  <td>$text[username]</td>
-  <td style=\"width:5px\"></td>
-  <td><input name=\"login_name\" type=\"text\"/></td>
- </tr>
- <tr>
-  <td>$text[passwd]</td>
-  <td style=\"width:5px\"></td>
-  <td><input name=\"login_passwd\" type=\"password\"/></td>
- </tr>
- <tr>
-  <td colspan=\"3\"><input name=\"remember_login\" type=\"checkbox\"/> Eingeloggt bleiben</td>
- </tr>
-  <tr>
-  <td colspan=\"3\" style=\"text-align:center;\"><input name=\"seite\" type=\"hidden\" value=\"$seite\"/>
-   <input name=\"absenden\" value=\"$text[login]\" type=\"submit\"/></td>
- </tr>
-
-</form>
-</table>
-
-
-";
-
-
- include("./footer.inc.php");
- exit();
+include("./header.inc.php");
+$template->set_filenames(array('overall_body' => 'templates/blueingrey/login_site.tpl'));
+$template->assign_vars(array(
+	'L_USERNAME' => $text[username],
+	'L_PASSWD' => $text[passwd],
+	'DATA_TO_SITE' => $seite,
+	'L_LOGIN' => $text[login]));
+$template->pparse('overall_body');
+include("./footer.inc.php");
+exit();
  }
 
 ?>

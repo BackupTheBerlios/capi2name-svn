@@ -30,7 +30,8 @@ if ($data_addr==false)
  {
   $template->assign_block_vars('show_msg_entry_not_found', array());
   $template->assign_vars(array('L_MSG_ENTRY_NOT_FOUND'=> $textdata[showaddress_eintrag_nicht] . $_GET[show] . $textdata[showaddress_admin_wenden]));
-  
+  include("footer.inc.php");
+  die();  
  }
 
 if ($data_addr[tele1] == "99") { $data_addr[tele1]="";}
