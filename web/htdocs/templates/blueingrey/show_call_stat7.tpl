@@ -72,10 +72,7 @@ Name: <input name="newname" type="text">
    </a>
    </td>
   <!-- END show delete_func -->
-  
-  
  </tr>
-<!-- END tab1 --> 
- 
+ <!-- END tab1 --> 
 </table>
 <!-- END tab0 -->
