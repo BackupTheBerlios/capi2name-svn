@@ -1,4 +1,27 @@
 <?php
+//check if template is avaiable in the template-Directory
+function check_template($check)
+{
+ $is_template=false; 
+ $dir= "templates";
+ $dh=opendir($dir);
+ while (false!== ($filename=readdir($dh)))
+   {
+    if ($filename!="." AND $filename!=".." AND $filename!="index.html")
+     {
+      $files[] =$filename;
+     }
+   }
+ foreach ($files as $value)
+  {
+   if ($value==$check)
+    {
+     $is_template=true;
+    }
+  }
+  return $is_template;  
+}
+
 //funktions......
 function mysql_datum($old) //wandle mysql datum in deutsch datum um
 {

@@ -93,7 +93,16 @@ $result_userlist=$zugriff_mysql->sql_abfrage("SELECT * FROM users WHERE username
       $daten_config=mysql_fetch_assoc($result_config);
       if (!$daten_config[value])
         {
-	 $userconfig['template']=$row_userlist[template];
+	 if (check_template($row_userlist[template]))
+	  {
+	   $userconfig['template']=$row_userlist[template];
+	  }
+	 else
+	  {
+	   $result_config1=$zugriff_mysql->sql_abfrage("SELECT * FROM config WHERE conf='default_template'");
+	   $daten_config1=mysql_fetch_assoc($result_config1);
+	   $userconfig['template']=$daten_config1[value];
+	  }
 	}
       else
         {
