@@ -34,8 +34,9 @@
 			</tr>
 		</thead>
 		<tbody>
-<a href="cs_hearmessage.php?file=" target="_blank">abspielen</a>
+		
 <?php
+	$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 	$dir = "/var/spool/capisuite/users/$login_name/received/";
 	if (is_dir($dir)) {
 		if ($dh = opendir($dir)) {
@@ -47,10 +48,10 @@
 					echo "</td><td>";
 					echo preg_replace("/(.*=\")(.*)(\")/", "\\2", $lines[5]);
 					echo "</td><td>";
-					echo preg_replace("/(.*=\")(.*)(\")/", "\\2", $lines[6]);
+					echo msnzuname(preg_replace("/(.*=\")(.*)(\"\n)/", "\\2", $lines[6]));
 					echo "</td><td>";
 					$a = preg_replace("/(.*-)(\d{1,4})(\.l.*)/", "\\2",$lines[4]);
-					echo "<a href=\"cs_hearmessage.php?file=$a&amp;csuser=$login_name\" target=\"_blank\">abspielen</a>";
+					echo "<a href=\"cs_hearmessage.php?file=$a&amp;csuser=$login_name\">abspielen</a>";
 					echo "</td><td>";
 					echo "löschen";
 					echo "</td></tr>";
@@ -59,6 +60,7 @@
 			closedir($dh);
 		}
 	}
+	$zugriff_mysql->close_mysql();
 ?>
 			<tr><td></td></tr>
 		</tbody>
