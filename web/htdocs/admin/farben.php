@@ -31,11 +31,11 @@ if (isset($_POST[wechseln])) //Style waechseln:
     $result2=mysql_query("UPDATE farben SET std='$row[0]' WHERE id='1'");
 	 if ($result2==1)
 	  {
-	   echo "<br/><span style=\"text-align:center;font-weight:bold;color:blue\">Style erflogreich geändert!</span><br/><br/>";
+	   echo "<br/><span class=\"blau_mittig\">Style erflogreich geändert!</span><br/><br/>";
 	  }
 	 else
 	  {
-        echo "<br/><span style=\"text-align:center;font-weight:bold;color:red\">Style NICHT erflogreich geändert!</span><br/><br/>";
+        echo "<br/><span class=\"rot_mittig\">Style NICHT erflogreich geändert!</span><br/><br/>";
 	  }
 $zugriff_mysql->close_mysql();
  }
@@ -46,11 +46,11 @@ if (isset($_POST[eigene]))
   $result=mysql_query("DELETE FROM farben WHERE id='2'");
    if($result==1)
     {
-	echo "<br/><span style=\"text-align:center;font-weight:bold;color:blue\">Erflogreich eingetragen!</span><br/><br/>";
+	echo "<br/><span class=\"blau_mittig\">Erflogreich eingetragen!</span><br/><br/>";
 	}
 	else
 	{
-	echo "<br/><span style=\"text-align:center;font-weight:bold;color:red\">NICHT Erflogreich eingetragen!</span><br/><br/>";
+	echo "<br/><span class=\"rot_mittig\">NICHT Erflogreich eingetragen!</span><br/><br/>";
 	}
   $result2=mysql_query("INSERT INTO farben VALUES ('2','Eigene Farbwahl','','$_POST[f_link]','$_POST[f_hover]', '$_POST[f_hinter_seite]', '$_POST[f_zeile_ueber]', '$_POST[f_schrift]','$_POST[f_hinter_link]','$_POST[f_hinter_main]', '$_POST[f_border_link]','$_POST[f_border_main]', '$_POST[f_hinter_haupt]', '$_POST[f_hinter_zeile1]', '$_POST[f_hinter_zeile2]')");
 $zugriff_mysql->close_mysql();

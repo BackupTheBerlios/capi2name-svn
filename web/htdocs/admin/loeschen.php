@@ -23,7 +23,7 @@ include("./header.inc.php");
 <?
 if ($_POST[id]==1)
  {
- echo "<spn style=\"color:red;text-align:center;font-weight:bold;\">You can not delete the administator!!</span>";
+ echo "<span class=\"rot_mittig\">You can not delete the administator!!</span>";
  include("footer.inc.php");
  exit();
  }
@@ -37,7 +37,7 @@ if (isset($_POST[loeschen]))
   $zugriff_mysql->close_mysql();
  if ($result == 1)
   {
-  echo "<span style=\"color:red;font-weight:bold;\">Eintrag mit $_POST[id] erfolgreich gelöscht, Sie werden in 2sec weitergeleitet.</span>";
+  echo "<span class=\"blau_mittig\">Eintrag mit $_POST[id] erfolgreich gelöscht, Sie werden in 2sec weitergeleitet.</span>";
   echo "<meta http-equiv=\"refresh\" content=\"2; URL=./index.php\">";
   }
  }

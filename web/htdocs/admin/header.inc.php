@@ -101,6 +101,16 @@ a:hover
 	 padding-bottom:		23px;
 	 
 	}
+.rot_mittig
+	{
+	 text-align:			center;
+	 color:				red;
+	}
+.blau_mittig
+	{
+	 text-align:			center;
+	 color:				blue;
+	}
   </style>
   <script type="text/javascript">
    //<!--

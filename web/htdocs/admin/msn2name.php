@@ -29,11 +29,11 @@ Hier kann man den lokalen MSNs Namen zuordnen, diese Namen tauchen den in der An
    $result=mysql_query("DELETE FROM msnzuname WHERE id=$_GET[loeschen]");
     if ($result)
      {
-      echo "<br/><span style=\"text-align:center;color:blue;\">Database entry with ID $_GET[loeschen] sucessfull deleted</span><br/><br/>";
+      echo "<br/><span class=\"blau_mittig\">Database entry with ID $_GET[loeschen] sucessfull deleted</span><br/><br/>";
      }
     else
      {
-      echo "<br/><span style=\"text-align:center;color:red;\">Eintrag mit ID Nr. $_GET[loeschen] NICHT erflogreich gelöscht!</span><br/><br/>";
+      echo "<br/><span class=\"rot_mittig\">Eintrag mit ID Nr. $_GET[loeschen] NICHT erflogreich gelöscht!</span><br/><br/>";
      }
   
   }
@@ -50,23 +50,23 @@ if (isset($_POST[absenden]))
 	 $result=mysql_query("INSERT INTO msnzuname VALUES('', '$_POST[msn]', '$_POST[name]')");
 		 if ($result)
 		  {
-		   echo "<br/><span style=\"text-align:center;color:blue;\">Daten erflogreich eingetragen!</span><br/><br/>";
+		   echo "<br/><span class=\"blau_mittig\">Daten erflogreich eingetragen!</span><br/><br/>";
 		  }
 		  else
 		  {
-		  echo "<br/><span style=\"text-align:center;color:red;\">Daten NICHT erflogreich eingetragen!</span><br/><br/>>";
+		  echo "<br/><span class=\"rot_mittig\">Daten NICHT erflogreich eingetragen!</span><br/><br/>>";
 		  }
 	   
 	  }
 	  else
 	  {
-      echo "<br/><span style=\"text-align:center;color:red;\">
+      echo "<br/><span class=\"rot_mittig\">
       Please insert name!</span><br/><br/>";
 	  }
    }
    else
    {
-   echo "<br/><span style=\"text-align:center;color:red;\">
+   echo "<br/><span class=\"rot_mittig\">
    Please insert MSN</span><br/><br/>";
    }
 
@@ -109,14 +109,14 @@ $result=mysql_query("SELECT * FROM msnzuname");
 	<table border=\"1\">
 	 <tr>
 	  <td>MSN:</td>
-	  <td><input type=\"text\" name=\"msn\"></td>
+	  <td><input type=\"text\" name=\"msn\"/></td>
 	 </tr>
 	 <tr>
 	  <td>Name:</td>
-	  <td><input type=\"text\" name=\"name\"></td>
+	  <td><input type=\"text\" name=\"name\"/></td>
 	 </tr>
 	</table>
-	<input type=\"submit\" name=\"absenden\" value=\"Eintragen\">
+	<input type=\"submit\" name=\"absenden\" value=\"Eintragen\"/>
 	</form>";
 	echo "<br><br></center>";
    }

@@ -89,11 +89,11 @@ Wenn der Fehler in der Datenbank steht, kann es sein, das Anrufe falsch zugeordn
 
 <br/>
 <br/>
-<center>
-  <form action="./adressbuch_bug.php" method="GET">
-    <input type="submit" name="aufrufen" value="Bug in der Datenbank beheben"/>
+<span style="text-align:center;">
+  <form action="./adressbuch_bug.php" method="get">
+    <input type="submit" name="aufrufen" value="try to find the bug an resolve it"/>
   </form>
-</center>
+</span>
 
 
 

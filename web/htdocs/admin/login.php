@@ -32,12 +32,12 @@ if ($result_userlist && $passwd!="")
     if (md5($passwd)==$row_userlist['passwd'])
     {
      $_SESSION['adminpassword']=md5($passwd);
-     echo "<center>Login: OK.... forwording you.......<br/>";
+     echo "<span class=\"blau_mittig\">Login: OK.... forwording you.......</span><br/>";
      echo "<meta http-equiv=\"refresh\" content=\"2; URL=index.php\">";
     } 
    else
     {
-     echo "<center>Passwd Falsch.....<br/></center>";
+     echo "<span class=\"rot_mittig\">Passwd Falsch.....</span><br/>";
     }
  }
 

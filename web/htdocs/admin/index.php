@@ -24,7 +24,7 @@ include("./header.inc.php");
 
 <table border="0" style="margin-right:auto;margin-left:auto;">
  <tr>
-  <td style="width:150px;">uesername</td>
+  <td style="width:150px;">username</td>
   <td>password</td>
   <td style="width:200px;">last login</td>
   <td style="width:70px;">edit</td>

@@ -59,7 +59,7 @@ $zugriff_mysql->close_mysql();
  <td style="text-align:left;">MSN:</td>
  <td stype="width:7px;"></td>
  <td style="text-align:right;">
- <?="<input type=\"text\" name=\"msn\"  value=\"$daten[msn]\"/>"?></td>
+ <?="<input type=\"text\" name=\"msn\" value=\"$daten[msn]\"/>"?></td>
 </tr>
 <tr>
  <td style="text-align:left;">name:</td>

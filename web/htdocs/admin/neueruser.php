@@ -29,7 +29,7 @@ if (isset($_POST[speichern])) {
 		$ch_res=mysql_query("SELECT id,username FROM userliste");
 		while ($row=mysql_fetch_array($ch_res)) {
 			if ($_POST[b_username]==$row[username]) {
-				echo "<div style=\"color:red;text-align:center;\">Es gibt schon einen User $_POST[b_username]!!</div>";
+				echo "<div class=\"rot_mittig\">Es gibt schon einen User $_POST[b_username]!!</div>";
 				$checked=1;
 			}
 		}
@@ -38,8 +38,8 @@ if (isset($_POST[speichern])) {
 			$passwd=md5($_POST[b_passwd]);
 			$sql = "INSERT INTO userliste VALUES('NULL', '$_POST[b_username]','$passwd','NULL','NULL','$_POST[b_name]','$_POST[b_anzahl]','$_POST[b_rueckruf]','$_POST[b_notiz]','$_POST[b_msns]','$_POST[b_vorwahl]','$_POST[b_showmsn]','$_POST[b_konfig]', '$_POST[b_typ]', '$_POST[b_loeschen]')";
 			$res = mysql_query($sql);
-			if ($res==1) echo "<div style=\"text-align:center;\">Benutzer hinzufügen: OK</div>";
-			else echo "<div style=\"color:red;text-align:center;\">Benutzer hinzufügen: Failed</div>";
+			if ($res==1) echo "<div class=\"blau_mittig\">Erflogreich User $_POST[b_username] hinzugefuegt.</div><br/>";
+			else echo "<div class=\"rot_mittig\">Benutzer hinzufügen: Failed</div>";
 		}
 		$zugriff_mysql->close_mysql();
 	}
