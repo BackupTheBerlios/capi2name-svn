@@ -26,13 +26,21 @@
 	<br />
 	
 <?php
-	if ($config['capi2name_status']=="yes") {
+	if ($config['capi2name_status']=="yes" && $config['capisuite'] != "yes") {
 		if (exec("ps -A | grep capi2name")!="") {
 			$status_capi2name="<span style=\"color:blue\">$textdata[index_status_laeuft]</span>";
 		} else {
 			$status_capi2name="<span style=\"color:red\">$textdata[index_status_laeft_nicht]</span>";
 		}
 		echo "<br /><br /><div style=\"text-align:left\">$textdata[index_status_capi2name]: &nbsp; $status_capi2name</div>";
+	}
+	else if($config['capi2name_status']=="yes" && $config['capisuite'] == "yes") {
+		if (exec("ps -A | grep capisuite")!="") {
+			$status_capi2name="<span style=\"color:blue\">$textdata[index_status_laeuft]</span>";
+		} else {
+			$status_capi2name="<span style=\"color:red\">$textdata[index_status_laeft_nicht]</span>";
+		}
+		echo "<br /><br /><div style=\"text-align:left\">$textdata[index_status_capisuite]: &nbsp; $status_capi2name</div>";
 	}
 ?>
 

@@ -34,8 +34,18 @@ $text[notizen2]                = "notes";
 $text[newnotiz]                = "new note";
 // header.inc.php ende
 
+//index.php Seite
+$textdata[index_willkommen]="Welcome...";
+$textdata[index_zu]="to";
+$textdata[index_Version]="version";
+$textdata[index_status_capi2name]="status of Capi2Name";
+$textdata[index_status_laeuft]="running!";
+$textdata[index_status_laeft_nicht]="not running!";
+$textdata[index_status_capisuite]="status of capisuite";
+//index.php ENDE
+
 // addadress.php anfang
-$text[newadressbuch]   = "New telephonbookentry";
+$text[newadressbuch]   = "New phone book entry";
 $text[eintrag_weiterleitung]="New entry is saved<br>Please wait you will be forwarded";
 $text[vorname]               = "first name:";
 $text[nachname]             = "last name:";
@@ -63,7 +73,7 @@ $text[sortvorname] =  "Sort by first name.";
 // adressbuch.php ende
 
 // editadress.php anfang
-$text[editadress]       ="Edit telephonebook entry";
+$text[editadress]       ="Edit phone book entry";
 $text[aendern]          = "Edit entry";
 $text[loeschen]        = "delete entry";
 $text[loewirk]           = "This entry will be deleted if you press the button delet again!";
@@ -100,15 +110,15 @@ $text[logout]           = "Logoff";
 // footer.inc.php ende
 
 // login.php anfang
-$text[falslogin] = "Falsches Passwort oder Username eingeben.<br><a href=\"./login.php\">Login</a><br>Sie werden in 5 sec weitergeleitet.";
-$text[login]            = "Einloggen";
-$text[username]       = "Username:";
-$text[passwd]           = "Password:";
-$text[login1]           = "Für";
-$text[login2]           = " 2 Tage";
-$text[login3]           = " immer";
-$text[login4]           = "eingeloggt bleiben.";
-$text[login_ok]="Login war erflogreich.<br>Sie werden weitergeleitet.";
+$text[falslogin] = "wrong password oder user name<br /><a href=\"./login.php\">Login</a><br>you will be redirected within 5 sec.";
+$text[login]            = "login";
+$text[username]       = "user name:";
+$text[passwd]           = "password:";
+$text[login1]           = "for";
+$text[login2]           = " 2 days";
+$text[login3]           = " ever";
+$text[login4]           = "keep loged in.";
+$text[login_ok]="login successfull.<br />you will be redirected.";
 //l ogin.php ende
 
 // showaddress.php anfang

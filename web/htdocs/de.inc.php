@@ -174,6 +174,7 @@ $textdata[index_Version]="Version";
 $textdata[index_status_capi2name]="Status von Capi2Name";
 $textdata[index_status_laeuft]="Läuft!";
 $textdata[index_status_laeft_nicht]="Läuft nicht!";
+$textdata[index_status_capisuite]="Status von capisuite";
 //index.php ENDE
 
 

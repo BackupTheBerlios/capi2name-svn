@@ -18,7 +18,7 @@ a:hover
 	 background-color:		$c_color[7];
 	 padding:			3px;
 	 padding-top:			0.6cm;
-	 min-height:			550px;
+	 min-height:			630px;
 	 padding-bottom:		20px;
 	}
 #menu
