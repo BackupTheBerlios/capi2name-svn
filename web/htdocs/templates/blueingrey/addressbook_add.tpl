@@ -1,7 +1,7 @@
 <div class="ueberschrift_seite">{L_NEW_ENTRY_TO_ADDR}</div>
 <br />
 
-<form action="addadress.php" method="post" >
+<form action="addressbook_add.php" method="post" >
 
 <!-- BEGIN show_error_msg_name_not_set -->
 <br />

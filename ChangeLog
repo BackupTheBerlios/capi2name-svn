@@ -12,6 +12,7 @@ Capi2name 0.6.7.6 YYYY-MM-DD - Jonas Genannt - <jonasge@gmx.net> ---BETA
 	o PHP: Removed layout_src.css.php because we use template system.
 	o PHP: Removed bilder/balken_*.jpg because month-stat layout has changed
 	o PHP: on some pages new SQL Code: better and faster
+	o PHP: new file Layout in htdocs/ Directory
 Capi2Name 0.6.7.5 2005-01-24 - Jonas Genannt - <jonasge@gmx.net> 
 	o PHP: neueruser.php 0 css2.0 xhtml (popel)
 	o PHP: .htaccess hinzugefuegt fuer mehr Sicherheit (Verbietet *.inc.*)

@@ -13,11 +13,11 @@
  *                                                                         *
  ***************************************************************************/
 
-$seite=base64_encode("adressbuch.php");
+$seite=base64_encode("addressbook.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
 
-$template->set_filenames(array('overall_body' => 'templates/blueingrey/address_book.tpl'));
+$template->set_filenames(array('overall_body' => 'templates/blueingrey/addressbook.tpl'));
 $template->assign_vars(array('L_ADDRESS_BOOK' => $textdata[header_inc_adressbuch]));
 
 $template->assign_vars(array('L_ADDR_SORT_LAST_NAME' => $textdata[adressbuch_sortiere_nachname]));

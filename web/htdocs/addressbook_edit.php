@@ -14,7 +14,7 @@
  ***************************************************************************/
  ?>
 <?
-$seite=base64_encode("editadress.php");
+$seite=base64_encode("addressbook_edit.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
 

@@ -14,11 +14,11 @@
  ***************************************************************************/
  ?>
 <?
-$seite=base64_encode("addadress.php");
+$seite=base64_encode("addressbook_add.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
 
-$template->set_filenames(array('overall_body' => './templates/blueingrey/add_address.tpl'));
+$template->set_filenames(array('overall_body' => './templates/blueingrey/addressbook_add.tpl'));
 $template->assign_vars(array('L_NEW_ENTRY_TO_ADDR' => $textdata[addadress_neuer_adressbuch_eintrag]));
 ?>
 

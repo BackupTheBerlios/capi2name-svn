@@ -143,8 +143,8 @@
    <!-- END show_call_back_pages_on -->
    
    <div style="font-weight:bold; margin-top: 1em;">{L_ADDRESS_BOOK}:</div>
-   <div class="menuitem"><a href="./adressbuch.php">{L_ADDRESS_BOOK}</a></div>
-   <div class="menuitem"><a href="./addadress.php">{L_NEW_ENTRY}</a></div>
+   <div class="menuitem"><a href="./addressbook.php">{L_ADDRESS_BOOK}</a></div>
+   <div class="menuitem"><a href="./addressbook_add.php">{L_NEW_ENTRY}</a></div>
    
    <!-- BEGIN show_capi_suite_on -->
    <div style="font-weight:bold; margin-top: 1em;">{L_CAPI_SUITE}</div>

@@ -14,11 +14,11 @@
  ***************************************************************************/
  ?>
 <?php
-$seite=base64_encode("showaddress.php");
+$seite=base64_encode("addressbook_show.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
 
-$template->set_filenames(array('overall_show_address' => 'templates/blueingrey/show_address.tpl'));
+$template->set_filenames(array('overall_body' => 'templates/blueingrey/addressbook_show.tpl'));
 $template->assign_vars(array('L_ADDRESS_BOOK_VIEW_ENTRY' => $textdata[showaddress_deteilansicht]));
 
 $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] ); 
@@ -30,7 +30,8 @@ if ($data_addr==false)
  {
   $template->assign_block_vars('show_msg_entry_not_found', array());
   $template->assign_vars(array('L_MSG_ENTRY_NOT_FOUND'=> $textdata[showaddress_eintrag_nicht] . $_GET[show] . $textdata[showaddress_admin_wenden]));
-  include("footer.inc.php");
+  $template->pparse('overall_body');
+  include("./footer.inc.php");
   die();  
  }
 
@@ -71,7 +72,7 @@ $template->assign_vars(array('L_DB_E_MAIL' => $data_addr[email]));
 
 
 
-$template->pparse('overall_show_address');
+$template->pparse('overall_body');
 
 include("./footer.inc.php");
 ?>

@@ -19,8 +19,8 @@
 </tr>
 <!-- BEGIN tab -->
    <tr style="background-color:{tab.color}">
-   <td style="text-align:left;"><a href="./showaddress.php?show={tab.addr_id}" >{tab.addr_last_name}</a></td>
-   <td style="text-align:left;"><a href="./showaddress.php?show={tab.addr_id}">{tab.addr_first_name}</a></td>
+   <td style="text-align:left;"><a href="./addressbook_show.php.php?show={tab.addr_id}" >{tab.addr_last_name}</a></td>
+   <td style="text-align:left;"><a href="./addressbook_show.php?show={tab.addr_id}">{tab.addr_first_name}</a></td>
    <td style="text-align:center;">{tab.addr_tele_1}</td>
    <td style="text-align:center;">{tab.addr_cell_phone}</td>
    <td style="text-align:center;">

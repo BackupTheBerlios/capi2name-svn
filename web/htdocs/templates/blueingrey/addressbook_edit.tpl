@@ -14,7 +14,7 @@
 <!-- END entry_not_found -->
 
 <!-- BEGIN tab1 -->
-<form action="editadress.php" method="post">
+<form action="./addressbook_edit.php" method="post">
 <table border="0" cellpadding="3" style="margin-right:auto;margin-left:auto;">
  <tr>
   <td>{tab1.L_FIRST_NAME}:</td>
@@ -104,7 +104,7 @@
 
 </form>
 <span style="text-align:center">
-  <form action="./adressbuch.php" method="post">
+  <form action="./addressbook.php" method="post">
     <p><input type="submit" value="{CANCEL_EDIT_ADDR}"/></p>
 </form>
 </span>
