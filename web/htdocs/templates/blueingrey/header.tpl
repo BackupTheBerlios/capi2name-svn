@@ -138,8 +138,8 @@
    <!-- END show_delete_page_unkown_calls_on -->
    <!-- BEGIN show_call_back_pages_on -->
    <div style="font-weight:bold; margin-top: 1em;">{L_CALL_BACK}:</div>
-   <div class="menuitem"><a href="./zurueckruf.php">{L_CALL_BACK}</a></div>
-   <div class="menuitem"><a href="./zurueckruf.php?add=yes">{L_NEW_ENTRY}</a></div>
+   <div class="menuitem"><a href="./callback.php">{L_CALL_BACK}</a></div>
+   <div class="menuitem"><a href="./callback.php?add=yes">{L_NEW_ENTRY}</a></div>
    <!-- END show_call_back_pages_on -->
    
    <div style="font-weight:bold; margin-top: 1em;">{L_ADDRESS_BOOK}:</div>

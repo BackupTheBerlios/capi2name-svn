@@ -1,6 +1,6 @@
 <?
 /*
-    copyright            : (C) 2002-2004 by Jonas Genannt
+    copyright            : (C) 2002-2005 by Jonas Genannt
     email                : jonasge@gmx.net
  ***************************************************************************/
 
@@ -12,17 +12,25 @@
  *   any later version.                                   *
  *                                                                         *
  ***************************************************************************/
- ?>
-<?
 if (isset($add))
  { $seite=base64_encode("zurueckruf.php?add=yes");
  }
 else { $seite=base64_encode("zurueckruf.php"); }
 include("./login_check.inc.php");
 include("./header.inc.php");
-?>
 
-<?
+$template->set_filenames(array('overall_body' => 'templates/blueingrey/callback.tpl'));
+
+
+
+//ob er die Page anschauen darf:
+ if (!$userconfig['showrueckruf'])
+  {
+   $template->assign_block_vars('not_allowed',array('L_MSG_NOT_ALLOWED' =>$text[nichtberechtigt] ));
+   $template->pparse('overall_body');
+   include("./footer.inc.php");
+   die();
+  }
 
 if(isset($_GET[loeschen]))
  {
@@ -57,61 +65,34 @@ $addzeit= $_POST[addzeit];
  echo "<meta http-equiv=\"refresh\" content=\"1; URL=./zurueckruf.php?show=yes\">";
 
  }
-?>
-<?
-//ob er die Page anschauen darf:
- if (!$userconfig['showrueckruf'])
-  {
-   echo "<div class=\"rot_mittig\">$text[nichtberechtigt]</div>";
-   include("./footer.inc.php");
-   die();
-  }
-echo "<div class=\"ueberschrift_seite\">$text[zurueckrufen]</div>";
-?>
 
 
-<table border="0" style="margin-right:auto;margin-left:auto;text-align:left;">
- <tr>
-  <td style="width:150px;font-weight:bold;"><? echo $text[name1] ?></td>
-  <td style="width:150px;text-align:center;font-weight:bold;"><? echo $text[rufnummer] ?></td>
-  <td style="text-align:center;font-weight:bold;"><? echo $text[anruf_zeit] ?></td>
-  <td style="width:150px; text-align:center;font-weight:bold;"><? echo $text[zurueck_zeit] ?></td>
-  <td></td>
- </tr>
-<?
+$template->assign_vars(array('L_SITE_TITLE' => $text[zurueckrufen]));
+
+$template->assign_block_vars('tab1',array(
+		'L_NAME' => $text[name1],
+		'L_NUMBER' => $text[rufnummer],
+		'L_CALL_TIME' => $text[anruf_zeit],
+		'L_CALL_BACK_TIME' => $text[zurueck_zeit]));
+
 $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 $result=$zugriff_mysql->sql_abfrage("SELECT * FROM zurueckrufen");
-$anzahl=mysql_numrows($result);
- for ($i=$anzahl-1;$i>-1;$i--)
+while($daten=mysql_fetch_assoc($result))
  {
- $id=mysql_result($result, $i, "id");
- $name=mysql_result($result, $i, "name");
- $nummer=mysql_result($result, $i, "nummer");
- $datum=mysql_result($result, $i, "datum");
- $uhrzeit=mysql_result($result, $i, "uhrzeit");
- $zurueckzeit=mysql_result($result, $i, "rueckzeit");
- $grund=mysql_result($result, $i, "grund");
-
- $anzname="<a href=\"./adressbuch.php?find=yes&amp;findnr=$nummer#find\">$name</a>";
-  echo "
-  <tr>
-   <td style=\"width:150px;\">$anzname</td>
-   <td style=\"width:150px; text-align:center;\">
-   	<a href=\"./szurueckruf.php?anz=$id\" title=\"Grund anzeigen.\">$nummer</a></td>
-   <td style=\"text-align:center;\">$uhrzeit - $datum</td>
-   <td style=\"width:150px; text-align:center;\">$zurueckzeit</td>
-   <td style=\"text-align:center;\">
-   <a href=\"./zurueckruf.php?loeschen=$id\" title=\"Loeschen\">
-   <img src=\"./bilder/edittrash.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a></td>
-  </tr>
-  ";
+  $template->assign_block_vars('tab2',array(
+  	'DATA_NAME' => $daten[name],
+	'DATA_ID' => $daten[id],
+	'DATA_NUMBER' => $daten[nummer],
+	'L_SHOW_REASON' => 'Grund anzeigen.',
+	'DATA_TIME' => $daten[uhrzeit],
+	'DATA_DATE' => $daten[datum],
+	'DATA_CALL_BACK_TIME' => $daten[rueckzeit]));
  }
+
+  
+ 
 $zugriff_mysql->close_mysql();
-?>
-</table>
 
-
-<?
 if ($_GET[add]== "yes")
  {
  if ($_GET[no] == "yes")
@@ -162,6 +143,7 @@ if ($_GET[add]== "yes")
 <br /><br />
 
 <?
+$template->pparse('overall_body');
 include("./footer.inc.php");
 ?>
 
