@@ -1,0 +1,166 @@
+Capi2Name 0.6.7.4 YYYY-MM-DD - Jonas Genannt - <jonasge@gmx.net> ---BETA
+	o PHP: Weitere anpassungen an W3c validierten Code (alle Files fertig)
+	o PHP: weiter meine classe in mehr datein uebernommen
+	o PHP: stat_un_loeschen.php zum loesch von 'unbekannt' anrufen.
+	o PHP: Monatsuebersicht an anrufen
+	o PHP: Mysql-PHP Klasse verbessert.
+	o PHP: $config[] eingefuehert
+	o PHP: showstatnew/showstatnew7days: Heute/Gesten anstatt dem Datum eingefuehrt
+	o 
+	o 
+	o 
+
+Capi2Name 0.6.7.3 2004-11-28 - Jonas Genannt - <jonasge@gmx.net>
+	o PHP: shownewstat.php in verbindung mit Kalender. zeigt wieder Eintraege an
+	o PHP: html 4.01 anpassungen (header.inc.php,footer.inc.php)
+	o PHP: de.inc.php anpassung an capisuit
+	o PHP: header.inc.php links fuer capisuite
+	o PHP: editadress.php loeschfunktion verbessert(anzeige).
+	o PHP: PHP-Klasse sql_abfrage geschrieben.
+	o PHP: Jede PHP Datei anstatt manuell myslq_connect meine eigene Klasse benutzt.
+	o PHP: Verbesserter W3C XHTML 1.0 unterstuetzung.
+	o C-Prog: smblcient-Message "auf"->"fuer" String veraendert
+
+Capi2Name 0.6.7.2 2004-11-13 - Jonas Genannt - <jonasge@gmx.net>
+	o PHP Datenbank umgestellt. date als Mysql-Wert:
+	o PHP: Updatescript fuer DB geschrieben
+	o PHP: Updatescript angepasst. (update.php)
+	o PHP: header.inc.php neuer Menupunkt
+	o PHP: suche nach Nummer im Adressbuch
+	o PHP: suche anrufe zwischen zwei daten in tabelle angerufene
+	o PHP: suche spezielle anrufe zwischen zwei daten in tabelle angerufene
+	o PHP: suche nach anrufenen die nicht im Adressbuch stehen
+	o PHP: suche option MSN hinzugefuegt
+	o PHP: big code cleanup. now using functions
+	o C-Prog: bessere Error-Meldungen
+	o C-Prog: mysql_free_result gefixt
+	o C-Prog: date() angepasst
+	o C-Prog: smblcient -M: MSN2Name wird angezeit
+
+Capi2Name 0.6.7.1 2004-10-17 - Jonas Genannt - <jonasge@gmx.net>
+	o PHP: &-in Urls auf W3 code umgestellt
+	o PHP:endocing Zeile in alle Dateien eingefügt
+	o PHP: Link in admin-Interface auf normale Seite
+	o PHP fixed: Kalender if () {; index=4;}
+	o PHP fixed: Link in stat_gesamt.php
+	o PHP fixed: Kalender if () { $cur_monat }
+	o C-Prog: smbclient -M fuer Anrufbenachrichtigung
+	o C-Prog: Compile error with new capi header
+
+Capi2Name 0.6.7 2004-08-14 - Jonas Genannt - <jonasge@gmx.net>
+	o PHP:automatisches Updatescript geschrieben (für DB)
+	o PHP: automatisches Installscript geschrieben (für DB)
+	o PHP: if-else wenn up_inst-Verzeichnis noch existiert. (wegen sicherheit)
+	o PHP: 7 Tageübersicht hinzugefügt.
+	o PHP: Neuer Menupunkt 7Tageübersicht
+	o PHP: Übersicht über Installation/Update möglichkeiten
+	o PHP: Layout von Tabelle auf CSS umgestellt by Tobias Genannt
+	o PHP: Integration von Tabelle auf CSS in php by Tobias Genannt & Jonas
+	o C-prog: OPtion -C hinzugefügt: -C /path/to/capi2name.conf
+	o C-prog: Telefonstatitik kann als TXT exportiert werden
+	o C-prog: Option für TK Anlagen hinzugefügt
+	
+Capi2Name 0.6.6 2004-03-18 - Jonas Genannt - <jonasge@gmx.net>
+	o PHP: stat_anrufer.php Layout verbesstert
+	o PHP: editadress.php: Übergabe der Daten zwischen bearbeiten & löschen
+	o PHP: showstatnew.php: Übergabe der Daten an addadress.php. Handy und Tele Nummer
+	o PHP: showstatnew.php Anzeige von unbekannt wurde nicht mehr angezeigt.
+	o PHP: editadress.php Man kann wieder Einträge löschen.
+	o PHP: index.php Status, ob capi2name läuft.
+	o PHP: addadress.php Überprüfen ob Vor- und Nachname eingegeben wurden.
+	o PHP: editadress.php: Abbrechen Button eingebaut.
+	o PHP: stat_gesamt.php Gesamtstatistik eingebaut.
+	o PHP: Login Weiterleitung auf base 64 umgestellt.
+	o PHP: addadress.php Bug wegen Rufnummer behoben
+	o PHP: Admin-Bereich: Seite zum Bug in der Datenbank beheben hinzugefügt.
+	o PHP: stat_gesamt.php verbessert.
+
+Capi2Name 0.6.5 2003-12-24 - Jonas Genannt - <jonasge@gmx.net>
+	o Datenbanklayout wurde verändert -> Updatehinweise lesen!
+	o PHP: shownewstat.php: Tabelle um Dienstkennung erweitert.
+	o PHP: stat_anrufer.php: Durchschnittliche Anrufe pro Woche
+	o PHP: stat_loeschen.php: Man kann Anrufe ganz einfach per Weboberfläche löschen.
+	o PHP: adressbuch.php: direktes löschen der Einträge möglich
+	o PHP: showstat.php gelöscht, seit 0.5 nicht mehr verwendet.
+	o PHP: showstatnew.php: Neue Icons für Statistik und Eintrag löschen
+	o PHP: Dokumentation für Adminbereicht beim anlegen von Useren
+	o PHP: AdminLogin Verändert
+	o PHP: Viele kleine Bugfixes
+	o PHP: Layout verbessert (stat_anrufer.php)
+	o PHP: Neue Layouts. (by Ansgar -DANKE)
+	o PHP: stat_loeschen.php weiterleitung verbessert.
+	o PHP: DB Layout verbessert
+	o PHP: Logout verbessert
+	o C-Prog: Config-File
+	o C-Prog: Alle Anrufe aufzeichnen
+	o C-Prog: Suse Start-Stop-Script (by Netmaster -DANKE)
+
+Capi2Name 0.6.3 2003-11-09 - Jonas Genannt - <jonasge@gmx.net>
+	o C-Prog: Support für Mysql 4.X
+
+Capi2Name 0.6.2 2003-11-05 - Jonas Genannt - <jonasge@gmx.net>
+	o PHP: Detailübersicht über einzellnen Anrufer
+	o PHP: Admin-Bereich: Überprüfung, ob es Usernamen schon gibt
+
+Capi2Name 0.6.1 2003-10-11 - Jonas Genannt - <jonasge@gmx.net>
+	o PHP: neue GIF-Bilder
+	o PHP: Absatz zwischen Menu/Haupt Frame beseitigt
+	o C-Prog: Variable wurde nicht gelöscht
+
+Capi2Name 0.6 2003-10-06 - Jonas Genannt - <jonasge@gmx.net>
+	o PHP: Farbwahl hinzugefügt.
+	o PHP: Arbeitet jetzt auch mit global_variables=off
+	o PHP: Zeige Zurückruf, Fehlermeldung geschrieben.
+	o PHP: Zeige Notiz, Fehlermeldung geschrieben, bessere SQL-Abfragen
+	o PHP: Adminbereich: Userbearbeiten mehr einstellmöglichkeiten
+	o PHP: Adminbereich: Übersicht neu gestaltet
+	o PHP: Adminbereich: Neuer User neu gestaltet, mehr funktionen
+	o PHP: Auf den Seiten prüfen, ob der User diese anschauen darf.
+	o PHP: showstatnew.php: Border=0 von dem Bild gefixed
+	o PHP: Admin kann sagen, ob der User das KonfigMenü sehen darf.
+	o PHP: Problem mit den Pfeilen im Internet Explorer behoben
+	o PHP: Alias Namen für eigene MSN-Nummer vergeben
+	o PHP: Adminbereich: Vorwahl verbessert
+	o PHP: Vorwahl funktion anderes gestaltet, schneller
+	o PHP: Heute und Gestrige Anrufstatitik neu geschreiben->schneller, bessere SQL-Abfragen
+	o C-Prog: Mysql-Interface neu geschrieben
+	o C-Prog: Kein Seg-Fault mehr
+	o C-Prog: Vorwahl angepasst
+
+Capi2Name 0.5.1 2003-08-16 - Jonas Genannt - <jonasge@gmx.net>
+	o PHP: Fixed: Admin: Useranlegen
+
+Capi2Name 0.5.1 2003-08-08 - Jonas Genannt - <jonasge@gmx.net>
+	o PHP: Fixed: üblen Bug in der showstatnew.php
+	
+Capi2Name 0.5 2003-08-07 - Jonas Genannt - <jonasge@gmx.net>
+	o Es wurde die Datenbankstruktur verändert -> Updatehinweise
+	o PHP: Fixed: Detailansicht von zurückrufen.
+	o PHP: Fixed: Rueckruf mit Resend Data
+	o PHP: Fixed: de.inc.php anpassen auf neue Dateien
+	o PHP: Fixed: Notizbug in Verbindung mit dem vollstänigem Name
+	o PHP: Fixed: Noitzbug in Verbindung mit neuem Eintarg
+	o PHP: Verschlüsselte Passworter stehen jetzt in der Datenbank
+	o PHP: Datum- und Uhrzeitfunktion im Rückrufmenu verbessert
+	o PHP: Anzeige, von wo angerufen wurde (Ortschaft)
+	o PHP: Komplettes ReWrite von der Datei showstat.php (Anrufstat anzeigen).
+	o Besser SQL-Syntax, schneller, einfacher Code ;-)
+	o PHP: editadressbuch.php: Bessere SQL Abfragen. Fehlermeldungen geschrieben.
+	o PHP: showadress.php: Bessere SQL Abfragen. Fehlermeldungen geschrieben.
+	
+Capi2Name 0.4 2003-06-01 - Jonas Genannt - <jonasge@gmx.net>
+	o PHP: Administatrionsbereich dem anderen Design angepasst.
+	
+Capi2Name 0.3 2003-05-21 - Jonas Genannt - <jonasge@gmx.net>
+	o Es wurde die Datenbankstruktur verändert -> Updatehinweise
+	o C: Rufnummerüberwachung geändert. Man kann unendlich viele MSN's überwachen.
+	o PHP: Bug mit Benutzer-login wurde behoben
+	o PHP: Man kann einstellen, welche MSN-Anrufe angezeigt werden.
+	
+Capi2Name 0.2 2003-05-10 - Jonas Genannt - <jonasge@gmx.net>
+	o Es wurde die Datenbankstruktur verändert -> Updatehinweise
+	o PHP: Administratorbereich hinzugefühgt.
+	o PHP: Benutzerkonfiguration für jeden Benutzer.
+
+Capi2Name 0.1 2003-05-01 - Jonas Genannt - <jonasge@gmx.net>
+	o first relase
