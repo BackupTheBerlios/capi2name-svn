@@ -12,8 +12,8 @@
  *   any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-include("./conf.inc.php");
-include("./func.inc.php");
+include("./includes/conf.inc.php");
+include("./includes/functions.php");
 session_start(); 
 include("./header.inc.php");
 $loginok=0;
