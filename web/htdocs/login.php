@@ -42,6 +42,7 @@ $result_userlist=$zugriff_mysql->sql_abfrage("SELECT id,username,passwd,name_fir
      $_SESSION['realname']=$row_userlist['name_first']." ".$row_userlist['name_last'];
      $_SESSION['username']=$_POST['login_name'];
      $_SESSION['password']=$row_userlist['passwd'];
+     $_SESSION['user_id']=$row_userlist['id'];
      $loginok=1;
      $template->assign_block_vars('tab1',array(
      		'L_PASSWD_OK' => 'PASSWD Richtig... Sie werden weitergeleitet...',

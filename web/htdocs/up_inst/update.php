@@ -22,7 +22,7 @@ if (!isset($_POST[absenden]) && !isset($_GET[update]))
     <tr>
      <td style=\"text-align:left;\">database hostname:</td>
      <td style=\"width:10px;\"></td>
-     <td ><input name=\"dbhost\" value=\"localhost\"/></td>
+     <td><input name=\"dbhost\" value=\"localhost\"/></td>
     </tr>
     <tr>
      <td style=\"text-align:left;\">database username:</td>
@@ -46,10 +46,7 @@ if (!isset($_POST[absenden]) && !isset($_GET[update]))
     </tr>
    </table>
   
-  </form>
-  
-  
-  "; 
+  </form>"; 
  }
 
 
@@ -82,8 +79,7 @@ $capi_config_tabelle=false;
 $db_layout_version="";
 $db_layout_neue_version="0.6.7.6";
 
-echo "<br><b>Warten bis unten in Grün OK
-steht<br></b><br>";
+echo "<br/><b>Please wait until the scrip prints out in green 'OK'</b><br/><br/>";
 
 
 do{
@@ -91,21 +87,21 @@ do{
 $control=mysql_connect($dbhost,$dbuser,$dbpasswd);
   if ($control==FALSE)
       {
-       echo "Verbindung (Connect) fehlgeschlagen!\nMysql-Error: ". mysql_error() ;
+       echo "Connect failed!\nMysql-Error: ". mysql_error() ;
        die();
       }
 
 $control=mysql_select_db($dbname);
   if ($control==FALSE)
    {
-    echo "Verbindung (Select_DB) fehlgeschlagen!\nMysql-Error: ". mysql_error();
+    echo "Select DB failed!\nMysql-Error: ". mysql_error();
     die();
    }
 
 $result=mysql_list_tables($dbname);
    if ($result==FALSE)
      {
-      echo "Fehler: (mysql_list_tables)!\nMysql-Error: ". mysql_error();
+      echo "Error (mysql_list_tables)!\nMysql-Error: ". mysql_error();
       die();
      }
 
@@ -119,7 +115,7 @@ while ($row=mysql_fetch_row($result))
       }
       elseif ($row[0]=="config")
       {
-       echo "table 'config' found! - DB-Layout: < 0.6.7.6<br/><br/>";
+       echo "table 'config' found! - DB-Layout: > 0.6.7.6<br/><br/>";
        $capi_config_tabelle=true;
       }
   }
@@ -132,12 +128,12 @@ while ($row=mysql_fetch_row($result))
 /******************************************************************
    CAPI2NAME DB-Layout  0.6 <-> 0.6.7.5 ANFANG
 *******************************************************************/
-if ($capi_version_tabelle==true)
+if ($capi_version_tabelle)
 {
 $result=mysql_query("SELECT version FROM capi_version WHERE id=1");
  if($result==false)
   {
-   echo "Mysql-Query fehlgeschlagen!<br>Mysql-Error: ". mysql_error();
+   echo "Mysql-Query failed!<br/>Mysql-Error: ". mysql_error();
    die();
   }
 $row=mysql_fetch_row($result);
@@ -158,7 +154,7 @@ if ($capi_config_tabelle)
   $result=mysql_query("SELECT * FROM config WHERE conf='db_version'");
   if($result==false)
   {
-   echo "Mysql-Query fehlgeschlagen!<br>Mysql-Error: ". mysql_error();
+   echo "Mysql-Query failed!<br/>Mysql-Error: ". mysql_error();
    die();
   }
   $daten=mysql_fetch_assoc($result);
@@ -174,14 +170,13 @@ if ($capi_config_tabelle)
 /*********************************************************************
    CAPI2NAME DB-Layout unter 0.6 ANFANG
 *********************************************************************/
-if($capi_version_tabelle==false && !$capi_config_tabelle)
+if(!$capi_version_tabelle && !$capi_config_tabelle)
  {
-  echo "Capi2Name DB-Layout unter 0.6 gefunden! Erkennung wird gestartet............<br><br>"; 
-  
+  echo "Capi2Name DB-Layout < 0.6 found. The script starts now the identification....<br/><br/>";  
   $result=mysql_list_fields($dbname, "userliste");
    if($result==FALSE)
     {
-     echo "Fields Error!<br>Mysql-Error: ". mysql_error();
+     echo "Fields Error!<br/>Mysql-Error: ". mysql_error();
      die();
     }
   $columns=mysql_num_fields($result); 
@@ -204,334 +199,249 @@ if($capi_version_tabelle==false && !$capi_config_tabelle)
 
 /****************************************
 ****************************************/
-echo "<br><b>DB-Version gefunden: $db_layout_version</b><br>";
+echo "<br/><b>DB-Version found: $db_layout_version</b><br/>";
 
 
 
-/***************************************** Version 0.1 auf 0.2
-********************************************************************/
+/********************** Version 0.1 auf 0.2********************************/
 if ($db_layout_version=="0.1")
  {
-  echo "Found Version 0.1 updating now to 0.2.........<br>";
-  
- $control=mysql_select_db($dbname);
-  if ($control==FALSE)
-   {
-    echo "Verbindung (Select_DB) fehlgeschlagen!\nMysql-Error: ". mysql_error();
-    die();
-   }
- 
- $file=fopen("update-database-0.1-0.2.sql", "rb");
- $inhalt= fread ($file, filesize("update-database-0.1-0.2.sql"));
+  echo "Found Version 0.1 updating now to 0.2.........<br/>";
+  $file=fopen("update-database-0.1-0.2.sql", "rb");
+  $inhalt= fread ($file, filesize("update-database-0.1-0.2.sql"));
   $array_inhalt=split("(;\n|;\r)",$inhalt);
-
-   for($i=0;$i<sizeof($array_inhalt)-1; $i++)
+  for($i=0;$i<sizeof($array_inhalt)-1; $i++)
      {
       $array_inhalt[$i]=trim($array_inhalt[$i]);
       $control=mysql_query($array_inhalt[$i]);
        if ($control==FALSE)
         {
-          echo "Insert fehlgeschlagen: $array_inhalt[$i]<br>Mysql-Error: ". mysql_error();
+          echo "Insert failed: $array_inhalt[$i]<br/>Mysql-Error: ". mysql_error();
           die();
          }
      }
 
-fclose($file);
-
-   
-   
-   
-    
+  fclose($file);
  }
-/************************ENDE Version 0.1 auf 0.2****************
-*************************************************************/
+/************************ENDE Version 0.1 auf 0.2**************************/
 
 
-/***********************ANFANG Version 0.2 auf 0.3 ****************
-*******************************************************************/
+/***********************ANFANG Version 0.2 auf 0.3 **************************************/
 if ($db_layout_version=="0.2")
  {
-  echo "Found Version 0.2 updating to 0.3............<br>";
-  $control=mysql_select_db($dbname);
-  if ($control==FALSE)
-   {
-    echo "Verbindung (Select_DB) fehlgeschlagen!\nMysql-Error: ". mysql_error();
-    die();
-   }
+  echo "Found Version 0.2 updating to 0.3...........<br/>";
   $file=fopen("update-database-0.2-0.3.sql", "rb");
- $inhalt= fread ($file, filesize("update-database-0.2-0.3.sql"));
+  $inhalt= fread ($file, filesize("update-database-0.2-0.3.sql"));
   $array_inhalt=split("(;\n|;\r)",$inhalt);
-
-   for($i=0;$i<sizeof($array_inhalt)-1; $i++)
+  for($i=0;$i<sizeof($array_inhalt)-1; $i++)
      {
       $array_inhalt[$i]=trim($array_inhalt[$i]);
       $control=mysql_query($array_inhalt[$i]);
        if ($control==FALSE)
         {
-          echo "Insert fehlgeschlagen: $array_inhalt[$i]<br>Mysql-Error: ". mysql_error();
+          echo "Insert failed: $array_inhalt[$i]<br/>Mysql-Error: ". mysql_error();
           die();
          }
      }
 
-fclose($file);
-   
+  fclose($file); 
  }
-/**********************ENDE Version 0.2 auf 0.3********************
-******************************************************************/
+/**********************ENDE Version 0.2 auf 0.3**********************************/
 
 
 
 
-/***********************ANFANG Version 0.3-0.4 auf 0.5 ****************
-*******************************************************************/
+/******************ANFANG Version 0.3-0.4 auf 0.5 ************************************/
 if ($db_layout_version=="0.3")
  {
-  echo "Found Version 0.3 or 0.4  updating to 0.5...........<br>";
-  $control=mysql_select_db($dbname);
-  if ($control==FALSE)
-   {
-    echo "Verbindung (Select_DB) fehlgeschlagen!\nMysql-Error: ". mysql_error();
-    die();
-   }
-    $file=fopen("update-database-0.4-0.5.sql", "rb");
- $inhalt= fread ($file, filesize("update-database-0.4-0.5.sql"));
+  echo "Found Version 0.3 or 0.4  updating to 0.5...........<br/>";
+  $file=fopen("update-database-0.4-0.5.sql", "rb");
+  $inhalt= fread ($file, filesize("update-database-0.4-0.5.sql"));
   $array_inhalt=split("(;\n|;\r)",$inhalt);
-
-   for($i=0;$i<sizeof($array_inhalt)-1; $i++)
+  for($i=0;$i<sizeof($array_inhalt)-1; $i++)
      {
       $array_inhalt[$i]=trim($array_inhalt[$i]);
       $control=mysql_query($array_inhalt[$i]);
        if ($control==FALSE)
         {
-          echo "Insert fehlgeschlagen: $array_inhalt[$i]<br>Mysql-Error: ". mysql_error();
+          echo "Insert failed: $array_inhalt[$i]<br/>Mysql-Error: ". mysql_error();
           die();
          }
      }
 
-fclose($file);
-   
+  fclose($file); 
  }
-/**********************ENDE Version 0.3-0.4 auf 0.5********************
-******************************************************************/
+/**********************ENDE Version 0.3-0.4 auf 0.5************************************/
 
 
 
-/********************ANFANG Version 0.5 auf 0.6**********************
-*********************************************************************/
+/********************ANFANG Version 0.5 auf 0.6*******************************************/
 if ($db_layout_version==0.5)
 {
-  echo "Found Version 0.5 updating to 0.6...........<br>";
-  $control=mysql_select_db($dbname);
-  if ($control==FALSE)
-   {
-    echo "Verbindung (Select_DB) fehlgeschlagen!\nMysql-Error: ". mysql_error();
-    die();
-   }
-  
-    $file=fopen("update-database-0.5.2-0.6.sql", "rb");
- $inhalt= fread ($file, filesize("update-database-0.5.2-0.6.sql"));
+  echo "Found Version 0.5 updating to 0.6...........<br/>";
+  $file=fopen("update-database-0.5.2-0.6.sql", "rb");
+  $inhalt= fread ($file, filesize("update-database-0.5.2-0.6.sql"));
   $array_inhalt=split("(;\n|;\r)",$inhalt);
-
-   for($i=0;$i<sizeof($array_inhalt)-1; $i++)
+  for($i=0;$i<sizeof($array_inhalt)-1; $i++)
      {
       $array_inhalt[$i]=trim($array_inhalt[$i]);
       $control=mysql_query($array_inhalt[$i]);
        if ($control==FALSE)
         {
-          echo "Insert fehlgeschlagen: $array_inhalt[$i]<br>Mysql-Error: ". mysql_error();
+          echo "Insert failed: $array_inhalt[$i]<br/>Mysql-Error: ". mysql_error();
           die();
          }
-     }
-
-fclose($file);
-
-  
+    }
+  fclose($file);
 }
-/*********************ENDE Version 0.5 auf 0.6***********************
-********************************************************************/
+/*********************ENDE Version 0.5 auf0.6 *****************************************/
 
 
 
 
-/********************ANFANG Version 0.6 auf 0.6.5**********************
-*********************************************************************/
+/********************ANFANG Version 0.6 auf 0.6.5 ***************************************/
 if ($db_layout_version=="0.6")
 {
-  echo "Found Version 0.6 updating to 0.6.5...........<br>";
-  $control=mysql_select_db($dbname);
-  if ($control==FALSE)
-   {
-    echo "Verbindung (Select_DB) fehlgeschlagen!\nMysql-Error: ". mysql_error();
-    die();
-   }
-  
- $file=fopen("update-database-0.6-0.6.5.sql", "rb");
- $inhalt= fread ($file, filesize("update-database-0.6-0.6.5.sql"));
+  echo "Found Version 0.6 updating to 0.6.5...........<br/>";
+  $file=fopen("update-database-0.6-0.6.5.sql", "rb");
+  $inhalt= fread ($file, filesize("update-database-0.6-0.6.5.sql"));
   $array_inhalt=split("(;\n|;\r)",$inhalt);
-
-   for($i=0;$i<sizeof($array_inhalt)-1; $i++)
+  for($i=0;$i<sizeof($array_inhalt)-1; $i++)
      {
       $array_inhalt[$i]=trim($array_inhalt[$i]);
       $control=mysql_query($array_inhalt[$i]);
        if ($control==FALSE)
         {
-          echo "Insert fehlgeschlagen: $array_inhalt[$i]<br>Mysql-Error: ". mysql_error();
+          echo "Insert failed: $array_inhalt[$i]<br/>Mysql-Error: ". mysql_error();
           die();
          }
      }
-
-fclose($file);
-  
+  fclose($file);
 }
-/***************************ENDE Version 0.6 auf 0.6.5*******************
-**********************************************************************/
+/***************************ENDE Version 0.6 auf 0.6.5 **********/
 
 
-/****************************Version 0.6.5 auf 0.6.7.2*********************
-***************************************************************************/
+/****************************Version 0.6.5 auf 0.6.7.2 ************************/
 if ($db_layout_version=="0.6.5")
  {
-  echo "Found Version 0.6.5 updating to 0.6.7.2...........<br>";
-  $control=mysql_select_db($dbname);
+  echo "Found Version 0.6.5 updating to 0.6.7.2...........<br/>";
+  $control=mysql_query("UPDATE capi_version SET version='0.6.7.2' WHERE id='1'");
   if ($control==FALSE)
-   {
-    echo "Verbindung (Select_DB) fehlgeschlagen!\nMysql-Error: ". mysql_error();
-    die();
-   }
- $control=mysql_query("UPDATE capi_version SET version='0.6.7.2' WHERE id='1'");
-if ($control==FALSE)
-        {
-          echo "Insert fehlgeschlagen: <br>Mysql-Error: ". mysql_error();
-          die();
-         } 
-  echo "<br>Big database update. Starting his own script. Please wait........"; 
+    {
+      echo "Insert failed: <br/>Mysql-Error: ". mysql_error();
+      die();
+    } 
+  echo "<br/>Big database update. Starting his own script. Please wait........"; 
   echo "<meta http-equiv=\"refresh\" content=\"0; URL=./update-database-0.6.5-0.6.7.2.php\">";
   sleep(5);
 
  }
-/*************************ENDE Version 0.6.5 auf 0.6.7.2 ************************
-***************************************************************************/
+/*************************ENDE Version 0.6.5 auf 0.6.7.2 ***********************************/
 
 
-/****************************Version 0.6.7.2 auf 0.6.7.5*********************
-***************************************************************************/
+/****************************Version 0.6.7.2 auf 0.6.7.5 *******************************/
 if ($db_layout_version=="0.6.7.2")
  {
   echo "Found Version 0.6.7.2 updating to 0.6.7.5...........<br>";
-  $control=mysql_select_db($dbname);
-  if ($control==FALSE)
-   {
-    echo "Verbindung (Select_DB) fehlgeschlagen!\nMysql-Error: ". mysql_error();
-    die();
-   }
   $control=mysql_query("UPDATE capi_version SET version='0.6.7.5' WHERE id='1'");
   if ($control==FALSE)
     {
-          echo "Insert fehlgeschlagen: <br>Mysql-Error: ". mysql_error();
-          die();
-   } 
-   
+     echo "Insert failed: <br>Mysql-Error: ". mysql_error();
+     die();
+    } 
   $control=mysql_query("alter table userliste change lastlogin_d lastlogin_d date");
   if ($control==FALSE)
     {
-          echo "Insert fehlgeschlagen: <br>Mysql-Error: ". mysql_error();
-          die();
-   } 
+     echo "Insert failed: <br/>Mysql-Error: ". mysql_error();
+     die();
+    } 
   $control=mysql_query("alter table userliste change lastlogin_t lastlogin_t time");
   if ($control==FALSE)
-    {
-          echo "Insert fehlgeschlagen: <br>Mysql-Error: ". mysql_error();
-          die();
+   {
+    echo "Insert failed: <br/>Mysql-Error: ". mysql_error();
+    die();
    } 
    
  }
- /****************************ENDE Version 0.6.7.2 auf 0.6.7.5*********************
-***************************************************************************/
+ /****************************ENDE Version 0.6.7.2 auf 0.6.7.5 ************************/
 
 
-/******************++ VERSION 0.6.7.5 -> 0.6.7.6 **************************/
+/******************* VERSION 0.6.7.5 -> 0.6.7.6 **************************/
 if ($db_layout_version=="0.6.7.5")
  {
- $control=mysql_select_db($dbname);
-  if ($control==FALSE)
-  {
-  echo "Verbindung (Select_DB) fehlgeschlagen!\nMysql-Error: ". mysql_error();
-  die();
-  }
+  echo "Found Version 0.6.7.5 updating to 0.6.7.6...........<br>";
  $control=mysql_query("DROP TABLE capi_version");
   if ($control==FALSE)
    {
-     echo "Insert fehlgeschlagen: <br>Mysql-Error: ". mysql_error();
+     echo "Insert failed: <br/>Mysql-Error: ". mysql_error();
      die();
    } 
   $control=mysql_query("DROP TABLE notiz");
   if ($control==FALSE)
    {
-     echo "Insert fehlgeschlagen: <br>Mysql-Error: ". mysql_error();
+     echo "Insert failed: <br/>Mysql-Error: ". mysql_error();
      die();
    } 
   $control=mysql_query("DROP TABLE angerufene_");
   if ($control==FALSE)
    {
-     echo "Insert fehlgeschlagen: <br>Mysql-Error: ". mysql_error();
+     echo "Insert failed: <br/>Mysql-Error: ". mysql_error();
      die();
    }
  $capi_version_tabelle=false;  
  $file=fopen("update-database-0.6.7.5-0.6.7.6.sql", "rb");
  $inhalt= fread ($file, filesize("update-database-0.6.7.5-0.6.7.6.sql"));
-  $array_inhalt=split("(;\n|;\r)",$inhalt);
-
-   for($i=0;$i<sizeof($array_inhalt)-1; $i++)
-     {
+ $array_inhalt=split("(;\n|;\r)",$inhalt);
+ for($i=0;$i<sizeof($array_inhalt)-1; $i++)
+    {
       $array_inhalt[$i]=trim($array_inhalt[$i]);
       $control=mysql_query($array_inhalt[$i]);
        if ($control==FALSE)
         {
-          echo "Insert fehlgeschlagen: $array_inhalt[$i]<br>Mysql-Error: ". mysql_error();
+          echo "Insert failed: $array_inhalt[$i]<br/>Mysql-Error: ". mysql_error();
           die();
          }
      }
-  
-fclose($file);   
-//we musst copy user form userliste to users...... 
-$result_user=mysql_query("SELECT * FROM userliste");
-while ($daten=mysql_fetch_assoc($result_user))
- {
-  echo "User: $daten[username]<br/>";
-  if ($daten[username]=="admin")
-   {
-    $result=mysql_query("UPDATE users SET passwd='$daten[passwd]' WHERE username='admin'");
-    if (!$result)
+ fclose($file);   
+ //we musst copy user form userliste to users...... 
+ $result_user=mysql_query("SELECT * FROM userliste");
+ while ($daten=mysql_fetch_assoc($result_user))
+  {
+   echo "User: $daten[username]<br/>";
+   if ($daten[username]=="admin")
+    {
+     $result=mysql_query("UPDATE users SET passwd='$daten[passwd]' WHERE username='admin'");
+     if (!$result)
         {
-          echo "Insert fehlgeschlagen: $array_inhalt[$i]<br>Mysql-Error: ". mysql_error();
+          echo "Insert failed: $array_inhalt[$i]<br/>Mysql-Error: ". mysql_error();
           die();
          }
-   }
+    }
    else
-   {
-   if ($daten[showrueckruf]=="checked")  $daten[showrueckruf]=1;
-   if ($daten[showmsn]=="checked")       $daten[showmsn]=1;
-   if ($daten[showvorwahl]=="checked")   $daten[showvorwahl]=1;
-   if ($daten[showconfig]=="checked")    $daten[showconfig]=1;
-   if ($daten[loeschen]=="checked")      $daten[loeschen]=1;
-   if ($daten[showtyp]=="checked")      $daten[showtyp]=1;
-    $result=mysql_query("INSERT INTO users VALUES('', '$daten[username]',
+    {
+     if ($daten[showrueckruf]=="checked")  $daten[showrueckruf]=1;
+     if ($daten[showmsn]=="checked")       $daten[showmsn]=1;
+     if ($daten[showvorwahl]=="checked")   $daten[showvorwahl]=1;
+     if ($daten[showconfig]=="checked")    $daten[showconfig]=1;
+     if ($daten[loeschen]=="checked")      $daten[loeschen]=1;
+     if ($daten[showtyp]=="checked")      $daten[showtyp]=1;
+     $result=mysql_query("INSERT INTO users VALUES('', '$daten[username]',
     	'$daten[passwd]', NULL,NULL,NULL,NULL,
 	'$daten[anzahl]', '$daten[msns]','$daten[showrueckruf]',
 	'$daten[showvorwahl]', '$daten[showmsn]','$daten[showtyp]',
 	'$daten[showconfig]','$daten[loeschen]', 'blueingrey')");
        if (!$result)
         {
-          echo "Insert fehlgeschlagen: $array_inhalt[$i]<br>Mysql-Error: ". mysql_error();
+          echo "Insert failed: $array_inhalt[$i]<br/>Mysql-Error: ". mysql_error();
           die();
          }
+    }
    }
- }
-  $control=mysql_query("DROP TABLE userliste");
-  if ($control==FALSE)
-   {
-     echo "Insert fehlgeschlagen: <br>Mysql-Error: ". mysql_error();
-     die();
+ $control=mysql_query("DROP TABLE userliste");
+ if ($control==FALSE)
+  {
+   echo "Insert dailed: <br/>Mysql-Error: ". mysql_error();
+   die();
    }
 
  }//ende if ()
@@ -541,7 +451,7 @@ while ($daten=mysql_fetch_assoc($result_user))
 $control=mysql_close();
   if ($control==FALSE)
    {
-     echo "Verbingun (Close) fehlgeschlagen!\nMysql-Error: ". mysql_error();
+     echo "Close failed!  \nMysql-Error: ". mysql_error();
 	die();
    }
 }
@@ -550,11 +460,11 @@ while($db_layout_version!=$db_layout_neue_version);
 
 if ($db_layout_version==$db_layout_neue_version)
  {
- echo "<br><br><font color=green>OK! DB-Layout update fertig!</font><br>";
+ echo "<br/><br/><font color=green>OK! DB-Layout update ready!</font><br/>";
  }
 
 }//ende isset (absenden)
 
 ?>
-</BODY>
-</HTML>
+</body>
+</html>

@@ -49,5 +49,7 @@
 </div>
 <div id="main">
 <div class="header2">{CAPI2NAME_PAGE_TITLE}</div>
-
+<!-- BEGIN up_inst -->
+<div style"text-align:center;">{up_inst.L_MSG_UP_INST}</div>
+<!-- END up_inst -->
  

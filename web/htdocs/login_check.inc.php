@@ -5,6 +5,7 @@ session_start();
 $realname=$_SESSION['realname'];
 $username=$_SESSION['username']; 
 $password=$_SESSION['password'];
+$user_id  =$_SESSION['user_id'];
 $login_ok=0;
 
 if ($_SESSION['remember_login'])
@@ -12,6 +13,7 @@ if ($_SESSION['remember_login'])
   setcookie("ck_username",$username, time()+172800000 );  
   setcookie("ck_passwd",$password, time()+172800000 );  
   setcookie("ck_realname",$realname, time()+172800000 );  
+  setcookie("ck_user_id",$user_id, time()+172800000 );
   $_SESSION['remember_login']=false;
  }
 
@@ -20,9 +22,11 @@ if ($_COOKIE['ck_username']!="" && $_COOKIE['ck_passwd']!="" && $_COOKIE['ck_rea
   $_SESSION['realname']=$_COOKIE['ck_realname'];
   $_SESSION['username']=$_COOKIE['ck_username']; 
   $_SESSION['password']=$_COOKIE['ck_passwd'];
+  $_SESSION['user_id'] =$_COOKIE['ck_user_id'];
   $realname=$_SESSION['realname'];
   $username=$_SESSION['username']; 
   $password=$_SESSION['password'];
+  $user_id =$_SESSION['user_id'];
  }
 
 
@@ -115,6 +119,14 @@ $result_userlist=$zugriff_mysql->sql_abfrage("SELECT * FROM users WHERE username
        {
       $zugriff_mysql->sql_abfrage("UPDATE users SET lastlogin_t=NOW(),lastlogin_d=NOW() WHERE username='$username'");
        }
+     $result_callback=$zugriff_mysql->sql_abfrage("SELECT * FROM callback WHERE user_id='$row_userlist[id]' AND notify='1'");
+     $daten_callback=mysql_fetch_assoc($result_callback);
+     if ($daten_callback)
+     {
+      $_SESSION['show_callback_notify']=true;
+     }  
+       
+       
     }//if passwd OK
    else
     {

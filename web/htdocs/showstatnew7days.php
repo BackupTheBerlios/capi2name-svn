@@ -179,7 +179,7 @@ $tab_angerufene=$zugriff_mysql->sql_abfrage("SELECT * FROM angerufene WHERE datu
    $d_name=base64_encode($anz_name1_d);
    $d_uhrzeit=base64_encode($data[3]);
    $d_datum=base64_encode($data[2]);
-   $anz_rueckruf="<a href=\"./callback.php?add=yes&amp;addname=$d_name&amp;addrufnummer=$data[1]&amp;zuhrzeit=$d_uhrzeit&amp;zdatum=$d_datum\">
+   $anz_rueckruf="<a href=\"./callback.php?add=yes&amp;addr=$adress_data[0]\">
    <img src=\"./images/1leftarrow.gif\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
    
 //show_vorwahl

@@ -25,12 +25,12 @@ if (isset($_POST[aendern]))
 if ($_POST[passwd1]==$_POST[passwd2] && ! empty($_POST[passwd1]))
 {
  $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
- $result = mysql_query("SELECT username, passwd FROM users WHERE id=1");
- $daten = mysql_fetch_array($result);
+ $result = mysql_query("SELECT username, passwd FROM users WHERE username='admin'");
+ $daten = mysql_fetch_assoc($result);
   if (md5($_POST[altespasswd]) == $daten[passwd])
    {
     $verschluesselt=md5($_POST[passwd2]);
-    $result = mysql_query("UPDATE users SET passwd='$verschluesselt' WHERE id=1");
+    $result = mysql_query("UPDATE users SET passwd='$verschluesselt' WHERE username='admin'");
      if ($result)
       {
       echo "<div class=\"blau_mittig\">Password successfully changed!</div>";

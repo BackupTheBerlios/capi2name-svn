@@ -20,7 +20,7 @@
  *                                                                         *
  ***************************************************************************/
 -->
-<?php
+<?
 include("./templates/".$userconfig['template']."/config.php");
 include("./includes/template.php");
 include("./language/".$config['language'].".inc.php");
@@ -71,14 +71,19 @@ if ($config['capisuite'] == "yes")
     $template->assign_vars(array('L_CAPI_SUITE_HELP' => $textdata[header_inc_cs_help]));
    }
 
-
+if ($_SESSION['show_callback_notify'])
+ {
+  echo " <script type=\"text/javascript\">
+  <!--
+  F1 = window.open(\"callback_notify.php\",\"Fenster1\",\"width=570,height=190,left=0,top=0\");
+  //-->
+  </script>";
+ }
 
 
 /*
 if ( is_dir("up_inst")) {
- <!--BEGIN up_inst -->
-<div style"text-align:center;">{L_MSG_UP_INST}</div>
-<!-- END up_inst -->
+
 	$template->assign_block_vars('up_inst',array(
 	'L_MSG_UP_INST' => 'The installtions directory <b>up_inst</b> exists.<br/> Please delete it after updating or installation!!'));
 	$template->pparse('overall_header');

@@ -57,8 +57,9 @@ if (isset($_POST[aendern]))
  if ($btele3 =="")  { $btele3="99"; }
  $res=$zugriff_mysql->sql_abfrage("INSERT INTO adressbuch VALUES('$_POST[bid]','$_POST[bvorname]','$_POST[bnachname]', '$_POST[bstrasse]', '$_POST[bhausnr]', '$_POST[bplz]', '$_POST[bort]', '$btele1', '$btele2', '$btele3', '$bhandy', '$_POST[bfax]',  '$_POST[bemail]')");
  $zugriff_mysql->close_mysql();
- echo "<div class=\"blau_mittig\">$textdata[editadress_eintrag_veraendert]</div>";
- echo "<meta http-equiv=\"refresh\" content=\"2; URL=./adressbuch.php\">";
+ $template->assign_block_vars('edit_addr',array(
+ 		'L_MSG_EDIT_OK' => $textdata[editadress_eintrag_veraendert]));
+
  }
 
 
