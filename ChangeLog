@@ -7,6 +7,9 @@ Capi2name 0.6.7.6 YYYY-MM-DD - Jonas Genannt - <jonasge@gmx.net> ---BETA
 	o PHP: Added template system base
 	o PHP: Removed navigator.inc.php
 	o PHP: Removed memo function (notiz.php and editnotiz.php)
+	o PHP: stat-user.png.php more months in the grafic, new grafic layout
+	o PHP: stat.png.php: new layout for display what color is for what value
+	o PHP: Removed layout_src.css.php because we use template system.
 Capi2Name 0.6.7.5 2005-01-24 - Jonas Genannt - <jonasge@gmx.net> 
 	o PHP: neueruser.php 0 css2.0 xhtml (popel)
 	o PHP: .htaccess hinzugefuegt fuer mehr Sicherheit (Verbietet *.inc.*)
