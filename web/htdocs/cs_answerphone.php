@@ -20,11 +20,6 @@
 	include("./login_check.inc.php");
 	include("./header.inc.php");
 	
-	$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] ); 
-	$result = $zugriff_mysql->sql_abfrage("SELECT `capisuite_user` FROM `userliste` WHERE `username`='$username'");
-	list($cs_user) = mysql_fetch_array($result);
-	$zugriff_mysql->close_mysql();
-	
 ?>
 <?php echo "<div class=\"ueberschrift_seite\">CapiSuite Anrufbeantworter</div>"; ?>
 	<h3>Liste der eingegangenen Nachrichten</h3>
@@ -41,7 +36,7 @@
 		<tbody>
 <a href="cs_hearmessage.php?file=" target="_blank">abspielen</a>
 <?php
-	$dir = "/var/spool/capisuite/users/popel/received/";
+	$dir = "/var/spool/capisuite/users/$login_name/received/";
 	if (is_dir($dir)) {
 		if ($dh = opendir($dir)) {
 			while (($file = readdir($dh)) !== false) {
@@ -54,7 +49,8 @@
 					echo "</td><td>";
 					echo preg_replace("/(.*=\")(.*)(\")/", "\\2", $lines[6]);
 					echo "</td><td>";
-					echo "<a href=\"cs_hearmessage.php?file=3&amp;csuser=$cs_user\" target=\"_blank\">abspielen</a>";
+					$a = preg_replace("/(.*-)(\d{1,4})(\.l.*)/", "\\2",$lines[4]);
+					echo "<a href=\"cs_hearmessage.php?file=$a&amp;csuser=$login_name\" target=\"_blank\">abspielen</a>";
 					echo "</td><td>";
 					echo "löschen";
 					echo "</td></tr>";
