@@ -1,0 +1,18 @@
+
+Author:  René Strauch <netmasterstrauch@arcor.de>
+-------------------------------------------------------------
+
+Start-Stop-Script für Suse.
+Getestet auf Suse 9.0
+
+
+
+
+Automatische Installation:
+cp Makefile ../../capi2name.new/
+cp capi2name_service  ../../capi2name.new
+
+Danach normale Installation siehe Readme.
+
+Das make install installiert das capi2name automatisch in die Runlevel 3 und 5.
+Über /etc/init.d/capi2name start kann man capi2name bequem starten und stoppen.

@@ -1,0 +1,23 @@
+Readme ist auf http://capi2name.berlios.de zu haben!
+
+
+
+
+Verzeichnisse:
+---------------
+capi2name/ Capi2Name Version, mit Config-File support.
+htdocs/ PHP-Dateien.
+contrib/SuSE/ Start-Stop-Script für SuSE
+contrib/isdn4linux/ Perlscript damit Capi2Name mit isdn4linux zusammenarbeitet.
+
+
+Dateien:
+----------
+COPYING Lizenz von Capi2Name GPL v2
+README Readmedatei von Capi2Name
+database.sql Aktuelles Layout der Datenbank für Capi2name
+update-database-0.1-0.2.sql Updatefile der Datenbank von Version 0.1 auf 0.2
+update-database-0.2-0.3.sql Updatefile der Datenbank von Version 0.2 auf 0.3
+update-database-0.4-0.4.sql Updatefile der Datenbank von Version 0.4 auf 0.5
+update-database-0.5.2-0.6.sql Updatefile der Datenbank von Version 0.5.2 auf 0.6
+update-database-0.6-0.6.5.sql Updatefile der Datenbank von Version 0.6 auf 0.6.5
