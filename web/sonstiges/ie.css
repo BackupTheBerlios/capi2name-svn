@@ -1,0 +1,140 @@
+body {
+	font-family:		Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size:			11pt;
+	font-weight:		normal;
+	background-color:	#606096;
+} 
+#whitebox {
+	width:				95%;
+	margin:				0px auto;
+	text-align:			left;
+	padding:			5px;
+	border:				solid 1px #A3A3CB;
+	background-color:	#FFFFFF;
+	-moz-border-radius:	7px;
+}
+#navbox {
+	width:				14%;
+	float:				left;
+	line-height:		18px;
+	border:				solid 1px #606096;
+	background-color:	#FBFBFD;
+	font-size:			10pt;
+	overflow:			hidden;
+	-moz-border-radius:	7px;
+}
+
+*.menuitem {
+	margin:				0px;
+	padding:			0px;
+}
+
+*.menuitem:before {
+	content:			"· ";
+	font-size:			large;
+}
+
+#mainbox {
+	width:				85%;
+	float:				right;
+	background-color:	red;
+	margin-top:			35px;
+	border:				solid 1px #606096;
+	background-color:	#E7E7F1;
+	-moz-border-radius:	7px;
+}
+
+.content  {
+	margin:				5px;
+	text-align:			center;
+}
+.headline {
+	background-color:	#A3A3CB;
+	padding:			5px;
+	text-align:			center;
+	vertical-align:		middle;
+	font-weight:		bold;
+	border-bottom:		solid 1px;
+	border-color:		#606096;
+	font-size:			11pt;
+	-moz-border-radius-topleft:		7px;
+	-moz-border-radius-topright:	7px;
+}
+#navbox .navboxh {
+	font-weight:		bold;
+	margin-top:			1em;
+}
+#navbox .navboxlist {
+	margin-left:		5px;
+	margin-top:			5px;
+}
+
+
+.newsbox {
+	position:			relative;
+	margin:				1em auto;
+	width:				90%;
+	border:				solid 1px;
+	border-color:		#606096;
+}
+.newsheadline {
+	font-weight:		bold;
+	background-color:	#A3A3CB;
+	border-bottom:		solid 1px;
+	border-color:		#606096;
+}
+.newsdate {
+	font-size:			xx-small;
+	text-align:			right;
+	background-color:	#B7B7DF;
+	border-top:			solid 1px;
+	border-color:		#606096;
+}
+
+.todobox {
+	position:			relative;
+	margin:				1em auto;
+	width:				90%;
+	border:				solid 1px;
+	border-color:		#606096;
+}
+.todoheader {
+	font-weight:		bold;
+	background-color:	#B7B7DF;
+	border-bottom:		solid 1px;
+	border-color:		#606096;
+}
+.footer {
+	clear:				both;
+	text-align:			right;
+	padding:			5px;
+	font-size:			x-small;
+}
+
+.code {
+	background:			#FFFFFF;
+	border:				solid 1px #000000;
+	font-family:		monospace;
+	font-size:			11px;
+	padding:			1em;
+	margin:				2em;
+}
+.ueberschrift_seite
+	{
+	 text-align:			center;
+	 font-size:			22pt;
+	 font-weight:			bold;
+	 padding-top:			23px;
+	 padding-bottom:		23px;
+	 
+	}
+.rot_mittig
+	{
+	 text-align:			center;
+	 color:				red;
+	}
+.blau_mittig
+	{
+	 text-align:			center;
+	 color:				blue;
+	}
