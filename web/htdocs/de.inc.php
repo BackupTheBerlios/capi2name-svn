@@ -39,6 +39,7 @@ $textdata[header_inc_logout]="Ausloggen";
 $textdata[header_inc_cs_answerphone]="Mein Anrufbeantworter";
 $textdata[header_inc_cs_fax]="Mein Faxe";
 $textdata[header_inc_cs_config]="konfigurieren";
+$textdata[header_inc_cs_help]="Hilfe";
 //Header.inc.php ENDE
 
 
@@ -227,6 +228,23 @@ $textdata[days7_freitag]="Freitag";
 $textdata[days7_samstag]="Samstag";
 $textdata[days7_sonntag]="Sonntag";
 $textdata[days7_]="";
+
+// capisuite module --------------
+// cs_answerphone.php
+$textdata[cs_ap_answerphone]="CapiSuite Anrufbeantworter";
+$textdata[cs_ap_liste]="Liste der eingegangenen Nachrichten";
+$textdata[cs_ap_time]="Zeit";
+$textdata[cs_ap_from]="von";
+$textdata[cs_ap_to]="an";
+$textdata[cs_ap_play]="abspielen";
+// cs_fax.php
+$textdata[cs_fax_headline]="CapiSuite Fax Betrachter";
+$textdata[cs_fax_liste]="Liste der eingegangenen Faxe";
+$textdata[cs_fax_time]="Zeit";
+$textdata[cs_fax_from]="von";
+$textdata[cs_fax_to]="an";
+$textdata[cs_fax_view]="ansehen";
+$textdata[cs_fax_incoming]="Eingegangenes Fax";
 
 /*
 
