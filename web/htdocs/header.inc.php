@@ -95,9 +95,9 @@ echo "<div class=\"menuitem\">
 	if ($config['capisuite'] == "yes"){ 
 ?>
 			<div style="font-weight:bold; margin-top: 1em;">CapiSuite</div>
-			<div class="menuitem"><a href="./cs/answerphone.php"><? echo $textdata[header_inc_cs_answerphone]; ?></a></div>
-			<div class="menuitem"><a href="./cs/notiz.php?new=yes"><? echo $textdata[header_inc_cs_fax]; ?></a></div>
-			<div class="menuitem"><a href="./notiz.php?new=yes"><? echo $textdata[header_inc_cs_config]; ?></a></div>
+			<div class="menuitem"><a href="./cs_answerphone.php"><? echo $textdata[header_inc_cs_answerphone]; ?></a></div>
+			<div class="menuitem"><a href="./cs_fax.php"><? echo $textdata[header_inc_cs_fax]; ?></a></div>
+			<div class="menuitem"><a href="./cs_help.php"><? echo $textdata[header_inc_cs_help]; ?></a></div>
 <?php
 }
 ?>
