@@ -123,7 +123,7 @@ echo "</tr>";
      
      
    
-   $tab_adressbuch =$zugriff_mysql->sql_abfrage("SELECT id,vorname,nachname,tele1,tele2,tele3,handy FROM adressbuch WHERE tele1='$data[1]' OR tele2='$data[1]' OR tele3='$data[1]' OR handy='$data[1]'");
+   $tab_adressbuch =$zugriff_mysql->sql_abfrage("SELECT id,vorname,nachname,tele1,tele2,tele3,handy,fax FROM adressbuch WHERE tele1='$data[1]' OR tele2='$data[1]' OR tele3='$data[1]' OR handy='$data[1]' OR fax='$data[1]'");
    $adress_data=mysql_fetch_row($tab_adressbuch);
    if ($adress_data==false)
     {
@@ -157,6 +157,10 @@ echo "</tr>";
        {
         $full_name="$adress_data[1] $adress_data[2] $textdata[showstatnew_handy]";
        }
+      elseif ($adress_data[7]==$data[1])
+       {
+        $full_name="$adress_data[1] $adress_data[2] (FAX)";
+       } 
       else
        {
        $full_name="$adress_data[1] $adress_data[2]";

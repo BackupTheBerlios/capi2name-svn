@@ -16,7 +16,7 @@
 <?
 include("./check_it.php");
 include("./header.inc.php");
-
+$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 ?>
 
 
@@ -36,29 +36,29 @@ Dies kann hier festlegen.
 if (isset($_POST[eintragen]))
  {
 // echo "<br><br>Vorwahl: $einvorwahl<br>Name: $einname<br>";
- mysql_connect($host,$dbuser, $dbpasswd);
- $res1=mysql_db_query($db, "INSERT INTO vorwahl VALUES( '', '$_POST[einvorwahl]', '$_POST[einname]')");
- if ($res1!= "true") { echo "Capi2Name meldet Fehler in der DB ansteuerung<br> Mysql Says:".mysql_error();  }
- mysql_close();
+ $res=mysql_query("INSERT INTO vorwahl VALUES( '', '$_POST[einvorwahl]', '$_POST[einname]')");
+ if (!$res)
+  { echo "Capi2Name meldet Fehler in der DB ansteuerung<br> Mysql Says:".mysql_error();  }
+
  }
 
 
 if(isset($_GET[neuereintrag]))
  {
-  echo "Neuer Eintrag in Tabelle vorwahl:<br>";
+  echo "Neuer Eintrag in Tabelle vorwahl:<br/>";
   echo "<form action=\"./vorwahl.php\" method=\"post\"><table border=\"0\">
   <tr>
    <td>Vorwahl:</td>
    <td width=\"10\"> </td>
-   <td><input name=\"einvorwahl\"></td>
+   <td><input name=\"einvorwahl\"/></td>
   </tr>
   <tr>
   <td>Name:</td>
    <td width=\"10\"> </td>
-   <td><input name=\"einname\"></td>
+   <td><input name=\"einname\"/></td>
   </tr>
 
-  </table><input name=\"eintragen\" value=\"Eintragen\" type=\"submit\"></form><br><br>
+  </table><input name=\"eintragen\" value=\"Eintragen\" type=\"submit\"/></form><br/><br/>
   ";
  }
 ?>
@@ -73,8 +73,7 @@ if(isset($_GET[neuereintrag]))
   <td>Loschen</td>
  </tr>
 <?
-  mysql_connect($host, $dbuser, $dbpasswd);
-  $result=mysql_db_query($db, "SELECT * FROM vorwahl");
+  $result=mysql_query("SELECT * FROM vorwahl");
   while($daten=mysql_fetch_array($result))
    {
      echo "
@@ -88,7 +87,6 @@ if(isset($_GET[neuereintrag]))
 
     " ; // ende echo
    } //ende while
-  mysql_close();
 
 
 ?>
@@ -100,5 +98,6 @@ if(isset($_GET[neuereintrag]))
 
 
 <?
+$zugriff_mysql->close_mysql();
 include("./footer.inc.php");
 ?>

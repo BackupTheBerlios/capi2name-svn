@@ -23,7 +23,7 @@ include("./header.inc.php");
 <?
 if ($_POST[id]==1)
  {
- echo "<spn style=\"color:red;text-align:center;font-weight:bold;\">You can not delet the administator!!</span>";
+ echo "<spn style=\"color:red;text-align:center;font-weight:bold;\">You can not delete the administator!!</span>";
  include("footer.inc.php");
  exit();
  }

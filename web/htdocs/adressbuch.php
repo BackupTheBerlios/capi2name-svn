@@ -68,7 +68,7 @@ while($row=mysql_fetch_row($result))
   if (isset($_GET[findnr]) )
    {
     $findnr=$_GET[findnr];
-    if($row[7]== $findnr or $row[8]== $findnr or $row[9]== $findnr or $row[10]== $findnr  )
+    if($row[7]== $findnr or $row[8]== $findnr or $row[9]== $findnr or $row[10]== $findnr  or $row[11]== $findnr  )
      {
       $color="yellow";
       $row[7]="<a name=\"find\">$row[7]</a>";

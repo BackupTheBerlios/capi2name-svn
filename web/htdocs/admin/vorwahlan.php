@@ -39,8 +39,7 @@ if(isset($_GET[start_zahl]))
   $start=1;
  }
 
-mysql_connect($host,$dbuser,$dbpasswd);
-mysql_select_db($db);
+$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 $res_anzahl=mysql_query("SELECT * FROM angerufene");
 $rows_anzahl=mysql_num_rows($res_anzahl);
 echo "Rows Anzahl: $rows_anzahl<br>";
@@ -68,7 +67,7 @@ echo "Rows Anzahl: $rows_anzahl<br>";
 	} // if
   }
 
-mysql_close();
+$zugriff_mysql->close_mysql();
 echo "<br>Wert: $wert<br>Rows: $rows_anzahl";
 if ($wert <= $rows_anzahl)
  {

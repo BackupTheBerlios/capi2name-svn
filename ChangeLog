@@ -5,7 +5,12 @@ Capi2Name 0.6.7.5 YYYY-MM-DD - Jonas Genannt - <jonasge@gmx.net> ---BETA
 	o PHP: admin/neueruser.php auf XHTML gebracht, layout angepasst
 	o PHP: admin/msn2name.php auf XHTML gebracht, layout angepasst
 	o PHP: admin/msn2nameb.php auf XHTML gebracht, layout angepasst
-
+	o PHP: admin/vorwahlan.php an Mysql-Klasse anpassen
+	o PHP: admin/vorwahlb.php an Mysql-Klasse anpassen
+	o PHP: admin/vorwahlshow.php an Mysql-Klasse anpassen
+	o PHP: showstatnew.php (FAX) wird nun angezeit, wenn im Addr bei Fax eine Nummer steht
+	o PHP: showstatnew7days.php (FAX) wird nun angzeigt, wenn im Addr bei Fax eine Nummer steht
+	o PHP: adressbuch.php angepasst, damit auch die FAX-NR gefunden wird wenn man sie von showstat* sucht.
 
 
 Capi2Name 0.6.7.4 2005-01-06 - Jonas Genannt - <jonasge@gmx.net> 
