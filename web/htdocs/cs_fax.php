@@ -24,7 +24,7 @@
 <?php echo "<div class=\"ueberschrift_seite\">$textdata[cs_fax_headline]</div>"; ?>
 <div style="text-align:left;">
 <?php
-	$dir = "/var/spool/capisuite/users/$login_name/received/";
+	$dir = "/var/spool/capisuite/users/".$_SESSION['username']."/received/";
 	$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 	
 	if(isset($_GET['viewfax'])) {
@@ -39,7 +39,7 @@
 		<?php echo $textdata[cs_fax_from]; ?>: <?php echo preg_replace("/(.*=\")(.*)(\")/", "\\2", $lines[5]); ?><br />
 		<?php echo $textdata[cs_fax_to]; ?>: <?php echo msnzuname(preg_replace("/(.*=\")(.*)(\")/", "\\2", $lines[6])); ?><br />
 	</p>
-	<p><img align="middle" alt="fax" src="cs_viewfax.php?file=<?php echo $fax; ?>&amp;csuser=<?php echo $login_name; ?>" /></p>
+	<p><img align="middle" alt="fax" src="cs_viewfax.php?file=<?php echo $fax; ?>&amp;csuser=<?php echo $_SESSION['username']; ?>" /></p>
 	
 <?
 	}

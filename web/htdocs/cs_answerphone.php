@@ -35,8 +35,8 @@
 		<tbody>
 		
 <?php
-	$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-	$dir = "/var/spool/capisuite/users/$login_name/received/";
+	
+	$dir = "/var/spool/capisuite/users/".$_SESSION['username']."/received/";
 	if (is_dir($dir)) {
 		if ($dh = opendir($dir)) {
 			while (($file = readdir($dh)) !== false) {
@@ -50,14 +50,14 @@
 					echo msnzuname(preg_replace("/(.*=\")(.*)(\"\n)/", "\\2", $lines[6]));
 					echo "</td><td>";
 					$a = preg_replace("/(.*-)(\d{1,4})(\.l.*)/", "\\2",$lines[4]);
-					echo "<a href=\"cs_hearmessage.php?file=$a&amp;csuser=$login_name\">$textdata[cs_ap_play]</a>";
+					echo "<a href=\"cs_hearmessage.php?file=$a&amp;csuser=".$_SESSION['username']."\">$textdata[cs_ap_play]</a>";
 					echo "</td></tr>";
 				}
 			}
 			closedir($dh);
 		}
 	}
-	$zugriff_mysql->close_mysql();
+	
 ?>
 			<tr><td></td></tr>
 		</tbody>

@@ -17,7 +17,7 @@ $sql["dbpasswd"]            = "kljm";
 $sql["db"]                  = "capidb";
 $config['domain']           = "www.mein-lokal.de";
 $config['capi2name_status'] = "yes";
-$config['capisuite']        = "no";
+$config['capisuite']        = "yes";
 $config['language']         = "de";
 
 
