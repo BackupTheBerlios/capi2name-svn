@@ -14,10 +14,8 @@
  ***************************************************************************/
  ?>
 <?
-$seite="index.php";
-include("../conf.inc.php");
-include("header.inc.php");
 include("./check_it.php");
+include("./header.inc.php");
 
 ?>
 

@@ -15,7 +15,7 @@
  ?>
 <?
 include("./check_it.php");
-include("header.inc.php");
+include("./header.inc.php");
 
 ?>
 <br>
@@ -37,9 +37,9 @@ include("header.inc.php");
  </tr>
 
 <?
-mysql_connect($host, $dbuser, $dbpasswd);
- $result = mysql_db_query($db, "SELECT * FROM userliste");
-
+$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+$result=$zugriff_mysql->sql_abfrage("SELECT id,username,passwd,lastlogin_d,lastlogin_t FROM userliste");
+$zugriff_mysql->close_mysql();
  while($daten =mysql_fetch_array($result))
   {
   if ($daten[id]!=1)
@@ -56,7 +56,7 @@ mysql_connect($host, $dbuser, $dbpasswd);
    ";
  }
   }
-mysql_close();
+
 
 ?>
 </table>

@@ -14,10 +14,8 @@
  ***************************************************************************/
  ?>
 <?
-$seite="farben.php";
-include("../conf.inc.php");
-include("header.inc.php");
 include("./check_it.php");
+include("./header.inc.php");
 ?>
 <br>
 <center>

@@ -8,7 +8,7 @@ $login_ok=0;
 
 
 $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-$result_userlist=$zugriff_mysql->sql_abfrage("SELECT * FROM userliste WHERE username='admin'");
+$result_userlist=$zugriff_mysql->sql_abfrage("SELECT username,passwd FROM userliste WHERE username='admin'");
 
  if ($result_userlist && $password!="")
   {

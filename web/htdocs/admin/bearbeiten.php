@@ -14,10 +14,9 @@
  ***************************************************************************/
  ?>
 <?
-$seite="index.php";
-include("../conf.inc.php");
-include("header.inc.php");
 include("./check_it.php");
+include("./header.inc.php");
+
 ?>
 <br>
 <center><h3>
@@ -41,8 +40,7 @@ echo "Ändern der Daten für den Benutzer $username mit ID $id";
 //------------------- Daten in DB schreiben: ---------------------------------
 if (isset($_POST[speichern]))
  {
- mysql_connect($host, $dbuser,$dbpasswd);
- mysql_select_db($db);
+$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
    //Namen setzen:
     $res=mysql_query("UPDATE userliste SET name='$_POST[b_name]' WHERE id='$_POST[id]'");
     if ($res==1) echo "<center>Namen setzen: OK</center>";
@@ -105,17 +103,16 @@ if (isset($_POST[speichern]))
 
 
 
- mysql_close();
+$zugriff_mysql->close_mysql();
  }
 //---------------------Daten in DB schreiben ENDE---------------------------
 
 
 //--------------------------------------------- Daten aus DB auslesen-------------------------------
-mysql_connect($host,$dbuser, $dbpasswd);
-mysql_select_db($db);
+$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 $result=mysql_query("SELECT * FROM userliste WHERE id='$id'");
 $daten=mysql_fetch_array($result);
-mysql_close();
+$zugriff_mysql->close_mysql();
 if ($daten[showrueckruf]=="")    $option[rueckruf]="selected";
 if ($daten[shownotiz]=="")       $option[notiz]="selected";
 if ($daten[showvorwahl]=="")     $option[vorwahl]="selected";

@@ -14,48 +14,40 @@
  ***************************************************************************/
  ?>
 <?
+session_start();
 include("../conf.inc.php");
+include("../func.inc.php");
+include("./header.inc.php");
+ 
+
 if (isset($_POST['absenden']))
 {
-mysql_connect($host, $dbuser, $dbpasswd);
-$userliste=mysql_db_query($db, "SELECT id,username, passwd FROM userliste WHERE id=1");
-$daten=mysql_fetch_array($userliste);
-$id=$daten[id];
-if ("admin"==$daten[username])
- {
-  if (md5($_POST[login_passwd])==$daten[passwd])
-   {
-   // echo "LOGIN OK";
-    $loginok=1;
-   }
+$passwd=$_POST['login_passwd'];
+$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+$result_userlist=$zugriff_mysql->sql_abfrage("SELECT username,passwd FROM userliste WHERE username='admin'");
+
+if ($result_userlist && $passwd!="")
+  {
+  $row_userlist=mysql_fetch_array($result_userlist);
+    if (md5($passwd)==$row_userlist['passwd'])
+    {
+     $_SESSION['adminpassword']=md5($passwd);
+     echo "<center>Login: OK.... forwording you.......<br/>";
+     echo "<meta http-equiv=\"refresh\" content=\"2; URL=index.php\">";
+    } 
    else
     {
-   // echo "LOGIN Failed!";
-    $loginok=0;
+     echo "<center>Passwd Falsch.....<br/></center>";
     }
  }
- else
- {
-// echo "LOGIN Failed!";
- $loginok=0;
- }
+
+$zugriff_mysql->close_mysql();
+}//absenden ende
 
 
 
 
 
-
-
-
-
-if ($loginok == "1")
- {
-
-  $username_c = md5($daten[username]);
-  $passwd_c   = md5($daten[passwd]);
-  echo "<meta http-equiv=\"refresh\" content=\"2; URL=./login1.php?use=$username_c&pas=$passwd_c&seite=$_GET[seite]\">";
- }
-}// if isset ende
 
 
 ?>
