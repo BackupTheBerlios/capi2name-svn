@@ -1,3 +1,10 @@
+<?
+	header ("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+	header ("Last-Modified: " . gmdate ("D, d M Y H:i:s") . " GMT");
+	header ("Cache-Control: no-cache,private, must-revalidate");
+	header ("Pragma: no-cache");
+	
+?>
 <!--
 /*
     copyright            : (C) 2002-2004 by Jonas Genannt
@@ -16,7 +23,6 @@
 <?php
 	include("./".$config['language'].".inc.php");
 
-	
 	$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 	$result=$zugriff_mysql->sql_abfrage("SELECT std FROM farben WHERE name='farbwahl'");
 	$row=mysql_fetch_array($result);
