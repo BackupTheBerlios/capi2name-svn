@@ -42,12 +42,15 @@ $zugriff_mysql->close_mysql();
      <td>$daten[username]</td>
      <td>$daten[passwd]</td>
      <td>$daten[lastlogin_d] / $daten[lastlogin_t]</td>
-     
      <td style=\"text-align:center;\">
-     <a href=\"./bearbeiten.php?id=$daten[id]&username=$daten[username]\">
-     <img src=\"../bilder/edit.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a></td>
-     <td><a href=\"./loeschen.php?id=$daten[id]&username=$daten[username]\">
-     <img src=\"../bilder/edittrash.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a></td>
+       <a href=\"./user_edit.php?id=$daten[id]&username=$daten[username]\">
+       <img src=\"../bilder/edit.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>
+     </td>
+     <td>
+        <a href=\"./user_del.php?id=$daten[id]&username=$daten[username]\">
+         <img src=\"../bilder/edittrash.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/>
+	</a>
+     </td>
     </tr>
    ";
  }

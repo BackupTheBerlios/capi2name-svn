@@ -12,154 +12,132 @@
  *   any later version.                                   *
  *                                                                         *
  ***************************************************************************/
- ?>
-<?
 include("./check_it.php");
 include("./header.inc.php");
 ?>
 <div class="ueberschrift_seite">create a new user</div>
-
-
 <?
-if (isset($_POST[speichern])) {
-	$checked=2;
-	if (isset($_POST[b_username])) {
-		$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-		//checke ob Usernamen schon gibt
-		$ch_res=mysql_query("SELECT id,username FROM userliste");
-		while ($row=mysql_fetch_array($ch_res)) {
-			if ($_POST[b_username]==$row[username]) {
-				echo "<div class=\"rot_mittig\">Es gibt schon einen User $_POST[b_username]!!</div>";
-				$checked=1;
-			}
-		}
-		//checke ob Usernamen schon gibt ENDE
-		if ($checked==2){
-			$passwd=md5($_POST[b_passwd]);
-			$sql = "INSERT INTO userliste VALUES('NULL', '$_POST[b_username]','$passwd','NULL','NULL','$_POST[b_name]','$_POST[b_anzahl]','$_POST[b_rueckruf]','$_POST[b_notiz]','$_POST[b_msns]','$_POST[b_vorwahl]','$_POST[b_showmsn]','$_POST[b_konfig]', '$_POST[b_typ]', '$_POST[b_loeschen]')";
-			$res = mysql_query($sql);
-			if ($res==1) echo "<div class=\"blau_mittig\">Erflogreich User $_POST[b_username] hinzugefuegt.</div><br/>";
-			else echo "<div class=\"rot_mittig\">Benutzer hinzufügen: Failed</div>";
-		}
-		$zugriff_mysql->close_mysql();
-	}
-	else {
-		echo "<div style=\"color:red;text-align:center;\">Benutzer hinzufügen: Failed<br>Bitte Username setzen!!</div>";
-	}
+if (isset($_POST[save])) {
+ if (isset($_POST[username]) && isset($_POST[passwd])) 
+  {
+   $passwd=md5($_POST[passwd]);
+   $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+   $result=$zugriff_mysql->sql_abfrage("
+   INSERT INTO users VALUES('', '$_POST[username]','$passwd','','','$_POST[first_name]','$_POST[last_name]','$_POST[show_lines]','$_POST[msns_listen]','$_POST[show_callback]','$_POST[show_prefix]','$_POST[show_msn]','$_POST[show_type]','$_POST[show_config]','$_POST[allow_delete]')");
+   $zugriff_mysql->close_mysql();
+   if ($result)
+    {
+     echo "<div class=\"blau_mittig\">Useradd was successfull, you will be forwarded in 2sec.....</div><meta http-equiv=\"refresh\" content=\"2; URL=./index.php\">";
+    }
+   else
+    {
+     echo "<div class=\"rot_mittig\">Useradd failed. Please go back, to check your input.</div>";
+    }
+  }
+ else
+  {
+   echo "<div class=\"rot_mittig\">You musst set an username and password for creating an user.</div>";
+  }
+ 
 }
 ?>
 
-<form action="neueruser.php" method="post">
+<form action="user_add.php" method="post">
 <table border="0" style="margin-right:auto;margin-left:auto;">
  <tr>
    <td style="text-align:left;">
-   <span style="font-weight:bold;">[<a href="./doc.html#1" onClick="showDoc()" target="showDoc">i</a>]</span>&nbsp;Username:</td>
+   <span style="font-weight:bold;">
+   [<a href="./doc.html#1" onClick="showDoc()" target="showDoc">i</a>]</span>&nbsp;username:</td>
   <td style="width:5px;"></td>
-  <td style="text-align:right;"><input type="text" name="b_username"/></td>
+  <td style="text-align:right;"><input type="text" maxlength="8" name="username"/></td>
  </tr>
  <tr>
   <td style="text-align:left;">
-  <span style="font-weight:bold;">[<a href="./doc.html#2" onClick="showDoc()" target="showDoc">i</a>]</span>&nbsp;Name:</td>
+   <span style="font-weight:bold;">
+   [<a href="./doc.html#2" onClick="showDoc()" target="showDoc">i</a>]</span>&nbsp;first name:
+  </td>
   <td style="width:5px;"></td>
-  <td style="text-align:right;">
-  <input type="text" name="b_name" /></td>
+  <td style="text-align:right;"><input type="text" name="first_name" maxlength="15" /></td>
  </tr>
  <tr>
-  <td style="text-align:left;"><span style="font-weight:bold;">[<a href="./doc.html#3" onClick="showDoc()" target="showDoc">i</a>]</span>&nbsp;Zeige Menüpunkt Konfigmenü</td>
+  <td style="text-align:left;">
+  <span style="font-weight:bold;">[<a href="./doc.html#3" onClick="showDoc()" target="showDoc">i</a>]</span>&nbsp;last name:</td>
   <td style="width:5px;"></td>
   <td style="text-align:right;">
-  <select name="b_konfig"><option value="checked">Yes</option>
-  			    <option value="">No</option>
+  <input type="text" name="last_name" maxlength="15" /></td>
+ </tr>
+ <tr>
+  <td style="text-align:left;"><span style="font-weight:bold;">[<a href="./doc.html#4" onClick="showDoc()" target="showDoc">i</a>]</span>&nbsp;show configpage:</td>
+  <td style="width:5px;"></td>
+  <td style="text-align:right;">
+  <select name="show_config"><option value="1">Yes</option>
+  			    <option value="0">No</option>
 			    </select></td>
  </tr>
  <tr>
   <td style="text-align:left;">
-  <span style="font-weight:bold;">[<a href="./doc.html#4" onClick="showDoc()" target="showDoc">i</a>]</span>&nbsp;Zeige Menüpunkt Rückruf:</td>
+  <span style="font-weight:bold;">[<a href="./doc.html#5" onClick="showDoc()" target="showDoc">i</a>]</span>&nbsp;show callback function:</td>
   <td style="width:5px;"></td>
-  <td style="text-align:right;"><select name="b_rueckruf">
-  <option value="checked">Yes</option>
-  <option  value="">No</option></select></td>
+  <td style="text-align:right;"><select name="show_callback">
+  <option value="1">Yes</option>
+  <option  value="0">No</option></select></td>
  </tr>
  <tr>
   <td style="text-align:left;">
-  <span style="font-weight:bold;">[<a href="./doc.html#5" onClick="showDoc()" target="showDoc">i</a>]</span>&nbsp;Zeige Menüpunkt Notiz:</td>
+  <span style="font-weight:bold;">[<a href="./doc.html#6" onClick="showDoc()" target="showDoc">i</a>]</span>&nbsp;show the following MSNs in the call stat:</td>
   <td style="width:5px;"></td>
   <td style="text-align:right;">
-  <select name="b_notiz"><option value="checked">Yes</option>
-  <option  value="">No</option></select></td>
+  <input type="text" name="msns_listen" /></td>
  </tr>
  <tr>
   <td style="text-align:left;">
-  <span style="font-weight:bold;">[<a href="./doc.html#6" onClick="showDoc()" target="showDoc">i</a>]</span>&nbsp;Zeige nur folgende MSNs:</td>
+  <span style="font-weight:bold;">[<a href="./doc.html#7" onClick="showDoc()" target="showDoc">i</a>]</span>&nbsp;set how many rows are display in the stat:</td>
   <td style="width:5px;"></td>
-  <td style="text-align:right;">
-  <input type="text" name="b_msns" /></td>
- </tr>
- <tr>
-  <td style="text-align:left;">
-  <span style="font-weight:bold;">[<a href="./doc.html#7" onClick="showDoc()" target="showDoc">i</a>]</span>&nbsp;Anzahl der Zeilen in der Statistik:</td>
-  <td style="width:5px;"></td>
-  <td style="text-align:right;"><input type="text" name="b_anzahl" value="10"/></td>
+  <td style="text-align:right;"><input type="text" name="show_lines" value="10"/></td>
    </tr>
    <tr>
     <td style="text-align:left;">
-    <span style="font-weight:bold;">[<a href="./doc.html#8" onClick="showDoc()" target="showDoc">i</a>]</span>&nbsp;Zeige Vorwahlbereich in Statistik:</td>
+    <span style="font-weight:bold;">[<a href="./doc.html#8" onClick="showDoc()" target="showDoc">i</a>]</span>&nbsp;show prefix col in the stat:</td>
     <td style="width:5px;"></td>
     <td style="text-align:right;">
-    <select name="b_vorwahl"><option value="checked">Yes</option>
-    <option  value="">No</option></select></td>
+    <select name="show_prefix"><option value="1">Yes</option>
+    <option  value="0">No</option></select></td>
    </tr>
    <tr>
     <td style="text-align:left;">
-    <span style="font-weight:bold;">[<a href="./doc.html#9" onClick="showDoc()" target="showDoc">i</a>]</span>&nbsp;Zeige auf welcher MSN angerufen wurde:</td>
+    <span style="font-weight:bold;">[<a href="./doc.html#9" onClick="showDoc()" target="showDoc">i</a>]</span>&nbsp;show on witch MSN is the call comming:</td>
     <td style="width:5px;"></td>
     <td style="text-align:right;">
-    <select name="b_showmsn"><option value="checked">Yes</option>
-    <option value="">No</option></select></td>
+    <select name="show_msn"><option value="1">Yes</option>
+    <option value="0">No</option></select></td>
    </tr>
    <tr>
     <td style="text-align:left;">
-    <span style="font-weight:bold;">[<a href="./doc.html#10" onClick="showDoc()" target="showDoc">i</a>]</span>&nbsp;Zeige den Typ des Anrufes:</td>
+    <span style="font-weight:bold;">[<a href="./doc.html#10" onClick="showDoc()" target="showDoc">i</a>]</span>&nbsp;show call type:</td>
     <td style="width:5px;"></td>
-    <td style="text-align:right;"><select name="b_showtyp">
-    <option value="checked">Yes</option>
-    <option value="">No</option></select></td>
+    <td style="text-align:right;"><select name="show_type">
+    <option value="1">Yes</option>
+    <option value="0">No</option></select></td>
    </tr>
    <tr>
      <td style="text-align:left;">
-     <span style="font-weight:bold;">[<a href="./doc.html#11" onClick="showDoc()" target="showDoc">i</a>]</span>&nbsp;Einträge loeschen erlaubt:</td>
+     <span style="font-weight:bold;">[<a href="./doc.html#11" onClick="showDoc()" target="showDoc">i</a>]</span>&nbsp;allow delete entries:</td>
      <td style="width:5px;"></td>
-     <td style="text-align:right;"><select name="b_loeschen">
-     <option value="checked">Yes</option>
-     <option selected value="">No</option></select></td>
+     <td style="text-align:right;"><select name="allow_delete">
+     <option value="1">Yes</option>
+     <option selected value="0">No</option></select></td>
    </tr>
    <tr>
-      <td style="text-align:left;"><span style="font-weight:bold;">[<a href="./doc.html#12" onClick="showDoc()" target="showDoc">i</a>]</span>&nbsp;Neues Passwort:</td>
+      <td style="text-align:left;"><span style="font-weight:bold;">[<a href="./doc.html#12" onClick="showDoc()" target="showDoc">i</a>]</span>&nbsp;password:</td>
       <td style="width:5px;"></td>
-      <td style="text-align:right;"><input type="password" name="b_passwd"/></td>
+      <td style="text-align:right;"><input type="password" name="passwd"/></td>
    </tr>
  </table><br/>
- <input type="submit" name="speichern" value="add new user"/>
+ <input type="submit" name="save" value="add new user"/>
 </form>
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <?php
-	include("footer.inc.php");
+include("footer.inc.php");
 ?>

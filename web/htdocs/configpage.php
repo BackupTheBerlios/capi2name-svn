@@ -42,7 +42,7 @@ VALUES (
 '', 'admin', '05af4beac24997bccaa4a90301c6cb63', '2005-03-17', NULL , NULL , NULL , '15', NULL , '0', '0', '0', '0', '0'
 );
 
-
+ALTER TABLE `users` ADD `show_config` TINYINT( 1 ) UNSIGNED DEFAULT '0' NOT NULL AFTER `show_type` ;
  */
  
  

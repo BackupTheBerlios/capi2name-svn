@@ -129,7 +129,7 @@ a:hover
    <div class="menuitem"><a href="../index.php">Go to Webinterface</a></div>
    <br/>
    <div class="menuitem"><a href="./index.php">Index</a></div>
-   <div class="menuitem"><a href="./neueruser.php">Add new User</a></div>
+   <div class="menuitem"><a href="./user_add.php">Add new User</a></div>
    <div class="menuitem"><a href="./passwd.php">Change Password</a></div>
    <div class="menuitem"><a href="./vorwahl.php">Change Prefix</a></div>
    <div class="menuitem"><a href="./farben.php">Colorsetup</a></div>
