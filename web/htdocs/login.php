@@ -15,6 +15,11 @@
 include("./includes/conf.inc.php");
 include("./includes/functions.php");
 session_start(); 
+$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+$result=$zugriff_mysql->sql_abfrage("SELECT conf,value FROM config WHERE conf='default_template'");
+$daten=mysql_fetch_assoc($result); 
+$zugriff_mysql->close_mysql();
+$userconfig['template']=$daten[value];
 include("./header.inc.php");
 $template->set_filenames(array('overall_body' => 'templates/'.$userconfig['template'].'/login.tpl'));
 $loginok=0;

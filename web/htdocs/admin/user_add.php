@@ -23,7 +23,7 @@ if (isset($_POST[save])) {
    $passwd=md5($_POST[passwd]);
    $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
    $result=$zugriff_mysql->sql_abfrage("
-   INSERT INTO users VALUES('', '$_POST[username]','$passwd','','','$_POST[first_name]','$_POST[last_name]','$_POST[show_lines]','$_POST[msns_listen]','$_POST[show_callback]','$_POST[show_prefix]','$_POST[show_msn]','$_POST[show_type]','$_POST[show_config]','$_POST[allow_delete]')");
+   INSERT INTO users VALUES('', '$_POST[username]','$passwd','','','$_POST[first_name]','$_POST[last_name]','$_POST[show_lines]','$_POST[msns_listen]','$_POST[show_callback]','$_POST[show_prefix]','$_POST[show_msn]','$_POST[show_type]','$_POST[show_config]','$_POST[allow_delete]','')");
    $zugriff_mysql->close_mysql();
    if ($result)
     {

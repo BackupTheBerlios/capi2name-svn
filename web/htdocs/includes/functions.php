@@ -158,9 +158,9 @@ class sql_zugriff
   
    
  }//class sql_zugriff ENDE
-
-
 //funktions............ENDE	
 //class enable:
 $zugriff_mysql=new sql_zugriff;
+
+
 ?>

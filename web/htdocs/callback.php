@@ -38,7 +38,7 @@ if(isset($_GET[loeschen]))
  $result=$zugriff_mysql->sql_abfrage("DELETE FROM zurueckrufen WHERE id=$_GET[loeschen]");
  if ($result != "true") {echo "Fehler-Nr. " . mysql_errno()." - " .mysql_error(); die();}
  $zugriff_mysql->close_mysql();
- echo "<meta http-equiv=\"refresh\" content=\"1; URL=./zurueckruf.php\">";
+ echo "<meta http-equiv=\"refresh\" content=\"1; URL=./callback.php\">";
  }
 
 if(isset($_POST[eintragen]))

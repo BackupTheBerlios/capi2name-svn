@@ -91,7 +91,7 @@ $result_userlist=$zugriff_mysql->sql_abfrage("SELECT * FROM users WHERE username
       //template suchen und schauen wegen global oder nicht ;)
       $result_config=$zugriff_mysql->sql_abfrage("SELECT * FROM config WHERE conf='template'");
       $daten_config=mysql_fetch_assoc($result_config);
-      if ($daten_config[value]=="NO")
+      if (!$daten_config[value])
         {
 	 $userconfig['template']=$row_userlist[template];
 	}
@@ -119,12 +119,13 @@ $result_userlist=$zugriff_mysql->sql_abfrage("SELECT * FROM users WHERE username
   
 $zugriff_mysql->close_mysql();
 
-
-
-
-
 if ($login_ok == 0)
  {
+$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+$result=$zugriff_mysql->sql_abfrage("SELECT conf,value FROM config WHERE conf='default_template'");
+$daten=mysql_fetch_assoc($result); 
+$zugriff_mysql->close_mysql();
+$userconfig['template']=$daten[value];
 include("./header.inc.php");
 $template->set_filenames(array('overall_body' => 'templates/'.$userconfig['template'].'/login_site.tpl'));
 $template->assign_vars(array(

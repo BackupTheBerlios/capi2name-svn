@@ -28,9 +28,14 @@
   <td><input type="password" name="password1"/><br /><input type="password" name="password2"/></td>
  </tr>
  <tr>
-  <td>{tab1.L_FULL_NAME}:</td>
+  <td>{tab1.L_FIRST_NAME}:</td>
   <td style="width:10px;"></td>
-  <td><input type="text" name="neuername" value="{tab1.DATA_FULL_NAME}"/></td>
+  <td><input type="text" name="first_name" value="{tab1.DATA_FIRST_NAME}"/></td>
+ </tr>
+ <tr>
+  <td>{tab1.L_LAST_NAME}:</td>
+  <td style="width:10px;"></td>
+  <td><input type="text" name="last_name" value="{tab1.DATA_LAST_NAME}"/></td>
  </tr>
  <tr>
    <td>{tab1.L_SHOW_NUMBERS_OF_CALLS_IN_STAT}:</td>
@@ -58,9 +63,22 @@
 <tr>
  <td>{tab1.L_SHOW_MSN}</td>
  <td style="width:10px;"></td>
- <td><input type="checkbox" name="zeigemsn" {tab1.DATA_SHOW_MSN_FUNC} /></td>
+ <td><input type="checkbox" name="zeigemsn" {tab1.DATA_SHOW_MSN} /></td>
 </tr>
-
+<!-- BEGIN template_on -->
+<tr>
+ <td>{tab1.template_on.L_SET_TEMPLATE}:</td>
+ <td style="width:10px;"></td>
+ <td>
+ <select name="new_template">
+  <!-- BEGIN tab2 -->
+  <option value="{tab1.template_on.tab2.DATA_TEMPLATE}" {tab1.template_on.tab2.DATA_SELECTED}>{tab1.template_on.tab2.DATA_TEMPLATE}</option>
+  <!-- END tab2 -->
+ </select>
+ 
+ </td>
+</tr>
+<!-- END template_on -->
 <tr>
  <td style="vertical-align:top;">{tab1.L_SHOW_MSN_FUNC}</td>
  <td style="width:10px;"></td>
