@@ -10,6 +10,7 @@ Capi2Name 0.6.7.4 YYYY-MM-DD - Jonas Genannt - <jonasge@gmx.net> ---BETA
 	o PHP: CAPISUITE: Online Hilfe zu capisuite integriert (popel)
 	o PHP: CAPISUITE: FAX Betrachter integriert (popel)
 	o PHP: CAPISUITE: AdminModule um CS Configurationseinstellungen zu aendern  (popel)
+	o PHP: CAPISUITE: Check ob capisuite läuft an statt von capi2name (popel)
 	o PHP: Loginverfahren von coockie auf PHP sessions umgestellt
 	o PHP: login1.php geloescht, nicht mehr notwendig
 	o PHP: $userconfig[] eingefuehrt
@@ -17,6 +18,9 @@ Capi2Name 0.6.7.4 YYYY-MM-DD - Jonas Genannt - <jonasge@gmx.net> ---BETA
 	o PHP: ein paar kleine Erweiterungen und Verbesserungen an den language files  (popel)
 	o PHP: Adminpanel Layout anpassungen.
 	o PHP: Adminpanel Anpassung an die Mysql-Klasse
+	o PHP: Ersatz Dateien fuer leute die unbedingt IE benutzen wollen 
+		und probs mit layout haben (web/sonstiges/) (popel)
+		Achtung! Eingeschraenkter Funktionsumfang
 	
 Capi2Name 0.6.7.3 2004-11-28 - Jonas Genannt - <jonasge@gmx.net>
 	o PHP: shownewstat.php in verbindung mit Kalender. zeigt wieder Eintraege an
