@@ -31,44 +31,6 @@ CREATE TABLE `angerufene` (
 ) TYPE=MyISAM AUTO_INCREMENT=1 ;
 
 
-CREATE TABLE `capi_version` (
-  `id` int(11) NOT NULL auto_increment,
-  `version` char(10) default NULL,
-  PRIMARY KEY  (`id`)
-) TYPE=MyISAM AUTO_INCREMENT=2 ;
-
-
-INSERT INTO `capi_version` VALUES (1, '0.6.5');
-
-CREATE TABLE `farben` (
-  `id` int(11) NOT NULL auto_increment,
-  `name` char(30) default NULL,
-  `std` char(30) default NULL,
-  `wert1` char(7) default NULL,
-  `wert2` char(7) default NULL,
-  `wert3` char(7) default NULL,
-  `wert4` char(7) default NULL,
-  `wert5` char(7) default NULL,
-  `wert6` char(7) default NULL,
-  `wert7` char(7) default NULL,
-  `wert8` char(7) default NULL,
-  `wert9` char(7) default NULL,
-  `wert10` char(7) default NULL,
-  `wert11` char(7) default NULL,
-  `wert12` char(7) default NULL,
-  PRIMARY KEY  (`id`)
-) TYPE=MyISAM AUTO_INCREMENT=8 ;
-
-
-INSERT INTO `farben` VALUES (1, 'farbwahl', '3', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(2, 'Eigene Farbwahl', '', '#447827', '#346763', 'red', 'green', 'yellow', 'blue', 'white', '#525654', '#962378', 'red', 'yellow', 'green'),
-(3, 'Farbwahl 1', NULL, '#2b5696', '#FF4400', '#DFDFDF', '#606096', '#FFF788', '#F1F1F1', '', '', NULL, '#F1F1F1', 'white', '#B3B3B3'),
-(4, 'Farbwahl 2', NULL, '#2b5696', 'red', '#606096', '#A3A3CB', 'black', '#E7E7F1', 'white', '#606096', '#606096', '#E7E7F1', 'white', '#B3B3B3'),
-(5, 'blau in blau', '', '#213D56', '#346763', '#294C6B', '#6DA5D6', ' #19242', ' #4B8DC', ' #3C709', '#294C6B', '#294C6B', '#3C709D', '#87C5E4', '#6DA5D6'),
-(6, 'grün in grün', '', 'yellow', 'red', '#69932B', '#638A28', '#3D5519', '#7CAD32', '#7CAD32', 'black', 'black', '#91CB3B', '#87BC37', '#69932B'),
-(7, 'blau in grau', '', '#213D56', '#346763', '#9EA3A3', '#6DA5D6', '#19242A', '#C8CECE', '#B8BEBE', '#294C6B', '#B6BCBC', '#C8CECE', '#87C5E4', '#6DA5D6');
-
-
 
 CREATE TABLE `msnzuname` (
   `id` int(11) NOT NULL auto_increment,
@@ -78,29 +40,58 @@ CREATE TABLE `msnzuname` (
 ) TYPE=MyISAM AUTO_INCREMENT=1 ;
 
 
-
-
-CREATE TABLE `userliste` (
-  `id` int(11) NOT NULL auto_increment,
-  `username` varchar(50) default NULL,
-  `passwd` varchar(50) default NULL,
-  `lastlogin_d` date default NULL,
-  `lastlogin_t` time  default NULL,
-  `name` varchar(100) default NULL,
-  `anzahl` int(11) NOT NULL default '0',
-  `showrueckruf` varchar(20) default NULL,
-  `shownotiz` varchar(20) default NULL,
-  `msns` text,
-  `showvorwahl` varchar(20) default NULL,
-  `showmsn` varchar(20) default NULL,
-  `showconfig` varchar(20) default NULL,
-  `showtyp` varchar(20) default NULL,
-  `loeschen` varchar(10) default NULL,
+CREATE TABLE `config` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `conf` char(20) NOT NULL default '',
+  `value` char(20) default NULL,
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM AUTO_INCREMENT=8 ;
+) TYPE=MyISAM;
+
+CREATE TABLE `users` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `username` char(8) NOT NULL default '',
+  `passwd` char(40) NOT NULL default '',
+  `lastlogin_d` date default NULL,
+  `lastlogin_t` time default NULL,
+  `name_first` char(15) default NULL,
+  `name_last` char(15) default NULL,
+  `show_lines` tinyint(3) unsigned NOT NULL default '15',
+  `msn_listen` char(30) default NULL,
+  `show_callback` tinyint(1) unsigned NOT NULL default '0',
+  `show_prefix` tinyint(1) unsigned NOT NULL default '0',
+  `show_msn` tinyint(1) unsigned NOT NULL default '0',
+  `show_type` tinyint(1) unsigned NOT NULL default '0',
+  `show_config` tinyint(1) unsigned NOT NULL default '0',
+  `allow_delete` tinyint(1) unsigned NOT NULL default '0',
+  `template` char(10) default NULL,
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `username` (`username`)
+) TYPE=MyISAM;
+
+INSERT INTO `config` VALUES (1, 'template', 'blueingrey'),
+(2, 'db_version', '0.6.7.6'),
+(3, 'default_template', 'blueingrey');
 
 
-INSERT INTO `userliste` VALUES (1, 'admin', '21232f297a57a5a743894a0e4a801fc3', NULL, NULL, 'Administator', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
+INSERT INTO `users` VALUES (1, 'admin', '21232f297a57a5a743894a0e4a801fc3', NULL, NULL, NULL, NULL, 15, NULL, 0, 0, 0, 0, 0, 0, NULL);
+
+
+
+
+CREATE TABLE `callback` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `addr_id` int(11) NOT NULL default '0',
+  `user_id` int(10) unsigned NOT NULL default '0',
+  `en_date` date NOT NULL default '0000-00-00',
+  `en_time` time NOT NULL default '00:00:00',
+  `callback_time` tinyint(1) unsigned NOT NULL default '0',
+  `message` char(255) NOT NULL default '',
+  `notify` tinyint(1) unsigned NOT NULL default '0',
+  `number` char(15) default NULL,
+  `full_name` char(25) default NULL,
+  PRIMARY KEY  (`id`)
+) TYPE=MyISAM;
 
 
 
@@ -5350,17 +5341,5 @@ INSERT INTO `vorwahl` VALUES (2, '0150', 'Quam'),
 (5237, '09977', 'Arnschwang'),
 (5238, '09978', 'Schönthal Oberpf');
 
-
-
-CREATE TABLE `zurueckrufen` (
-  `id` int(11) NOT NULL auto_increment,
-  `name` varchar(99) default NULL,
-  `nummer` varchar(99) default NULL,
-  `datum` varchar(11) default NULL,
-  `uhrzeit` varchar(11) default NULL,
-  `grund` text,
-  `rueckzeit` text,
-  PRIMARY KEY  (`id`)
-) TYPE=MyISAM AUTO_INCREMENT=1 ;
 
 
