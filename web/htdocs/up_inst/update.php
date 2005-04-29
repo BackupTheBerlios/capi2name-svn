@@ -147,7 +147,7 @@ $db_layout_version=$row[0];
 
 
 /********************************************************************
- CAPI2NAME DB-Layout ober 0.6.7.6 FOUND ANFANG
+ CAPI2NAME DB-Layout over 0.6.7.6 FOUND ANFANG
  ********************************************************************/
 if ($capi_config_tabelle)
 {

@@ -1,4 +1,5 @@
-Capi2name 0.6.7.7 YYYY-MM-DD - Jonas Genannt - <jonasge@gmx.net>  ----BETA
+Capi2name 0.6.7.6.1 YYYY-MM-DD - Jonas Genannt - <jonasge@gmx.net>  ----BETA
+	o PHP: renamed: globale_suche.php to global_search.php
 
 Capi2name 0.6.7.6 2005-03-05 - Jonas Genannt - <jonasge@gmx.net> 
 	o PHP: Fixed: stat_loeschen.php forward to showstatnew.php

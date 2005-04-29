@@ -193,8 +193,6 @@ int dienstkennung=0;
 
 
 
-
-
 if (alles==2)
  {
      indb(callingnumber, callednumber, hostname, username, password, database, dienstkennung,tkanlage,export_joetxt,export_joetxt_file, use_smbclient, a_smbclient_hosts);
