@@ -37,7 +37,7 @@ $textdata[header_inc_notizen]="Notizen";
 $textdata[header_inc_neue_notiz]="Neue Notiz";
 $textdata[header_inc_logout]="Ausloggen";
 $textdata[header_inc_cs_answerphone]="Mein Anrufbeantworter";
-$textdata[header_inc_cs_fax]="Mein Faxe";
+$textdata[header_inc_cs_fax]="Meine Faxe";
 $textdata[header_inc_cs_config]="konfigurieren";
 $textdata[header_inc_cs_help]="Hilfe";
 //Header.inc.php ENDE

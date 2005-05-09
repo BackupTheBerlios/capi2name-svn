@@ -4,10 +4,10 @@
 <table border="0" style="margin-right:auto;margin-left:auto;">
 <tr>
  <td style="width:150px;font-weight:bold;text-align:left;">
-  <a href="./adressbuch.php?order=nachname" title="[L_ADDR_SORT_LAST_NAME}">{L_ADDR_LAST_NAME}</a>
+  <a href="./addressbook.php?order=nachname" title="[L_ADDR_SORT_LAST_NAME}">{L_ADDR_LAST_NAME}</a>
  </td>
  <td style="width:100px; font-weight:bold;text-align:left;">
-   <a href="./adressbuch.php?order=vorname" title="{L_ADDR_SORT_FIRST_NAME}">{L_ADDR_FIRST_NAME}</a>
+   <a href="./addressbook.php?order=vorname" title="{L_ADDR_SORT_FIRST_NAME}">{L_ADDR_FIRST_NAME}</a>
  </td>
  <td style="width:150px; text-align:center; font-weight:bold;">{L_ADDR_TELEPHON_NUMBER}</td>
  <td style="width:150px; text-align:center; font-weight:bold;">{L_ADDR_CELL_PHONE}</td>
