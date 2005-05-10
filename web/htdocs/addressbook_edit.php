@@ -117,7 +117,8 @@ $template->assign_block_vars('tab1', array(
 	'DATA_E_MAIL' => $daten[email],
 	'CHANGE_ADDR' => $textdata[editadress_eintrag_aendern]));
  
- 
+$template->assign_block_vars('cancel_edit',array(
+			'CANCEL_EDIT_ADDR' => $textdata[editadress_abbrechen]));
 
 if (isset($_POST[loeschen_OK]) or $_GET[loeschen]==1)
  {
@@ -132,11 +133,6 @@ else
 		'DELETE_ENTRY' => $textdata[adressbuch_eintrag_loeschen]));
  }  
 
-
-
-
-
-$template->assign_vars(array('CANCEL_EDIT_ADDR' => $textdata[editadress_abbrechen]));
 
 
 $template->pparse('overall_body');

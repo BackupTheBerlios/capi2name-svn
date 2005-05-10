@@ -2,6 +2,9 @@ Capi2name 0.6.7.6.1 YYYY-MM-DD - Jonas Genannt - <jonasge@gmx.net>  ----BETA
 	o PHP: renamed: globale_suche.php to global_search.php
 	o PHP: Fixed: addressbook.tpl link for order by first name and last name
 	o PHP: Fixed: header.tpl and header.php with capisuite template system
+	o PHP: Fixed: missing } in addressbook_edit.tpl
+	o PHP: Fixed: change OR to AND in if()
+	o PPH: Fixed: addressbook_edit.tpl/php with cancel button
 
 Capi2name 0.6.7.6 2005-03-05 - Jonas Genannt - <jonasge@gmx.net> 
 	o PHP: Fixed: stat_loeschen.php forward to showstatnew.php

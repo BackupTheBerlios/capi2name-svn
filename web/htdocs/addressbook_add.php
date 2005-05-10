@@ -27,7 +27,7 @@ $template->assign_vars(array('L_NEW_ENTRY_TO_ADDR' => $textdata[addadress_neuer_
 // Eintrag eintragen.
 if (isset($_POST[eintragen]))
  {
-   if (empty($_POST[bvorname]) or empty($_POST[bnachname]))
+   if (empty($_POST[bvorname]) and empty($_POST[bnachname]))
      {
       $template->assign_block_vars('show_error_msg_name_not_set', array());
       $template->assign_vars(array('L_ADD_MSG_NAME_NOT_SET' => $textdata[adddress_nicht_eingetragen]));

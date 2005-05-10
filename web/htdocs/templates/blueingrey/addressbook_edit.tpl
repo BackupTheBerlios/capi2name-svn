@@ -1,7 +1,7 @@
 <div  class="ueberschrift_seite">{L_SITE_TITLE}</div>
 
 <!-- BEGIN delete_entry_from_db -->
-<div class="blau_mittig">{delete_entry_from_db.L_ADDRESS_BOOK_ENTRY_REMOVED</div>
+<div class="blau_mittig">{delete_entry_from_db.L_ADDRESS_BOOK_ENTRY_REMOVED}</div>
 <meta http-equiv="refresh" content="2; URL=./addressbook.php">
 <!-- END delete_entry_from_db -->
 
@@ -106,11 +106,12 @@
 </form>
 </ins>
 
+<!-- BEGIN cancel_edit -->
 <p>
 <span style="text-align:center">
 <form action="./addressbook.php" method="post">
-<input type="submit" value="{CANCEL_EDIT_ADDR}" />
+<input type="submit" value="{cancel_edit.CANCEL_EDIT_ADDR}" />
 </form>
 </span>
 </p>
-
+<!-- END cancel_edit -->
