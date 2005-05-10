@@ -32,7 +32,7 @@ $config['language']         = "de";
 
 //VERSIONS INFO UND CODENAMEN:
 $codenamen="AN-BETA-VERSION-NI";
-$version="0.6.7.7";
+$version="0.6.7.6.1";
 //Tabellennamen:
 $prefixtab="";
 $tabelle["adressbuch"]=$prefixtab."adressbuch";
