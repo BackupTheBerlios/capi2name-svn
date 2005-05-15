@@ -57,7 +57,7 @@ while($data_addr=mysql_fetch_assoc($result))
    {
     if($_GET[id]==$data_addr[id] )
      {
-      $color="yellow";
+      $color=$hightlight_color;
       $data_addr[tele1]="<a name=\"find\">$data_addr[tele1]</a>";
      }
    }

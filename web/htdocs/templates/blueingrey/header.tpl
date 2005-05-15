@@ -77,4 +77,8 @@
 <!-- BEGIN up_inst -->
 <div style"text-align:center;">{up_inst.L_MSG_UP_INST}</div>
 <!-- END up_inst -->
+
+<!-- BEGIN current_version -->
+<div style"text-align:center;">{current_version.L_MSG_VERSION}</div>
+<!-- END current_version -->
  

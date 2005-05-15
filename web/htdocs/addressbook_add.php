@@ -46,13 +46,15 @@ $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql[
 $res_value=$zugriff_mysql->sql_abfrage("INSERT INTO adressbuch 
 					VALUES(NULL,'$_POST[bvorname]',
 					'$_POST[bnachname]', '$_POST[bstrasse]', '$_POST[bhausnr]', '$_POST[bplz]', '$_POST[bort]', '$btele1', '$btele2', '$btele3',  '$bhandy', '$_POST[bfax]', '$_POST[bemail]')");
-
+$last_id=mysql_insert_id();
 $zugriff_mysql->close_mysql();
 
 if($res_value)
  {
-  $template->assign_block_vars('show_success_msg_forward_msg', array());
-  $template->assign_vars(array('L_MSG_SUCCESS_FORWARD' => $textdata[addadress_eintrag_aufgenommen_weiterleitung]));
+  $template->assign_block_vars('show_success_msg_forward_msg', array(
+  		'FORWARD_ID' => "?id=$last_id#find",
+		'L_MSG_SUCCESS_FORWARD' =>$textdata[addadress_eintrag_aufgenommen_weiterleitung] ));
+
 
  }
 else

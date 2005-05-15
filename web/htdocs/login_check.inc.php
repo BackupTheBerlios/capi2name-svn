@@ -40,6 +40,9 @@ $result_userlist=$zugriff_mysql->sql_abfrage("SELECT * FROM users WHERE username
     if ($password==$row_userlist['passwd'])
     {
     // echo "PASSWD Richtig...";
+     //DB-Version auslesen:
+     $result_db_version=$zugriff_mysql->sql_abfrage("SELECT value FROM config WHERE conf='db_version'");
+     $db_version=mysql_fetch_assoc($result_db_version);
      $login_ok=1;
      //Usersettings auslesen und in $userconfig[] schreiben...
      $userconfig['anzahl']=$row_userlist['show_lines'];

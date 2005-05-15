@@ -58,7 +58,8 @@ if (isset($_POST[aendern]))
  $res=$zugriff_mysql->sql_abfrage("INSERT INTO adressbuch VALUES('$_POST[bid]','$_POST[bvorname]','$_POST[bnachname]', '$_POST[bstrasse]', '$_POST[bhausnr]', '$_POST[bplz]', '$_POST[bort]', '$btele1', '$btele2', '$btele3', '$bhandy', '$_POST[bfax]',  '$_POST[bemail]')");
  $zugriff_mysql->close_mysql();
  $template->assign_block_vars('edit_addr',array(
- 		'L_MSG_EDIT_OK' => $textdata[editadress_eintrag_veraendert]));
+ 		'L_MSG_EDIT_OK' => $textdata[editadress_eintrag_veraendert],
+		'LINK_NAME' => "?id=$_POST[bid]#find"));
 
  }
 

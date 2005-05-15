@@ -89,7 +89,6 @@ if ($erster_tag=="Thu") {  $index=3; }
 if ($erster_tag=="Fri") {  $index=4; }
 if ($erster_tag=="Sat") {  $index=5; }
 if ($erster_tag=="Sun") {  $index=6; } 
-  
 $tage_vormonat=$tage_vormonat-$index+1;
 for ($i=1; $i<=$index; $i++)
   {
@@ -97,6 +96,7 @@ for ($i=1; $i<=$index; $i++)
      { $color=$row_color_1; }
    else
      { $color=$row_color_2; }
+   if ($tage_vormonat==date(d)) $color=$hightlight_color;
    $template->assign_block_vars('tab1',array(
    		'DATA_COLOR' => $color,
 		'DATA_DAY_BEFOR' =>$tage_vormonat,
@@ -113,7 +113,9 @@ for ($i=1; $i<=$index; $i++)
     if($index%2==0)
       { $color=$row_color_1; }
     else
-      { $color=$row_color_2; }
+      { $color=$row_color_2; 
+      }
+    if ($e==date(d)) $color=$hightlight_color;
        if ( $e < 10) {  $tag_neu="0$e"; } else { $tag_neu=$e; }
        $template->assign_block_vars('tab2',array(
        		'DATA_COLOR' => $color,
@@ -124,12 +126,11 @@ for ($i=1; $i<=$index; $i++)
       ++$index;
       if ($index==7)
        {
-        $template->assign_block_vars('tab2.tab3', array('test' => 'test'));
+        $template->assign_block_vars('tab2.tab3', array());
 	$index=0;
        }
     
     }
-   
     $tag=1;
     for ($r=$index; $r<7;$r++)
       {
@@ -137,6 +138,7 @@ for ($i=1; $i<=$index; $i++)
       { $color=$row_color_1; }
     else
       { $color=$row_color_2; }
+    if ($tag==date(d)) $color=$hightlight_color;
        $template->assign_block_vars('tab4',array(
        		'DATA_COLOR' => $color,
 		'DATA_DAY' => $tag,

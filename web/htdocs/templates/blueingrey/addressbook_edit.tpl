@@ -7,7 +7,7 @@
 
 <!-- BEGIN edit_addr -->
 <div class="blau_mittig">{edit_addr.L_MSG_EDIT_OK}</div><br/>
-<meta http-equiv="refresh" content="2; URL=./addressbook.php">
+<meta http-equiv="refresh" content="2; URL=./addressbook.php{edit_addr.LINK_NAME}">
 <!-- END edit_addr -->
 
 <!-- BEGIN check_if_delete_entry -->

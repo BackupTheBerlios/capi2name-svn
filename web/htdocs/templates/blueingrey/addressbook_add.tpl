@@ -11,8 +11,8 @@
 <!-- END show_error_msg_name_not_set -->
 
 <!-- BEGIN show_success_msg_forward_msg -->
-<span style="text-algin:center;color:blue;">{L_MSG_SUCCESS_FORWARD}</span>
-<meta http-equiv="refresh" content="2; URL=./addressbook.php">
+<span style="text-algin:center;color:blue;">{show_success_msg_forward_msg.L_MSG_SUCCESS_FORWARD}</span>
+<meta http-equiv="refresh" content="2; URL=./addressbook.php{show_success_msg_forward_msg.FORWARD_ID}">
 <!-- END show_success_msg_forward_msg -->
 
 <!-- BEGIN show_error_msg_add_entry -->
