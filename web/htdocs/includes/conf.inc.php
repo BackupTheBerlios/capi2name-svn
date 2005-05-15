@@ -17,7 +17,7 @@ $config['language']         = "de";
 *******************************************************************************
 ******************************************************************************/
 //VERSIONS INFO UND CODENAMEN:
-$codenamen="AN-BETA-VERSION-NI";
+$codenamen="Zombie-skin";
 $version="0.6.7.6.1";
 //Tabellennamen:
 $prefixtab="";

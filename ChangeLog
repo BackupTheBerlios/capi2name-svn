@@ -1,4 +1,4 @@
-Capi2name 0.6.7.6.1 YYYY-MM-DD - Jonas Genannt - <jonasge@gmx.net>  ----BETA
+Capi2name 0.6.7.6.1 2005-05-15 - Jonas Genannt - <jonasge@gmx.net> 
 	o PHP: renamed: globale_suche.php to global_search.php
 	o PHP: Fixed: addressbook.tpl link for order by first name and last name
 	o PHP: Fixed: header.tpl and header.php with capisuite template system
@@ -6,11 +6,12 @@ Capi2name 0.6.7.6.1 YYYY-MM-DD - Jonas Genannt - <jonasge@gmx.net>  ----BETA
 	o PHP: Fixed: change OR to AND in if()
 	o PHP: Fixed: addressbook_edit.tpl/php with cancel button
 	o PHP: Added: highlight address after edit it with addressbook_edit.php
+	o PHP: Fixed: link in calendar.php
 	o PHP: Added: template value for hightlight color
 	o PHP: Added: current day in calender.php will be highlighted
 	o PHP: Added: warning if DB-Version and File-Version not the same
 	o PHP: Added: new addressbook entry will be highlighted on addressbook.php
-
+	o PHP: Added: calendar.php fast jump. current month/year displays in drop down
 Capi2name 0.6.7.6 2005-03-05 - Jonas Genannt - <jonasge@gmx.net> 
 	o PHP: Fixed: stat_loeschen.php forward to showstatnew.php
 	o PHP: Fixed: configpage.php no access with cookies enables

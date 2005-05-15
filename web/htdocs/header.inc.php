@@ -79,9 +79,9 @@ if ($_SESSION['show_callback_notify'])
   //-->
   </script>";
  }
-/*
+
 //check if DB-Layout and files are the same version.
-if ($db_version!=$version)
+if ($db_version[value]!=$version)
  {
   $template->assign_block_vars('current_version',array(
   		'L_MSG_VERSION' => "The Database version and file version are not the same.<br>Please use the up_inst/update.php for update the database."));
@@ -101,7 +101,7 @@ if ( is_dir("up_inst")) {
 	include("footer.inc.php");
 	die();
 }
-*/
+
 $template->pparse('overall_header');
 
 

@@ -153,11 +153,29 @@ $template->assign_vars(array(
 		'L_MSG_GO' => $textdata[kalender_los]));
 for ($i=1; $i<=12; $i++)
  {
-  $template->assign_block_vars('month_data',array('DATA_MONTH' => $i));
+  if ($cur_monat==$i)
+   {
+   $template->assign_block_vars('month_data',array(
+   		'DATA_MONTH' => $i,
+		'SELECTED' => "selected=selected")); 
+   }
+  else
+   {
+    $template->assign_block_vars('month_data',array('DATA_MONTH' => $i));
+   }
  }
 for ($i=1970;$i<=2010;$i++)
  {
-  $template->assign_block_vars('year_data',array('DATA_YEAR' => $i));
+  if ($cur_jahr==$i)
+   {
+    $template->assign_block_vars('year_data',array(
+    		'DATA_YEAR' => $i,
+		'SELECTED' => "selected=selected"));
+   }
+  else
+   {
+    $template->assign_block_vars('year_data',array('DATA_YEAR' => $i));
+   }
  }
 
 $template->pparse('overall_body');

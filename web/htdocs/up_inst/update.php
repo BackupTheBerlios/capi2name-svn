@@ -77,7 +77,7 @@ $dbhost=$_SESSION['dbhost'];
 $capi_version_tabelle=false;
 $capi_config_tabelle=false;
 $db_layout_version="";
-$db_layout_neue_version="0.6.7.6";
+$db_layout_neue_version="0.6.7.6.1";
 
 echo "<br/><b>Please wait until the scrip prints out in green 'OK'</b><br/><br/>";
 
@@ -386,7 +386,7 @@ if ($db_layout_version=="0.6.7.5")
   if ($control==FALSE)
    {
      echo "Insert failed: <br/>Mysql-Error: ". mysql_error();
-     die();
+    // die();
    }
   $control=mysql_query("DROP TABLE farben");
   if ($control==FALSE)
@@ -452,12 +452,26 @@ if ($db_layout_version=="0.6.7.5")
  $control=mysql_query("DROP TABLE userliste");
  if ($control==FALSE)
   {
-   echo "Insert dailed: <br/>Mysql-Error: ". mysql_error();
+   echo "Insert failed: <br/>Mysql-Error: ". mysql_error();
    die();
    }
 
  }//ende if ()
 /******************++ VERSION 0.6.7.5 -> 0.6.7.6 END **************************/
+
+/*******************VERSION 0.6.7.6 -> 0.6.7.6.1 BEGIN ***********************/
+if ($db_layout_version=="0.6.7.6")
+ {
+  echo "Found Version 0.6.7.6 updating to 0.6.7.6.1...........<br>";
+  $control=mysql_query("UPDATE config SET value='0.6.7.6.1' WHERE conf='db_version'");
+   if ($control==FALSE)
+  {
+   echo "Update failed: <br/>Mysql-Error: ". mysql_error();
+   die();
+   }
+ } 
+/*******************VERSION 0.6.7.6 -> 0.6.7.6.1 END *************************/
+
 
 
 $control=mysql_close();

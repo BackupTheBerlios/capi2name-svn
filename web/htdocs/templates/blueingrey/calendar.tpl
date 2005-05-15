@@ -46,16 +46,16 @@
 
 
 
-<form action="./kalender.php"  method="get"> 
+<form action="./calendar.php"  method="get"> 
 <p>
 {L_MSG_GO_TO}:
 <select name="monat">
 <!-- BEGIN month_data -->
-<option>{month_data.DATA_MONTH}</option>
+<option {month_data.SELECTED}>{month_data.DATA_MONTH}</option>
 <!-- END month_data -->
 </select> <select name="jahr">
 <!-- BEGIN year_data -->
-<option>{year_data.DATA_YEAR}</option>
+<option {year_data.SELECTED}>{year_data.DATA_YEAR}</option>
 <!-- END year_data -->
 </select> <input type="submit" name="datum" value="{L_MSG_GO}"/>
 </p>
