@@ -1,3 +1,6 @@
+Capi2name 0.6.7.6.2 YYYY-MM-DD - Jonas Genannt - <jonasge@gmx.net> ---BETA
+	o PHP:
+	
 Capi2name 0.6.7.6.1 2005-05-15 - Jonas Genannt - <jonasge@gmx.net> 
 	o PHP: renamed: globale_suche.php to global_search.php
 	o PHP: Fixed: addressbook.tpl link for order by first name and last name

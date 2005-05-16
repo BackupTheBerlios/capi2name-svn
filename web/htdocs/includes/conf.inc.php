@@ -4,8 +4,8 @@ $sql["dbuser"]              = "capi";
 $sql["dbpasswd"]            = "kljmkgd";
 $sql["db"]                  = "capidb";
 $config['domain']           = "www.mein-lokal.de";
-$config['capi2name_status'] = "yes";
-$config['capisuite']        = "no";
+$config['capi2name_status'] = "no";
+$config['capisuite']        = "yes";
 $config['language']         = "de";
 
 /******************************************************************************
@@ -17,8 +17,8 @@ $config['language']         = "de";
 *******************************************************************************
 ******************************************************************************/
 //VERSIONS INFO UND CODENAMEN:
-$codenamen="Zombie-skin";
-$version="0.6.7.6.1";
+$codenamen="AN-BETA-VERSION-NI";
+$version="0.6.7.6.2";
 //Tabellennamen:
 $prefixtab="";
 $tabelle["adressbuch"]=$prefixtab."adressbuch";

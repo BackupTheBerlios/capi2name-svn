@@ -77,7 +77,7 @@ $dbhost=$_SESSION['dbhost'];
 $capi_version_tabelle=false;
 $capi_config_tabelle=false;
 $db_layout_version="";
-$db_layout_neue_version="0.6.7.6.1";
+$db_layout_neue_version="0.6.7.6.2";
 
 echo "<br/><b>Please wait until the scrip prints out in green 'OK'</b><br/><br/>";
 
@@ -472,6 +472,46 @@ if ($db_layout_version=="0.6.7.6")
  } 
 /*******************VERSION 0.6.7.6 -> 0.6.7.6.1 END *************************/
 
+/*******************VERSION 0.6.7.6.1 -> 0.6.7.6.2 BEGIN ***********************/
+if ($db_layout_version=="0.6.7.6")
+ {
+  echo "Found Version 0.6.7.6 updating to 0.6.7.6.1...........<br>";
+  $control=mysql_query("UPDATE config SET value='0.6.7.6.2' WHERE conf='db_version'");
+   if ($control==FALSE)
+  {
+   echo "Update failed: <br/>Mysql-Error: ". mysql_error();
+   die();
+   }
+  $control=mysql_query("ALTER TABLE `config` CHANGE `value` `value` CHAR( 50 ) DEFAULT NULL");
+   if ($control==FALSE)
+  {
+   echo "Update failed: <br/>Mysql-Error: ". mysql_error();
+   die();
+   } 
+ /*
+ INSERT INTO `config` ( `id` , `conf` , `value` )
+VALUES (
+'', 'cs_ voice_user_dir', '/var/spool/capisuite/users/'
+), (
+'', 'cs_ fax_user_dir', '/var/spool/capisuite/users/'
+);
+INSERT INTO `config` ( `id` , `conf` , `value` )
+VALUES (
+'', 'cs_use_mogrify', 'yes'
+);
+INSERT INTO `config` ( `id` , `conf` , `value` )
+VALUES (
+'', 'cs_ mogrify', '/usr/bin/mogrify'
+), (
+'', 'cs_sff2misc', '/usr/bin/sff2misc'
+);
+INSERT INTO `config` ( `id` , `conf` , `value` )
+VALUES (
+'', 'cs_temp_dir', '/tmp'
+);
+ */   
+}
+/*******************VERSION 0.6.7.6.1 -> 0.6.7.6.2 END *************************/
 
 
 $control=mysql_close();

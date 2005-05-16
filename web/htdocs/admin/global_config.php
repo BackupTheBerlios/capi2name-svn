@@ -131,12 +131,12 @@ while($daten=mysql_fetch_assoc($result))
   }
  else
   {
-   echo "
+   /*echo "
     <tr>
      <td>$daten[id]</td>
      <td style=\"text-align:left;\">$daten[conf]:</td>
      <td style=\"text-align:right;\"><input name=\"$daten[id]\" typ=\"text\" value=\"$daten[value]\"/></td>
-    </tr>"; 
+    </tr>"; */
   }
  }
 ?>
