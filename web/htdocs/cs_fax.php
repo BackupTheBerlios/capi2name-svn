@@ -19,7 +19,6 @@
 	$seite=base64_encode("cs_fax.php");
 	include("./login_check.inc.php");
 	include("./header.inc.php");
-	require_once("./cs_capisuite_config.inc.php");
 	require_once("./cs_functions.inc.php");
 	
 	if (checkUsername($_SESSION['username']) != 0) die("<h1>username does not match local user</h1>");

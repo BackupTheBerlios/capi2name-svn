@@ -1,5 +1,8 @@
 Capi2name 0.6.7.6.2 YYYY-MM-DD - Jonas Genannt - <jonasge@gmx.net> ---BETA
-	o PHP:
+	o PHP: admin/cs_install.php changed to from ini-file to config table
+	o PHP: removed: cs_capisuite_config.inc.php
+	o PHP: removed: admin/cs_conf.inc.ini
+	o PHP: removed: web/sontiges we don't need it anymore->template system
 	
 Capi2name 0.6.7.6.1 2005-05-15 - Jonas Genannt - <jonasge@gmx.net> 
 	o PHP: renamed: globale_suche.php to global_search.php

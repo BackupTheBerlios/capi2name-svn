@@ -1,21 +1,20 @@
 <?php
-	/*
-	 * Hier waere es noch dringend noetig eine benutzerautentifizierung einzufuegen.
-	 * muss man mal mit dem jonas reden wie man das am besten macht.
-	 *
-	 */
-	require_once("./cs_capisuite_config.inc.php");
+	//include("./login_check.inc.php");
+	include("./includes/conf.inc.php");
+	include("./includes/functions.php");
+	include("./cs_functions.inc.php");
 	
 	$file = $_GET['file'];
 	$user = $_GET['csuser'];
+
 
 	
 	$fileDir = $cs_conf['cs_voice_user_dir'] . "/$user/received/"; // supply a path name.
 	$fileName = "voice-$file.la"; // supply a file name.
 	$fileString=$fileDir.'/'.$fileName; // combine the path and file
 	
-	exec("sox $fileString " . $cs_conf['cs_tmp_dir'] . "/capi2name-tmp.mp3");
-	$fileString	= $cs_conf['cs_tmp_dir'] . "/capi2name-tmp.mp3";
+	exec("sox $fileString " . $cs_conf[cs_temp_dir] . "/capi2name-tmp.mp3");
+	$fileString	= $cs_conf[cs_temp_dir] . "/capi2name-tmp.mp3";
 	$fileName	= "answerphone-$file.mp3";
 	
 	// translate file name properly for Internet Explorer.

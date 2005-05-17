@@ -9,7 +9,7 @@
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
  *   the Free Software Foundation; either version 2 of the License, or     *
- *   any later version.                                   *
+ *   any later version.                                                    *
  *                                                                         *
  ***************************************************************************/
  // 	editor: Kai Römer 
@@ -19,7 +19,6 @@
 	$seite=base64_encode("cs_answerphone.php");
 	include("./login_check.inc.php");
 	include("./header.inc.php");
-	require_once("./cs_capisuite_config.inc.php");
 	require_once("./cs_functions.inc.php");
 	
 	if (checkUsername($_SESSION['username']) != 0) die("<h1>username does not match local user</h1>");
