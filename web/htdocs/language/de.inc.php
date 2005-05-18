@@ -52,6 +52,7 @@ $textdata[addadress_strasse]="Straße";
 $textdata[addadress_hausnummer]="Hausnummer";
 $textdata[addadress_plz]="PLZ";
 $textdata[addadress_ort]="Ort";
+$textdata[addadress_telefonnummer]="Telefonnummer";
 $textdata[addadress_telefonnummer1]="Telefonnummer 1";
 $textdata[addadress_telefonnummer2]="Telefonnummer 2";
 $textdata[addadress_telefonnummer3]="Telefonnummer 3";

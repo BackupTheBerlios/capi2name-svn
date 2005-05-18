@@ -5,11 +5,6 @@
 <meta http-equiv="refresh" content="2; URL=./addressbook.php">
 <!-- END delete_entry_from_db -->
 
-<!-- BEGIN edit_addr -->
-<div class="blau_mittig">{edit_addr.L_MSG_EDIT_OK}</div><br/>
-<meta http-equiv="refresh" content="2; URL=./addressbook.php{edit_addr.LINK_NAME}">
-<!-- END edit_addr -->
-
 <!-- BEGIN check_if_delete_entry -->
 <div class="rot_mittig">{check_if_delete_entry.L_check_if_you_will_delete}</div>
 <!-- END check_if_delete_entry -->
@@ -20,13 +15,14 @@
 
 <!-- BEGIN tab1 -->
 
-<ins><form action="./addressbook_edit.php" method="post">
+
 <table border="0" cellpadding="3" style="margin-right:auto;margin-left:auto;">
+<form action="./addressbook_edit.php" method="post">
  <tr>
   <td style="text-align:left;">{tab1.L_FIRST_NAME}:</td>
   <td style="width:12px"></td>
   <td><input name="bvorname" type="text" value="{tab1.DATA_FIRST_NAME}"/>
-      <input name="bid" value="{tab1.DATA_ID_USER}" type="hidden"/>
+      <input name="id" value="{tab1.DATA_ID_USER}" type="hidden"/>
   </td>
  </tr>
  <tr>
@@ -55,56 +51,108 @@
   <td><input name="bort" type="text" value="{tab1.DATA_CITY}"/></td>
  </tr>
  <tr>
-  <td style="text-align:left;">{tab1.L_TELE_1}:</td>
-  <td style="width:12px"></td>
-  <td><input name="btele1" type="text" value="{tab1.DATA_TELE_1}"/></td>
- </tr>
- <tr>
-  <td style="text-align:left;">{tab1.L_TELE_2}:</td>
-  <td style="width:12px"></td>
-  <td><input name="btele2" type="text" value="{tab1.DATA_TELE_2}"/></td>
- </tr>
-  <tr>
-  <td style="text-align:left;">{tab1.L_TELE_3}:</td>
-  <td style="width:12px"></td>
-  <td><input name="btele3" type="text" value="{tab1.DATA_TELE_3}"/></td>
- </tr>
- <tr>
-  <td style="text-align:left;">{tab1.L_CELL_PHONE}:</td>
-  <td style="width:12px"></td>
-  <td><input name="bhandy" type="text" value="{tab1.DATA_CELL_PHONE}"/></td>
- </tr>
- <tr>
-  <td style="text-align:left;">{tab1.L_FAX}:</td>
-  <td style="width:12px"></td>
-  <td><input name="bfax" type="text" value="{tab1.DATA_FAX}"/></td>
- </tr>
- <tr>
   <td style="text-align:left;">{tab1.L_E_MAIL}:</td>
   <td style="width:12px"></td>
   <td><input name="bemail" type="text" value="{tab1.DATA_E_MAIL}"/></td>
  </tr>
+ <tr>
+  <td colspan="3" style="text-align:center;">
+  <input name="id" type="hidden" value="{tab1.DATA_ID_USER}" />
+  <input type="submit" name="aendern" value="{tab1.CHANGE_ADDR}" />
+  </td>
+ </tr>
+ </form>
+ <!-- BEGIN telephon -->
+ <form action="./addressbook_edit.php" method="post">
+ <tr>
+  <td style="text-align:left;">{tab1.telephon.L_TELE}:</td>
+  <td style="width:12px"></td>
+  <td><input name="telephonnr" type="text" value="{tab1.telephon.L_DB_TELE}"/></td>
+  <td>
+  <input name="tele_id" value="{tab1.telephon.L_DB_TELE_ID}" type="hidden"/>
+  <input name="id" value="{tab1.telephon.L_DB_ID}" type="hidden"/>
+  <input name="tele_save" value="Save" type="submit"/>
+  <input name="tele_delete" value="delete" type="submit"/></td>
+ </tr>
+ </form>
+ <!-- END telephon -->
+ <!-- BEGIN cellphone -->
+ <form action="./addressbook_edit.php" method="post">
+ <tr>
+  <td style="text-align:left;">{tab1.cellphone.L_CELL_PHONE}:</td>
+  <td style="width:12px"></td>
+  <td><input name="telephonnr" type="text" value="{tab1.cellphone.L_DB_TELE}"/></td>
+  <td>
+  <input name="tele_id" value="{tab1.cellphone.L_DB_TELE_ID}" type="hidden"/>
+  <input name="id" value="{tab1.cellphone.L_DB_ID}" type="hidden"/>
+  <input name="tele_save" value="Save" type="submit"/>
+  <input name="tele_delete" value="delete" type="submit"/></td>
+ </tr>
+ </form>
+ <!-- END cellphone -->
+ <!-- BEGIN fax -->
+ <form action="./addressbook_edit.php" method="post">
+ <tr>
+  <td style="text-align:left;">{tab1.fax.L_FAX}:</td>
+  <td style="width:12px"></td>
+  <td><input name="telephonnr" type="text" value="{tab1.fax.L_DB_TELE}"/></td>
+  <td>
+  <input name="tele_id" value="{tab1.fax.L_DB_TELE_ID}" type="hidden"/>
+  <input name="id" value="{tab1.fax.L_DB_ID}" type="hidden"/>
+  <input name="tele_save" value="Save" type="submit"/>
+  <input name="tele_delete" value="delete" type="submit"/></td>
+ </tr>
+ </form>
+ <!-- END fax -->
+ <tr>
+  <td>
+  </td>
+ </td>
+ <tr>
+  <td colspan="3" style="text-align:left;"><b>Nummer hinzufügen:</b></td>
+ </tr>
+ <!-- BEGIN add -->
+ <form action="./addressbook_edit.php" method="post">
+ <tr>
+  <td style="text-align:left;">Nummer:</td>
+  <td style="width:12px"></td>
+  <td><input name="telephonnr" type="text"/></td>
+  <td>
+  <select name="typ">
+  <option value="1">Telephon</option>
+  <option value="2">Cell Phone</option>
+  <option value="3">Fax</option>
+  </select>
+  <input name="id" type="hidden" value="{tab1.add.ID}"/>
+  <input name="add" value="add" type="submit"/></td>
+ </tr>
+ </form>
+ <!-- END add -->
 </table>
 <br/>
-<ins><input name="id" type="hidden" value="{tab1.DATA_ID_USER}" /><input type="submit" name="aendern" value="{tab1.CHANGE_ADDR}" /><p></p></ins>
-
 <!-- END tab1 -->
+
 
 <!-- BEGIN now_delete_really_entry -->
 <ins>
+<form action="./addressbook_edit.php" method="post">
 <input type="hidden" name="loeschenID" value="{now_delete_really_entry.ID_FROM_ADDR}" />
 <input type="submit" name="wloeschen" value="{now_delete_really_entry.REMOVE_ENTRY}" />
+</form>
 </ins>
 <!-- END now_delete_really_entry -->
 
 <!-- BEGIN ask_for_delete_entry -->
 <ins>
+ <form action="./addressbook_edit.php" method="post">
+<input type="hidden" name="id" value="{ask_for_delete_entry.id}"/>
 <input type="hidden" name="loeschen_OK" value="{ask_for_delete_entry.ID_FROM_ADDR}" />
 <input type="submit" name="loeschen" value="{ask_for_delete_entry.DELETE_ENTRY}" />
-</ins>
-<!-- END ask_for_delete_entry -->
 </form>
 </ins>
+<!-- END ask_for_delete_entry -->
+
+
 
 <!-- BEGIN cancel_edit -->
 <p>

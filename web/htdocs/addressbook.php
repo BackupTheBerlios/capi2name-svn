@@ -32,43 +32,52 @@ $template->assign_vars(array('L_ADDR_CELL_PHONE' => $textdata[addadress_handy] )
 
 $i=0;
 // Auslesen:
-if ($_GET[order]=="vorname")
+if ($_GET[order]=="firstname")
  {
-  $sqlabfrage="SELECT id,vorname,nachname,tele1,handy FROM adressbuch ORDER BY vorname";
+  $sqlabfrage="SELECT id,name_first,name_last FROM addressbook ORDER BY name_first";
  }
 else
  {
-  $sqlabfrage="SELECT id,vorname,nachname,tele1,handy FROM adressbuch ORDER BY nachname";
+  $sqlabfrage="SELECT id,name_first,name_last FROM addressbook ORDER BY name_last";
  }
 $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] ); 
 $result=$zugriff_mysql->sql_abfrage($sqlabfrage);
-$zugriff_mysql->close_mysql();
+
 while($data_addr=mysql_fetch_assoc($result))
  {
-   if($i%2==0)
-   { $color=$row_color_1;
-     $i=1; }
+  if($i%2==0)
+   {
+     $color=$row_color_1;
+     $i=1; 
+   }
   else
-   { $color=$row_color_2;
-     $i=0; }
-  if ($data_addr[handy]== 99) { $data_addr[handy]=""; }
-  if ($data_addr[tele1]== 99) { $data_addr[tele1]=""; }
+   {
+     $color=$row_color_2;
+     $i=0; 
+    }
+  $result_tele=$zugriff_mysql->sql_abfrage("SELECT number FROM phonenumbers WHERE  typ='1' AND addr_id='$data_addr[id]' LIMIT 1");
+  $data_tele=mysql_fetch_assoc($result_tele);
+  $result_cellphone=$zugriff_mysql->sql_abfrage("SELECT number FROM phonenumbers WHERE  typ='2' AND addr_id='$data_addr[id]' LIMIT 1");  
+  $data_cellphone=mysql_fetch_assoc($result_cellphone);
+     
+     
+     
   if (isset($_GET[id]) )
    {
     if($_GET[id]==$data_addr[id] )
      {
       $color=$hightlight_color;
-      $data_addr[tele1]="<a name=\"find\">$data_addr[tele1]</a>";
+      $data_tele[number]="<a name=\"find\">$data_tele[number]</a>";
      }
    }
    
 $template->assign_block_vars('tab', array(
 				'color' => $color,
 				'addr_id' => $data_addr[id],
-				'addr_last_name' => $data_addr[nachname],
-				'addr_first_name' => $data_addr[vorname],
-				'addr_tele_1' => $data_addr[tele1],
-				'addr_cell_phone' => $data_addr[handy],
+				'addr_last_name' => $data_addr[name_last],
+				'addr_first_name' => $data_addr[name_first],
+				'addr_tele_1' => $data_tele[number],
+				'addr_cell_phone' => $data_cellphone[number],
 				'addr_edit_entry' => $textdata[adressbuch_eintrag_bearbeiten],
 				'addr_delete_entry' => $textdata[adressbuch_eintrag_loeschen],
 				'addr_search_entry' => $textdata[adressbuch_suche_eintraege]
@@ -76,6 +85,7 @@ $template->assign_block_vars('tab', array(
 
  }
 // Auslesen ENde
+$zugriff_mysql->close_mysql();
 $template->pparse('overall_body');
 include("./footer.inc.php");
 ?>

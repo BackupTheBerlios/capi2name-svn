@@ -35,35 +35,31 @@
   <td>{L_DB_CITY}</td>
  </tr>
  <tr>
-  <td>{L_TELE_1}:</td>
-  <td style="width:12px;"></td>
-  <td>{L_DB_TELE_1}</td>
- </tr>
- <tr>
-  <td>{L_TELE_2}:</td>
-  <td style="width:12px;"></td>
-  <td>{L_DB_TELE_2}</td>
- </tr>
-  <tr>
-  <td>{L_TELE_3}:</td>
-  <td style="width:12px;"></td>
-  <td>{L_DB_TELE_3}</td>
- </tr>
- <tr>
-  <td>{L_CELL_PHONE}:</td>
-  <td style="width:12px;"></td>
-  <td>{L_DB_CELL_PHONE}</td>
- </tr>
- <tr>
-  <td>{L_FAX}:</td>
-  <td style="width:12px;"></td>
-  <td>{L_DB_FAX}</td>
- </tr>
- <tr>
   <td>{L_E_MAIL}:</td>
   <td style="width:12px;"></td>
   <td>{L_DB_E_MAIL}</td>
  </tr>
+ <!-- BEGIN telephon -->
+ <tr>
+  <td>{telephon.L_TELE}:</td>
+  <td style="width:12px;"></td>
+  <td>{telephon.L_DB_TELE}</td>
+ </tr>
+ <!-- END telephon -->
+ <!-- BEGIN cellphone -->
+ <tr>
+  <td>{cellphone.L_CELL_PHONE}:</td>
+  <td style="width:12px;"></td>
+  <td>{cellphone.L_DB_CELL_PHONE}</td>
+ </tr>
+ <!-- END cellphone -->
+ <!-- BEGIN fax -->
+ <tr>
+  <td>{fax.L_FAX}:</td>
+  <td style="width:12px;"></td>
+  <td>{fax.L_DB_FAX}</td>
+ </tr>
+<!-- END fax -->
 </table>
 <br />
 <a href="./addressbook_edit.php?bearbeiten={L_DB_ID_ENTRY}">{L_EDIT_THIS_ENTRY}</a>

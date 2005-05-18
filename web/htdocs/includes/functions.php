@@ -61,6 +61,19 @@ function msns_ueberpruefen($msns,$msn) {
 	else { $wert=true; }
 	return $wert;
 }
+function cellphone_number($number)
+ {
+  $cellphoneprefix=160;
+  $wert=false;
+  $prefix=substr($number,1,3);
+  while($cellphoneprefix<180)
+   {
+    if ($prefix==$cellphoneprefix) $wert=true;
+    $cellphoneprefix++;
+   }
+  return $wert;
+ }
+
 
 function handynr_vorhanden($nummer) //pruefe ob Handy Nr vorhanden, wegen add adressbuch
 {
