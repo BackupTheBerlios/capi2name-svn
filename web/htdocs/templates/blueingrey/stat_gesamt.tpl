@@ -26,15 +26,10 @@
   <td style="text-align:right;">{tab1.DATA_COUNT}</td>
   <td style="text-align:center;">{tab1.DATA_LAST_CALL}</td>
   <td style="width:10px;"></td>
-  <!-- BEGIN no_call_from_user -->
-  <td></td>
-  <!-- END no_call_from_user -->
-  <!-- BEGIN call_from_user -->
   <td style="text-align:center;">
-  <a href="./stat_anrufer.php?id={tab1.call_from_user.DATA_ID}" title="{tab1.call_from_user.L_SEARCH_ENTRY}">
+  <a href="./stat_anrufer.php?id={tab1.DATA_ID}" title="{tab1.call_from_user.L_SEARCH_ENTRY}">
   <img src="./images/search.png" style="border-width:0px;vertical-align:middle;" alt=""/></a>
   </td>
-  <!-- END call_from_user -->
  </tr>
  <!-- END tab1 -->
  

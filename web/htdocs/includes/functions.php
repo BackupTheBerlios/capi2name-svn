@@ -74,6 +74,23 @@ function cellphone_number($number)
   return $wert;
  }
 
+function get_id_from_prefix($number)
+ {
+      $tab_vorwahl=mysql_query("SELECT * FROM vorwahl");
+      $prefix=0;
+       while($vorwahl_row=mysql_fetch_assoc($tab_vorwahl))
+        {
+          $laenge=strlen($vorwahl_row[vorwahlnr]);
+          $vorwahl_nr=substr($number,0,$laenge);
+          if($vorwahl_row[vorwahlnr]==$vorwahl_nr)
+	   { 
+	    $typ=$vorwahl_row[id];
+	    break;
+	   }
+      }//while vorwahl END
+   return $typ;
+ }
+ 
 
 function handynr_vorhanden($nummer) //pruefe ob Handy Nr vorhanden, wegen add adressbuch
 {
@@ -104,10 +121,6 @@ function msnzuname($msn) {
 }
 
 function ermittle_typ_anruf($nummer) {
-	//alte Weise:
-	//if ($data[8]=="2")   $anz_dienst="FAX";
-	//if ($data[8]=="4")   $anz_dienst="Telefon";
-	//if ($data[8]!=2 and $data[8]!=4) $anz_dienst="";
 	$wert="";
 	if ($nummer=="1" || $nummer=="2" || $nummer=="3" || $nummer=="4" || $nummer=="5")
 		{

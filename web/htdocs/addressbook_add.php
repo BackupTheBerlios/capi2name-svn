@@ -37,19 +37,55 @@ if (isset($_POST[eintragen]))
      exit();
      }
 
- if ($_POST[bhandy] =="")  { $bhandy="99"; } else { $bhandy=$_POST[bhandy]; }
- if ($_POST[btele1] =="")  { $btele1="99"; }   else { $btele1=$_POST[btele1]; }
- if ($_POST[btele2] =="")  { $btele2="99"; }  else { $btele2=$_POST[btele2]; }
- if ($_POST[btele3] =="")  { $btele3="99"; }   else { $btele3=$_POST[btele3]; }     
- 
+  
 $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-$res_value=$zugriff_mysql->sql_abfrage("INSERT INTO adressbuch 
-					VALUES(NULL,'$_POST[bvorname]',
-					'$_POST[bnachname]', '$_POST[bstrasse]', '$_POST[bhausnr]', '$_POST[bplz]', '$_POST[bort]', '$btele1', '$btele2', '$btele3',  '$bhandy', '$_POST[bfax]', '$_POST[bemail]')");
+$result=$zugriff_mysql->sql_abfrage("INSERT INTO addressbook VALUES(
+  	'', '$_POST[bvorname]', '$_POST[bnachname]',
+	'$_POST[bstrasse]', '$_POST[bhausnr]',
+	'$_POST[bplz]', '$_POST[bort]', '$_POST[bemail]')");
 $last_id=mysql_insert_id();
+if ($_POST[btele]!="")
+ {
+   if (cellphone_number($_POST[btele]))
+   {
+    $typ='2';
+   }
+  else
+   {
+    $typ=get_id_from_prefix($_POST[btele]);
+   }
+  $result=$zugriff_mysql->sql_abfrage("INSERT INTO phonenumbers VALUES(
+  		'', '$last_id', '$_POST[btele]', '1', '$typ')");
+ }
+if ($_POST[bhandy]!="")
+ {
+   if (cellphone_number($_POST[bhandy]))
+   {
+    $typ='2';
+   }
+  else
+   {
+    $typ=get_id_from_prefix($_POST[bhandy]);
+   }
+  $result=$zugriff_mysql->sql_abfrage("INSERT INTO phonenumbers VALUES(
+  		'', '$last_id', '$_POST[bhandy]', '2', '$typ')");
+ }
+if ($_POST[bfax]!="")
+ {
+   if (cellphone_number($_POST[bfax]))
+   {
+    $typ='2';
+   }
+  else
+   {
+    $typ=get_id_from_prefix($_POST[bfax]);
+   }
+  $result=$zugriff_mysql->sql_abfrage("INSERT INTO phonenumbers VALUES(
+  		'', '$last_id', '$_POST[bfax]', '3', '$typ')");
+ }
 $zugriff_mysql->close_mysql();
 
-if($res_value)
+if($result)
  {
   $template->assign_block_vars('show_success_msg_forward_msg', array(
   		'FORWARD_ID' => "?id=$last_id#find",
@@ -75,9 +111,7 @@ $template->assign_block_vars('tab',array(
 		'L_ADDR_HOUSE_NR' => $textdata[addadress_hausnummer],
 		'L_ADDR_ZIP_CODE' => $textdata[addadress_plz],
 		'L_ADDR_CITY' => $textdata[addadress_ort],
-		'L_ADDR_TELE_1' => $textdata[addadress_telefonnummer1],
-		'L_ADDR_TELE_2' => $textdata[addadress_telefonnummer2],
-		'L_ADDR_TELE_3' => $textdata[addadress_telefonnummer3],
+		'L_ADDR_TELE' => $textdata[addadress_telefonnummer],
 		'L_ADDR_CELL_PHONE' => $textdata[addadress_handy],
 		'L_ADDR_FAX' => $textdata[addadress_fax],
 		'L_ADDR_E_MAIL' => $textdata[addadress_email],

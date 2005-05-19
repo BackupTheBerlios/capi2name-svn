@@ -9,7 +9,7 @@
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
  *   the Free Software Foundation; either version 2 of the License, or     *
- *   any later version.                                   *
+ *   any later version.                                			   *
  *                                                                         *
  ***************************************************************************/
  ?>
@@ -46,18 +46,7 @@ if (isset($_POST[tele_save]))
    }
   else
    {
-      $tab_vorwahl=mysql_query("SELECT * FROM vorwahl");
-      $prefix=0;
-       while($vorwahl_row=mysql_fetch_assoc($tab_vorwahl))
-        {
-          $laenge=strlen($vorwahl_row[vorwahlnr]);
-          $vorwahl_nr=substr($_POST[telephonnr],0,$laenge);
-          if($vorwahl_row[vorwahlnr]==$vorwahl_nr)
-	   { 
-	    $typ=$vorwahl_row[id];
-	    break;
-	   }
-      }//while vorwahl END
+    $typ=get_id_from_prefix($_POST[telephonnr]);
    }
   $zugriff_mysql->sql_abfrage("UPDATE phonenumbers SET number='$_POST[telephonnr]' WHERE id='$_POST[tele_id]'");
   $zugriff_mysql->sql_abfrage("UPDATE phonenumbers SET areacode='$typ' WHERE id='$_POST[tele_id]'");
@@ -83,18 +72,7 @@ if (isset($_POST[add]))
    }
   else
    {
-      $tab_vorwahl=mysql_query("SELECT * FROM vorwahl");
-      $prefix=0;
-       while($vorwahl_row=mysql_fetch_assoc($tab_vorwahl))
-        {
-          $laenge=strlen($vorwahl_row[vorwahlnr]);
-          $vorwahl_nr=substr($_POST[telephonnr],0,$laenge);
-          if($vorwahl_row[vorwahlnr]==$vorwahl_nr)
-	   { 
-	    $typ=$vorwahl_row[id];
-	    break;
-	   }
-      }//while vorwahl END
+    $typ=get_id_from_prefix($_POST[telephonnr]);
    }
   $result=$zugriff_mysql->sql_abfrage("INSERT INTO phonenumbers VALUES(
   		'', '$_POST[id]', '$_POST[telephonnr]', '$_POST[typ]', '$typ')");

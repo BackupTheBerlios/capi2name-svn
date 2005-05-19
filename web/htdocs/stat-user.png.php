@@ -12,8 +12,7 @@
  *   any later version.                                   *
  *                                                                         *
  ***************************************************************************/
- ?>
-<?php
+
 	include("./includes/conf.inc.php");
 	include("./includes/functions.php");
 	
@@ -32,11 +31,12 @@
 	
 	}
 	$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-	$sql_query=$zugriff_mysql->sql_abfrage("SELECT id,tele1,tele2,tele3,handy FROM adressbuch WHERE id=$_GET[id]");
-	$result=mysql_fetch_array($sql_query);
 	//echo "$result[tele1], $result[fax]";
 	for ($e=0;$e<=9;$e++) {
-		$result_alle=$zugriff_mysql->sql_abfrage("SELECT id,rufnummer FROM angerufene WHERE MONTH(datum)=$datum_monat[$e] AND YEAR(datum)=$datum_jahr[$e]  AND (rufnummer=$result[tele1] OR rufnummer=$result[handy] OR rufnummer=$result[tele2] OR rufnummer=$result[tele3])");
+		$result_alle=$zugriff_mysql->sql_abfrage("SELECT rufnummer FROM angerufene, phonenumbers AS t2
+		WHERE MONTH(datum)=$datum_monat[$e] 
+		AND YEAR(datum)=$datum_jahr[$e] 
+		AND rufnummer=t2.number  AND t2.addr_id=$_GET[id]");
 		$anzahl_monat_alle[$e]=mysql_num_rows($result_alle);
 		//echo "Anzahl: $e: ". $anzahl_monat_alle[$e];
 		

@@ -1,7 +1,7 @@
 <div class="ueberschrift_seite">{L_NEW_ENTRY_TO_ADDR}</div>
 <br />
 
-<form action="addressbook_add.php" method="post" >
+
 
 <!-- BEGIN show_error_msg_name_not_set -->
 <br />
@@ -19,8 +19,9 @@
 <span style="text-algin:center;color:red;">{L_MSG_ERROR_ADD_ENTRY}</span>
 <!-- END show_error_msg_add_entry -->
 
-<table border="0" cellpadding="3" style="margin-right:auto;margin-left:auto;">
 <!-- BEGIN tab -->
+<form action="addressbook_add.php" method="post" >
+<table border="0" cellpadding="3" style="margin-right:auto;margin-left:auto;">
  <tr>
   <td style="text-align:left;">{tab.L_ADDR_FRIST_NAME}:</td>
   <td style="width:12px;"></td>
@@ -52,19 +53,14 @@
   <td><input name="bort" type="text"/></td>
  </tr>
  <tr>
-  <td style="text-align:left;">{tab.L_ADDR_TELE_1}:</td>
+  <td style="text-align:left;">{tab.L_ADDR_E_MAIL}:</td>
   <td style="12px;"></td>
-  <td><input name="btele1" type="text" value="{tab.L_GET_RUFNR}"/></td>
+  <td><input name="bemail" type="text"/></td>
  </tr>
  <tr>
-  <td style="text-align:left;">{tab.L_ADDR_TELE_2}:</td>
+  <td style="text-align:left;">{tab.L_ADDR_TELE}:</td>
   <td style="12px;"></td>
-  <td><input name="btele2" type="text"/></td>
- </tr>
- <tr>
-  <td style="text-align:left;">{tab.L_ADDR_TELE_3}:</td>
-  <td style="12px;"></td>
-  <td><input name="btele3" type="text"/></td>
+  <td><input name="btele" type="text" value="{tab.L_GET_RUFNR}"/></td>
  </tr>
  <tr>
   <td style="text-align:left;">{tab.L_ADDR_CELL_PHONE}:</td>
@@ -77,11 +73,7 @@
   <td><input name="bfax" type="text"/></td>
  </tr>
 
- <tr>
-  <td style="text-align:left;">{tab.L_ADDR_E_MAIL}:</td>
-  <td style="12px;"></td>
-  <td><input name="bemail" type="text"/></td>
- </tr>
+
 </table>
 <ins><br/><input type="submit" name="eintragen" value="{tab.L_ADDR_ADD_NEW_ENTRY}"/></ins>
 </form>

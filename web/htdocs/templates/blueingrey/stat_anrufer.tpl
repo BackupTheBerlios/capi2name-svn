@@ -18,34 +18,28 @@
 	   <td>{tab1.DATA_LAST_NAME}</td>
         </tr>
 <!-- END tab1 -->
-<!-- BEGIN show_tele1 -->
+<!-- BEGIN show_tele -->
 <tr>
-   <td>{show_tele1.L_TELE_1}:</td>
+   <td>{show_tele.L_TELE}:</td>
    <td style="width:10px"> </td>
-   <td>{show_tele1.DATA_TELE_1}</td>
+   <td>{show_tele.DATA_TELE}</td>
 </tr>
-<!-- END show_tele1 -->
-<!-- BEGIN show_tele2 -->
-<tr>
-   <td>{show_tele2.L_TELE_2}:</td>
-   <td style="width:10px"> </td>
-   <td>{show_tele2.DATA_TELE_2}</td>
-</tr>
-<!-- END show_tele2 -->
-<!-- BEGIN show_tele3 -->
-<tr>
-   <td>{show_tele3.L_TELE_3}:</td>
-   <td style="width:10px"> </td>
-   <td>{show_tele3.DATA_TELE_3}</td>
-</tr>
-<!-- END show_tele3 -->
+<!-- END show_tele -->
 <!-- BEGIN show_cell_phone -->
 <tr>
    <td>{show_cell_phone.L_CELL_PHONE}:</td>
    <td style="width:10px"> </td>
    <td>{show_cell_phone.DATA_CELL_PHONE}</td>
 </tr>
-<!-- END show_tele3 -->
+<!-- END show_cell_phone -->
+<!-- BEGIN show_fax -->
+<tr>
+   <td>{show_fax.L_FAX}:</td>
+   <td style="width:10px"> </td>
+   <td>{show_fax.DATA_FAX}</td>
+</tr>
+<!-- END show_fax -->
+
 </table>
 <br />
 
