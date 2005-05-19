@@ -178,19 +178,18 @@ while($daten=mysql_fetch_assoc($result_angerufene))
    <img src=\"./images/1leftarrow.gif\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
     }
     //MSNS überprüfen:
-    $show_entry_msns=msns_ueberpruefen($userconfig['msns'],$data[6]);
+    $show_entry_msns=msns_ueberpruefen($userconfig['msns'],$daten[msn]);
     //Datum umwandeln, und wegen Heute/Gestern funktion:
     $anz_datum=anzeige_datum(mysql_datum($daten[datum]));
     //ermittle Dienstkennung:
     $anz_dienst=ermittle_typ_anruf($daten[dienst]);
-    if($i%2==0)
-      { $color=$row_color_1; }
-    else
-      { $color=$row_color_2; }
-    
     //TEMPLATE FUELLEN ANFANG:
     if ($show_entry_msns)
      {  
+      if($i%2==0)
+      { $color=$row_color_1; }
+      else
+      { $color=$row_color_2; }
       $template->assign_block_vars('tab1', array(
 	'DATA_ROW_COLOR' => $color,
 	'DATA_SHOW_SINGEL_STAT' => $anz_statistik,
@@ -222,13 +221,14 @@ if ($userconfig['loeschen'])
   	'DATA_LINK_DELETE_FUNC' => $daten[id].$loeschen_seiten,
 	'L_DELETE_ENTRY_FROM_DB' => $textdata[showstatnew_loesche_db]));
  }
+ $i++;
  }//END SHOW MSN
     //TEMPLATE FUELLEN ENDE
     
     
     
     
-  $i++;  
+    
  }//END WHILE $result_angerufene
 
 

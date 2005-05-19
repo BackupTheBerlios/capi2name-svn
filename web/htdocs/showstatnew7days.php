@@ -72,8 +72,6 @@ switch ($tag[$es])
     break;
    }
 
-
-
 $template->assign_block_vars('tab0',array(
 		'L_DATE_P' => $datum[$es],
 		'L_DAY_P' => $tag[$es],
@@ -96,7 +94,7 @@ if ($userconfig['showmsn'])
  }
 if ($userconfig['showrueckruf'])
  {
-  
+ 
   $template->assign_block_vars('tab0.userconfig_show_call_back',array('L_SHOW_CALL_BACK' => $textdata[showstatnew_zurueckrufen]));
  }
 if ($userconfig['loeschen']) 
@@ -104,112 +102,75 @@ if ($userconfig['loeschen'])
   $template->assign_block_vars('tab0.userconfig_show_delete',array('L_DELETE_ENTRY_TITLE' => $textdata[showstatnew_loeschen]));
  }
  
-$i=0;
+
+ 
 $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 $tmp=datum_mysql($datum[$es]);
-$tab_angerufene=$zugriff_mysql->sql_abfrage("SELECT * FROM angerufene WHERE datum='$tmp' ORDER BY 'id'  DESC");
-  while($data=mysql_fetch_row($tab_angerufene))
-   {
-    //alles zurücksetzten:
-    $data[2]=mysql_datum($data[2]);
-    $anz_name="";
-    $anz_reuckruf="";
-    $anz_vorwahl="";
-    $anz_insaddr="";
-    $anz_statistik="";
-    $anz_typ="";
+$sql_query="SELECT  t1.id,t1.rufnummer,t1.datum,t1.uhrzeit,t1.name,t1.dienst,t1.vorwahl,
+		t3.name_first, t3.name_last,t3.id AS ADDR_ID,
+		t4.name AS msn_name
+		FROM angerufene AS t1
+		LEFT JOIN phonenumbers AS t2 ON t1.rufnummer=t2.number
+		LEFT JOIN addressbook AS t3 ON t2.addr_id=t3.id
+		LEFT JOIN msnzuname AS t4 ON t1.msn=t4.msn WHERE t1.datum='$tmp' ORDER BY t1.id DESC";
 
-    if($i%2==0)
-      { $color=$row_color_1; }
-    else
-      { $color=$row_color_2; }
 
-    //MSNS überprüfen:
-    $show_entry_msns=msns_ueberpruefen($userconfig['msns'],$data[6]);
-     
-     
-   
-   $tab_adressbuch =$zugriff_mysql->sql_abfrage("SELECT id,vorname,nachname,tele1,tele2,tele3,handy,fax FROM adressbuch WHERE tele1='$data[1]' OR tele2='$data[1]' OR tele3='$data[1]' OR handy='$data[1]' OR fax='$data[1]'");
-   $adress_data=mysql_fetch_row($tab_adressbuch);
-   if ($adress_data==false)
+$result_angerufene=$zugriff_mysql->sql_abfrage($sql_query);
+$zugriff_mysql->close_mysql();
+$i=0;
+while($daten=mysql_fetch_assoc($result_angerufene))
+ {
+ //resetten der vars:
+ $anz_statistik="";
+ $anz_name="";
+ $anz_insaddr="";
+ $anz_rueckruf="";
+   if ($daten[rufnummer]=="unbekannt" && $daten[name]=="unbekannt")
     {
-  
-     if ($data[1]=="unbekannt")
-      {
-        if ($data[5]=="unbekannt")
-         {
-	$anz_name="<a href=\"./showstatnew.php?unbekannt=yes&amp;einid=$data[0]\">unbekannt</a>";
-	$anz_name1_d="unbekannt";
-	 }
-	else
-	 {
-	  $anz_name="$data[5]";
-	  $anz_name1_d="$data[5]";
-	 } 
-      } // if data[1]==unbekannt ebde
-     else
-      {
-      //ins adressbuch anzeigen
-      $anz_name="$textdata[showstatnew_unbekannt]";
-      //erkenne handyNr oder Festnetznummer:
-     $wertaddaddr=handynr_vorhanden($data[1]); 
-     $anz_insaddr="<a href=\"./addressbook_add.php?$wertaddaddr\"><img src=\"./images/1rightarrow.gif\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
-      }
-    $anz_name1=$anz_name;
-    } // if adresse gefunden in DB ENDE
-    else
-    {
-      if ($adress_data[6]==$data[1])
-       {
-        $full_name="$adress_data[1] $adress_data[2] $textdata[showstatnew_handy]";
-       }
-      elseif ($adress_data[7]==$data[1])
-       {
-        $full_name="$adress_data[1] $adress_data[2] (FAX)";
-       } 
-      else
-       {
-       $full_name="$adress_data[1] $adress_data[2]";
-       }
-     $anz_name1_d=$full_name;
-     $anz_name="<a href=\"./addressbook.php?id=$adress_data[0]#find\">$full_name</a>";
-     $anz_statistik="<a href=\"./stat_anrufer.php?id=$adress_data[0]\" title=\"$textdata[showstatnew_zeige_anrufstat] $adress_data[1] $adress_data[2]\">
-      <img  src=\"./images/data.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
-    } // else ende adresse in DB gefunden
-   $d_name=base64_encode($anz_name1_d);
-   $d_uhrzeit=base64_encode($data[3]);
-   $d_datum=base64_encode($data[2]);
-   $anz_rueckruf="<a href=\"./callback.php?add=yes&amp;addr=$adress_data[0]\">
+     $anz_name="<a href=\"./showstatnew.php?unbekannt=yes&einid=$daten[id]\">unbekannt</a>";
+     $anz_rueckruf="<a href=\"./callback.php?add=yes&amp;addr=\">
    <img src=\"./images/1leftarrow.gif\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
-   
-//show_vorwahl
-if ($userconfig['showvorwahl'])
-  {
-   $anz_vorwahl=$data[7];
-  }
-  
-//MSN zu Name
-$anz_msn=msnzuname($data[6]);
-// Anruftyp bzw Dienstkennung erkennen:
-$anz_dienst=ermittle_typ_anruf($data[8]);;
-
-//Datum umwandeln wenn heute oder gestern, dann schreibe heute/gestern
-$anz_datum=anzeige_datum($data[2]);
-
-// SCHREIBE DATEN in TABELLE:
-//datenblock in eine Variable schreiben:
-
-
-
+    }
+   elseif ($daten[rufnummer]!="unbekannt" && $daten[name_last]==NULL)
+    {
+     $anz_name=$daten[name];
+     $wertaddaddr=handynr_vorhanden($daten[rufnummer]);
+     $anz_insaddr="<a href=\"./addressbook_add.php?$wertaddaddr\"><img src=\"./images/1rightarrow.gif\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\" /></a>";
+     $anz_rueckruf="<a href=\"./callback.php?add=yes&amp;addr=\">
+   <img src=\"./images/1leftarrow.gif\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
+    }
+   elseif ($daten[rufnummer]=="unbekannt" && $daten[name]!="unbekannt")
+    {
+     $anz_name=$daten[name];
+     $anz_rueckruf="<a href=\"./callback.php?add=yes&amp;addr=\">
+   <img src=\"./images/1leftarrow.gif\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
+    }
+   else
+    {
+     $anz_name="<a href=\"./addressbook.php?id=$daten[ADDR_ID]#find\">$daten[name_first] $daten[name_last]</a>";
+     $anz_statistik="<a href=\"./stat_anrufer.php?id=$daten[ADDR_ID]\" title=\"$textdata[showstatnew_zeige_anrufstat] $daten[name_first] $daten[name_last]\"><img  src=\"./images/data.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\" /></a>";
+     $anz_rueckruf="<a href=\"./callback.php?add=yes&amp;addr=$daten[ADDR_ID]\">
+   <img src=\"./images/1leftarrow.gif\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
+    }
+    //MSNS überprüfen:
+    $show_entry_msns=msns_ueberpruefen($userconfig['msns'],$daten[msn]);
+    //Datum umwandeln, und wegen Heute/Gestern funktion:
+    $anz_datum=anzeige_datum(mysql_datum($daten[datum]));
+    //ermittle Dienstkennung:
+    $anz_dienst=ermittle_typ_anruf($daten[dienst]); 
 
 if ($show_entry_msns) 
 {  
+  if($i%2==0)
+   { $color=$row_color_1; }
+  else
+   { $color=$row_color_2; }
   $template->assign_block_vars('tab0.tab1', array(
   'DATA_ROW_COLOR' => $color,
   'DATA_SHOW_SINGEL_STAT' => $anz_statistik,
   'DATA_SHOW_DATE' => $anz_datum,
-  'DATA_SHOW_CLOCK' => $data[3],
-  'DATA_SHOW_NUMBER' => $data[1],
+  'DATA_SHOW_CLOCK' => $daten[uhrzeit],
+  'DATA_SHOW_NUMBER' => $daten[rufnummer],
   'DATA_SHOW_CALLERS_NAME' => $anz_name,
   'DATA_TO_ADDR' => $anz_insaddr));
 
@@ -219,7 +180,7 @@ if ($userconfig['showtyp'])
  }
 if ($userconfig['showvorwahl'])
  {
-  $template->assign_block_vars('tab0.tab1.show_prefix', array('DATA_SHOW_PREFIX' => $data[7]));
+  $template->assign_block_vars('tab0.tab1.show_prefix', array('DATA_SHOW_PREFIX' => $daten[vorwahl]));
  }
 if ($userconfig['showmsn']) 
  {
@@ -232,16 +193,13 @@ if ($userconfig['showrueckruf'])
 if ($userconfig['loeschen'])
  {
   $template->assign_block_vars('tab0.tab1.show_delete_func', array(
-  	'DATA_LINK_DELETE_FUNC' => $data[0].$loeschen_seiten,
+  	'DATA_LINK_DELETE_FUNC' => $daten[id].$loeschen_seiten,
 	'L_DELETE_ENTRY_FROM_DB' => $textdata[showstatnew_loesche_db]));
  }
-//END WRITE DATA TO TABLE
-  $i++;
-}
-  
-     
-} // while zu ende
-$zugriff_mysql->close_mysql(); 
+ $i++;
+ }//show entry msn 
+} //WHILE ende     
+
 }//ende FOR schleife
 
 $template->pparse('overall_body');
