@@ -6,10 +6,11 @@ Capi2name 0.6.7.6.2 YYYY-MM-DD - Jonas Genannt - <jonasge@gmx.net> ---BETA
 	o PHP: removed: cs_capisuite_config.inc.php
 	o PHP: removed: admin/cs_conf.inc.ini
 	o PHP: removed: web/sontiges we don't need it anymore->template system
-	o PHP: Fixed: link for global_search.php
 	o PHP: Added: new addressbook table including phonenumbers table
 	o PHP: Changed all files that works with the old 'adressbuch' table
 	o PHP: Added update script for copy from old to new 'adressbuch' table
+	o PHP: Fixed: admin/msn2name.php links for the images
+	o PHP: Fixed: link for global_search.php
 	
 Capi2name 0.6.7.6.1 2005-05-15 - Jonas Genannt - <jonasge@gmx.net> 
 	o PHP: renamed: globale_suche.php to global_search.php

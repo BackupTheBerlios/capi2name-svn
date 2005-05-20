@@ -106,7 +106,7 @@ if ($userconfig['loeschen'])
  
 $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 $tmp=datum_mysql($datum[$es]);
-$sql_query="SELECT  t1.id,t1.rufnummer,t1.datum,t1.uhrzeit,t1.name,t1.dienst,t1.vorwahl,
+$sql_query="SELECT  t1.id,t1.rufnummer,t1.datum,t1.uhrzeit,t1.name,t1.dienst,t1.vorwahl,t1.msn,
 		t3.name_first, t3.name_last,t3.id AS ADDR_ID,
 		t4.name AS msn_name
 		FROM angerufene AS t1
@@ -125,6 +125,7 @@ while($daten=mysql_fetch_assoc($result_angerufene))
  $anz_name="";
  $anz_insaddr="";
  $anz_rueckruf="";
+ $anz_msn="";
    if ($daten[rufnummer]=="unbekannt" && $daten[name]=="unbekannt")
     {
      $anz_name="<a href=\"./showstatnew.php?unbekannt=yes&einid=$daten[id]\">unbekannt</a>";
@@ -152,6 +153,14 @@ while($daten=mysql_fetch_assoc($result_angerufene))
      $anz_rueckruf="<a href=\"./callback.php?add=yes&amp;addr=$daten[ADDR_ID]\">
    <img src=\"./images/1leftarrow.gif\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
     }
+    if ($daten[msn_name]==NULL)
+     {
+      $anz_msn=$daten[msn];
+     }
+    else
+     {
+      $anz_msn=$daten[msn_name];
+     }
     //MSNS überprüfen:
     $show_entry_msns=msns_ueberpruefen($userconfig['msns'],$daten[msn]);
     //Datum umwandeln, und wegen Heute/Gestern funktion:

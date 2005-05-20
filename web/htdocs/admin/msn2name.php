@@ -90,8 +90,8 @@ $result=mysql_query("SELECT * FROM msnzuname");
    echo "<tr>
     <td>$row[msn]</td>
 	<td>$row[name]</td>
-	<td style=\"text-align:center;\"><a href=\"./msn2nameb.php?bid=$row[id]\"><img src=\"../bilder/edit.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a></td>
-	<td style=\"text-align:center;\"><a href=\"./msn2name.php?loeschen=$row[id]\"><img src=\"../bilder/edittrash.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a></td>
+	<td style=\"text-align:center;\"><a href=\"./msn2nameb.php?bid=$row[id]\"><img src=\"../images/edit.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a></td>
+	<td style=\"text-align:center;\"><a href=\"./msn2name.php?loeschen=$row[id]\"><img src=\"../images/edittrash.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a></td>
    </tr>";
   }
  
