@@ -48,7 +48,7 @@
    <div class="menuitem"><a href="./showstatnew.php?datum=gestern">{L_CALL_STAT_YESTERDAY}</a></div>
    <div class="menuitem"><a href="./showstatnew7days.php">{L_CALL_STAT_7_DAYS}</a></div>
    <div class="menuitem"><a href="./statistic_all_calls.php">{L_CALL_ALL_STAT}</a></div>
-   <div class="menuitem"><a href="./stat_monat.php">{L_CALL_STAT_MONTH}</a></div>
+   <div class="menuitem"><a href="./statistic_monthly.php">{L_CALL_STAT_MONTH}</a></div>
    <div class="menuitem"><a href="./global_search.php">{L_SEARCH}</a></div>
    <div class="menuitem"><a href="./calendar.php">{L_CALENDAR}</a></div>
    <!-- BEGIN show_delete_page_unkown_calls_on -->
