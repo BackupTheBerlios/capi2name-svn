@@ -21,22 +21,19 @@ session_start();
 if ($_SESSION['show_callback_notify'])
  {
   $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-  $result_callback=$zugriff_mysql->sql_abfrage("SELECT t1.*,t2.nachname,t2.vorname,t2.tele1,t2.handy FROM callback AS t1 LEFT JOIN adressbuch AS t2 ON t1.addr_id=t2.id WHERE t1.user_id=".$_SESSION['user_id']  ." AND t1.notify=1;");
+  $result_callback=$zugriff_mysql->sql_abfrage("SELECT t1.*,t2.name_first,t2.name_last,t3.number AS RUFNR
+  FROM callback AS t1 LEFT JOIN addressbook AS t2 ON t1.addr_id=t2.id LEFT JOIN phonenumbers AS t3 ON t3.addr_id=t2.id WHERE t1.user_id=".$_SESSION['user_id']  ." AND t1.notify=1 GROUP BY t1.id");
   $zugriff_mysql->sql_abfrage("UPDATE callback SET notify=0 WHERE user_id=".$_SESSION['user_id']);
   $_SESSION['show_callback_notify']=false;
   while($daten_callback=mysql_fetch_assoc($result_callback))
    {
-    if ($daten_callback[tele1]=="99")
-     {
-      $number=$daten_callback[handy];
-     }
-   elseif ($daten_callback[addr_id]==-1)
+   if ($daten_callback[addr_id]==-1)
      {
       $number=$daten_callback[number];
      }
     else
      {
-      $number=$daten_callback[tele1];
+      $number=$daten_callback[RUFNR];
      }
     switch ($daten_callback[callback_time])
      {
@@ -60,7 +57,7 @@ if ($_SESSION['show_callback_notify'])
    }
   else
    {
-   $full_name="$daten_callback[vorname] $daten_callback[nachname]";
+   $full_name="$daten_callback[name_first] $daten_callback[name_last]";
    }
     $template->assign_block_vars('tab1',array(
     		'L_DATA_NAME' => $full_name,

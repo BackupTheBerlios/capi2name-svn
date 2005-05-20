@@ -125,11 +125,9 @@ $sql_query_1="SELECT  t1.id,t1.rufnummer,t1.datum,t1.uhrzeit,t1.name,t1.dienst,t
 		LEFT JOIN addressbook AS t3 ON t2.addr_id=t3.id
 		LEFT JOIN msnzuname AS t4 ON t1.msn=t4.msn";
 $sql_query_2=" ORDER BY t1.id DESC";
-
-
 if (!empty($sql_datum))
 {
- $sql_query=$sql_query_1 . " WHERE t1.datum='". datum_mysql($datum)."'";
+ $sql_query=$sql_query_1 . " WHERE t1.datum='". datum_mysql($sql_datum)."'";
 }
 else
 {
@@ -173,7 +171,7 @@ while($daten=mysql_fetch_assoc($result_angerufene))
    else
     {
      $anz_name="<a href=\"./addressbook.php?id=$daten[ADDR_ID]#find\">$daten[name_first] $daten[name_last]</a>";
-     $anz_statistik="<a href=\"./stat_anrufer.php?id=$daten[ADDR_ID]\" title=\"$textdata[showstatnew_zeige_anrufstat] $daten[name_first] $daten[name_last]\"><img  src=\"./images/data.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\" /></a>";
+     $anz_statistik="<a href=\"./statistic_person.php?id=$daten[ADDR_ID]\" title=\"$textdata[showstatnew_zeige_anrufstat] $daten[name_first] $daten[name_last]\"><img  src=\"./images/data.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\" /></a>";
      $anz_rueckruf="<a href=\"./callback.php?add=yes&amp;addr=$daten[ADDR_ID]\">
    <img src=\"./images/1leftarrow.gif\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
     }

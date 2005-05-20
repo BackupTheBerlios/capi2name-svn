@@ -75,21 +75,17 @@ $template->assign_block_vars('tab1',array(
 		'L_CALL_TIME' => $text[anruf_zeit],
 		'L_CALL_BACK_TIME' => $text[zurueck_zeit]));
 $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-$result_callback=$zugriff_mysql->sql_abfrage("SELECT t1.*,t2.nachname,t2.vorname,t2.tele1,t2.handy FROM callback AS t1 LEFT JOIN adressbuch AS t2 ON t1.addr_id=t2.id WHERE t1.user_id=".$_SESSION['user_id']);
+$result_callback=$zugriff_mysql->sql_abfrage("SELECT t1.*,t2.name_last,t2.name_first,t3.number AS RUFNR FROM callback AS t1 LEFT JOIN addressbook AS t2 ON t1.addr_id=t2.id LEFT JOIN phonenumbers AS t3 ON t3.addr_id=t2.id WHERE t1.user_id=".$_SESSION['user_id']." GROUP BY t1.id");
 
 while($daten=mysql_fetch_assoc($result_callback))
  {
-   if ($daten[tele1]=="99")
-     {
-      $number=$daten[handy];
-     }
-   elseif($daten[addr_id]==-1)
+   if($daten[addr_id]==-1)
    {
     $number=$daten[number];
    }
    else
      {
-      $number=$daten[tele1];
+      $number=$daten[RUFNR];
      }
    switch ($daten[callback_time])
      {
@@ -113,7 +109,7 @@ while($daten=mysql_fetch_assoc($result_callback))
    }
   else  
    {
-    $full_name="<a href=\"./addressbook.php?id=$daten[addr_id]\">$daten[vorname] $daten[nachname]</a>";
+    $full_name="<a href=\"./addressbook.php?id=$daten[addr_id]\">$daten[name_first] $daten[name_last]</a>";
    }
   $template->assign_block_vars('tab2',array(
   	'DATA_NAME' => $full_name,
@@ -133,21 +129,13 @@ if ($_GET[add]== "yes")
  if (!empty($_GET[addr]))
   {
    //user kommt von showstatnew.php und hat id vom addr
-   $result_addr=$zugriff_mysql->sql_abfrage("SELECT id,tele1,vorname,nachname,handy FROM adressbuch WHERE id='$_GET[addr]'");
+   $result_addr=$zugriff_mysql->sql_abfrage("SELECT t1.id,t1.name_first,t1.name_last,t2.number FROM addressbook AS t1 LEFT JOIN  phonenumbers AS t2 ON t2.addr_id=t1.id WHERE t1.id='$_GET[addr]' LIMIT 1");
    $daten_addr=mysql_fetch_assoc($result_addr);
-   if ($daten_addr[tele1]=="99")
-    {
-     $number=$daten_addr[handy];
-    }
-   else
-    {
-     $number=$daten_addr[tele1];
-    }
-   
+
    $template->assign_block_vars('insert_with_addr',array(
    		'L_TITLE_NEW' => 'Neuer Eintrag',
 		'L_NAME' => $text[name1],
-   		'L_DATA_NAME' => $daten_addr[vorname]." ".$daten_addr[nachname],
+   		'L_DATA_NAME' => $daten_addr[name_first]." ".$daten_addr[name_last],
 		'L_DATA_NUMBER' => $number,
 		'L_DATA_ID' => $daten_addr[id],
 		'L_SAVE_DATA' => $text[speichern],
@@ -224,12 +212,12 @@ if ($_GET[add]== "yes")
 			'L_DATA_ID' => $daten_users[id]));
       }
     }
-  $result_addr=$zugriff_mysql->sql_abfrage("SELECT id,vorname,nachname,tele1,handy FROM adressbuch ORDER BY nachname");
+  $result_addr=$zugriff_mysql->sql_abfrage("SELECT id,name_last,name_first FROM addressbook ORDER BY name_last");
   while($daten_addr=mysql_fetch_assoc($result_addr))
    {
     $template->assign_block_vars('insert_without_addr.tab1',array(
   		'DATA_ADDR_ID' => $daten_addr[id],
-		'DATA_ADDR_NAME' => $daten_addr[vorname]." ".$daten_addr[nachname]));
+		'DATA_ADDR_NAME' => $daten_addr[name_first]." ".$daten_addr[name_last]));
    }  
 
   }//END insert_without_addr

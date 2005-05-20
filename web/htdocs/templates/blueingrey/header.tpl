@@ -47,7 +47,7 @@
    <div class="menuitem"><a href="./showstatnew.php?datum=heute">{L_CALL_STAT_TODAY}</a></div>
    <div class="menuitem"><a href="./showstatnew.php?datum=gestern">{L_CALL_STAT_YESTERDAY}</a></div>
    <div class="menuitem"><a href="./showstatnew7days.php">{L_CALL_STAT_7_DAYS}</a></div>
-   <div class="menuitem"><a href="./stat_gesamt.php">{L_CALL_ALL_STAT}</a></div>
+   <div class="menuitem"><a href="./statistic_all_calls.php">{L_CALL_ALL_STAT}</a></div>
    <div class="menuitem"><a href="./stat_monat.php">{L_CALL_STAT_MONTH}</a></div>
    <div class="menuitem"><a href="./global_search.php">{L_SEARCH}</a></div>
    <div class="menuitem"><a href="./calendar.php">{L_CALENDAR}</a></div>

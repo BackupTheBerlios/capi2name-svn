@@ -13,7 +13,7 @@
  *                                                                         *
  ***************************************************************************/
 
-$seite=base64_encode("stat_gesamt.php");
+$seite=base64_encode("statistic_all_calls.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
 

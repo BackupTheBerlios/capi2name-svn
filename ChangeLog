@@ -1,12 +1,15 @@
 Capi2name 0.6.7.6.2 YYYY-MM-DD - Jonas Genannt - <jonasge@gmx.net> ---BETA
+	o PHP: renamed: stat_gesamt.php to statistic_all_calls.php
+	o PHP: renamed: stat_anrufer.php to statistic_person.php
+	o PHP: renamed: stat_monat.php to statistic_monthly.php
 	o PHP: admin/cs_install.php changed to from ini-file to config table
 	o PHP: removed: cs_capisuite_config.inc.php
 	o PHP: removed: admin/cs_conf.inc.ini
 	o PHP: removed: web/sontiges we don't need it anymore->template system
 	o PHP: Fixed: link for global_search.php
-	o PHP: Added: new addressbook table including phonenumbers
-	o PHP: Changed all files that works with the old 'adressbuch table
-	o PHP: Added update script for copy from old to new table
+	o PHP: Added: new addressbook table including phonenumbers table
+	o PHP: Changed all files that works with the old 'adressbuch' table
+	o PHP: Added update script for copy from old to new 'adressbuch' table
 	
 Capi2name 0.6.7.6.1 2005-05-15 - Jonas Genannt - <jonasge@gmx.net> 
 	o PHP: renamed: globale_suche.php to global_search.php

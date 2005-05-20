@@ -14,7 +14,7 @@
  ***************************************************************************/
  ?>
 <?php
-$seite=base64_encode("globale_suche.php");
+$seite=base64_encode("global_search.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
 ?>
