@@ -1,6 +1,6 @@
 <?
 /*
-    copyright            : (C) 2002-2003 by Jonas Genannt
+    copyright            : (C) 2002-2005 by Jonas Genannt
     email                : jonasge@gmx.net
  ***************************************************************************/
 
@@ -12,11 +12,9 @@
  *   any later version.                                   *
  *                                                                         *
  ***************************************************************************/
- ?>
-<?
 include("./check_it.php");
 include("./header.inc.php");
-$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 ?>
 
 
@@ -32,14 +30,14 @@ if (isset($_GET[loschen]))
   if (isset($_GET[ok]))
    {
     echo "<center>Eintrag mit ID-Nr. $loeschid gelöscht!</center>";
-    $result=mysql_query("DELETE  FROM vorwahl WHERE id=$_GET[loeschid]");
+    $result=$dataB->sql_query("DELETE  FROM vorwahl WHERE id=$_GET[loeschid]");
     if ($result!="true") { echo "Capi2Name meldet Fehler. Mysql-Says:". mysql_error(); }
    }//if isset ok ende
   else
    {
 
-    $result=mysql_query("SELECT id,vorwahlnr,name FROM vorwahl WHERE id=$_GET[loeschid]");
-    $daten=mysql_fetch_array($result);
+    $result=$dataB->sql_query("SELECT id,vorwahlnr,name FROM vorwahl WHERE id=$_GET[loeschid]");
+    $daten=$dataB->sql_fetch_assoc($result);
        echo "Eintrag mit ID-Nr. $daten[id] wirklich löschen ?<center>- $daten[vorwahlnr] - $daten[name] -<br><br>";
        echo "-> <a href=\"./vorwahlb.php?loschen=yes&loeschid=$daten[id]&ok=yes\">Löschen</a> <-</center>";
    } //else ende
@@ -50,8 +48,8 @@ if (isset($_GET[loschen]))
 if (isset($_GET[edit]))
  {
   echo "<center><table border=\"0\"><form action=\"./vorwahlb.php\" method=\"post\">";
-  $result=mysql_query("SELECT id,vorwahlnr,name FROM vorwahl WHERE id=$_GET[editid]");
-  $daten=mysql_fetch_array($result);
+  $result=$dataB->sql_query("SELECT id,vorwahlnr,name FROM vorwahl WHERE id=$_GET[editid]");
+  $daten=$dataB->sql_fetch_assoc($result);
   echo "<tr>
          <td>ID</td>
 	 <td>Vorwahl</td>
@@ -71,7 +69,7 @@ if (isset($_GET[edit]))
 if (isset($_POST[aendern]))
   {
   echo "ID: $_POST[eid]<br>Vorwahl: $_POST[evorwahl]<br>Name: $_POST[ename]";
-    mysql_query("UPDATE vorwahl SET vorwahlnr='$_POST[evorwahl]',name='$_POST[ename]' WHERE id=$_POST[eid]");
+  $dataB->sql_query("UPDATE vorwahl SET vorwahlnr='$_POST[evorwahl]',name='$_POST[ename]' WHERE id=$_POST[eid]");
   }
 
 
@@ -80,6 +78,6 @@ if (isset($_POST[aendern]))
 
 
 <?
-$zugriff_mysql->close_mysql();
+$dataB->sql_close();
 include("./footer.inc.php");
 ?>

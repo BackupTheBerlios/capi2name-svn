@@ -19,13 +19,12 @@ $password=$_SESSION['adminpassword'];
 $login_ok=0;
 
 
-
-$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-$result_userlist=$zugriff_mysql->sql_abfrage("SELECT username,passwd FROM users WHERE username='admin'");
+$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+$result_userlist=$dataB->sql_query("SELECT username,passwd FROM users WHERE username='admin'");
 
  if ($result_userlist && $password!="")
   {
-  $row_userlist=mysql_fetch_assoc($result_userlist);
+  $row_userlist=$dataB->sql_fetch_assoc($result_userlist);
     if ($password==$row_userlist['passwd'])
     {
     // echo "PASSWD Richtig...";
@@ -43,7 +42,7 @@ $result_userlist=$zugriff_mysql->sql_abfrage("SELECT username,passwd FROM users 
   {
    $login_ok=0;
   }
-$zugriff_mysql->close_mysql();
+$dataB->sql_close();
 
 //printf("ENDE: CHECK: Loginok: $loginok");
 if ($login_ok == 0)

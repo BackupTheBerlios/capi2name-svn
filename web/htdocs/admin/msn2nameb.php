@@ -1,6 +1,6 @@
 <?
 /*
-    copyright            : (C) 2002-2003 by Jonas Genannt
+    copyright            : (C) 2002-2005 by Jonas Genannt
     email                : jonasge@gmx.net
  ***************************************************************************/
 
@@ -12,21 +12,19 @@
  *   any later version.                                   *
  *                                                                         *
  ***************************************************************************/
- ?>
-<?
 include("./check_it.php");
 include("./header.inc.php");
-?>
-<div class="ueberschrift_seite">edit MSN to Name</div>
-<?
+
+echo "<div class=\"ueberschrift_seite\">edit MSN to Name</div>";
+
 if (isset($_POST[save]))
  {
   
-  $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-  $res=mysql_query("DELETE FROM msnzuname WHERE id=$_POST[id]");
+  $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+  $res=$dataB->sql_query("DELETE FROM msnzuname WHERE id=$_POST[id]");
   if ($res)
    {
-    $result=mysql_query("INSERT INTO msnzuname VALUES('$_POST[id]','$_POST[msn]', '$_POST[name]')");
+    $result=$dataB->sql_query("INSERT INTO msnzuname VALUES('$_POST[id]','$_POST[msn]', '$_POST[name]')");
     if ($result)
       {
 	echo "<span style=\"text-align:center;color:blue;\">Eintrag erfolgreich in Datenbank geschreiben !</span>";
@@ -41,17 +39,17 @@ if (isset($_POST[save]))
     echo "<center><font color=\"red\">Eintrag NICHT erfolgreich gelöscht</font></center>";
     echo mysql_error();
     }
-$zugriff_mysql->close_mysql();
+$dataB->sql_close();
    }
 ?>
 
 <?
 if (isset($_GET[bid]))
  {
-$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-$result=mysql_query("SELECT id,name,msn FROM msnzuname WHERE id='$_GET[bid]'");
-$daten=mysql_fetch_array($result);
-$zugriff_mysql->close_mysql();
+$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+$result=$dataB->sql_query("SELECT id,name,msn FROM msnzuname WHERE id='$_GET[bid]'");
+$daten=$dataB->sql_fetch_array($result);
+$dataB->sql_close();
 ?>
 <form action="msn2nameb.php" method="post">
 <table border="0"  style="margin-right:auto;margin-left:auto;">
@@ -76,11 +74,6 @@ $zugriff_mysql->close_mysql();
 </form>
 <?
 } //nur anzeigen wenn bid gesetzt ist.
-?>
 
-
-
-
-<?
 include("footer.inc.php");
 ?>

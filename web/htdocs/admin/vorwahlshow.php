@@ -12,11 +12,9 @@
  *   any later version.                                   *
  *                                                                         *
  ***************************************************************************/
- ?>
-<?
 include("./check_it.php");
 include("./header.inc.php");
-$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+$dataB->sql_coennect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 ?>
 
 
@@ -36,7 +34,7 @@ Dies kann hier festlegen.
 if (isset($_POST[eintragen]))
  {
 // echo "<br><br>Vorwahl: $einvorwahl<br>Name: $einname<br>";
- $res=mysql_query("INSERT INTO vorwahl VALUES( '', '$_POST[einvorwahl]', '$_POST[einname]')");
+ $res=$dataB->sql_query("INSERT INTO vorwahl VALUES( '', '$_POST[einvorwahl]', '$_POST[einname]')");
  if (!$res)
   { echo "Capi2Name meldet Fehler in der DB ansteuerung<br> Mysql Says:".mysql_error();  }
 
@@ -73,8 +71,8 @@ if(isset($_GET[neuereintrag]))
   <td>Loschen</td>
  </tr>
 <?
-  $result=mysql_query("SELECT * FROM vorwahl");
-  while($daten=mysql_fetch_array($result))
+  $result=$dataB->sql_query("SELECT * FROM vorwahl");
+  while($daten=$dataB->sql_fetch_assoc($result))
    {
      echo "
      <tr>
@@ -95,9 +93,7 @@ if(isset($_GET[neuereintrag]))
 <a href="./vorwahl.php?neuereintrag=yes">Neuer Eintrag</a>
 <br>
 </center>
-
-
 <?
-$zugriff_mysql->close_mysql();
+$dataB->sql_close();
 include("./footer.inc.php");
 ?>

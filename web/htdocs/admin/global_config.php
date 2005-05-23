@@ -14,34 +14,29 @@
  ***************************************************************************/
 include("./check_it.php");
 include("./header.inc.php");
-
-?>
-<div class="ueberschrift_seite">Global Config</div>
-
-<?
+echo "<div class=\"ueberschrift_seite\">Global Config</div>";
 if (isset($_POST[submit_data]))
  {
   $all_ok=true;
-  $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+  $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
   if ($_POST[template]== "user_define")
    {
-    $result=$zugriff_mysql->sql_abfrage("UPDATE config SET value='' WHERE conf='template'");
+    $result=$dataB->sql_query("UPDATE config SET value='' WHERE conf='template'");
    }
   else
    {
-   $result=$zugriff_mysql->sql_abfrage("UPDATE config SET value='$_POST[template]' WHERE conf='template'");
+   $result=$dataB->sql_query("UPDATE config SET value='$_POST[template]' WHERE conf='template'");
    }
-   $result=$zugriff_mysql->sql_abfrage("UPDATE config SET value='$_POST[default_template]' WHERE conf='default_template'");
+   $result=$dataB->sql_query("UPDATE config SET value='$_POST[default_template]' WHERE conf='default_template'");
    
  if (!$all_ok)
   {
    echo "<div class=\"rot_mittig\">Somethink is wrong, please check your imput!</div>";
   }
  // $zugriff_mysql->sql_abfrage("UPDATE");
-  $zugriff_mysql->close_mysql();
+  $dataB->sql_close();
  }
 ?>
-
 
 <table border="0" style="margin-right:auto;margin-left:auto;">
  <tr>
@@ -51,9 +46,9 @@ if (isset($_POST[submit_data]))
  </tr>
 <form action="global_config.php" method="post">
 <?
-$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-$result=$zugriff_mysql->sql_abfrage("SELECT * FROM config");
-$zugriff_mysql->close_mysql();
+$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+$result=$dataB->sql_query("SELECT * FROM config");
+$dataB->sql_close();
 
 $dir= "../templates/";
 $dh=opendir($dir);
@@ -65,7 +60,7 @@ $dh=opendir($dir);
    }
  }
 
-while($daten=mysql_fetch_assoc($result))
+while($daten=$dataB->sql_fetch_assoc($result))
  {
  if ($daten[conf]=="db_version")
   {

@@ -14,14 +14,14 @@
  ***************************************************************************/
 include("./check_it.php");
 include("./header.inc.php");
-$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 if (isset($_POST[save]))
  {
  $data_array=array("cs_voice_user_dir", "cs_fax_user_dir","cs_use_mogrify", "cs_mogrify", "cs_sff2misc", "cs_temp_dir" );
  for ($i=0;$i<=5;$i++)
   {
    $value=$data_array[$i];
-   $result=$zugriff_mysql->sql_abfrage("UPDATE config SET value='$_POST[$value]' WHERE conf='$value'");
+   $result=$dataB->sql_query("UPDATE config SET value='$_POST[$value]' WHERE conf='$value'");
    if (!$result)
     {
      echo "Error on updaten config tabele: $value!<br>Mysql-Says: ";
@@ -34,12 +34,12 @@ if (isset($_POST[save]))
  }//if isset ENDE
 
 
-$result=$zugriff_mysql->sql_abfrage("SELECT * FROM config WHERE conf LIKE 'cs_%'");
- while($daten_cs=mysql_fetch_assoc($result))
+$result=$dataB->sql_query("SELECT * FROM config WHERE conf LIKE 'cs_%'");
+ while($daten_cs=$dataB->sql_fetch_assoc($result))
   {
    $cs_conf[$daten_cs[conf]]=$daten_cs[value];
   }
-$zugriff_mysql->close_mysql();
+$dataB->sql_close();
 
 ?>
 <div class="ueberschrift_seite">CapiSuite Setup</div>

@@ -30,10 +30,10 @@ include("./header.inc.php");
  </tr>
 
 <?
-$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-$result=$zugriff_mysql->sql_abfrage("SELECT id,username,passwd,lastlogin_d,lastlogin_t FROM users");
-$zugriff_mysql->close_mysql();
- while($daten =mysql_fetch_assoc($result))
+$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+$result=$dataB->sql_query("SELECT id,username,passwd,lastlogin_d,lastlogin_t FROM users");
+$dataB->sql_close();
+ while($daten=$dataB->sql_fetch_assoc($result))
   {
   if ($daten[id]!=1)
   {

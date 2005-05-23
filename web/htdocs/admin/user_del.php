@@ -14,11 +14,7 @@
  ***************************************************************************/
 include("./check_it.php");
 include("./header.inc.php");
-?>
-<br>
 
-
-<?
 if ($_POST[id]==1)
  {
  echo "<span class=\"rot_mittig\">You can not delete the administator!!</span>";
@@ -29,10 +25,10 @@ if ($_POST[id]==1)
 
 if (isset($_POST[loeschen]))
  {
- $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-   $result=mysql_query("DELETE FROM users WHERE id=$_POST[id]");
-  $zugriff_mysql->close_mysql();
- if ($result == 1)
+ $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+ $result=$dataB->sql_query("DELETE FROM users WHERE id=$_POST[id]");
+ $dataB->sql_close();
+ if (!$result)
   {
   echo "<span class=\"blau_mittig\">Eintrag mit $_POST[id] erfolgreich gelöscht, Sie werden in 2sec weitergeleitet.</span>";
   echo "<meta http-equiv=\"refresh\" content=\"2; URL=./index.php\">";
@@ -48,12 +44,6 @@ echo "<input type=\"hidden\" name=\"id\" value=\"$_GET[id]\"/>";
 echo "<input type=\"submit\" value=\"Löschen\" name=\"loeschen\"/>";
 echo "</form>";
 }
-?>
 
-
-
-
-
-<?
 include("footer.inc.php");
 ?>

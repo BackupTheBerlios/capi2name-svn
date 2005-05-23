@@ -12,8 +12,6 @@
  *   any later version.                                			   *
  *                                                                         *
  ***************************************************************************/
- ?>
-<?
 $seite=base64_encode("addressbook_edit.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
@@ -50,7 +48,7 @@ if (isset($_POST[tele_save]))
    }
   $dataB->sql_query("UPDATE phonenumbers SET number='$_POST[telephonnr]' WHERE id='$_POST[tele_id]'");
   $dataB->sql_query("UPDATE phonenumbers SET areacode='$typ' WHERE id='$_POST[tele_id]'");
-  $zugriff_mysql->close_mysql();
+  $dataB->sql_close();
  }
 //telephonenumber update END
 //telephonenumber delete BEGIN:

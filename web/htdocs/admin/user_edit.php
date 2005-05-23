@@ -33,58 +33,58 @@ echo "<div class=\"ueberschrift_seite\">Change settings for user $username with 
 if (isset($_POST[edit]))
  {
 //UPDATE userliste SET showrueckruf='$wert' WHERE id=".$_POST[id]
-$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-$result=$zugriff_mysql->sql_abfrage("UPDATE users SET name_first='$_POST[first_name]' WHERE id='$_POST[id]'");
+$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+$result=$dataB->sql_query("UPDATE users SET name_first='$_POST[first_name]' WHERE id='$_POST[id]'");
 if (!$result) 
    {
     echo "<div class=\"rot_mittig\">Updating first name in database failed!!</div>";
    }
-$result=$zugriff_mysql->sql_abfrage("UPDATE users SET name_last='$_POST[last_name]' WHERE id='$_POST[id]'");
+$result=$dataB->sql_query("UPDATE users SET name_last='$_POST[last_name]' WHERE id='$_POST[id]'");
 if (!result) 
    {
     echo "<div class=\"rot_mittig\">Updating last name in database failed!!</div>";
    }
-$result=$zugriff_mysql->sql_abfrage("UPDATE users SET show_config='$_POST[show_config]' WHERE id='$_POST[id]'");
+$result=$dataB->sql_query("UPDATE users SET show_config='$_POST[show_config]' WHERE id='$_POST[id]'");
 if (!$result) 
    {
     echo "<div class=\"rot_mittig\">Updating show config in database failed!!</div>";
    }
-$result=$zugriff_mysql->sql_abfrage("UPDATE users SET show_callback='$_POST[show_callback]' WHERE id='$_POST[id]'");
+$result=$dataB->sql_query("UPDATE users SET show_callback='$_POST[show_callback]' WHERE id='$_POST[id]'");
 if (!$result) 
    {
     echo "<div class=\"rot_mittig\">Updating show callback in database failed!!</div>";
    }
-$result=$zugriff_mysql->sql_abfrage("UPDATE users SET msn_listen='$_POST[msn_listen]' WHERE id='$_POST[id]'");
+$result=$dataB->sql_query("UPDATE users SET msn_listen='$_POST[msn_listen]' WHERE id='$_POST[id]'");
 if (!$result) 
    {
     echo "<div class=\"rot_mittig\">Updating msn listen in database failed!!</div>";
    }
-$result=$zugriff_mysql->sql_abfrage("UPDATE users SET show_lines='$_POST[show_lines]' WHERE id='$_POST[id]'");
+$result=$dataB->sql_query("UPDATE users SET show_lines='$_POST[show_lines]' WHERE id='$_POST[id]'");
 if (!$result) 
    {
     echo "<div class=\"rot_mittig\">Updating show lines in database failed!!</div>";
    }
-$result=$zugriff_mysql->sql_abfrage("UPDATE users SET show_prefix='$_POST[show_prefix]' WHERE id='$_POST[id]'");
+$result=$dataB->sql_query("UPDATE users SET show_prefix='$_POST[show_prefix]' WHERE id='$_POST[id]'");
 if (!$result) 
    {
     echo "<div class=\"rot_mittig\">Updating show prefix in database failed!!</div>";
    }
-$result=$zugriff_mysql->sql_abfrage("UPDATE users SET show_msn='$_POST[show_msn]' WHERE id='$_POST[id]'");
+$result=$dataB->sql_query("UPDATE users SET show_msn='$_POST[show_msn]' WHERE id='$_POST[id]'");
 if (!$result) 
    {
     echo "<div class=\"rot_mittig\">Updating show msn in database failed!!</div>";
    }
-$result=$zugriff_mysql->sql_abfrage("UPDATE users SET show_type='$_POST[show_type]' WHERE id='$_POST[id]'");
+$result=$dataB->sql_query("UPDATE users SET show_type='$_POST[show_type]' WHERE id='$_POST[id]'");
 if (!$result) 
    {
     echo "<div class=\"rot_mittig\">Updating show type in database failed!!</div>";
    }
-$result=$zugriff_mysql->sql_abfrage("UPDATE users SET template='$_POST[template]' WHERE id='$_POST[id]'");
+$result=$dataB->sql_query("UPDATE users SET template='$_POST[template]' WHERE id='$_POST[id]'");
 if (!$result) 
    {
     echo "<div class=\"rot_mittig\">Updating template in database failed!!</div>";
    }
-$result=$zugriff_mysql->sql_abfrage("UPDATE users SET allow_delete='$_POST[allow_delete]' WHERE id='$_POST[id]'");
+$result=$dataB->sql_query("UPDATE users SET allow_delete='$_POST[allow_delete]' WHERE id='$_POST[id]'");
 if (!$result) 
    {
     echo "<div class=\"rot_mittig\">Updating allow delete in database failed!!</div>";
@@ -92,24 +92,24 @@ if (!$result)
 if (!empty($_POST[passwd]))
 {
 $passwd=md5($_POST[passwd]);
-$result=$zugriff_mysql->sql_abfrage("UPDATE users SET passwd='$passwd' WHERE id='$_POST[id]'");
+$result=$dataB->sql_query("UPDATE users SET passwd='$passwd' WHERE id='$_POST[id]'");
 
 if (!$result) 
    {
     echo "<div class=\"rot_mittig\">Updating passwd in database failed!!</div>";
    }
 }
-$zugriff_mysql->close_mysql();
+$dataB->sql_close();
 echo "<div class=\"blau_mittig\">data saved to database...</div>";
  }
 //---------------------Daten in DB schreiben ENDE---------------------------
 
 
 //--------------- Daten aus DB auslesen-------------------------------
-$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-$result=mysql_query("SELECT * FROM users WHERE id='$id'");
-$daten=mysql_fetch_assoc($result);
-$zugriff_mysql->close_mysql();
+$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+$result=$dataB->sql_query("SELECT * FROM users WHERE id='$id'");
+$daten=$dataB->sql_fetch_assoc($result);
+$dataB->sql_close();
 if ($daten[show_config]==0) $option[show_config]="selected";
 if ($daten[show_callback]==0) $option[show_callback]="selected";
 if ($daten[show_prefix]==0) $option[show_prefix]="selected";

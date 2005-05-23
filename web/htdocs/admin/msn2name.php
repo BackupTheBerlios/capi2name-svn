@@ -12,11 +12,9 @@
  *   any later version.                                   *
  *                                                                         *
  ***************************************************************************/
- ?>
-<?
 include("./check_it.php");
 include("./header.inc.php");
-$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 ?>
 <div class="ueberschrift_seite">MSN to name</div>
 
@@ -26,7 +24,7 @@ Hier kann man den lokalen MSNs Namen zuordnen, diese Namen tauchen den in der An
 <?
  if (isset($_GET[loeschen]))
   {
-   $result=mysql_query("DELETE FROM msnzuname WHERE id=$_GET[loeschen]");
+   $result=$dataB->sql_query("DELETE FROM msnzuname WHERE id=$_GET[loeschen]");
     if ($result)
      {
       echo "<br/><span class=\"blau_mittig\">Database entry with ID $_GET[loeschen] sucessfull deleted</span><br/><br/>";
@@ -47,7 +45,7 @@ if (isset($_POST[absenden]))
      if (isset($_POST[name]))
 	  {
 	  
-	 $result=mysql_query("INSERT INTO msnzuname VALUES('', '$_POST[msn]', '$_POST[name]')");
+	 $result=$dataB->sql_query("INSERT INTO msnzuname VALUES('', '$_POST[msn]', '$_POST[name]')");
 		 if ($result)
 		  {
 		   echo "<br/><span class=\"blau_mittig\">Daten erflogreich eingetragen!</span><br/><br/>";
@@ -84,8 +82,8 @@ if (isset($_POST[absenden]))
    </tr>
 
 <?
-$result=mysql_query("SELECT * FROM msnzuname");
- while($row=mysql_fetch_array($result))
+$result=$dataB->sql_query("SELECT * FROM msnzuname");
+ while($row=$dataB->sql_fetch_assoc($result))
   {
    echo "<tr>
     <td>$row[msn]</td>
@@ -125,10 +123,7 @@ $result=mysql_query("SELECT * FROM msnzuname");
 <br/><br/>
 - <a href="./msn2name.php?newentry=yes">New entry</a> -<br>
 
-
-
-
 <?
-$zugriff_mysql->close_mysql();
+$dataB->sql_close();
 include("footer.inc.php");
 ?>

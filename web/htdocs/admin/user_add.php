@@ -14,17 +14,17 @@
  ***************************************************************************/
 include("./check_it.php");
 include("./header.inc.php");
-?>
-<div class="ueberschrift_seite">create a new user</div>
-<?
+
+echo "<div class=\"ueberschrift_seite\">create a new user</div>";
+
 if (isset($_POST[save])) {
  if (isset($_POST[username]) && isset($_POST[passwd])) 
   {
    $passwd=md5($_POST[passwd]);
-   $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-   $result=$zugriff_mysql->sql_abfrage("
+   $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+   $result=$dataB->sql_query("
    INSERT INTO users VALUES('', '$_POST[username]','$passwd','','','$_POST[first_name]','$_POST[last_name]','$_POST[show_lines]','$_POST[msns_listen]','$_POST[show_callback]','$_POST[show_prefix]','$_POST[show_msn]','$_POST[show_type]','$_POST[show_config]','$_POST[allow_delete]','')");
-   $zugriff_mysql->close_mysql();
+   $dataB->sql_close();
    if ($result)
     {
      echo "<div class=\"blau_mittig\">Useradd was successfull, you will be forwarded in 2sec.....</div><meta http-equiv=\"refresh\" content=\"2; URL=./index.php\">";
@@ -41,7 +41,6 @@ if (isset($_POST[save])) {
  
 }
 ?>
-
 <form action="user_add.php" method="post">
 <table border="0" style="margin-right:auto;margin-left:auto;">
  <tr>

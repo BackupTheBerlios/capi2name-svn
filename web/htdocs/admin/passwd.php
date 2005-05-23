@@ -14,23 +14,20 @@
  ***************************************************************************/
 include("./check_it.php");
 include("./header.inc.php");
-?>
 
+echo "<div class=\"ueberschrift_seite\">Change Administrator password</div>";
 
-<div class="ueberschrift_seite">Change Administrator password</div>
-
-<?
 if (isset($_POST[aendern]))
  { //isset
 if ($_POST[passwd1]==$_POST[passwd2] && ! empty($_POST[passwd1]))
 {
- $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
- $result = mysql_query("SELECT username, passwd FROM users WHERE username='admin'");
- $daten = mysql_fetch_assoc($result);
+ $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+ $result=$dataB->sql_query("SELECT username, passwd FROM users WHERE username='admin'");
+ $date =$dataB->sql_fetch_assoc($result);
   if (md5($_POST[altespasswd]) == $daten[passwd])
    {
     $verschluesselt=md5($_POST[passwd2]);
-    $result = mysql_query("UPDATE users SET passwd='$verschluesselt' WHERE username='admin'");
+    $result=$dataB->sql_query("UPDATE users SET passwd='$verschluesselt' WHERE username='admin'");
      if ($result)
       {
       echo "<div class=\"blau_mittig\">Password successfully changed!</div>";
@@ -40,7 +37,7 @@ if ($_POST[passwd1]==$_POST[passwd2] && ! empty($_POST[passwd1]))
    {
     echo "<div class=\"rot_mittig\">Old password not the same like in the database.</div>";
    }
-  $zugriff_mysql->close_mysql();
+  $dataB->sql_close();
 }
 else
 {
@@ -63,12 +60,8 @@ echo "<div class=\"rot_mittig\">The new passwords are not the same or the new pa
  <tr>
   <td colspan="3"><input type="submit" name="aendern" value="save data"/></td>
  </tr>
-
 </table>
-
 </form>
-
-
 <?
 include("./footer.inc.php");
 ?>
