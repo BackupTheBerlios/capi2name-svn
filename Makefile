@@ -4,7 +4,7 @@ DAEMON = $(CURDIR)/daemon/
 SOURCE = $(DAEMON)config_api.c $(DAEMON)find.c $(DAEMON)utils.c
 SHLIB  = $(DAEMON)config_api.o
 LIB    = -lmysqlclient -lcapi20  -L/usr/lib
-CFLAGS = -Wall 
+CFLAGS = -Wall -static 
 
 capi2name:	shlib $(DAEMON)client.o $(DAEMON)indb.o $(DAEMON)capiconn.o $(DAEMON)capi2name.o
 		$(CC) -shared $(LIB) $(DAEMON)config_api.o  $(DAEMON)client.o $(DAEMON)indb.o $(DAEMON)capiconn.o $(DAEMON)capi2name.o -o $(DAEMON)capi2name

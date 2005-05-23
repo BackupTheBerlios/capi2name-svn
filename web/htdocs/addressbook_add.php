@@ -38,12 +38,15 @@ if (isset($_POST[eintragen]))
      }
 
   
-$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-$result=$zugriff_mysql->sql_abfrage("INSERT INTO addressbook VALUES(
-  	'', '$_POST[bvorname]', '$_POST[bnachname]',
-	'$_POST[bstrasse]', '$_POST[bhausnr]',
-	'$_POST[bplz]', '$_POST[bort]', '$_POST[bemail]')");
-$last_id=mysql_insert_id();
+$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+$result=$dataB->sql_query("INSERT INTO addressbook VALUES(DEFAULT,'$_POST[bvorname]', '$_POST[bnachname]','$_POST[bstrasse]','$_POST[bhausnr]','$_POST[bplz]','$_POST[bort]','$_POST[bemail]')");
+if (!$result)
+ {
+  echo "errrorr";
+ }
+$last_id=$dataB->sql_return_last_id($result);
+echo "### $last_id ----";
+die();
 if ($_POST[btele]!="")
  {
    if (cellphone_number($_POST[btele]))
@@ -54,7 +57,7 @@ if ($_POST[btele]!="")
    {
     $typ=get_id_from_prefix($_POST[btele]);
    }
-  $result=$zugriff_mysql->sql_abfrage("INSERT INTO phonenumbers VALUES(
+  $result=$dataB->sql_query("INSERT INTO phonenumbers VALUES(
   		'', '$last_id', '$_POST[btele]', '1', '$typ')");
  }
 if ($_POST[bhandy]!="")
@@ -67,7 +70,7 @@ if ($_POST[bhandy]!="")
    {
     $typ=get_id_from_prefix($_POST[bhandy]);
    }
-  $result=$zugriff_mysql->sql_abfrage("INSERT INTO phonenumbers VALUES(
+  $result=$dataB->sql_query("INSERT INTO phonenumbers VALUES(
   		'', '$last_id', '$_POST[bhandy]', '2', '$typ')");
  }
 if ($_POST[bfax]!="")
@@ -80,10 +83,10 @@ if ($_POST[bfax]!="")
    {
     $typ=get_id_from_prefix($_POST[bfax]);
    }
-  $result=$zugriff_mysql->sql_abfrage("INSERT INTO phonenumbers VALUES(
+  $result=$dataB->sql_query("INSERT INTO phonenumbers VALUES(
   		'', '$last_id', '$_POST[bfax]', '3', '$typ')");
  }
-$zugriff_mysql->close_mysql();
+$dataB->sql_close();
 
 if($result)
  {

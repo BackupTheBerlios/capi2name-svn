@@ -31,18 +31,17 @@ if ($_COOKIE['ck_username']!="" && $_COOKIE['ck_passwd']!="" && $_COOKIE['ck_rea
 
 
 
-$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-$result_userlist=$zugriff_mysql->sql_abfrage("SELECT * FROM users WHERE username='$username'");
-
+$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+$result_userlist=$dataB->sql_query("SELECT * FROM users WHERE username='$username'");
  if ($result_userlist && $username!="" && $password!="")
   {
-  $row_userlist=mysql_fetch_assoc($result_userlist);
+  $row_userlist=$dataB->sql_fetch_assoc($result_userlist);
     if ($password==$row_userlist['passwd'])
     {
     // echo "PASSWD Richtig...";
      //DB-Version auslesen:
-     $result_db_version=$zugriff_mysql->sql_abfrage("SELECT value FROM config WHERE conf='db_version'");
-     $db_version=mysql_fetch_assoc($result_db_version);
+     $result_db_version=$dataB->sql_query("SELECT value FROM config WHERE conf='db_version'");
+     $db_version=$dataB->sql_fetch_assoc($result_db_version);
      $login_ok=1;
      //Usersettings auslesen und in $userconfig[] schreiben...
      $userconfig['anzahl']=$row_userlist['show_lines'];
@@ -96,8 +95,8 @@ $result_userlist=$zugriff_mysql->sql_abfrage("SELECT * FROM users WHERE username
        $userconfig['loeschen']=false;
       }
       //template suchen und schauen wegen global oder nicht ;)
-      $result_config=$zugriff_mysql->sql_abfrage("SELECT * FROM config WHERE conf='template'");
-      $daten_config=mysql_fetch_assoc($result_config);
+      $result_config=$dataB->sql_query("SELECT * FROM config WHERE conf='template'");
+      $daten_config=$dataB->sql_fetch_assoc($result_config);
       if (!$daten_config[value])
         {
 	 if (check_template($row_userlist[template]))
@@ -106,24 +105,24 @@ $result_userlist=$zugriff_mysql->sql_abfrage("SELECT * FROM users WHERE username
 	  }
 	 else
 	  {
-	   $result_config1=$zugriff_mysql->sql_abfrage("SELECT * FROM config WHERE conf='default_template'");
-	   $daten_config1=mysql_fetch_assoc($result_config1);
+	   $result_config1=$dataB->sql_query("SELECT * FROM config WHERE conf='default_template'");
+	   $daten_config1=$dataB->sql_fetch_assoc($result_config1);
 	   $userconfig['template']=$daten_config1[value];
 	  }
 	}
       else
         {
-	 $userconfig['template']=$daten_config[value];
+	 $userconfig['template']=$daten_config['value'];
 	}
       //update lastlogin_d and lastlogin_t
       //UPDATE capi_version SET version='0.6.7.2' WHERE id='1'
-      $datum=mysql_fetch_assoc($zugriff_mysql->sql_abfrage("SELECT lastlogin_d FROM users WHERE username='$username'"));
+      $datum=$dataB->sql_fetch_assoc($dataB->sql_query("SELECT lastlogin_d FROM users WHERE username='$username'"));
      if ($datum[lastlogin_d]!=date("Y-m-d"))
        {
-      $zugriff_mysql->sql_abfrage("UPDATE users SET lastlogin_t=NOW(),lastlogin_d=NOW() WHERE username='$username'");
+      $dataB->sql_query("UPDATE users SET lastlogin_t=NOW(),lastlogin_d=NOW() WHERE username='$username'");
        }
-     $result_callback=$zugriff_mysql->sql_abfrage("SELECT * FROM callback WHERE user_id='$row_userlist[id]' AND notify='1'");
-     $daten_callback=mysql_fetch_assoc($result_callback);
+     $result_callback=$dataB->sql_query("SELECT user_id,notify FROM callback WHERE user_id='$row_userlist[id]' AND notify='1'");
+     $daten_callback=$dataB->sql_fetch_assoc($result_callback);
      if ($daten_callback)
      {
       $_SESSION['show_callback_notify']=true;
@@ -141,14 +140,13 @@ $result_userlist=$zugriff_mysql->sql_abfrage("SELECT * FROM users WHERE username
    $login_ok=0;
   }
   
-$zugriff_mysql->close_mysql();
-
+$dataB->sql_close();
 if ($login_ok == 0)
  {
-$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-$result=$zugriff_mysql->sql_abfrage("SELECT conf,value FROM config WHERE conf='default_template'");
-$daten=mysql_fetch_assoc($result); 
-$zugriff_mysql->close_mysql();
+$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+$result=$dataB->sql_query("SELECT conf,value FROM config WHERE conf='default_template'");
+$daten=$dataB->sql_fetch_assoc($result); 
+$dataB->sql_close();
 $userconfig['template']=$daten[value];
 include("./header.inc.php");
 $template->set_filenames(array('overall_body' => 'templates/'.$userconfig['template'].'/login_site.tpl'));

@@ -39,9 +39,9 @@ if (isset($_GET[unbekannt]))
  }
 if (isset($_POST[eintragen]))
   {
-   $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-   $zugriff_mysql->sql_abfrage("UPDATE angerufene SET name='$_POST[newname]' WHERE id=$_POST[newid]");
-   $zugriff_mysql->close_mysql();
+   $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+   $dataB->sql_query("UPDATE angerufene SET name='$_POST[newname]' WHERE id=$_POST[newid]");
+   $dataB->sql_close();
   }
 
 echo "<br />";
@@ -104,7 +104,7 @@ if ($userconfig['loeschen'])
  
 
  
-$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 $tmp=datum_mysql($datum[$es]);
 $sql_query="SELECT  t1.id,t1.rufnummer,t1.datum,t1.uhrzeit,t1.name,t1.dienst,t1.vorwahl,t1.msn,
 		t3.name_first, t3.name_last,t3.id AS ADDR_ID,
@@ -115,10 +115,10 @@ $sql_query="SELECT  t1.id,t1.rufnummer,t1.datum,t1.uhrzeit,t1.name,t1.dienst,t1.
 		LEFT JOIN msnzuname AS t4 ON t1.msn=t4.msn WHERE t1.datum='$tmp' ORDER BY t1.id DESC";
 
 
-$result_angerufene=$zugriff_mysql->sql_abfrage($sql_query);
-$zugriff_mysql->close_mysql();
+$result_angerufene=$dataB->sql_query($sql_query);
+$dataB->sql_close();
 $i=0;
-while($daten=mysql_fetch_assoc($result_angerufene))
+while($daten=$dataB->sql_fetch_assoc($result_angerufene))
  {
  //resetten der vars:
  $anz_statistik="";

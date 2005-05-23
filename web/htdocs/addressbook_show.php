@@ -12,8 +12,6 @@
  *   any later version.                                   *
  *                                                                         *
  ***************************************************************************/
- ?>
-<?php
 $seite=base64_encode("addressbook_show.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
@@ -21,16 +19,16 @@ include("./header.inc.php");
 $template->set_filenames(array('overall_body' => 'templates/'.$userconfig['template'].'/addressbook_show.tpl'));
 $template->assign_vars(array('L_ADDRESS_BOOK_VIEW_ENTRY' => $textdata[showaddress_deteilansicht]));
 
-$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] ); 
-$result=$zugriff_mysql->sql_abfrage("SELECT * FROM addressbook WHERE id='$_GET[show]'");
-$data_addr=mysql_fetch_assoc($result);
+$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] ); 
+$result=$dataB->sql_query("SELECT * FROM addressbook WHERE id='$_GET[show]'");
+$data_addr=$dataB->sql_fetch_assoc($result);
 
 if ($data_addr==false)
  {
   $template->assign_block_vars('show_msg_entry_not_found', array());
   $template->assign_vars(array('L_MSG_ENTRY_NOT_FOUND'=> $textdata[showaddress_eintrag_nicht] . $_GET[show] . $textdata[showaddress_admin_wenden]));
   $template->pparse('overall_body');
-  $zugriff_mysql->close_mysql();
+  $dataB->sql_close();
   include("./footer.inc.php");
   die();  
  }
@@ -58,24 +56,24 @@ $template->assign_vars(array('L_DB_E_MAIL' => $data_addr[email]));
 
 
 // telephon:
-$result_tele=$zugriff_mysql->sql_abfrage("SELECT number FROM phonenumbers WHERE typ='1' AND addr_id='$data_addr[id]'");
-while($daten_tele=mysql_fetch_assoc($result_tele))
+$result_tele=$dataB->sql_query("SELECT number FROM phonenumbers WHERE typ='1' AND addr_id='$data_addr[id]'");
+while($daten_tele=$dataB->sql_fetch_assoc($result_tele))
  {
   $template->assign_block_vars('telephon',array(
   	'L_TELE' => $textdata[addadress_telefonnummer],
 	'L_DB_TELE' => $daten_tele[number]));
  }
 //cell phone
-$result_cell=$zugriff_mysql->sql_abfrage("SELECT number FROM phonenumbers WHERE typ='2' AND addr_id='$data_addr[id]'");
-while($daten_cell=mysql_fetch_assoc($result_cell))
+$result_cell=$dataB->sql_query("SELECT number FROM phonenumbers WHERE typ='2' AND addr_id='$data_addr[id]'");
+while($daten_cell=$dataB->sql_fetch_assoc($result_cell))
  {
   $template->assign_block_vars('cellphone',array(
   	'L_CELL_PHONE' => $textdata[addadress_handy],
 	'L_DB_CELL_PHONE' => $daten_cell[number]));
  }
 //fax numbers
-$result_fax=$zugriff_mysql->sql_abfrage("SELECT number FROM phonenumbers WHERE typ='3' AND addr_id='$data_addr[id]'");
-while($daten_fax=mysql_fetch_assoc($result_fax))
+$result_fax=$dataB->sql_query("SELECT number FROM phonenumbers WHERE typ='3' AND addr_id='$data_addr[id]'");
+while($daten_fax=$dataB->sql_fetch_assoc($result_fax))
  {
   $template->assign_block_vars('fax',array(
   	'L_FAX' => $textdata[addadress_fax],
@@ -83,7 +81,7 @@ while($daten_fax=mysql_fetch_assoc($result_fax))
  }
   
  
-$zugriff_mysql->close_mysql();
+$dataB->sql_close();
 
 
 

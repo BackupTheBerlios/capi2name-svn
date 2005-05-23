@@ -15,10 +15,10 @@
 include("./includes/conf.inc.php");
 include("./includes/functions.php");
 session_start(); 
-$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-$result=$zugriff_mysql->sql_abfrage("SELECT conf,value FROM config WHERE conf='default_template'");
-$daten=mysql_fetch_assoc($result); 
-$zugriff_mysql->close_mysql();
+$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+$result=$dataB->sql_query("SELECT conf,value FROM config WHERE conf='default_template'");
+$daten=$dataB->sql_fetch_assoc($result); 
+$dataB->sql_close();
 $userconfig['template']=$daten[value];
 include("./header.inc.php");
 $template->set_filenames(array('overall_body' => 'templates/'.$userconfig['template'].'/login.tpl'));
@@ -27,12 +27,14 @@ $loginok=0;
 if (isset($_POST['absenden']))
 {
 
-$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-$result_userlist=$zugriff_mysql->sql_abfrage("SELECT id,username,passwd,name_first,name_last FROM users WHERE username='".$_POST['login_name']."'");
+$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+$sql_query="SELECT id,username,passwd,name_first,name_last FROM users WHERE username='$_POST[login_name]'";
+$result_userlist=$dataB->sql_query($sql_query);
  if ($result_userlist && $_POST['login_name']!="" && $_POST['login_passwd']!="")
   {
-  $row_userlist=mysql_fetch_assoc($result_userlist);
-    if (md5($_POST['login_passwd'])==$row_userlist['passwd'])
+   $passwd_ggg=md5($_POST[login_passwd]);
+   $row_userlist=$dataB->sql_fetch_assoc($result_userlist);
+   if (md5($_POST[login_passwd])==$row_userlist[passwd])
     {
      $seite=base64_decode($_POST['seite']);
      if ($_POST['remember_login']=="on")
@@ -59,7 +61,7 @@ $result_userlist=$zugriff_mysql->sql_abfrage("SELECT id,username,passwd,name_fir
   {
    $loginok=0;
   }
-$zugriff_mysql->close_mysql();
+$dataB->sql_close();
 
 }
 else

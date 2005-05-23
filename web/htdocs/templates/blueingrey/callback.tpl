@@ -54,7 +54,7 @@
   <td>{insert_with_addr.L_NUMBER}:</td>
   <td style="width:10px;"></td>
   <td>
-   <input name="addnumber" value="{insert_with_addr.L_DATA_NUMBER}"/>
+   <input name="addnumber" disabled="disabled" value="{insert_with_addr.L_DATA_NUMBER}"/>
   </td>
 </tr>
 <tr>
@@ -122,7 +122,7 @@
 <tr>
  <td>{insert_without_addr.L_NUMBER}:</td>
  <td style="width:10px;"></td>
- <td><input name="addnumber" disabled="disabled" /></td>
+ <td><input name="addnumber" disabled="disabled" value="{insert_without_addr.DATA_NR}" /></td>
 </tr>
 <tr>
  <td>{insert_without_addr.L_CALL_BACK_TIME}:</td>

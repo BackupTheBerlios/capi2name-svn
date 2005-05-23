@@ -4,7 +4,7 @@
 <table border="0" style="margin-right:auto;margin-left:auto;">
 <tr>
  <td style="width:150px;font-weight:bold;text-align:left;">
-  <a href="./addressbook.php" title="[L_ADDR_SORT_LAST_NAME}">{L_ADDR_LAST_NAME}</a>
+  <a href="./addressbook.php" title="{L_ADDR_SORT_LAST_NAME}">{L_ADDR_LAST_NAME}</a>
  </td>
  <td style="width:100px; font-weight:bold;text-align:left;">
    <a href="./addressbook.php?order=firstname" title="{L_ADDR_SORT_FIRST_NAME}">{L_ADDR_FIRST_NAME}</a>

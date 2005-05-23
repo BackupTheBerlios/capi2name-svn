@@ -39,7 +39,6 @@ $textdata[header_inc_logout]="Ausloggen";
 $textdata[header_inc_cs_answerphone]="Mein Anrufbeantworter";
 $textdata[header_inc_cs_fax]="Meine Faxe";
 $textdata[header_inc_cs_config]="konfigurieren";
-$textdata[header_inc_cs_help]="Hilfe";
 //Header.inc.php ENDE
 
 
@@ -88,6 +87,7 @@ $textdata[configpage_altes_passwd_gleich]="Altes Passwort gleich: OK!";
 $textdata[configpage_altes_passwd_failed]="Altes Passwort gleich: FAILED!";
 $textdata[configpage_neues_passwd_gleich]="Neue Passwörter gleich: OK!";
 $textdata[configpage_neues_passwd_failed]="Neue Passwörter gleich: FAILED!";
+/*
 $textdata[configpage_geaendert_ok]="Passwort geändert: OK!";
 $textdata[configpage_geaendert_failed]="Password geändert: FAILED!";
 $textdata[configpage_name_geaendert_ok]="Name geändert: OK!";
@@ -105,7 +105,7 @@ $textdata[configpage_option_msn_failed]="Option \"Zeige MSN\" geändert: FAILED!"
 $textdata[configpage_option_dienst_ok]="Option \"Zeige Anruftyp\" geändert: OK!";
 $textdata[configpage_option_dienst_failed]="Option \"Zeige Anruftyp\" geändert: FAILED!";
 $textdata[configpage_msn_ok]="MSN Auswahl geändert: OK!";
-$textdata[configpage_msn_failed]="MSN Auswahl geändert: FAILED";
+$textdata[configpage_msn_failed]="MSN Auswahl geändert: FAILED"; */
 $textdata[configpage_username]="Benutzername";
 $textdata[configpage_passwort_aendern]="Passwort ändern";
 $textdata[configpage_altes_passwd]="Altes Passwort";

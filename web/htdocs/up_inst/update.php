@@ -77,7 +77,7 @@ $dbhost=$_SESSION['dbhost'];
 $capi_version_tabelle=false;
 $capi_config_tabelle=false;
 $db_layout_version="";
-$db_layout_neue_version="0.6.7.6.2";
+$db_layout_neue_version="0.6.8";
 
 echo "<br/><b>Please wait until the scrip prints out in green 'OK'</b><br/><br/>";
 
@@ -475,8 +475,8 @@ if ($db_layout_version=="0.6.7.6")
 /*******************VERSION 0.6.7.6.1 -> 0.6.7.6.2 BEGIN ***********************/
 if ($db_layout_version=="0.6.7.6")
  {
-  echo "Found Version 0.6.7.6 updating to 0.6.7.6.1...........<br>";
-  $control=mysql_query("UPDATE config SET value='0.6.7.6.2' WHERE conf='db_version'");
+  echo "Found Version 0.6.7.6 updating to 0.6.8...........<br>";
+  $control=mysql_query("UPDATE config SET value='0.6.8' WHERE conf='db_version'");
    if ($control==FALSE)
   {
    echo "Update failed: <br/>Mysql-Error: ". mysql_error();
@@ -511,7 +511,7 @@ VALUES (
 );
  */   
 }
-/*******************VERSION 0.6.7.6.1 -> 0.6.7.6.2 END *************************/
+/*******************VERSION 0.6.7.6.1 -> 0.6.8 END *************************/
 
 
 $control=mysql_close();

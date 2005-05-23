@@ -79,9 +79,9 @@ if (isset($_GET[unbekannt]))
  }
 if (isset($_POST[eintragen]))
   {
-   $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-   $zugriff_mysql->sql_abfrage("UPDATE angerufene SET name='$_POST[newname]' WHERE id=$_POST[newid]");
-   $zugriff_mysql->close_mysql();
+   $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+   $dataB->sql_query("UPDATE angerufene SET name='$_POST[newname]' WHERE id=$_POST[newid]");
+   $dataB->sql_close();
   }
 
 $template->assign_vars(array(
@@ -116,7 +116,7 @@ if ($userconfig['loeschen'])
   $template->assign_block_vars('userconfig_show_delete', array());
   $template->assign_vars(array('L_DELETE_ENTRY_TITLE' => $textdata[showstatnew_loeschen]));
  }
-$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 $sql_query_1="SELECT  t1.id,t1.rufnummer,t1.datum,t1.uhrzeit,t1.name,t1.dienst,t1.vorwahl,t1.msn,
 		t3.name_first, t3.name_last,t3.id AS ADDR_ID,
 		t4.name AS msn_name
@@ -138,10 +138,10 @@ if ($maxlist!=NULL)
  {
   $sql_query=$sql_query. " LIMIT $maxlist";
  }
-$result_angerufene=$zugriff_mysql->sql_abfrage($sql_query);
-$zugriff_mysql->close_mysql();
+$result_angerufene=$dataB->sql_query($sql_query);
+$dataB->sql_close();
 $i=0;
-while($daten=mysql_fetch_assoc($result_angerufene))
+while($daten=$dataB->sql_fetch_assoc($result_angerufene))
  {
  //resetten der vars:
  $anz_statistik="";
@@ -160,7 +160,7 @@ while($daten=mysql_fetch_assoc($result_angerufene))
      $anz_name=$daten[name];
      $wertaddaddr=handynr_vorhanden($daten[rufnummer]);
      $anz_insaddr="<a href=\"./addressbook_add.php?$wertaddaddr\"><img src=\"./images/1rightarrow.gif\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\" /></a>";
-     $anz_rueckruf="<a href=\"./callback.php?add=yes&amp;addr=\">
+     $anz_rueckruf="<a href=\"./callback.php?add=yes&amp;addr=&nr=$daten[rufnummer]\">
    <img src=\"./images/1leftarrow.gif\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
     }
    elseif ($daten[rufnummer]=="unbekannt" && $daten[name]!="unbekannt")

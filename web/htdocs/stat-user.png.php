@@ -30,18 +30,18 @@
 		$datum_monat[$e]=date("m", $tstamp);
 	
 	}
-	$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+	$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 	//echo "$result[tele1], $result[fax]";
 	for ($e=0;$e<=9;$e++) {
-		$result_alle=$zugriff_mysql->sql_abfrage("SELECT rufnummer FROM angerufene, phonenumbers AS t2
+		$result_alle=$dataB->sql_query("SELECT rufnummer FROM angerufene, phonenumbers AS t2
 		WHERE MONTH(datum)=$datum_monat[$e] 
 		AND YEAR(datum)=$datum_jahr[$e] 
 		AND rufnummer=t2.number  AND t2.addr_id=$_GET[id]");
-		$anzahl_monat_alle[$e]=mysql_num_rows($result_alle);
+		$anzahl_monat_alle[$e]=$dataB->sql_num_rows($result_alle);
 		//echo "Anzahl: $e: ". $anzahl_monat_alle[$e];
 		
 	}
-	$zugriff_mysql->close_mysql();
+	$dataB->sql_close();
 	$max_anrufe=max($anzahl_monat_alle);
 	
 	$hoehe_ein_anruf=$max_pixel_anzahl/$max_anrufe;

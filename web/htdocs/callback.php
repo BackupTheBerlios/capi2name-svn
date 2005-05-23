@@ -34,17 +34,17 @@ $template->set_filenames(array('overall_body' => 'templates/'.$userconfig['templ
 
 if(isset($_GET[loeschen]))
  {
- $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
- $result=$zugriff_mysql->sql_abfrage("DELETE FROM callback WHERE id=$_GET[loeschen]");
+ $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+ $result=$dataB->sql_query("DELETE FROM callback WHERE id=$_GET[loeschen]");
  if ($result != "true") {echo "Fehler-Nr. " . mysql_errno()." - " .mysql_error(); die();}
- $zugriff_mysql->close_mysql();
+ $dataB->sql_close();
  echo "<meta http-equiv=\"refresh\" content=\"1; URL=./callback.php\">";
  }
 
  
 if(isset($_POST[save_without_addr]))
  {
-  $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+  $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
   if (is_numeric($_POST[addname]))
    {
    
@@ -55,15 +55,15 @@ if(isset($_POST[save_without_addr]))
     $sql_query="INSERT INTO callback VALUES(NULL,'-1','$_POST[user_id]',NOW(),NOW(),'$_POST[callback_time]','$_POST[message]', '1','$_POST[addnumber]','$_POST[addname]')";
    }
   $zugriff_mysql->sql_abfrage($sql_query);
-  $zugriff_mysql->close_mysql();
+  $dataB->sql_close();
   $template->assign_block_vars('saved_with_addr',array('L_MSG_SAVED' => 'saved to database'));
  } 
  
 if(isset($_POST[save_with_addr]))
  {
-  $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-  $zugriff_mysql->sql_abfrage("INSERT INTO callback VALUES (NULL,'$_POST[addid]','$_POST[user_id]',NOW(),NOW(),'$_POST[callback_time]','$_POST[message]', '1', NULL,NULL)");
-  $zugriff_mysql->close_mysql();
+  $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+  $dataB->sql_query("INSERT INTO callback VALUES (NULL,'$_POST[addid]','$_POST[user_id]',NOW(),NOW(),'$_POST[callback_time]','$_POST[message]', '1', NULL,NULL)");
+  $dataB->sql_close();
   $template->assign_block_vars('saved_with_addr',array('L_MSG_SAVED' => 'saved to database'));
  }
 
@@ -74,10 +74,10 @@ $template->assign_block_vars('tab1',array(
 		'L_NUMBER' => $text[rufnummer],
 		'L_CALL_TIME' => $text[anruf_zeit],
 		'L_CALL_BACK_TIME' => $text[zurueck_zeit]));
-$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-$result_callback=$zugriff_mysql->sql_abfrage("SELECT t1.*,t2.name_last,t2.name_first,t3.number AS RUFNR FROM callback AS t1 LEFT JOIN addressbook AS t2 ON t1.addr_id=t2.id LEFT JOIN phonenumbers AS t3 ON t3.addr_id=t2.id WHERE t1.user_id=".$_SESSION['user_id']." GROUP BY t1.id");
+$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+$result_callback=$dataB->sql_query("SELECT t1.*,t2.name_last,t2.name_first,t3.number AS RUFNR FROM callback AS t1 LEFT JOIN addressbook AS t2 ON t1.addr_id=t2.id LEFT JOIN phonenumbers AS t3 ON t3.addr_id=t2.id WHERE t1.user_id=".$_SESSION['user_id']." GROUP BY t1.id");
 
-while($daten=mysql_fetch_assoc($result_callback))
+while($daten=$dataB->sql_fetch_assoc($result_callback))
  {
    if($daten[addr_id]==-1)
    {
@@ -120,17 +120,17 @@ while($daten=mysql_fetch_assoc($result_callback))
 	'DATA_DATE' => mysql_datum($daten[en_date]),
 	'DATA_CALL_BACK_TIME' => $callback_time));
  }
-$zugriff_mysql->close_mysql();
+$dataB->sql_close();
 
 if ($_GET[add]== "yes")
  {
- $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
- $result_users=$zugriff_mysql->sql_abfrage("SELECT id,username,name_first,name_last FROM users"); 
+ $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+ $result_users=$dataB->sql_query("SELECT id,username,name_first,name_last FROM users"); 
  if (!empty($_GET[addr]))
   {
    //user kommt von showstatnew.php und hat id vom addr
-   $result_addr=$zugriff_mysql->sql_abfrage("SELECT t1.id,t1.name_first,t1.name_last,t2.number FROM addressbook AS t1 LEFT JOIN  phonenumbers AS t2 ON t2.addr_id=t1.id WHERE t1.id='$_GET[addr]' LIMIT 1");
-   $daten_addr=mysql_fetch_assoc($result_addr);
+   $result_addr=$dataB->sql_query("SELECT t1.id,t1.name_first,t1.name_last,t2.number FROM addressbook AS t1 LEFT JOIN  phonenumbers AS t2 ON t2.addr_id=t1.id WHERE t1.id='$_GET[addr]' LIMIT 1");
+   $daten_addr=$dataB->sql_fetch_assoc($result_addr);
 
    $template->assign_block_vars('insert_with_addr',array(
    		'L_TITLE_NEW' => 'Neuer Eintrag',
@@ -147,7 +147,7 @@ if ($_GET[add]== "yes")
 		'L_MIDDAY' => 'Mittags',
 		'L_USERNAME' => 'Capi2name Benutzer',
 		'L_MESSAGE' => $text[grund]));
-   while($daten_users=mysql_fetch_assoc($result_users))
+   while($daten_users=$dataB->sql_fetch_assoc($result_users))
     {
      if (empty($daten_users[name_first]) && empty($daten_users[name_last]))
       {
@@ -186,8 +186,9 @@ if ($_GET[add]== "yes")
 		'L_MIDDAY' => 'Mittags',
 		'L_USERNAME' => 'Capi2name Benutzer',
 		'L_SAVE_DATA' => $text[speichern],
-		'L_MESSAGE' => $text[grund]));
-  while($daten_users=mysql_fetch_assoc($result_users))
+		'L_MESSAGE' => $text[grund],
+		'DATA_NR' => $_GET[nr]));
+  while($daten_users=$dataB->sql_fetch_assoc($result_users))
     {
     if (empty($daten_users[name_first]) && empty($daten_users[name_last]))
       {
@@ -212,8 +213,8 @@ if ($_GET[add]== "yes")
 			'L_DATA_ID' => $daten_users[id]));
       }
     }
-  $result_addr=$zugriff_mysql->sql_abfrage("SELECT id,name_last,name_first FROM addressbook ORDER BY name_last");
-  while($daten_addr=mysql_fetch_assoc($result_addr))
+  $result_addr=$dataB->sql_query("SELECT id,name_last,name_first FROM addressbook ORDER BY name_last");
+  while($daten_addr=$dataB->sql_fetch_assoc($result_addr))
    {
     $template->assign_block_vars('insert_without_addr.tab1',array(
   		'DATA_ADDR_ID' => $daten_addr[id],
@@ -224,7 +225,7 @@ if ($_GET[add]== "yes")
 
  
 
- $zugriff_mysql->close_mysql();
+ $dataB->sql_close();
  }
 
  

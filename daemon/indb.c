@@ -108,7 +108,7 @@ int indb(	char rufnummer[80],
     //name nachschauen:
     if (strcmp("unbekannt",rufnr))
       {
-       sprintf(buffer, "SELECT * FROM adressbuch WHERE tele1='%s' OR tele2='%s' OR tele3='%s' OR handy='%s'",rufnr,rufnr,rufnr,rufnr );
+       sprintf(buffer, "SELECT t1.number,t2.name_first,t2.name_last FROM phonenumbers AS t1 LEFT JOIN addressbook ON t1.addr_id=t2.id WHERE t1.number='%s'", rufnr );
       if (mysql_query(&mysql, buffer))
       {
        fprintf(stderr, "\nError (SELECT - 104): %s\n", mysql_error(&mysql));

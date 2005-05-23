@@ -68,7 +68,6 @@
    <div style="font-weight:bold; margin-top: 1em;">{L_CAPI_SUITE}</div>
    <div class="menuitem"><a href="./cs_answerphone.php">{L_CAPI_SUITE_ANSWERPHONE}</a></div>
    <div class="menuitem"><a href="./cs_fax.php">{L_CAPI_SUITE_FAX}</a></div>
-   <div class="menuitem"><a href="./cs_help.php">{L_CAPI_SUITE_HELP}</a></div>
    <!-- END show_capi_suite_on -->
  </div>
 </div>

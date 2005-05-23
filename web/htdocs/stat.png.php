@@ -29,17 +29,17 @@ include("./includes/functions.php");
 		$datum_monat[$e]=date("m", $tstamp);
 	
 	}
-	$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+	$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 	for ($e=0;$e<=5;$e++) {
 		
-		$result_alle=$zugriff_mysql->sql_abfrage("SELECT id,rufnummer FROM angerufene WHERE MONTH(datum)=$datum_monat[$e] AND YEAR(datum)=$datum_jahr[$e]");
-		$result_unbekannt=$zugriff_mysql->sql_abfrage("SELECT id,rufnummer FROM angerufene WHERE MONTH(datum)=$datum_monat[$e] AND YEAR(datum)=$datum_jahr[$e] AND rufnummer='unbekannt'");
+		$result_alle=$dataB->sql_query("SELECT id,rufnummer FROM angerufene WHERE MONTH(datum)=$datum_monat[$e] AND YEAR(datum)=$datum_jahr[$e]");
+		$result_unbekannt=$dataB->sql_query("SELECT id,rufnummer FROM angerufene WHERE MONTH(datum)=$datum_monat[$e] AND YEAR(datum)=$datum_jahr[$e] AND rufnummer='unbekannt'");
 		
 		$anzahl_monat_alle[$e]=mysql_num_rows($result_alle);
 		$anzahl_monat_unbekannt[$e]=mysql_num_rows($result_unbekannt);
 		$anzahl_monat_bekannt[$e]=$anzahl_monat_alle[$e]-$anzahl_monat_unbekannt[$e];
 	}
-	$zugriff_mysql->close_mysql();
+	$dataB->sql_close();
 	$max_anrufe=max($anzahl_monat_alle);
 	
 	$hoehe_ein_anruf=$max_pixel_anzahl/$max_anrufe;

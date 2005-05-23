@@ -1,6 +1,6 @@
 <?php
 /*
-    copyright            : (C) 2002-2004 by Jonas Genannt
+    copyright            : (C) 2002-2005 by Jonas Genannt
     email                : jonasge@gmx.net
  ***************************************************************************/
 
@@ -12,8 +12,6 @@
  *   any later version.                                   *
  *                                                                         *
  ***************************************************************************/
- ?>
-<?php
 $seite=base64_encode("global_search.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
@@ -22,7 +20,7 @@ include("./header.inc.php");
 
 <br />
 <br />
-<form method="post" action="globale_suche.php">
+<form method="post" action="global_search.php">
 <table border="0" style="margin-right:auto;margin-left:auto;text-align:left">
   <tr>
    <td>Suche Rufnummer:</td>

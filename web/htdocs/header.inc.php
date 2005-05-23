@@ -69,7 +69,6 @@ if ($config['capisuite'] == "yes")
     $template->assign_vars(array('L_CAPI_SUITE' => 'CapiSuite'));
     $template->assign_vars(array('L_CAPI_SUITE_ANSWERPHONE' => $textdata[header_inc_cs_answerphone]));
     $template->assign_vars(array('L_CAPI_SUITE_FAX' => 'Meine Faxe'));
-    $template->assign_vars(array('L_CAPI_SUITE_HELP' => $textdata[header_inc_cs_help]));
    }
 
 if ($_SESSION['show_callback_notify'])

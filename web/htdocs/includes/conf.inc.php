@@ -1,4 +1,5 @@
 <?
+//$sql["host"]                = "192.168.0.87";
 $sql["host"]                = "localhost";
 $sql["dbuser"]              = "capi";
 $sql["dbpasswd"]            = "kljmkgd";
@@ -18,7 +19,7 @@ $config['language']         = "de";
 ******************************************************************************/
 //VERSIONS INFO UND CODENAMEN:
 $codenamen="AN-BETA-VERSION-NI";
-$version="0.6.7.6.2";
+$version="0.6.8";
 //Tabellennamen:
 $prefixtab="";
 $tabelle["adressbuch"]=$prefixtab."adressbuch";

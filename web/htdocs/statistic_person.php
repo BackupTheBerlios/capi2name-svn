@@ -17,25 +17,25 @@ include("./login_check.inc.php");
 include("./header.inc.php");
  
 
-$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 $sql_query=sprintf("SELECT * FROM addressbook WHERE id=%s", mysql_real_escape_string($_GET[id]));
-$result_adressbuch=$zugriff_mysql->sql_abfrage($sql_query);
-$data_adressbuch=mysql_fetch_array($result_adressbuch);
-$zugriff_mysql->close_mysql();
+$result_adressbuch=$dataB->sql_query($sql_query);
+$data_adressbuch=$dataB->sql_fetch_assoc($result_adressbuch);
+$dataB->sql_close();
 
 
-$template->set_filenames(array('overall_body' => 'templates/'.$userconfig['template'].'/stat_anrufer.tpl'));
+$template->set_filenames(array('overall_body' => 'templates/'.$userconfig['template'].'/statistic_person.tpl'));
 $template->assign_vars(array(
 		'L_SITE_TITLE'  => $textdata[stat_anrufer_ueberschrift]." ".$data_adressbuch[name_first]." ".$data_adressbuch[name_last]));
 $id=$data_adressbuch[id];
 
 //Daten sammeln:
-$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 $sql_query="SELECT datum,uhrzeit 
 	FROM angerufene AS t1,
 	phonenumbers AS t2 WHERE t1.rufnummer=t2.number 
 	AND t2.addr_id=$id";
-$result_anrufe=$zugriff_mysql->sql_abfrage($sql_query);
+$result_anrufe=$dataB->sql_query($sql_query);
 $ges_anzahl=mysql_num_rows($result_anrufe);
 
 
@@ -69,24 +69,24 @@ $template->assign_block_vars('tab1',array(
 	'DATA_FIRST_NAME' => $data_adressbuch[name_first],
 	'DATA_LAST_NAME' => $data_adressbuch[name_last]));
 
-$result=$zugriff_mysql->sql_abfrage("SELECT number FROM phonenumbers WHERE addr_id='$id' AND typ='1'");
-while($daten=mysql_fetch_assoc($result))
+$result=$dataB->sql_query("SELECT number FROM phonenumbers WHERE addr_id='$id' AND typ='1'");
+while($daten=$dataB->sql_fetch_assoc($result))
  {
    $template->assign_block_vars('show_tele',array(
    		'L_TELE' => $textdata[addadress_telefonnummer],
 		'DATA_TELE' => $daten[number]));	
  }	
 
-$result=$zugriff_mysql->sql_abfrage("SELECT number FROM phonenumbers WHERE addr_id='$id' AND typ='2'");
-while($daten=mysql_fetch_assoc($result))
+$result=$dataB->sql_query("SELECT number FROM phonenumbers WHERE addr_id='$id' AND typ='2'");
+while($daten=$dataB->sql_fetch_assoc($result))
  {
    $template->assign_block_vars('show_cell_phone',array(
    		'L_CELL_PHONE' => $textdata[addadress_handy],
 		'DATA_CELL_PHONE' => $daten[number]));	
  }	
 
-$result=$zugriff_mysql->sql_abfrage("SELECT number FROM phonenumbers WHERE addr_id='$id' AND typ='3'");
-while($daten=mysql_fetch_assoc($result))
+$result=$dataB->sql_query("SELECT number FROM phonenumbers WHERE addr_id='$id' AND typ='3'");
+while($daten=$dataB->sql_fetch_assoc($result))
  {
    $template->assign_block_vars('show_fax',array(
    		'L_FAX' => $textdata[addadress_fax],
@@ -95,7 +95,7 @@ while($daten=mysql_fetch_assoc($result))
  
  
  
-$zugriff_mysql->close_mysql();
+$dataB->sql_close();
  
  
 $template->assign_block_vars('tab2',array(
@@ -124,14 +124,14 @@ $template->assign_block_vars('tab3',array(
 	'L_CALL_TO_MSN' => $textdata[stat_anrufer_MSN]));
 $i=0;
 
-$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 $sql_query="SELECT datum,uhrzeit,msn,rufnummer FROM
 	angerufene AS t1,
 	phonenumbers AS t2 WHERE t1.rufnummer=t2.number 
 	AND t2.addr_id=$id ORDER BY t1.id DESC";
-$result=$zugriff_mysql->sql_abfrage($sql_query);
-$zugriff_mysql->close_mysql();
- while ($data_angerufene=mysql_fetch_assoc($result))
+$result=$dataB->sql_query($sql_query);
+$dataB->sql_close();
+ while ($data_angerufene=$dataB->sql_fetch_assoc($result))
   {
   if($i%2==0)
    { $color=$row_color_1; }

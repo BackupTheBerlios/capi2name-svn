@@ -150,12 +150,17 @@ else
   return $anz_datum;
  }
 
-class sql_zugriff
+/*-------------------------------------------------------------------------------
+                      MYSQL-CONNECTION CLASS
+--------------------------------------------------------------------------------*/
+class c_mysql
  {
    var $dbconnect_id;
    var $query_result;
+   var $fetch_result;
+   var $num_rows_result;
     
-    function connect_mysql($dbhost,$dbuser,$dbpasswd,$db)
+    function sql_connect($dbhost,$dbuser,$dbpasswd,$db)
      { 
       $this->sql_host=$dbhost;
       $this->sql_user=$dbuser;
@@ -191,7 +196,7 @@ class sql_zugriff
 	}
      } //function connect_mysql ENDE
    
-   function close_mysql()
+   function sql_close()
     {
      if (@mysql_close($this->dbconnect_id))
        {
@@ -203,7 +208,7 @@ class sql_zugriff
        }
     }//function close_mysql ENDE
    
-  function sql_abfrage($sql_query)
+  function sql_query($sql_query)
     {
      if($sql_query!="")
       {
@@ -217,12 +222,128 @@ class sql_zugriff
       }
     }
    
-  
+  function sql_fetch_assoc($data)
+   {
+    if($data!=NULL)
+     {
+      $this->fetch_result=@mysql_fetch_assoc($data);
+      return $this->fetch_result;
+     }
+    else
+     {
+      return false;
+     }
+   }
+   function sql_num_rows($res)
+   {
+    $this->num_rows_result=@mysql_num_rows($res);
+    return $this->num_rows_result;
+   }
    
- }//class sql_zugriff ENDE
+ }
+/*----------------------------------------------------------------------------
+                  MYSQL CONNECTION CLASS END
+----------------------------------------------------------------------------*/ 
+ 
+
+
+
+
+/*-------------------------------------------------------------------------------
+                      POSTGRE-CONNECTION CLASS
+--------------------------------------------------------------------------------*/
+class c_postgre
+ {
+   var $dbconnect_id;
+   var $query_result;
+   var $fetch_result;
+   var $num_rows_result;
+    
+    function sql_connect($dbhost,$dbuser,$dbpasswd,$db)
+     { 
+      $this->sql_host=$dbhost;
+      $this->sql_user=$dbuser;
+      $this->sql_passwd=$dbpasswd;
+      $this->sql_db=$db;
+   
+       $this->dbconnect_id=@pg_connect("host=$this->sql_host port=5432 dbname=$this->sql_db user=$this->sql_user password=$this->sql_passwd");
+      if($this->sql_db=="")
+	   {
+       echo "<br>Postgre-Database Field is emty. Please check conf.inc.php!";
+	die();
+	   }
+       if(!$this->dbconnect_id)
+        {
+	 echo "<br>Connection to Postgres fails...<br>Postgre-Says: ". pg_last_error();
+	 die();
+	}
+     } //function connect_mysql ENDE
+   
+   function sql_close()
+    {
+     if (@pg_close($this->dbconnect_id))
+       {
+        return true;
+       }
+      else
+       {
+        echo "<br>Close to Postgre fails.<br>Postgre-Says: ".pg_last_error();
+       }
+    }//function close_mysql ENDE
+   
+  function sql_query($sql_query)
+    {
+     if($sql_query!="")
+      {
+        $this->query_result=@pg_query($sql_query);
+	return $this->query_result;
+      }
+     else
+      {
+       echo "Postgre-Query is emty! If you are not an developer, you have found a bug. Please report it.";
+       die();
+      }
+    }
+   
+  function sql_fetch_assoc($data)
+   {
+    if($data!=NULL)
+     {
+      $this->fetch_result=@pg_fetch_assoc($data);
+      return $this->fetch_result;
+     }
+    else
+     {
+      return false;
+     }
+   }
+ function sql_return_last_id($result)
+   {
+    return pg_last_oid($result);
+   } 
+ function sql_num_rows($res)
+   {
+    $this->num_rows_result=@pg_num_rows($res);
+    return $this->num_rows_result;
+   }
+   
+ }
+/*----------------------------------------------------------------------------
+                 POSTGRE CONNECTION CLASS END
+----------------------------------------------------------------------------*/ 
+ 
+
+
+
+
+
+
+//class sql_zugriff ENDE
 //funktions............ENDE	
 //class enable:
-$zugriff_mysql=new sql_zugriff;
+//$dbuse='c_postgre';
+$dbuse='c_mysql';
+$dataB=new $dbuse;
 
 
 ?>

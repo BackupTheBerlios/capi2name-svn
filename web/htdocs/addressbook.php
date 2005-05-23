@@ -40,10 +40,10 @@ else
  {
   $sqlabfrage="SELECT id,name_first,name_last FROM addressbook ORDER BY name_last";
  }
-$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] ); 
-$result=$zugriff_mysql->sql_abfrage($sqlabfrage);
+$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] ); 
+$result=$dataB->sql_query($sqlabfrage);
 
-while($data_addr=mysql_fetch_assoc($result))
+while($data_addr=$dataB->sql_fetch_assoc($result))
  {
   if($i%2==0)
    {
@@ -55,10 +55,10 @@ while($data_addr=mysql_fetch_assoc($result))
      $color=$row_color_2;
      $i=0; 
     }
-  $result_tele=$zugriff_mysql->sql_abfrage("SELECT number FROM phonenumbers WHERE  typ='1' AND addr_id='$data_addr[id]' LIMIT 1");
-  $data_tele=mysql_fetch_assoc($result_tele);
-  $result_cellphone=$zugriff_mysql->sql_abfrage("SELECT number FROM phonenumbers WHERE  typ='2' AND addr_id='$data_addr[id]' LIMIT 1");  
-  $data_cellphone=mysql_fetch_assoc($result_cellphone);
+  $result_tele=$dataB->sql_query("SELECT number FROM phonenumbers WHERE  typ='1' AND addr_id='$data_addr[id]' LIMIT 1");
+  $data_tele=$dataB->sql_fetch_assoc($result_tele);
+  $result_cellphone=$dataB->sql_query("SELECT number FROM phonenumbers WHERE  typ='2' AND addr_id='$data_addr[id]' LIMIT 1");  
+  $data_cellphone=$dataB->sql_fetch_assoc($result_cellphone);
      
      
      
@@ -85,7 +85,7 @@ $template->assign_block_vars('tab', array(
 
  }
 // Auslesen ENde
-$zugriff_mysql->close_mysql();
+$dataB->sql_close();
 $template->pparse('overall_body');
 include("./footer.inc.php");
 ?>
