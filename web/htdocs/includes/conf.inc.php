@@ -1,6 +1,6 @@
 <?
-//$sql["host"]                = "192.168.0.87";
-$sql["host"]                = "localhost";
+$sql["host"]                = "192.168.0.87";
+//$sql["host"]                = "localhost";
 $sql["dbuser"]              = "capi";
 $sql["dbpasswd"]            = "kljmkgd";
 $sql["db"]                  = "capidb";

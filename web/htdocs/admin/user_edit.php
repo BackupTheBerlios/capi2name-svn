@@ -9,7 +9,7 @@
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
  *   the Free Software Foundation; either version 2 of the License, or     *
- *   any later version.                                   *
+ *   any later version.                                                    *
  *                                                                         *
  ***************************************************************************/
 include("./check_it.php");
@@ -110,12 +110,18 @@ $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 $result=$dataB->sql_query("SELECT * FROM users WHERE id='$id'");
 $daten=$dataB->sql_fetch_assoc($result);
 $dataB->sql_close();
-if ($daten[show_config]==0) $option[show_config]="selected";
-if ($daten[show_callback]==0) $option[show_callback]="selected";
-if ($daten[show_prefix]==0) $option[show_prefix]="selected";
-if ($daten[show_msn]==0) $option[show_msn]="selected";
-if ($daten[show_type]==0) $option[show_type]="selected";
-if ($daten[allow_delete]==0) $option[allow_delete]="selected";
+if ($daten[show_config]=="0" or $daten[show_config]=="f")
+	 $option[show_config]="selected";
+if ($daten[show_callback]=="0" or $daten[show_callback]=="f")
+	 $option[show_callback]="selected";
+if ($daten[show_prefix]=="0" or $daten[show_prefix]=="f")
+	$option[show_prefix]="selected";
+if ($daten[show_msn]=="0" or $daten[show_msn]=="f")
+	$option[show_msn]="selected";
+if ($daten[show_type]=="0"or $daten[show_type]=="f")
+	$option[show_type]="selected";
+if ($daten[allow_delete]=="0" or $daten[allow_delete]=="f")
+	$option[allow_delete]="selected";
 $dir= "../templates/";
 $dh=opendir($dir);
  while (false!== ($filename=readdir($dh)))

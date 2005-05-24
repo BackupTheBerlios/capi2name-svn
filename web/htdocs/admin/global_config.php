@@ -47,7 +47,7 @@ if (isset($_POST[submit_data]))
 <form action="global_config.php" method="post">
 <?
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-$result=$dataB->sql_query("SELECT * FROM config");
+$result=$dataB->sql_query("SELECT * FROM config ORDER by id ");
 $dataB->sql_close();
 
 $dir= "../templates/";

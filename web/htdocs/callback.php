@@ -54,7 +54,7 @@ if(isset($_POST[save_without_addr]))
    {
     $sql_query="INSERT INTO callback VALUES(NULL,'-1','$_POST[user_id]',NOW(),NOW(),'$_POST[callback_time]','$_POST[message]', '1','$_POST[addnumber]','$_POST[addname]')";
    }
-  $zugriff_mysql->sql_abfrage($sql_query);
+  $dataB->sql_query($sql_query);
   $dataB->sql_close();
   $template->assign_block_vars('saved_with_addr',array('L_MSG_SAVED' => 'saved to database'));
  } 

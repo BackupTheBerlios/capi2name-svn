@@ -22,8 +22,8 @@ if (isset($_POST[aendern]))
 if ($_POST[passwd1]==$_POST[passwd2] && ! empty($_POST[passwd1]))
 {
  $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
- $result=$dataB->sql_query("SELECT username, passwd FROM users WHERE username='admin'");
- $date =$dataB->sql_fetch_assoc($result);
+ $result=$dataB->sql_query("SELECT username,passwd FROM users WHERE username='admin'");
+ $daten=$dataB->sql_fetch_assoc($result);
   if (md5($_POST[altespasswd]) == $daten[passwd])
    {
     $verschluesselt=md5($_POST[passwd2]);
