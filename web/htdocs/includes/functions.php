@@ -341,8 +341,8 @@ class c_postgre
 //class sql_zugriff ENDE
 //funktions............ENDE	
 //class enable:
-$dbuse='c_postgre';
-//$dbuse='c_mysql';
+//$dbuse='c_postgre';
+$dbuse='c_mysql';
 $dataB=new $dbuse;
 
 

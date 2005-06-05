@@ -12,7 +12,6 @@
  *   any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-
 $seite=base64_encode("statistic_all_calls.php");
 include("./login_check.inc.php");
 include("./header.inc.php");

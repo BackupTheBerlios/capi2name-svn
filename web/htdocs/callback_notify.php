@@ -20,10 +20,10 @@ $template->set_filenames(array('overall_body' => 'templates/blueingrey/callback_
 session_start(); 
 if ($_SESSION['show_callback_notify'])
  {
-  $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-  $result_callback=$zugriff_mysql->sql_abfrage("SELECT t1.*,t2.name_first,t2.name_last,t3.number AS RUFNR
+  $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+  $result_callback=$dataB->sql_query("SELECT t1.*,t2.name_first,t2.name_last,t3.number AS RUFNR
   FROM callback AS t1 LEFT JOIN addressbook AS t2 ON t1.addr_id=t2.id LEFT JOIN phonenumbers AS t3 ON t3.addr_id=t2.id WHERE t1.user_id=".$_SESSION['user_id']  ." AND t1.notify=1 GROUP BY t1.id");
-  $zugriff_mysql->sql_abfrage("UPDATE callback SET notify=0 WHERE user_id=".$_SESSION['user_id']);
+  $dataB->sql_query("UPDATE callback SET notify=0 WHERE user_id=".$_SESSION['user_id']);
   $_SESSION['show_callback_notify']=false;
   while($daten_callback=mysql_fetch_assoc($result_callback))
    {
@@ -66,7 +66,7 @@ if ($_SESSION['show_callback_notify'])
 		'L_DATA_CALLBACK_TIME' => $callback_time,
 		'L_DATA_MESSAGE' => $daten_callback[message]));
    }
-  $zugriff_mysql->close_mysql();
+  $dataB->sql_close();
  }
 else
  {

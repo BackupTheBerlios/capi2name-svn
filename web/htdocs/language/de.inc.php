@@ -215,10 +215,11 @@ $textdata[showstatnew_zurueckrufen]="Zurueckrufen";
 $textdata[showstatnew_ins_addr]="Ins Adressbuch";
 $textdata[showstatnew_loeschen]="Löschen";
 $textdata[showstatnew_unbekannt]="unbekannt";
-$textdata[showstatnew_handy]="(Handy)";
+//$textdata[showstatnew_handy]="(Handy)";
 $textdata[showstatnew_zeige_anrufstat]="Zeige genaue Anrufstatistik von";
 $textdata[showstatnew_loesche_db]="Lösche diesen Eintrag aus der Datenbank";
 $textdata[showstatnew_alle_eintraege]="Zeige alle Einträge";
+$textdata[cell_pone]="Handy";
 //showstatnew.php ENDE
 
 $textdata[days7_7tage_uebersicht]="7 Tage Übersicht";
