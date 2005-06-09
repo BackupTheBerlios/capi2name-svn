@@ -25,7 +25,7 @@ if ($_SESSION['show_callback_notify'])
   FROM callback AS t1 LEFT JOIN addressbook AS t2 ON t1.addr_id=t2.id LEFT JOIN phonenumbers AS t3 ON t3.addr_id=t2.id WHERE t1.user_id=".$_SESSION['user_id']  ." AND t1.notify=1 GROUP BY t1.id");
   $dataB->sql_query("UPDATE callback SET notify=0 WHERE user_id=".$_SESSION['user_id']);
   $_SESSION['show_callback_notify']=false;
-  while($daten_callback=mysql_fetch_assoc($result_callback))
+  while($daten_callback=$dataB->sql_fetch_assoc($result_callback))
    {
    if ($daten_callback[addr_id]==-1)
      {
@@ -35,22 +35,24 @@ if ($_SESSION['show_callback_notify'])
      {
       $number=$daten_callback[RUFNR];
      }
-    switch ($daten_callback[callback_time])
+     
+  switch ($daten_callback[callback_time])
      {
       case 0:
-      	$callback_time="So bald wie moeglich";
+      	$callback_time=$textdata[callback_soon_as_posible];
 	break;
       case 1:
-      	$callback_time="Morgens";
+      	$callback_time=$textdata[callback_morning];
 	break;
       case 2:
-      	$callback_time="Mittags";
+      	$callback_time=$textdata[callback_midday];
 	break;
       case 3:
-      	$callback_time="Abends";
+      	$callback_time=$textdata[callback_evening];
 	break;
      
-  };
+     };  
+
    if ($daten_callback[addr_id]==-1)
    {
     $full_name=$daten_callback[full_name];

@@ -1,22 +1,4 @@
 <?
-/*
-    copyright            : (C) 2002-2004 by Jonas Genannt
-    email                : jonasge@gmx.net
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   any later version.                                   *
- *                                                                         *
- ***************************************************************************/
- ?>
-
-
-<?
-
 //Header.inc.php Seite:
 $textdata[header_inc_mainmenue]="Hauptmenü";
 $textdata[header_inc_index]="Index";
@@ -156,16 +138,6 @@ $textdata[stat_gesamt_keine_stat]="Es gibt keine Adressbucheinträge!<br>Nur mit 
 //stat_gesamt.php ENDE
 
 
-//editnotiz.php Seite
-$textdata[editnotiz_bearbeiten]="Notiz bearbeiten";
-$textdata[editnotiz_anzeigen]="Notiz anzeigen";
-$textdata[editnotiz_loeschen]="Notiz loeschen";
-$textdata[editnotiz_bearbeitetet_anzeigen]="Bearbeite Notiz anzeigen";
-$textdata[editnotiz_eintrag_mit_nicht_gefunden]="Eintrag mit ID Nr. $ge_id nicht gefunden!<br>Falls dieses Problem weiterhin besteht, wenden Sie sich bitte an ihren Systemadministrator!!";
-$textdata[editnotiz_schreiber]="Schreiber";
-$textdata[editnotiz_topic]="Topic";
-//editnotiz.php ENDE
-
 
 
 //index.php Seite
@@ -192,16 +164,6 @@ $textdata[kalender_tag_so]="So";
 //kalender.php ENDE
 
 
-//notiz.php Seite
-$textdata[notiz_notizen]="Notizen";
-$textdata[notiz_topic_angeben]="Bitte Topic angeben.";
-$textdata[notiz_schreiber_angeben]="Bitte Scheiber angeben.";
-$textdata[notiz_text_angeben]="Bitte Text eingeben.";
-$textdata[notiz_datum_uhrzeit]="Datum / Uhrzeit";
-$textdata[notiz_topic]="Topic";
-$textdata[notiz_schreiber]="Schreiber";
-$textdata[notiz_neue_notiz]="Neue Notiz";
-//notiz.php ENDE
 
 
 //showstatnew.php SEITE
@@ -251,8 +213,18 @@ $textdata[cs_fax_incoming]="Eingegangenes Fax";
 // cs_install
 $textdata[cs_config_headline] = "Capi2Name CapiSuite Integrations Manager";
 
-/*
 
+
+
+
+//callback sites:
+$textdata[callback_morning]="Morgens";
+$textdata[callback_midday]="Mittags";
+$textdata[callback_evening]="Abends";
+$textdata[callback_soon_as_posible]="So bald wie möglich";
+
+
+/*
 -----------------------------------------------------------------
 OLD OLD OLD OLD OLD OLD OLD OLD OLD
 ==============================================
@@ -410,7 +382,4 @@ $text[stat_anrufer_ueber]="Übersicht über die Anrufe von";
 
 //stat_loeschen.php
 $text[stat_loeschen]="Eintrag in Datenbank löschen";
-$text[]="";
-$text[]="";
-$text[]="";
 ?>

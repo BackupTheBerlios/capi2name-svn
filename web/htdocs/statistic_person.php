@@ -16,7 +16,6 @@ $seite=base64_encode("statistic_person.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
  
-
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 $sql_query=sprintf("SELECT * FROM addressbook WHERE id=%s", mysql_real_escape_string($_GET[id]));
 $result_adressbuch=$dataB->sql_query($sql_query);
@@ -122,8 +121,6 @@ $template->assign_block_vars('tab3',array(
 	'L_TIME' => $textdata[stat_anrufer_uhrzeit],
 	'L_CALL_NUMBER' => $textdata[stat_anrufer_rufnummer],
 	'L_CALL_TO_MSN' => $textdata[stat_anrufer_MSN]));
-$i=0;
-
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 $sql_query="SELECT datum,uhrzeit,msn,rufnummer FROM
 	angerufene AS t1,
@@ -131,12 +128,14 @@ $sql_query="SELECT datum,uhrzeit,msn,rufnummer FROM
 	AND t2.addr_id=$id ORDER BY t1.id DESC";
 $result=$dataB->sql_query($sql_query);
 $dataB->sql_close();
- while ($data_angerufene=$dataB->sql_fetch_assoc($result))
+
+$i=0;
+while ($data_angerufene=$dataB->sql_fetch_assoc($result))
   {
   if($i%2==0)
    { $color=$row_color_1; }
-    else
-    { $color=$row_color_2; }
+  else
+   { $color=$row_color_2; }
 
    $template->assign_block_vars('tab4', array(
    	'DATA_COLOR' => $color,

@@ -23,7 +23,6 @@
 <?
 include("./templates/".$userconfig['template']."/config.php");
 include("./includes/template.php");
-include("./language/".$config['language'].".inc.php");
 $template = new Template("./templates/".$userconfig['template']);
 $template->set_filenames(array('overall_header' => 'templates/'.$userconfig['template'].'/header.tpl'));
 

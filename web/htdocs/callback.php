@@ -87,22 +87,23 @@ while($daten=$dataB->sql_fetch_assoc($result_callback))
      {
       $number=$daten[RUFNR];
      }
+
    switch ($daten[callback_time])
      {
       case 0:
-      	$callback_time="So bald wie moeglich";
+      	$callback_time=$textdata[callback_soon_as_posible];
 	break;
       case 1:
-      	$callback_time="Morgens";
+      	$callback_time=$textdata[callback_morning];
 	break;
       case 2:
-      	$callback_time="Mittags";
+      	$callback_time=$textdata[callback_midday];
 	break;
       case 3:
-      	$callback_time="Abends";
+      	$callback_time=$textdata[callback_evening];
 	break;
      
-     };
+     }; 
   if ($daten[addr_id]==-1)
    {
     $full_name=$daten[full_name];

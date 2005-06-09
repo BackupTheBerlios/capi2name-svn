@@ -13,6 +13,7 @@
  *                                                                         *
  ***************************************************************************/
 include("./includes/conf.inc.php");
+include("./language/".$config['language'].".inc.php");
 include("./includes/functions.php");
 session_start(); 
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );

@@ -28,10 +28,10 @@ $template->set_filenames(array('overall_body' => 'templates/'.$userconfig['templ
   }
 
 
-$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-$result=$zugriff_mysql->sql_abfrage("
-SELECT t1.*,t2.nachname,t2.vorname,t2.tele1,t2.handy FROM callback AS t1 LEFT JOIN adressbuch AS t2 ON t1.addr_id=t2.id WHERE t1.user_id=".$_SESSION['user_id']." AND t1.id=$_GET[anz]");
-$zugriff_mysql->close_mysql();
+$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+$result=$dataB->sql_query("
+SELECT t1.*,t2.name_last,t2.name_first,t3.number AS RUFNR FROM callback AS t1 LEFT JOIN addressbook AS t2 ON t1.addr_id=t2.id LEFT JOIN phonenumbers AS t3 ON t3.addr_id=t2.id WHERE t1.user_id=".$_SESSION['user_id']." AND t1.id=$_GET[anz] AND t3.typ=1 GROUP BY t1.id");
+$dataB->sql_close();
 $daten=mysql_fetch_assoc($result);
 if ($daten==false)
  {
@@ -42,31 +42,27 @@ if ($daten==false)
   die();
  }
 
-   if ($daten[tele1]=="99")
-     {
-      $number=$daten[handy];
-     }
-   elseif ($daten[addr_id]==-1)
+   if ($daten[addr_id]==-1)
      {
       $number=$daten[number];
      }
-    else
+   else
      {
-      $number=$daten[tele1];
+      $number=$daten[RUFNR];
      }
    switch ($daten[callback_time])
      {
       case 0:
-      	$callback_time="So bald wie moeglich";
+      	$callback_time=$textdata[callback_soon_as_posible];
 	break;
       case 1:
-      	$callback_time="Morgens";
+      	$callback_time=$textdata[callback_morning];
 	break;
       case 2:
-      	$callback_time="Mittags";
+      	$callback_time=$textdata[callback_midday];
 	break;
       case 3:
-      	$callback_time="Abends";
+      	$callback_time=$textdata[callback_evening];
 	break;
      
      }; 
@@ -76,7 +72,7 @@ if ($daten==false)
    }
   else
    {
-   $full_name="<a href=\"./addressbook.php?id=$daten[addr_id]#find\">$daten[vorname] $daten[nachname]</a>";
+   $full_name="<a href=\"./addressbook.php?id=$daten[addr_id]#find\">$daten[name_first] $daten[name_last]</a>";
    }
 
 $template->assign_vars(array('L_SITE_TITLE' =>$text[detail]." ".$text[zurueckrufen]));

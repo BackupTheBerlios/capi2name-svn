@@ -17,10 +17,7 @@ $seite=base64_encode("showstatnew7days.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
 
-$datum[0]=date("d.m.Y");
-$tag[0]=date("D");
-
-for ($e=1;$e<=6;$e++)
+for ($e=0;$e<=7;$e++)
  {
  $tstamp  = mktime(0, 0, 0, date("m"), date("d")-$e, date("Y"));
  $datum[$e]=date("d.m.Y",$tstamp);
@@ -44,8 +41,7 @@ if (isset($_POST[eintragen]))
    $dataB->sql_close();
   }
 
-echo "<br />";
-for ($es=0;$es<=6;$es++)
+for ($es=0;$es<=7;$es++)
 {
 switch ($tag[$es])
    {
@@ -132,7 +128,7 @@ while($daten=$dataB->sql_fetch_assoc($result_angerufene))
  //because you can take your number from XX to XX service provider
  if ($daten[areacode]==2)
   {
-   $anz_vorwahl="Cell Phone";
+   $anz_vorwahl=$textdata[cell_pone];
   }
   else
   {

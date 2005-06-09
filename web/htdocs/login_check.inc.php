@@ -1,5 +1,6 @@
 <?
 include("./includes/conf.inc.php");
+include("./language/".$config['language'].".inc.php");
 include("./includes/functions.php");
 session_start(); 
 $realname=$_SESSION['realname'];
