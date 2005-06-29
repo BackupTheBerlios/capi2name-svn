@@ -1,4 +1,4 @@
-<?php
+<?
 /*
     copyright            : (C) 2002-2005 by Jonas Genannt
     email                : jonasge@gmx.net
@@ -12,52 +12,45 @@
  *   any later version.                                                    *
  *                                                                         *
  ***************************************************************************/
- // 	editor: Kai Römer 
+$seite=base64_encode("cs_answerphone.php");
+include("./login_check.inc.php");
+include("./header.inc.php");
+require_once("./cs_functions.inc.php");
+	
+if (checkUsername($_SESSION['username']) != 0)
+ die("<h1>username does not match local user</h1>");
+ 
+$template->set_filenames(array('overall_body' => 'templates/'.$userconfig['template'].'/cs_answerphone.tpl'));
+$template->assign_vars(array('L_SITE_TITLE' => $textdata[cs_ap_answerphone]));
 
-?>
-<?php
-	$seite=base64_encode("cs_answerphone.php");
-	include("./login_check.inc.php");
-	include("./header.inc.php");
-	require_once("./cs_functions.inc.php");
+$template->assign_block_vars('tab1',array(
+		'CS_AP_LIST' => $textdata[cs_ap_liste],
+		'CS_AP_TIME' => $textdata[cs_ap_time],
+		'CS_AP_FROM' => $textdata[cs_ap_from],
+		'CS_AP_TO' => $textdata[cs_ap_to]));
+
+
+$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"], $sql["db"] );
+$c = 0;
+$dir = $cs_conf['cs_voice_user_dir']."/".$_SESSION['username']."/received/";
+
+if (is_dir($dir)) {
+ if ($dh = opendir($dir)) {
+   while (($file = readdir($dh)) !== false) {
+     if(preg_match("/voice.*\.txt/i", $file)) {
+      $li[$c] = filectime($dir . $file) . ";$file";
+      $c++;
+     }
+   }
+  closedir($dh);
+ }
+ else "<h1>ERROR: cannot open $dir</h1>";
+}
+else "<h1>ERROR: cannot open $dir</h1>";
 	
-	if (checkUsername($_SESSION['username']) != 0) die("<h1>username does not match local user</h1>");
+usort($li, "cmp");
 	
-?>
-<?php echo "<div class=\"ueberschrift_seite\">$textdata[cs_ap_answerphone]</div>"; ?>
-	<h3><?php echo $textdata[cs_ap_liste]; ?></h3>
-	<table width="650px" align="center">
-		<thead style="text-size:large;">
-			<tr>
-				<td><?php echo $textdata[cs_ap_time]; ?></td>
-				<td><?php echo $textdata[cs_ap_from]; ?></td>
-				<td><?php echo $textdata[cs_ap_to]; ?></td>
-				<td></td>
-			</tr>
-		</thead>
-		<tbody>
-		
-<?php
-	$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"], $sql["db"] );
-	
-	$c = 0;
-	
-	$dir = $cs_conf['cs_voice_user_dir'] . "/" . $_SESSION['username'] . "/received/";
-	if (is_dir($dir)) {
-		if ($dh = opendir($dir)) {
-			while (($file = readdir($dh)) !== false) {
-				if(preg_match("/voice.*\.txt/i", $file)) {
-					$li[$c] = filectime($dir . $file) . ";$file";
-					$c++;
-				}
-			}
-			closedir($dh);
-		} else "<h1>ERROR: cannot open $dir</h1>";
-	} else "<h1>ERROR: cannot open $dir</h1>";
-	
-	usort($li, "cmp");
-	
-	foreach ($li as $value) {
+foreach ($li as $value) {
 		list(,$file) = split(";", $value);
 		$lines = file($dir . $file);
 		echo "<tr><td>";
@@ -71,14 +64,8 @@
 		echo "<a href=\"cs_hearmessage.php?file=$a&amp;csuser=".$_SESSION['username']."\">$textdata[cs_ap_play]</a>";
 		echo "</td></tr>";
 	}
-	$zugriff_mysql->close_mysql();
-?>
-			<tr><td></td></tr>
-		</tbody>
-	</table>
+	$dataB->sql_close();
 
-
-
-<?php
+$template->pparse('overall_body');
 include("./footer.inc.php");
 ?>

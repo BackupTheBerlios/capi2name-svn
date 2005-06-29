@@ -32,9 +32,9 @@ $template->assign_vars(array('L_SITE_TITLE' => $text[stat_loeschen]));
 if (isset($_POST[btn_loeschen]))
   {
    //Eintrag löschen:
-   $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] ); 
-   $res=$zugriff_mysql->sql_abfrage("DELETE FROM angerufene WHERE id=$_POST[id]");
-   $zugriff_mysql->close_mysql();
+   $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] ); 
+   $res=$dataB->sql_query("DELETE FROM angerufene WHERE id=$_POST[id]");
+   $dataB->sql_close();
      if ($_POST[datum]!="")
       {
        $datum="?datum=$_POST[datum]";
@@ -53,10 +53,10 @@ if (isset($_POST[btn_loeschen]))
 
 if (isset($_GET[id]))
   {
-    $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-    $result=$zugriff_mysql->sql_abfrage("SELECT * FROM angerufene WHERE id=$_GET[id]");
-    $zugriff_mysql->close_mysql();
-    $daten=mysql_fetch_assoc($result);
+    $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+    $result=$dataB->sql_query("SELECT * FROM angerufene WHERE id=$_GET[id]");
+    $dataB->sql_close();
+    $daten=$dataB->sql_fetch_assoc($result);
     $datum1=mysql_datum($daten[datum]);
     $template->assign_block_vars('check_if_del',array(
     	'L_MSG_CHECK_TO_DEL' => 'Soll dieser Eintrag mit ID '.$_GET[id]. ' gelöscht werden?&nbsp;-Zum Löschen einfach nochmal auf "Löschen" klicken!',

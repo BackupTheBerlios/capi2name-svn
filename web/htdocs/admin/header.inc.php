@@ -31,7 +31,7 @@ a:hover
 	 border-width:			1px;
 	 border-style:			solid;
 	 border-color:			#294C6B;
-	 width:				148px;
+	 width:				168px;
 	 position:			fixed;
 	}
 *.header
@@ -85,7 +85,7 @@ a:hover
 	{
 	 font-family:			arial,helvetica,geneva;
 	 background-color:		#C8CECE;
-	 margin-left:			158px;
+	 margin-left:			178px;
 	 border-width:			1px;
 	 border-style:			solid;
 	 border-color:			#294C6B;
@@ -127,6 +127,7 @@ a:hover
    <div style="font-weight:bold; margin-top: 1em;"></div>
    
    <div class="menuitem"><a href="../index.php">Go to Webinterface</a></div>
+   <div class="menuitem"><a href="http://www.capi2name.de" target="_blank">Go to Projecthomepage</a></div>
    <br/>
    <div class="menuitem"><a href="./index.php">Index</a></div>
    <div class="menuitem"><a href="./user_add.php">Add new User</a></div>

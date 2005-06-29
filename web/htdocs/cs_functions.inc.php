@@ -37,12 +37,12 @@
 		return $retval;
 	}
 
-$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 
-$result=$zugriff_mysql->sql_abfrage("SELECT * FROM config WHERE conf LIKE 'cs_%'");
- while($daten_cs=mysql_fetch_assoc($result))
+$result=$dataB->sql_query("SELECT * FROM config WHERE conf LIKE 'cs_%'");
+ while($daten_cs=$dataB->sql_fetch_assoc($result))
   {
    $cs_conf[$daten_cs[conf]]=$daten_cs[value];
   }
-$zugriff_mysql->close_mysql();
+$dataB->sql_close();
 ?> 

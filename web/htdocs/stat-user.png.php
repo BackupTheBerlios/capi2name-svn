@@ -89,7 +89,6 @@
 		
 		$einheit+=50; //90
 	}
-	
 	$fileName	= "stats.png";
 	
 	// translate file name properly for Internet Explorer.
