@@ -9,21 +9,16 @@
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
  *   the Free Software Foundation; either version 2 of the License, or     *
- *   any later version.                                   *
+ *   any later version.                                                    *
  *                                                                         *
  ***************************************************************************/
- ?>
-<?
 $seite=base64_encode("addressbook_add.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
 
 $template->set_filenames(array('overall_body' => './templates/'.$userconfig['template'].'/addressbook_add.tpl'));
 $template->assign_vars(array('L_NEW_ENTRY_TO_ADDR' => $textdata[addadress_neuer_adressbuch_eintrag]));
-?>
 
-
-<?
 // Eintrag eintragen.
 if (isset($_POST[eintragen]))
  {
@@ -39,14 +34,22 @@ if (isset($_POST[eintragen]))
 
   
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-$result=$dataB->sql_query("INSERT INTO addressbook VALUES(DEFAULT,'$_POST[bvorname]', '$_POST[bnachname]','$_POST[bstrasse]','$_POST[bhausnr]','$_POST[bplz]','$_POST[bort]','$_POST[bemail]')");
+$query=sprintf("INSERT INTO addressbook VALUES(NULL,%s,%s,%s,%s,%s,%s,%s)",
+	$dataB->sql_check($_POST[bvorname]),
+	$dataB->sql_check($_POST[bnachname]),
+	$dataB->sql_check($_POST[bstrasse]),
+	$dataB->sql_check($_POST[bhausnr]),
+	$dataB->sql_check($_POST[bplz]),
+	$dataB->sql_check($_POST[bort]),
+	$dataB->sql_check($_POST[bemail]));
+$result=$dataB->sql_query($query);
 if (!$result)
  {
   echo "errrorr";
  }
 $last_id=$dataB->sql_return_last_id($result);
-echo "### $last_id ----";
-die();
+//echo "### $last_id ----";
+//die();
 if ($_POST[btele]!="")
  {
    if (cellphone_number($_POST[btele]))
@@ -57,8 +60,8 @@ if ($_POST[btele]!="")
    {
     $typ=get_id_from_prefix($_POST[btele]);
    }
-  $result=$dataB->sql_query("INSERT INTO phonenumbers VALUES(
-  		'', '$last_id', '$_POST[btele]', '1', '$typ')");
+  $query=sprintf("INSERT INTO phonenumbers VALUES(NULL,'$last_id',%s,'1','$typ')", $dataB->sql_check($_POST[btele]));
+  $result=$dataB->sql_query($query);
  }
 if ($_POST[bhandy]!="")
  {
@@ -70,8 +73,8 @@ if ($_POST[bhandy]!="")
    {
     $typ=get_id_from_prefix($_POST[bhandy]);
    }
-  $result=$dataB->sql_query("INSERT INTO phonenumbers VALUES(
-  		'', '$last_id', '$_POST[bhandy]', '2', '$typ')");
+  $query=sprintf("INSERT INTO phonenumbers VALUES(NULL,'$last_id',%s,'2','$typ')",$dataB->sql_check($_POST[bhandy]));
+  $result=$dataB->sql_query($query);
  }
 if ($_POST[bfax]!="")
  {
@@ -83,8 +86,8 @@ if ($_POST[bfax]!="")
    {
     $typ=get_id_from_prefix($_POST[bfax]);
    }
-  $result=$dataB->sql_query("INSERT INTO phonenumbers VALUES(
-  		'', '$last_id', '$_POST[bfax]', '3', '$typ')");
+  $query=sprintf("INSERT INTO phonenumbers VALUES(NULL,'$last_id',%s,'3','$typ')",$dataB->sql_check($_POST[bfax]));
+  $result=$dataB->sql_query($query);
  }
 $dataB->sql_close();
 

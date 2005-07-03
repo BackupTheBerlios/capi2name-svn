@@ -18,7 +18,7 @@ else
  }
 mysql_connect($host,$username, $passwd);
 mysql_select_db($db);
-$res_anzahl=mysql_query("SELECT * FROM adressbuch");
+$res_anzahl=mysql_query("SELECT id FROM adressbuch");
 $rows_anzahl=mysql_num_rows($res_anzahl);
 echo "Rows Anzahl: $rows_anzahl<br>";
 $result=mysql_query("SELECT * FROM adressbuch LIMIT $start_id, 10");

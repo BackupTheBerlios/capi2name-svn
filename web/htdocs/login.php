@@ -1,4 +1,4 @@
-<?
+<?php
 /*
     copyright            : (C) 2002-2005 by Jonas Genannt
     email                : jonasge@gmx.net
@@ -29,7 +29,7 @@ if (isset($_POST['absenden']))
 {
 
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-$sql_query="SELECT id,username,passwd,name_first,name_last FROM users WHERE username='$_POST[login_name]'";
+$sql_query=sprintf("SELECT id,username,passwd,name_first,name_last FROM users WHERE username=%s", $dataB->sql_check($_POST[login_name]));
 $result_userlist=$dataB->sql_query($sql_query);
  if ($result_userlist && $_POST['login_name']!="" && $_POST['login_passwd']!="")
   {

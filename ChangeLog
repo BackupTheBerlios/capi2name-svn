@@ -15,7 +15,10 @@ Capi2name 0.6.8 YYYY-MM-DD - Jonas Genannt - <jonasge@gmx.net> ---BETA BROKEN!!!
 	o PHP: Fixed: admin/cs_install.php changed to from ini-file to config table
 	o PHP: Fixed: login.php and including the language file
 	o PHP: Fixed: header.inc.php and check for DB version found by Max
+	o PHP: Fixed: calendar.php and highlighting two days
+	o PHP: Fixed: addressbook_show.php if nothing found: grafics errors
 	o PHP: Improved: callback function
+	o PHP: Improved: login_check.inc.php and selecting table
 	o PHP: Changed all files that works with the old 'adressbuch' table
 	o PHP: Changed sql_class for postgre support
 	o PHP: Changed showstatnew7days.php now displays 7 days=1week
@@ -25,6 +28,7 @@ Capi2name 0.6.8 YYYY-MM-DD - Jonas Genannt - <jonasge@gmx.net> ---BETA BROKEN!!!
 	o PHP: Added: update script for copy from old to new 'adressbuch' table
 	o PHP: Added: language/index.html
 	o PHP: Added: link in admin-interface to projecthomepage
+	o PHP: Added: checks for SQL-Injection: checked all files
 
 Capi2name 0.6.7.6.2 2005-06-29 - Jonas Genannt - <jonasge@gmx.net>
 	o PHP: Fixed: header.inc.php and check for DB version found by Max

@@ -1,4 +1,4 @@
-<?
+<?php
 //error_reporting(E_ALL);
 /*
     copyright            : (C) 2002-2005 by Jonas Genannt
@@ -40,6 +40,7 @@ if ($_GET[showallmsns]=="yes") { $userconfig['msns']=""; }
 
 if (isset($_GET[datum]))
  {
+$maxlist=NULL; 
 if ($_GET[datum]=="gestern")
  {
   $anz_title=$textdata[showstatnew_gestrige_anrufe];
@@ -58,6 +59,7 @@ if ($_GET[datum]=="gestern")
  }
 elseif (isset($_GET[sdatum]))
  {
+   $maxlist=NULL;
    $anz_title=$textdata[header_inc_anrufstatistik] . " " . $textdata[showstatnew_vom] . " " . $_GET[sdatum];
    $sql_datum=$_GET[sdatum];
    $loeschen_seiten="&amp;sdatum=$_GET[sdatum]";
@@ -80,7 +82,10 @@ if (isset($_GET[unbekannt]))
 if (isset($_POST[eintragen]))
   {
    $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-   $dataB->sql_query("UPDATE angerufene SET name='$_POST[newname]' WHERE id=$_POST[newid]");
+   $query=sprintf("UPDATE angerufene SET name=%s WHERE id=%s",
+   		$dataB->sql_check($_POST[newname]),
+		$dataB->sql_checkn($_POST[newid]));
+   $dataB->sql_query($query);
    $dataB->sql_close();
   }
 
@@ -127,7 +132,8 @@ $sql_query_1="SELECT  t1.id,t1.rufnummer,t1.datum,t1.uhrzeit,t1.name,t1.dienst,t
 $sql_query_2=" ORDER BY t1.id DESC";
 if (!empty($sql_datum))
 {
- $sql_query=$sql_query_1 . " WHERE t1.datum='". datum_mysql($sql_datum)."'";
+ $sql_query=$sql_query_1 . sprintf(" WHERE t1.datum=%s",
+ 	 $dataB->sql_check(datum_mysql($sql_datum)));
 }
 else
 {
@@ -137,6 +143,8 @@ $sql_query=$sql_query.$sql_query_2;
 if ($maxlist!=NULL)
  {
   $sql_query=$sql_query. " LIMIT $maxlist";
+  //$sql_query=$sql_query. sprintf(" LIMIT %s", $dataB->sql_checkn($maxlist));
+
  }
 $result_angerufene=$dataB->sql_query($sql_query);
 $dataB->sql_close();

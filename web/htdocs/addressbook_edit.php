@@ -1,4 +1,4 @@
-<?
+<?php
 /*
     copyright            : (C) 2002-2005 by Jonas Genannt
     email                : jonasge@gmx.net
@@ -24,8 +24,9 @@ $template->assign_vars(array('L_SITE_TITLE' => $textdata[editadress_adressbuchei
 if (isset($_POST[wloeschen]))
  {
   $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-  $result=$dataB->sql_query("DELETE FROM addressbook WHERE id='$_POST[loeschenID]'");
-  $result=$dataB->sql_query("DELETE FROM phonenumbers WHERE addr_id='$_POST[loeschenID]'");
+  $id=$dataB->sql_checkn($_POST[loeschenID]);
+  $result=$dataB->sql_query("DELETE FROM addressbook WHERE id=$id");
+  $result=$dataB->sql_query("DELETE FROM phonenumbers WHERE addr_id=$id");
   $dataB->sql_close();
   $template->assign_block_vars('delete_entry_from_db', array(
   	'L_ADDRESS_BOOK_ENTRY_REMOVED' => $textdata[editadress_eintrag_geloescht]));
@@ -46,8 +47,16 @@ if (isset($_POST[tele_save]))
    {
     $typ=get_id_from_prefix($_POST[telephonnr]);
    }
-  $dataB->sql_query("UPDATE phonenumbers SET number='$_POST[telephonnr]' WHERE id='$_POST[tele_id]'");
-  $dataB->sql_query("UPDATE phonenumbers SET areacode='$typ' WHERE id='$_POST[tele_id]'");
+  if (is_numeric($_POST[tele_id]))
+   {
+    $query=sprintf("UPDATE phonenumbers SET number=%s WHERE id=%s",
+  	$dataB->sql_check($_POST[telephonnr]),
+	$dataB->sql_check($_POST[tele_id]));
+    $dataB->sql_query($query);
+    $query=sprintf("UPDATE phonenumbers SET areacode='$typ' WHERE id=%s",
+  	$dataB->sql_check($_POST[tele_id]));
+    $dataB->sql_query($query);
+   }
   $dataB->sql_close();
  }
 //telephonenumber update END
@@ -55,7 +64,11 @@ if (isset($_POST[tele_save]))
 if (isset($_POST[tele_delete]))
  {
   $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-  $dataB->sql_query("DELETE FROM phonenumbers WHERE id='$_POST[tele_id]'");
+  if (is_numeric($_POST[tele_id]))
+   {
+    $query=sprintf("DELETE FROM phonenumbers WHERE id=%s", $dataB->check($_POST[tele_id]));
+    $dataB->sql_query($query);
+   }
   $dataB->sql_close();
  }
 //telephonenumber delete END
@@ -72,14 +85,20 @@ if (isset($_POST[add]))
    {
     $typ=get_id_from_prefix($_POST[telephonnr]);
    }
-  $result=$dataB->sql_query("INSERT INTO phonenumbers VALUES(
-  		'', '$_POST[id]', '$_POST[telephonnr]', '$_POST[typ]', '$typ')");
+  if (is_numeric($_POST[id]))
+   {
+    $query=sprintf("INSERT INTO phonenumbers VALUES(NULL,%s,%s,%s,'$typ')",
+    	$dataB->sql_check($_POST[id]),
+	$dataB->sql_check($_POST[telephonnr]),
+	$dataB->sql_check($_POST[typ]));
+    $result=$dataB->sql_query($query);
+   }
   $dataB->sql_close();
  }
 //telephonnumber add END
  
  
-if (isset($_POST[loeschen]) or $_GET[loeschen]==1)
+if (isset($_POST[del]) or $_GET[del])
  {
  $template->assign_block_vars('check_if_delete_entry', array(
  	'L_check_if_you_will_delete' => $textdata[editadress_wirklich_loeschen]));
@@ -89,28 +108,37 @@ if (isset($_POST[loeschen]) or $_GET[loeschen]==1)
 if (isset($_POST[aendern]))
  {
   $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-  $result=$dataB->sql_query("DELETE FROM addressbook WHERE id='$_POST[id]'");
-  $result=$dataB->sql_query("INSERT INTO addressbook VALUES(
-  	'$_POST[id]', '$_POST[bvorname]', '$_POST[bnachname]',
-	'$_POST[bstrasse]', '$_POST[bhausnr]',
-	'$_POST[bplz]', '$_POST[bort]', '$_POST[bemail]')");
+  if (is_numeric($_POST[id]))
+   {
+    $query=sprintf("DELETE FROM addressbook WHERE id=%s", $dataB->sql_check($_POST[id]));
+    $result=$dataB->sql_query($query);
+    $query=sprintf("INSERT INTO addressbook VALUES(%s,%s,%s,%s,%s,%s,%s,%s)",
+	$dataB->sql_check($_POST[id]),
+	$dataB->sql_check($_POST[bvorname]),
+	$dataB->sql_check($_POST[bnachname]),
+	$dataB->sql_check($_POST[bstrasse]),
+	$dataB->sql_check($_POST[bhausnr]),
+	$dataB->sql_check($_POST[bplz]),
+	$dataB->sql_check($_POST[bort]),
+	$dataB->sql_check($_POST[bemail]));
+    $result=$dataB->sql_query($query);
+   }
   $dataB->sql_close();
   
  }
 
 
 //===============================// auslesen, baerbeiten = muss gesetzt sein.
+$id=(isset($_POST[id]) ? $_POST[id] : $_GET[edit]);
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-if (isset($_POST[id]))
+
+if (is_numeric($id))
  {
-  $eintrag=$_POST[id];
+  $id=$dataB->sql_check($id);
+  $result=$dataB->sql_query("SELECT * FROM addressbook WHERE id=$id");
+  $daten=$dataB->sql_fetch_assoc($result);
  }
- else
- {
-  $eintrag=$_GET[bearbeiten];
- }
-$result=$dataB->sql_query("SELECT * FROM addressbook WHERE id='$eintrag'");
-$daten=$dataB->sql_fetch_assoc($result);
+ 
 if (!$daten)
  {
   $template->assign_block_vars('entry_not_found', array(

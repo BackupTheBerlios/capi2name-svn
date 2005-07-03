@@ -1,4 +1,4 @@
-<?
+<?php
 /*
     copyright            : (C) 2002-2005 by Jonas Genannt
     email                : jonasge@gmx.net
@@ -12,9 +12,8 @@
  *   any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-
-	include("./includes/conf.inc.php");
-	include("./includes/functions.php");
+include("./includes/conf.inc.php");
+include("./includes/functions.php");
 	
 	
 	//Bilddaten:
@@ -33,10 +32,14 @@
 	$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 	//echo "$result[tele1], $result[fax]";
 	for ($e=0;$e<=9;$e++) {
-		$result_alle=$dataB->sql_query("SELECT rufnummer FROM angerufene, phonenumbers AS t2
-		WHERE MONTH(datum)=$datum_monat[$e] 
-		AND YEAR(datum)=$datum_jahr[$e] 
-		AND rufnummer=t2.number  AND t2.addr_id=$_GET[id]");
+		$query=sprintf("SELECT rufnummer FROM angerufene, phonenumbers AS t2
+		WHERE MONTH(datum)=%s 
+		AND YEAR(datum)=%s 
+		AND rufnummer=t2.number  AND t2.addr_id=%s",
+			$dataB->sql_checkn($datum_monat[$e]),
+			$dataB->sql_checkn($datum_jahr[$e]),
+			$dataB->sql_checkn($_GET[id]));
+		$result_alle=$dataB->sql_query($query);
 		$anzahl_monat_alle[$e]=$dataB->sql_num_rows($result_alle);
 		//echo "Anzahl: $e: ". $anzahl_monat_alle[$e];
 		

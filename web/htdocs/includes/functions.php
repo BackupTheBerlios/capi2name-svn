@@ -1,4 +1,4 @@
-<?php
+<?
 /*
     copyright            : (C) 2002-2005 by Jonas Genannt
     email                : jonasge@gmx.net
@@ -68,7 +68,10 @@ function cellphone_number($number)
   $prefix=substr($number,1,3);
   while($cellphoneprefix<180)
    {
-    if ($prefix==$cellphoneprefix) $wert=true;
+    if ($prefix==$cellphoneprefix) {
+     $wert=true;
+     break;
+    }
     $cellphoneprefix++;
    }
   return $wert;
@@ -98,7 +101,10 @@ function handynr_vorhanden($nummer) //pruefe ob Handy Nr vorhanden, wegen add ad
 	$handynummer="0";
 	$teilvondata1=substr($nummer, 1,3);
 	while ($handyvorwahl<180) {
-		if ($teilvondata1==$handyvorwahl) { $handynummer="1"; }
+		if ($teilvondata1==$handyvorwahl) {
+		  $handynummer="1";
+		  break;
+		}
 		$handyvorwahl++;
 	}
 	if ($handynummer=="1") $wert="handy=$nummer";
@@ -212,6 +218,31 @@ class c_mysql
        }
     }//function close_mysql ENDE
    
+  function sql_check($value)
+    {
+     if (get_magic_quotes_gpc()) {
+     	$value=stripslashes($value);
+	}
+     $value = strip_tags($value);
+     $value = "'" . mysql_real_escape_string($value) . "'";
+     return $value;
+    }
+   function sql_checkn($value)
+    {
+     if (is_numeric($value))
+     {
+      if (get_magic_quotes_gpc()) {
+     	$value=stripslashes($value);
+	 }
+      $value = strip_tags($value);
+      $value = "'" . mysql_real_escape_string($value) . "'";
+      return $value;
+     }
+    else
+     {
+      return -1;
+     }
+    }
   function sql_query($sql_query)
     {
      if($sql_query!="")
@@ -238,6 +269,10 @@ class c_mysql
       return false;
      }
    }
+  function sql_return_last_id($result)
+   {
+    return mysql_insert_id();
+   } 
    function sql_num_rows($res)
    {
     $this->num_rows_result=@mysql_num_rows($res);

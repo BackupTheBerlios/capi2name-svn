@@ -1,4 +1,4 @@
-<?
+<?php
 /*
     copyright            : (C) 2002-2005 by Jonas Genannt
     email                : jonasge@gmx.net
@@ -12,7 +12,6 @@
  *   any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-
 $seite=base64_encode("calendar.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
@@ -96,7 +95,8 @@ for ($i=1; $i<=$index; $i++)
      { $color=$row_color_1; }
    else
      { $color=$row_color_2; }
-   if ($tage_vormonat==date(d)) $color=$hightlight_color;
+   if ($tage_vormonat==date(d) && $cur_monat_1==date(m) && $cur_jahr_1==date(Y))
+       $color=$hightlight_color; 
    $template->assign_block_vars('tab1',array(
    		'DATA_COLOR' => $color,
 		'DATA_DAY_BEFOR' =>$tage_vormonat,
@@ -115,7 +115,8 @@ for ($i=1; $i<=$index; $i++)
     else
       { $color=$row_color_2; 
       }
-    if ($e==date(d)) $color=$hightlight_color;
+    if ($e==date(d) && $cur_monat==date(m) && $cur_jahr==date(Y)) 
+    	{ $color=$hightlight_color; }
        if ( $e < 10) {  $tag_neu="0$e"; } else { $tag_neu=$e; }
        $template->assign_block_vars('tab2',array(
        		'DATA_COLOR' => $color,
@@ -138,7 +139,8 @@ for ($i=1; $i<=$index; $i++)
       { $color=$row_color_1; }
     else
       { $color=$row_color_2; }
-    if ($tag==date(d)) $color=$hightlight_color;
+    if ($tag==date(d) && $cur_monat_2==date(m)&& $cur_jahr_2==date(Y)) 
+    		{ $color=$hightlight_color; }
        $template->assign_block_vars('tab4',array(
        		'DATA_COLOR' => $color,
 		'DATA_DAY' => $tag,

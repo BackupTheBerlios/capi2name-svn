@@ -1,4 +1,4 @@
-<?
+<?php
 /*
     copyright            : (C) 2002-2005 by Jonas Genannt
     email                : jonasge@gmx.net
@@ -13,7 +13,6 @@
  *                                                                         *
  ***************************************************************************/
 $seite=base64_encode("showstatnew7days.php");
-
 include("./login_check.inc.php");
 include("./header.inc.php");
 
@@ -37,7 +36,10 @@ if (isset($_GET[unbekannt]))
 if (isset($_POST[eintragen]))
   {
    $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-   $dataB->sql_query("UPDATE angerufene SET name='$_POST[newname]' WHERE id=$_POST[newid]");
+   $query=sprintf("UPDATE angerufene SET name=%s WHERE id=%s",
+		$dataB->sql_check($_POST[newname]),
+		$dataB->sql_checkn($_POST[newid]));
+   $dataB->sql_query($query);
    $dataB->sql_close();
   }
 
@@ -101,14 +103,14 @@ if ($userconfig['loeschen'])
 
  
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-$tmp=datum_mysql($datum[$es]);
+$tmp=$dataB->sql_check(datum_mysql($datum[$es]));
 $sql_query="SELECT  t1.id,t1.rufnummer,t1.datum,t1.uhrzeit,t1.name,t1.dienst,t1.vorwahl,t1.msn,
 		t3.name_first, t3.name_last,t3.id AS ADDR_ID,t2.areacode,
 		t4.name AS msn_name
 		FROM angerufene AS t1
 		LEFT JOIN phonenumbers AS t2 ON t1.rufnummer=t2.number
 		LEFT JOIN addressbook AS t3 ON t2.addr_id=t3.id
-		LEFT JOIN msnzuname AS t4 ON t1.msn=t4.msn WHERE t1.datum='$tmp' ORDER BY t1.id DESC";
+		LEFT JOIN msnzuname AS t4 ON t1.msn=t4.msn WHERE t1.datum=$tmp ORDER BY t1.id DESC";
 
 
 $result_angerufene=$dataB->sql_query($sql_query);

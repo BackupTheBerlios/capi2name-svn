@@ -7,7 +7,7 @@ session_start();
  </head>
 <body>
 
-<?php
+<?
 
 
 if (!isset($_POST[absenden]) && !isset($_GET[update]))
@@ -473,15 +473,29 @@ if ($db_layout_version=="0.6.7.6")
 /*******************VERSION 0.6.7.6 -> 0.6.7.6.1 END *************************/
 
 /*******************VERSION 0.6.7.6.1 -> 0.6.7.6.2 BEGIN ***********************/
-if ($db_layout_version=="0.6.7.6")
+if ($db_layout_version=="0.6.7.6.1")
  {
-  echo "Found Version 0.6.7.6 updating to 0.6.8...........<br>";
-  $control=mysql_query("UPDATE config SET value='0.6.8' WHERE conf='db_version'");
+  echo "Found Version 0.6.7.6.1 updating to 0.6.7.6.2...........<br>";
+  $control=mysql_query("UPDATE config SET value='0.6.7.6.2' WHERE conf='db_version'");
    if ($control==FALSE)
   {
    echo "Update failed: <br/>Mysql-Error: ". mysql_error();
    die();
    }
+/***************** VERSION 0.6.7.6.1->0.6.7.6.2 END **************************/
+
+
+/***************+ VERSION 0.6.7.6.2 -> 0.6.8  BEGIN **************************/   
+if ($db_layout_version=="0.6.7.6.2")
+ {
+  echo "Found Version 0.6.7.6.2 updating to 0.6.8...........<br>";
+  $control=mysql_query("UPDATE config SET value='0.6.8' WHERE conf='db_version'");
+   if ($control==FALSE)
+  {
+   echo "Update failed: <br/>Mysql-Error: ". mysql_error();
+   die();
+   }   
+   
   $control=mysql_query("ALTER TABLE `config` CHANGE `value` `value` CHAR( 50 ) DEFAULT NULL");
    if ($control==FALSE)
   {
@@ -511,7 +525,7 @@ VALUES (
 );
  */   
 }
-/*******************VERSION 0.6.7.6.1 -> 0.6.8 END *************************/
+/*******************VERSION 0.6.7.6.2 -> 0.6.8 END *************************/
 
 
 $control=mysql_close();

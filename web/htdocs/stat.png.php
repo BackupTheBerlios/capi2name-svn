@@ -1,4 +1,4 @@
-<?
+<?php
 /*
     copyright            : (C) 2002-2005 by Jonas Genannt
     email                : jonasge@gmx.net
@@ -31,12 +31,17 @@ include("./includes/functions.php");
 	}
 	$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 	for ($e=0;$e<=5;$e++) {
+		$query=sprintf("SELECT id,rufnummer FROM angerufene WHERE MONTH(datum)=%s AND YEAR(datum)=%s",
+			$dataB->sql_checkn($datum_monat[$e]),
+			$dataB->sql_checkn($datum_jahr[$e]));
+		$result_alle=$dataB->sql_query($query);
+		$query=sprintf("SELECT id,rufnummer FROM angerufene WHERE MONTH(datum)=%s AND YEAR(datum)=%s AND rufnummer='unbekannt'",
+			$dataB->sql_checkn($datum_monat[$e]),
+			$dataB->sql_checkn($datum_jahr[$e]));
+		$result_unbekannt=$dataB->sql_query($query);
 		
-		$result_alle=$dataB->sql_query("SELECT id,rufnummer FROM angerufene WHERE MONTH(datum)=$datum_monat[$e] AND YEAR(datum)=$datum_jahr[$e]");
-		$result_unbekannt=$dataB->sql_query("SELECT id,rufnummer FROM angerufene WHERE MONTH(datum)=$datum_monat[$e] AND YEAR(datum)=$datum_jahr[$e] AND rufnummer='unbekannt'");
-		
-		$anzahl_monat_alle[$e]=mysql_num_rows($result_alle);
-		$anzahl_monat_unbekannt[$e]=mysql_num_rows($result_unbekannt);
+		$anzahl_monat_alle[$e]=$dataB->sql_num_rows($result_alle);
+		$anzahl_monat_unbekannt[$e]=$dataB->sql_num_rows($result_unbekannt);
 		$anzahl_monat_bekannt[$e]=$anzahl_monat_alle[$e]-$anzahl_monat_unbekannt[$e];
 	}
 	$dataB->sql_close();

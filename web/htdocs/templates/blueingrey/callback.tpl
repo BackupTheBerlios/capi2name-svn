@@ -26,11 +26,11 @@
 <tr>
   <td style="width:150px;">{tab2.DATA_NAME}</td>
   <td style="width:150px; text-align:center;">
-  <a href="./callback_show.php?anz={tab2.DATA_ID}" title="{tab2.L_SHOW_REASON}">{tab2.DATA_NUMBER}</a></td>
+  <a href="./callback_show.php?id={tab2.DATA_ID}" title="{tab2.L_SHOW_REASON}">{tab2.DATA_NUMBER}</a></td>
   <td style="text-align:center;">{tab2.DATA_TIME} - {tab2.DATA_DATE}</td>
   <td style="width:150px; text-align:center;">{tab2.DATA_CALL_BACK_TIME}</td>
   <td style="text-align:center;">
-  <a href="./callback.php?loeschen={tab2.DATA_ID}" title="Loeschen">
+  <a href="./callback.php?del={tab2.DATA_ID}" title="Loeschen">
   <img src="./images/edittrash.png" style="border-width:0px;vertical-align:middle;" alt=""/></a></td>
 </tr>
 <!-- END tab2 -->

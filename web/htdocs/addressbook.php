@@ -1,4 +1,4 @@
-<?
+<?php
 /*
     copyright            : (C) 2002-2005 by Jonas Genannt
     email                : jonasge@gmx.net
@@ -62,9 +62,9 @@ while($data_addr=$dataB->sql_fetch_assoc($result))
      
      
      
-  if (isset($_GET[id]) )
+  if (isset($_GET[id]))
    {
-    if($_GET[id]==$data_addr[id] )
+    if($_GET[id]==$data_addr[id])
      {
       $color=$hightlight_color;
       $data_tele[number]="<a name=\"find\">$data_tele[number]</a>";

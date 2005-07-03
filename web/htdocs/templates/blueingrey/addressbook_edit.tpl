@@ -147,7 +147,7 @@
  <form action="./addressbook_edit.php" method="post">
 <input type="hidden" name="id" value="{ask_for_delete_entry.id}"/>
 <input type="hidden" name="loeschen_OK" value="{ask_for_delete_entry.ID_FROM_ADDR}" />
-<input type="submit" name="loeschen" value="{ask_for_delete_entry.DELETE_ENTRY}" />
+<input type="submit" name="del" value="{ask_for_delete_entry.DELETE_ENTRY}" />
 </form>
 </ins>
 <!-- END ask_for_delete_entry -->

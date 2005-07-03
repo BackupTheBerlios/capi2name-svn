@@ -1,4 +1,4 @@
-<?
+<?php
 /*
     copyright            : (C) 2002-2005 by Jonas Genannt
     email                : jonasge@gmx.net
@@ -32,11 +32,11 @@ $template->set_filenames(array('overall_body' => 'templates/'.$userconfig['templ
    die();
   }
 
-if(isset($_GET[loeschen]))
+if(isset($_GET[del])&& is_numeric($_GET[del]))
  {
  $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
- $result=$dataB->sql_query("DELETE FROM callback WHERE id=$_GET[loeschen]");
- if ($result != "true") {echo "Fehler-Nr. " . mysql_errno()." - " .mysql_error(); die();}
+ $d_id=$dataB->sql_checkn($_GET[del]);
+ $result=$dataB->sql_query("DELETE FROM callback WHERE id=$d_id");
  $dataB->sql_close();
  echo "<meta http-equiv=\"refresh\" content=\"1; URL=./callback.php\">";
  }
@@ -47,12 +47,20 @@ if(isset($_POST[save_without_addr]))
   $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
   if (is_numeric($_POST[addname]))
    {
-   
-    $sql_query="INSERT INTO callback VALUES(NULL,'$_POST[addname]','$_POST[user_id]',NOW(),NOW(),'$_POST[callback_time]','$_POST[message]', '1',NULL,NULL)";
+    $sql_query=sprintf("INSERT INTO callback VALUES(NULL,%s,%s,NOW(),NOW(),%s,%s,'1',NULL,NULL)",
+    	$dataB->sql_checkn($_POST[addname]),
+	$dataB->sql_checkn($_POST[user_id]),
+	$dataB->sql_checkn($_POST[callback_time]),
+	$dataB->sql_check($_POST[message]));
    }
   else
    {
-    $sql_query="INSERT INTO callback VALUES(NULL,'-1','$_POST[user_id]',NOW(),NOW(),'$_POST[callback_time]','$_POST[message]', '1','$_POST[addnumber]','$_POST[addname]')";
+    $sql_query=sprintf("INSERT INTO callback VALUES(NULL,'-1',%s,NOW(),NOW(),%s,%s,'1',%s,%s)",
+    	$dataB->sql_checkn($_POST[user_id]),
+	$dataB->sql_checkn($_POST[callback_time]),
+	$dataB->sql_check($_POST[message]),
+	$dataB->sql_check($_POST[addnumber]),
+	$dataB->sql_check($_POST[addname]));
    }
   $dataB->sql_query($sql_query);
   $dataB->sql_close();
@@ -62,7 +70,12 @@ if(isset($_POST[save_without_addr]))
 if(isset($_POST[save_with_addr]))
  {
   $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-  $dataB->sql_query("INSERT INTO callback VALUES (NULL,'$_POST[addid]','$_POST[user_id]',NOW(),NOW(),'$_POST[callback_time]','$_POST[message]', '1', NULL,NULL)");
+  $query=sprintf("INSERT INTO callback VALUES(NULL,%s,%s,NOW(),NOW(),%s,%s,'1',NULL,NULL)",
+  	$dataB->sql_checkn($_POST[addid]),
+	$dataB->sql_checkn($_POST[user_id]),
+	$dataB->sql_checkn($_POST[callback_time]),
+	$dataB->sql_check($_POST[message]));
+  $dataB->sql_query($query);
   $dataB->sql_close();
   $template->assign_block_vars('saved_with_addr',array('L_MSG_SAVED' => 'saved to database'));
  }
@@ -130,7 +143,9 @@ if ($_GET[add]== "yes")
  if (!empty($_GET[addr]))
   {
    //user kommt von showstatnew.php und hat id vom addr
-   $result_addr=$dataB->sql_query("SELECT t1.id,t1.name_first,t1.name_last,t2.number FROM addressbook AS t1 LEFT JOIN  phonenumbers AS t2 ON t2.addr_id=t1.id WHERE t1.id='$_GET[addr]' LIMIT 1");
+   $query=sprintf("SELECT t1.id,t1.name_first,t1.name_last,t2.number FROM addressbook AS t1 LEFT JOIN  phonenumbers AS t2 ON t2.addr_id=t1.id WHERE t1.id=%s LIMIT 1",
+   	$dataB->sql_checkn($_GET[addr]));
+   $result_addr=$dataB->sql_query($query);
    $daten_addr=$dataB->sql_fetch_assoc($result_addr);
 
    $template->assign_block_vars('insert_with_addr',array(

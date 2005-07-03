@@ -30,10 +30,16 @@ if ($_COOKIE['ck_username']!="" && $_COOKIE['ck_passwd']!="" && $_COOKIE['ck_rea
   $user_id =$_SESSION['user_id'];
  }
 
-
-
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-$result_userlist=$dataB->sql_query("SELECT * FROM users WHERE username='$username'");
+if (is_numeric($user_id))
+ {
+  $query=sprintf("SELECT * FROM users WHERE id=%s", $dataB->sql_checkn($user_id));
+ }
+else
+ {
+  $query=sprintf("SELECT * FROM users WHERE username=%s",$dataB->sql_check($username));
+ }
+$result_userlist=$dataB->sql_query($query);
  if ($result_userlist && $username!="" && $password!="")
   {
   $row_userlist=$dataB->sql_fetch_assoc($result_userlist);

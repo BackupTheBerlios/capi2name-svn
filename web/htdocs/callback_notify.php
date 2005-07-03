@@ -1,4 +1,4 @@
-<?
+<?php
 /*
     copyright            : (C) 2002-2005 by Jonas Genannt
     email                : jonasge@gmx.net
@@ -13,6 +13,7 @@
  *                                                                         *
  ***************************************************************************/
 include("./includes/conf.inc.php");
+include("./language/".$config['language'].".inc.php");
 include("./includes/functions.php");
 include("./includes/template.php");
 $template = new Template("./templates/blueingrey");
@@ -23,7 +24,7 @@ if ($_SESSION['show_callback_notify'])
   $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
   $result_callback=$dataB->sql_query("SELECT t1.*,t2.name_first,t2.name_last,t3.number AS RUFNR
   FROM callback AS t1 LEFT JOIN addressbook AS t2 ON t1.addr_id=t2.id LEFT JOIN phonenumbers AS t3 ON t3.addr_id=t2.id WHERE t1.user_id=".$_SESSION['user_id']  ." AND t1.notify=1 GROUP BY t1.id");
-  $dataB->sql_query("UPDATE callback SET notify=0 WHERE user_id=".$_SESSION['user_id']);
+ $dataB->sql_query("UPDATE callback SET notify=0 WHERE user_id=".$_SESSION['user_id']);
   $_SESSION['show_callback_notify']=false;
   while($daten_callback=$dataB->sql_fetch_assoc($result_callback))
    {
@@ -35,7 +36,6 @@ if ($_SESSION['show_callback_notify'])
      {
       $number=$daten_callback[RUFNR];
      }
-     
   switch ($daten_callback[callback_time])
      {
       case 0:
