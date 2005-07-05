@@ -75,9 +75,13 @@ $template->assign_vars(array('L_CALL_STAT_TITLE' => $anz_title));
 
 if (isset($_GET[unbekannt]))
  {
+  if (isset($_GET[datum])) $submit_date="?datum=$_GET[datum]";
+  else if (isset($_GET[sdatum])) $submit_date="?datum=$_GET[sdatum]";
+  else  $submit_date="";
   $template->assign_block_vars('change_name_from_unkown', array(
   	'DATA_ID_FROM_DB' => $_GET[einid],
-	'L_SUBMIT_ENTRY' => $textdata[addadress_eintrag_aufnehmen]));
+	'L_SUBMIT_ENTRY' => $textdata[addadress_eintrag_aufnehmen],
+	'DATE' => $submit_date));
  }
 if (isset($_POST[eintragen]))
   {
@@ -172,7 +176,10 @@ while($daten=$dataB->sql_fetch_assoc($result_angerufene))
  
    if ($daten[rufnummer]=="unbekannt" && $daten[name]=="unbekannt")
     {
-     $anz_name="<a href=\"./showstatnew.php?unbekannt=yes&einid=$daten[id]\">unbekannt</a>";
+     if (isset($_GET[datum])) $submit_date="&datum=$_GET[datum]";
+     else if (isset($_GET[sdatum])) $submit_date="&datum=$_GET[sdatum]";
+     else $submit_date=""; 
+     $anz_name="<a href=\"./showstatnew.php?unbekannt=yes&einid=$daten[id]$submit_date\">unbekannt</a>";
      $anz_rueckruf="<a href=\"./callback.php?add=yes&amp;addr=\">
    <img src=\"./images/1leftarrow.gif\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
     }

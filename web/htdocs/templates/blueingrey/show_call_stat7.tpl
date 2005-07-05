@@ -2,18 +2,17 @@
 
 <!-- BEGIN change_name_from_unkown -->
 <br />
-<form action="./showstatnew.php" method="post">
+<form action="./showstatnew7days.php" method="post">
 <input type="hidden" name="newid" value="{change_name_from_unkown.DATA_ID_FROM_DB}">
 Name: <input name="newname" type="text">
 <input type="submit" name="eintragen" value="{change_name_from_unkown.L_SUBMIT_ENTRY}">
  </form><br />
 <!-- END change_name_from_unkown -->
 
-<!-- BEGIN tab0 -->
 
+<!-- BEGIN tab0 -->
 <p style="text-align:left; margin-bottom:0px; font-weight:bold">{tab0.L_DATE_P} - {tab0.L_DAY_P}</p>
 <br />
-
 <table border="0" cellpadding="1" cellspacing="2" style="margin-right:auto;margin-left:auto;">
  <tr>
   <td></td>

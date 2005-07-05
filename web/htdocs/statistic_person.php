@@ -1,4 +1,4 @@
-<?
+<?php
 /*
     copyright            : (C) 2002-2005 by Jonas Genannt
     email                : jonasge@gmx.net
@@ -17,10 +17,12 @@ include("./login_check.inc.php");
 include("./header.inc.php");
  
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-$sql_query=sprintf("SELECT * FROM addressbook WHERE id=%s", mysql_real_escape_string($_GET[id]));
-$result_adressbuch=$dataB->sql_query($sql_query);
+$query=sprintf("SELECT * FROM addressbook WHERE id=%s", 
+		$dataB->sql_check($_GET[id]));
+$result_adressbuch=$dataB->sql_query($query);
 $data_adressbuch=$dataB->sql_fetch_assoc($result_adressbuch);
 $dataB->sql_close();
+
 
 
 $template->set_filenames(array('overall_body' => 'templates/'.$userconfig['template'].'/statistic_person.tpl'));

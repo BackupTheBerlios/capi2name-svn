@@ -2,7 +2,7 @@
 
 <!-- BEGIN change_name_from_unkown -->
 <br />
-<form action="./showstatnew.php" method="post">
+<form action="./showstatnew.php{change_name_from_unkown.DATE}" method="post">
 <input type="hidden" name="newid" value="{change_name_from_unkown.DATA_ID_FROM_DB}">
 Name: <input name="newname" type="text">
 <input type="submit" name="eintragen" value="{change_name_from_unkown.L_SUBMIT_ENTRY}">

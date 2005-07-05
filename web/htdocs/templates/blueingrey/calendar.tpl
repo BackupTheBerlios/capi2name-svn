@@ -4,12 +4,25 @@
 
 <table border="0" cellpadding="3" cellspacing="2" style="margin-right:auto;margin-left:auto;text-align:left">
 <tr>
- <td style="font-weight:bold;">
-  <a href="./calendar.php?datum=yes&amp;monat={DATA_CUR_MONTH1}&amp;jahr={DATA_CUR_YEAR1}">&laquo;</a>
+ <td style="vertical-align:buttom;">
+ <form action="calendar.php" method="post">
+ <ins>
+ <input type="hidden" value="{DATA_CUR_MONTH1}" name="monat"/>
+ <input type="hidden" value="{DATA_CUR_YEAR1}" name="jahr"/>
+ <input type="image" src="./images/1leftarrow.gif"/>
+ </ins>
+ </form>
  </td>
-    <td colspan="5" style="text-align:center;font-weight:bold; font-size:large;">{DATA_TITLE_YEAR}</td>
-    <td style="font-weight:bold;">
-    <a href="./calendar.php?datum=yes&amp;monat={DATA_CUR_MONTH2}&amp;jahr={DATA_CUR_YEAR1}">&raquo;</a></td>
+ <td colspan="5" style="text-align:center;font-weight:bold;vertical-align:top; font-size:large;">{DATA_TITLE_YEAR}</td>
+ <td style="vertical-align:buttom;">
+ <form action="calendar.php" method="post">
+ <ins>
+ <input type="hidden" value="{DATA_CUR_MONTH2}" name="monat"/>
+ <input type="hidden" value="{DATA_CUR_YEAR1}" name="jahr"/>
+ <input type="image" src="./images/1rightarrow.gif"/>
+ </ins>
+ </form>
+ </td>
 </tr>
 <tr>
     <td style="font-weight:bold; font-size:large;">{L_DAY_MO}</td>
@@ -46,16 +59,16 @@
 
 
 
-<form action="./calendar.php"  method="get"> 
+<form action="./calendar.php"  method="post"> 
 <p>
 {L_MSG_GO_TO}:
 <select name="monat">
 <!-- BEGIN month_data -->
-<option {month_data.SELECTED}>{month_data.DATA_MONTH}</option>
+<option {month_data.SELECTED} >{month_data.DATA_MONTH}</option>
 <!-- END month_data -->
 </select> <select name="jahr">
 <!-- BEGIN year_data -->
-<option {year_data.SELECTED}>{year_data.DATA_YEAR}</option>
+<option {year_data.SELECTED} >{year_data.DATA_YEAR}</option>
 <!-- END year_data -->
 </select> <input type="submit" name="datum" value="{L_MSG_GO}"/>
 </p>

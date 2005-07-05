@@ -24,15 +24,18 @@ $template->assign_vars(array('L_SITE_TITLE' => $textdata[header_inc_kalender]));
 
 //uebergabe kalender.php?datum=yes&monat=04&jahr=2004
 //wenn nicht gesetzt, dann diesen Monat nehmen:
-if  (!isset($_GET[datum]))
+if  (   !isset($_POST[monat]) OR 
+	!isset($_POST[jahr]) OR 
+	!is_numeric($_POST[jahr]) OR 
+	!is_numeric($_POST[monat]))
   {
    $cur_monat=date(n);
    $cur_jahr=date(Y);
   }
   else
   {
-   $cur_monat=$_GET[monat];
-   $cur_jahr=$_GET[jahr];
+   $cur_monat=$_POST[monat];
+   $cur_jahr=$_POST[jahr];
   }
   $tage_des_monats=date(t, mktime(0,0,0,$cur_monat,01, $cur_jahr));
   $erster_tag=date(D, mktime(0,0,0,$cur_monat,01,$cur_jahr));
@@ -159,7 +162,7 @@ for ($i=1; $i<=12; $i++)
    {
    $template->assign_block_vars('month_data',array(
    		'DATA_MONTH' => $i,
-		'SELECTED' => "selected=selected")); 
+		'SELECTED' => "selected=\"selected\"")); 
    }
   else
    {
@@ -172,7 +175,7 @@ for ($i=1970;$i<=2010;$i++)
    {
     $template->assign_block_vars('year_data',array(
     		'DATA_YEAR' => $i,
-		'SELECTED' => "selected=selected"));
+		'SELECTED' => "selected=\"selected\""));
    }
   else
    {

@@ -29,10 +29,12 @@ $template->assign_vars(array('L_SITE_TITLE' => $textdata[days7_7tage_uebersicht]
 
 if (isset($_GET[unbekannt]))
  {
- echo "<br /><form action=\"./showstatnew.php\" method=\"post\"><input type=\"hidden\" name=\"newid\" value=\"$_GET[einid]\">";
- echo "Name: <input name=\"newname\" type=\"text\"> <input type=\"submit\" name=\"eintragen\" value=\"$textdata[addadress_eintrag_aufnehmen]\">";
- echo "</form><br />";
+  $template->assign_block_vars('change_name_from_unkown', array(
+  	'DATA_ID_FROM_DB' => $_GET[einid],
+	'L_SUBMIT_ENTRY' => $textdata[addadress_eintrag_aufnehmen]));
  }
+
+
 if (isset($_POST[eintragen]))
   {
    $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
@@ -138,7 +140,7 @@ while($daten=$dataB->sql_fetch_assoc($result_angerufene))
   }
    if ($daten[rufnummer]=="unbekannt" && $daten[name]=="unbekannt")
     {
-     $anz_name="<a href=\"./showstatnew.php?unbekannt=yes&einid=$daten[id]\">unbekannt</a>";
+     $anz_name="<a href=\"./showstatnew7days.php?unbekannt=yes&einid=$daten[id]\">unbekannt</a>";
      $anz_rueckruf="<a href=\"./callback.php?add=yes&amp;addr=\">
    <img src=\"./images/1leftarrow.gif\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
     }
