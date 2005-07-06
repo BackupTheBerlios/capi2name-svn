@@ -19,9 +19,6 @@ include("./header.inc.php");
 $template->set_filenames(array('overall_body' => 'templates/'.$userconfig['template'].'/calendar.tpl'));
 $template->assign_vars(array('L_SITE_TITLE' => $textdata[header_inc_kalender]));
 
-
-
-
 //uebergabe kalender.php?datum=yes&monat=04&jahr=2004
 //wenn nicht gesetzt, dann diesen Monat nehmen:
 if  (   !isset($_POST[monat]) OR 
@@ -109,8 +106,6 @@ for ($i=1; $i<=$index; $i++)
       $tage_vormonat++;
      }
   
-   
-  
   for ( $e=1;  $e<=$tage_des_monats;  $e++)
     {
     if($index%2==0)
@@ -182,7 +177,6 @@ for ($i=1970;$i<=2010;$i++)
     $template->assign_block_vars('year_data',array('DATA_YEAR' => $i));
    }
  }
-
 $template->pparse('overall_body');
 include("footer.inc.php");
 ?>

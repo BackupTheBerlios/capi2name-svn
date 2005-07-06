@@ -76,8 +76,6 @@ while($data=$dataB->sql_fetch_assoc($result_data))
   $i++;
  }
 
-
-
 $dataB->sql_close();
 $template->pparse('overall_body');  
 include("./footer.inc.php");

@@ -1,4 +1,4 @@
-<?
+<?php
 /*
     copyright            : (C) 2002-2005 by Jonas Genannt
     email                : jonasge@gmx.net
@@ -27,9 +27,9 @@ if (isset($_POST[eintragen]))
       $template->assign_block_vars('show_error_msg_name_not_set', array());
       $template->assign_vars(array('L_ADD_MSG_NAME_NOT_SET' => $textdata[adddress_nicht_eingetragen]));
       $template->assign_vars(array('L_BACK' => $textdata[adddress_zurueck]));
-     $template->pparse('overall_body');
-     include("footer.inc.php");
-     exit();
+      $template->pparse('overall_body');
+      include("footer.inc.php");
+      exit();
      }
 
   
@@ -45,7 +45,11 @@ $query=sprintf("INSERT INTO addressbook VALUES(NULL,%s,%s,%s,%s,%s,%s,%s)",
 $result=$dataB->sql_query($query);
 if (!$result)
  {
-  echo "errrorr";
+  $template->assign_block_vars(array('show_error_msg_add_entry',
+  		'L_MSG_ERROR_ADD_ENTRY' => $textdata[error_msg]));
+  $template->pparse('overall_body');
+  include("footer.inc.php");
+  exit();
  }
 $last_id=$dataB->sql_return_last_id($result);
 //echo "### $last_id ----";
@@ -62,6 +66,14 @@ if ($_POST[btele]!="")
    }
   $query=sprintf("INSERT INTO phonenumbers VALUES(NULL,'$last_id',%s,'1','$typ')", $dataB->sql_check($_POST[btele]));
   $result=$dataB->sql_query($query);
+  if (!$result)
+ {
+  $template->assign_block_vars(array('show_error_msg_add_entry',
+  		'L_MSG_ERROR_ADD_ENTRY' => $textdata[error_msg]));
+  $template->pparse('overall_body');
+  include("footer.inc.php");
+  exit();
+ }
  }
 if ($_POST[bhandy]!="")
  {
@@ -75,6 +87,14 @@ if ($_POST[bhandy]!="")
    }
   $query=sprintf("INSERT INTO phonenumbers VALUES(NULL,'$last_id',%s,'2','$typ')",$dataB->sql_check($_POST[bhandy]));
   $result=$dataB->sql_query($query);
+  if (!$result)
+  {
+  $template->assign_block_vars(array('show_error_msg_add_entry',
+  		'L_MSG_ERROR_ADD_ENTRY' => $textdata[error_msg]));
+  $template->pparse('overall_body');
+  include("footer.inc.php");
+  exit();
+  }
  }
 if ($_POST[bfax]!="")
  {
@@ -88,6 +108,14 @@ if ($_POST[bfax]!="")
    }
   $query=sprintf("INSERT INTO phonenumbers VALUES(NULL,'$last_id',%s,'3','$typ')",$dataB->sql_check($_POST[bfax]));
   $result=$dataB->sql_query($query);
+  if (!$result)
+  {
+  $template->assign_block_vars(array('show_error_msg_add_entry',
+  		'L_MSG_ERROR_ADD_ENTRY' => $textdata[error_msg]));
+  $template->pparse('overall_body');
+  include("footer.inc.php");
+  exit();
+  }
  }
 $dataB->sql_close();
 
@@ -95,19 +123,9 @@ if($result)
  {
   $template->assign_block_vars('show_success_msg_forward_msg', array(
   		'FORWARD_ID' => "?id=$last_id#find",
-		'L_MSG_SUCCESS_FORWARD' =>$textdata[addadress_eintrag_aufgenommen_weiterleitung] ));
-
-
+		'L_MSG_SUCCESS_FORWARD' =>$textdata[addadress_eintrag_aufgenommen_weiterleitung]));
  }
-else
- {
-  $template->assign_block_vars('show_error_msg_add_entry', array());
-  $template->assign_vars(array('L_MSG_ERROR_ADD_ENTRY' => 'Eintrag nicht aufgenommen - Fehler'));
-  echo "";
- }
-
-
- }//ende if
+}//ende if
 
 
 $template->assign_block_vars('tab',array(
@@ -125,8 +143,6 @@ $template->assign_block_vars('tab',array(
 		'L_GET_RUFNR' => $_GET[rufnr],
 		'L_GET_HANDYNR' => $_GET[handy]));
  
-
-
 $template->pparse('overall_body');
 include("./footer.inc.php");
 ?>

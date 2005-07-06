@@ -64,7 +64,7 @@ if(isset($_POST[save_without_addr]))
    }
   $dataB->sql_query($sql_query);
   $dataB->sql_close();
-  $template->assign_block_vars('saved_with_addr',array('L_MSG_SAVED' => 'saved to database'));
+  $template->assign_block_vars('saved_with_addr',array('L_MSG_SAVED' => $textdata[saved_to_db]));
  } 
  
 if(isset($_POST[save_with_addr]))
@@ -77,7 +77,7 @@ if(isset($_POST[save_with_addr]))
 	$dataB->sql_check($_POST[message]));
   $dataB->sql_query($query);
   $dataB->sql_close();
-  $template->assign_block_vars('saved_with_addr',array('L_MSG_SAVED' => 'saved to database'));
+  $template->assign_block_vars('saved_with_addr',array('L_MSG_SAVED' => $textdata[saved_to_db]));
  }
 
 
@@ -129,10 +129,11 @@ while($daten=$dataB->sql_fetch_assoc($result_callback))
   	'DATA_NAME' => $full_name,
 	'DATA_ID' => $daten[id],
 	'DATA_NUMBER' => $number,
-	'L_SHOW_REASON' => 'Grund anzeigen.',
+	'L_SHOW_REASON' => $textdata[show_reason],
 	'DATA_TIME' => $daten[en_time],
 	'DATA_DATE' => mysql_datum($daten[en_date]),
-	'DATA_CALL_BACK_TIME' => $callback_time));
+	'DATA_CALL_BACK_TIME' => $callback_time,
+	'L_DELETE' => $textdata[delet]));
  }
 $dataB->sql_close();
 
@@ -149,7 +150,7 @@ if ($_GET[add]== "yes")
    $daten_addr=$dataB->sql_fetch_assoc($result_addr);
 
    $template->assign_block_vars('insert_with_addr',array(
-   		'L_TITLE_NEW' => 'Neuer Eintrag',
+   		'L_TITLE_NEW' => $textdata[new_entry],
 		'L_NAME' => $text[name1],
    		'L_DATA_NAME' => $daten_addr[name_first]." ".$daten_addr[name_last],
 		'L_DATA_NUMBER' => $number,
@@ -157,11 +158,11 @@ if ($_GET[add]== "yes")
 		'L_SAVE_DATA' => $text[speichern],
 		'L_NUMBER' => $text[rufnummer],
 		'L_CALL_BACK_TIME' => $text[zurueck_zeit],
-		'L_MORING' => 'Morgens',
-		'L_SOON_AS_POSSIBLE' => 'So bald wie moeglich',
-		'L_EVENING' => 'Abends',
-		'L_MIDDAY' => 'Mittags',
-		'L_USERNAME' => 'Capi2name Benutzer',
+		'L_MORING' => $textdata[callback_morning],
+		'L_SOON_AS_POSSIBLE' => $textdata[callback_soon_as_posible],
+		'L_EVENING' => $textdata[callback_evening],
+		'L_MIDDAY' => $textdata[callback_midday],
+		'L_USERNAME' => $textdata[capi2name_user],
 		'L_MESSAGE' => $text[grund]));
    while($daten_users=$dataB->sql_fetch_assoc($result_users))
     {
@@ -192,15 +193,15 @@ if ($_GET[add]== "yes")
   else
   {//ANFANG insert_without_addr
   $template->assign_block_vars('insert_without_addr',array(
-  		'L_TITLE_NEW' => 'Neuer Eintrag',
+  		'L_TITLE_NEW' => $textdata[new_entry],
 		'L_NAME' => $text[name1],
 		'L_NUMBER' => $text[rufnummer],
 		'L_CALL_BACK_TIME' => $text[zurueck_zeit],
-		'L_MORING' => 'Morgens',
-		'L_SOON_AS_POSSIBLE' => 'So bald wie moeglich',
-		'L_EVENING' => 'Abends',
-		'L_MIDDAY' => 'Mittags',
-		'L_USERNAME' => 'Capi2name Benutzer',
+		'L_MORING' => $textdata[callback_morning],
+		'L_SOON_AS_POSSIBLE' => $textdata[callback_soon_as_posible],
+		'L_EVENING' => $textdata[callback_evening],
+		'L_MIDDAY' => $textdata[callback_midday],
+		'L_USERNAME' => $textdata[capi2name_user],
 		'L_SAVE_DATA' => $text[speichern],
 		'L_MESSAGE' => $text[grund],
 		'DATA_NR' => $_GET[nr]));

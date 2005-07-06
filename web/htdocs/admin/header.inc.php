@@ -111,15 +111,15 @@ a:hover
 	 text-align:			center;
 	 color:				blue;
 	}
-  </style>
-  <script type="text/javascript">
-   //<!--
-   function showDoc(){
-     window.open("", "showDoc", "width=500,height=300,toolbar=0,status=0,scrollbars=1,location=0,menubar=1,resizable=1");}
+ </style>
+<script type="text/javascript">
+ //<!--
+  function showDoc(){
+    window.open("", "showDoc", "width=500,height=300,toolbar=0,status=0,scrollbars=1,location=0,menubar=1,resizable=1");}
    //-->
-  </script>
- </head>
- <body>
+</script>
+</head>
+<body>
  <div id="mainframe">
   <div id="menu">
    <div class="header">Menuitem</div>
@@ -138,10 +138,7 @@ a:hover
    <div class="menuitem"><a href="./msn2name.php">MSN to name</a></div>
    <div class="menuitem"><a href="./adressbuch_bug.php">Adressbook BUG</a></div>
    <div class="menuitem"><a href="./cs_install.php">CapiSuite Integrator</a></div>
-   </div><!-- Menupunkte Ende-->
+  </div><!-- Menupunkte Ende-->
   </div><!--Menu ENDE -->
   <div id="main"><!--	Tabelle		Anfang	-->
-   <div class="header2">Capi2Name: Administration Panel</div>
-
-
-
+  <div class="header2">Capi2Name: Administration Panel</div>

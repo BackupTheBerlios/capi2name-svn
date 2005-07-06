@@ -1,4 +1,4 @@
-<?
+<?php
 /*
     copyright            : (C) 2002-2005 by Jonas Genannt
     email                : jonasge@gmx.net
@@ -9,7 +9,7 @@
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
  *   the Free Software Foundation; either version 2 of the License, or     *
- *   any later version.                                   *
+ *   any later version.                                                    *
  *                                                                         *
  ***************************************************************************/
 include("./check_it.php");
@@ -17,8 +17,8 @@ include("./header.inc.php");
 
 echo "<div class=\"ueberschrift_seite\">Change Administrator password</div>";
 
-if (isset($_POST[aendern]))
- { //isset
+if (isset($_POST[change]))
+{
 if ($_POST[passwd1]==$_POST[passwd2] && ! empty($_POST[passwd1]))
 {
  $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
@@ -26,14 +26,19 @@ if ($_POST[passwd1]==$_POST[passwd2] && ! empty($_POST[passwd1]))
  $daten=$dataB->sql_fetch_assoc($result);
   if (md5($_POST[altespasswd]) == $daten[passwd])
    {
-    $verschluesselt=md5($_POST[passwd2]);
-    $result=$dataB->sql_query("UPDATE users SET passwd='$verschluesselt' WHERE username='admin'");
-     if ($result)
-      {
+    $passwd_md5=md5($_POST[passwd2]);
+    $query=sprintf("UPDATE users SET passwd=%s", $dataB->sql_check($passwd_md5));
+    $result=$dataB->sql_query($query);
+    if ($result)
+     {
       echo "<div class=\"blau_mittig\">Password successfully changed!</div>";
-      }
+     }
+    else
+     {
+     echo "<div class=\"rot_mittig\">Password NOT sucessfully changed!</a>";
+     }
    }
-   else
+  else
    {
     echo "<div class=\"rot_mittig\">Old password not the same like in the database.</div>";
    }
@@ -43,9 +48,9 @@ else
 {
 echo "<div class=\"rot_mittig\">The new passwords are not the same or the new password is empty!</div>";
 }
-} //isset
+}//isset
 ?>
-<form action="<? $PHP_SELF ?>" method="post">
+<form action="passwd.php" method="post">
 <table border="0" style="margin-right:auto;margin-left:auto;">
  <tr>
   <td style="text-align:left;">old password:</td>
@@ -58,10 +63,10 @@ echo "<div class=\"rot_mittig\">The new passwords are not the same or the new pa
   <td style="text-align:right;"><input type="password" name="passwd1"/><br/><input name="passwd2" type="password"/></td>
  </tr>
  <tr>
-  <td colspan="3"><input type="submit" name="aendern" value="save data"/></td>
+  <td colspan="3"><input type="submit" name="change" value="save data"/></td>
  </tr>
 </table>
 </form>
-<?
+<?php
 include("./footer.inc.php");
 ?>

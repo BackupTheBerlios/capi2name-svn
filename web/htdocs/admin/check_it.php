@@ -1,4 +1,4 @@
-<?
+<?php
 /*
     copyright            : (C) 2002-2005 by Jonas Genannt
     email                : jonasge@gmx.net
@@ -22,23 +22,20 @@ $login_ok=0;
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 $result_userlist=$dataB->sql_query("SELECT username,passwd FROM users WHERE username='admin'");
 
- if ($result_userlist && $password!="")
-  {
+if ($result_userlist && $password!="")
+ {
   $row_userlist=$dataB->sql_fetch_assoc($result_userlist);
-    if ($password==$row_userlist['passwd'])
+  if ($password==$row_userlist['passwd'])
     {
     // echo "PASSWD Richtig...";
-     $login_ok=1;
-     
-      
-     
-    }//if passwd OK
-   else
-    {
+     $login_ok=1;    
+     }//if passwd OK
+  else
+     {
      $login_ok=0;
-    }
+     }
   }//if username es gibt
- else
+else
   {
    $login_ok=0;
   }
@@ -52,20 +49,19 @@ if ($login_ok == 0)
   <center><h3>Login</h3>
   <form action=\"./login.php\" method=\"post\">
   <table border=\"0\" >
-   <tr>
+  <tr>
     <td>Password:</td>
     <td style=\"width:5px\"></td>
     <td><input name=\"login_passwd\" type=\"password\"/></td>
-   </tr>
-   <tr>
+  </tr>
+  <tr>
     <td colspan=\"3\" style=\"text-align:center;\">
-    <input name=\"absenden\" value=\"Login to Admin-Interface\" type=\"submit\"/></td>
-   </tr>
+    <input name=\"login\" value=\"Login to Admin-Interface\" type=\"submit\"/></td>
+  </tr>
   </table> 
   </form>
   </center>";
   include("./footer.inc.php");
   exit();
  }
-
 ?>

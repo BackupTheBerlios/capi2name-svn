@@ -2,9 +2,6 @@
 <div class="rot_mittig">{not_allowed.L_MSG_NOT_ALLOWED}</div>
 <!-- END not_allowed -->
 
-
-
-
 <!-- BEGIN saved_with_addr -->
 <br/><div class="blau_mittig">{saved_with_addr.L_MSG_SAVED}</div><br/>
 <!-- END saved_with_addr -->
@@ -30,7 +27,7 @@
   <td style="text-align:center;">{tab2.DATA_TIME} - {tab2.DATA_DATE}</td>
   <td style="width:150px; text-align:center;">{tab2.DATA_CALL_BACK_TIME}</td>
   <td style="text-align:center;">
-  <a href="./callback.php?del={tab2.DATA_ID}" title="Loeschen">
+  <a href="./callback.php?del={tab2.DATA_ID}" title="{tab2.L_DELETE}">
   <img src="./images/edittrash.png" style="border-width:0px;vertical-align:middle;" alt=""/></a></td>
 </tr>
 <!-- END tab2 -->
@@ -86,8 +83,10 @@
  <td></td>
 </tr>
 <tr>
- <td colspan="3" style="text-align:right;">
-  <textarea name="message" cols="20" rows="3" ></textarea>
+ <td></td>
+ <td></td>
+ <td colspan="1" style="text-align:left;">
+  <textarea name="message" cols="35" rows="4" ></textarea>
  </td>
 </tr>
 </table>
@@ -97,10 +96,6 @@
 </ins>
 </form>
 <!-- END insert_with_addr -->
-
-
-
-
 
 <!-- BEGIN insert_without_addr -->
 <br /><br /><hr/>
@@ -115,7 +110,7 @@
    <!-- BEGIN tab1 -->
    <option value="{insert_without_addr.tab1.DATA_ADDR_ID}">{insert_without_addr.tab1.DATA_ADDR_NAME}</option>
    <!-- END tab1 -->
-   </select> <input type="button" value="New Entry" onClick="addValue('form.addname','form.addnumber')"/>
+   </select> <input type="button" value="{insert_without_addr.L_TITLE_NEW}" onClick="addValue('form.addname','form.addnumber')"/>
 
  </td>
 </tr>
@@ -153,8 +148,10 @@
  <td></td>
 </tr>
 <tr>
- <td colspan="3" style="text-align:right;">
-  <textarea name="message" cols="20" rows="3" ></textarea>
+ <td></td>
+ <td></td>
+ <td colspan="1" style="text-align:left;">
+  <textarea name="message" cols="35" rows="4" ></textarea>
  </td>
 </tr>
 </table>
@@ -164,13 +161,4 @@
 </ins>
 </form>
 <!-- END insert_without_addr -->
-
-
-
-
-
-
-
-
-
 <br /><br />

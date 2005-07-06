@@ -1,4 +1,4 @@
-<?
+<?php
 /*
     copyright            : (C) 2002-2005 by Jonas Genannt
     email                : jonasge@gmx.net
@@ -25,10 +25,15 @@ if (isset($_POST[submit_data]))
    }
   else
    {
-   $result=$dataB->sql_query("UPDATE config SET value='$_POST[template]' WHERE conf='template'");
+   $query=sprintf("UPDATE config SET value=%s WHERE conf='template'",
+   		$dataB->sql_check($_POST[template]));
+   $result=$dataB->sql_query($query);
+   if (!$result) $all_ok=false;
    }
-   $result=$dataB->sql_query("UPDATE config SET value='$_POST[default_template]' WHERE conf='default_template'");
-   
+   $query=sprintf("UPDATE config SET value=%s WHERE conf='default_template'",
+   		$dataB->sql_check($_POST[default_template]));
+   $result=$dataB->sql_query($query);
+   if (!$result) $all_ok=false;   
  if (!$all_ok)
   {
    echo "<div class=\"rot_mittig\">Somethink is wrong, please check your imput!</div>";

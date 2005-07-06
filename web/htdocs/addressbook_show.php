@@ -78,13 +78,7 @@ while($daten_fax=$dataB->sql_fetch_assoc($result_fax))
 	'L_DB_FAX' => $daten_fax[number]));
  }
   
- 
 $dataB->sql_close();
-
-
-
-
 $template->pparse('overall_body');
-
 include("./footer.inc.php");
 ?>

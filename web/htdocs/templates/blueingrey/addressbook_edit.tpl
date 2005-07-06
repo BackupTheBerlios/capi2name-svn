@@ -71,8 +71,8 @@
   <td>
   <input name="tele_id" value="{tab1.telephon.L_DB_TELE_ID}" type="hidden"/>
   <input name="id" value="{tab1.telephon.L_DB_ID}" type="hidden"/>
-  <input name="tele_save" value="Save" type="submit"/>
-  <input name="tele_delete" value="delete" type="submit"/></td>
+  <input name="tele_save" value="{tab1.telephon.L_SAVE}" type="submit"/>
+  <input name="tele_delete" value="{tab1.telephon.L_DELETE}" type="submit"/></td>
  </tr>
  </form>
  <!-- END telephon -->
@@ -85,8 +85,8 @@
   <td>
   <input name="tele_id" value="{tab1.cellphone.L_DB_TELE_ID}" type="hidden"/>
   <input name="id" value="{tab1.cellphone.L_DB_ID}" type="hidden"/>
-  <input name="tele_save" value="Save" type="submit"/>
-  <input name="tele_delete" value="delete" type="submit"/></td>
+  <input name="tele_save" value="{tab1.cellphone.L_SAVE}" type="submit"/>
+  <input name="tele_delete" value="{tab1.cellphone.L_DELETE}" type="submit"/></td>
  </tr>
  </form>
  <!-- END cellphone -->
@@ -99,8 +99,8 @@
   <td>
   <input name="tele_id" value="{tab1.fax.L_DB_TELE_ID}" type="hidden"/>
   <input name="id" value="{tab1.fax.L_DB_ID}" type="hidden"/>
-  <input name="tele_save" value="Save" type="submit"/>
-  <input name="tele_delete" value="delete" type="submit"/></td>
+  <input name="tele_save" value="{tab1.fax.L_SAVE}" type="submit"/>
+  <input name="tele_delete" value="{tab1.fax.L_DELETE}" type="submit"/></td>
  </tr>
  </form>
  <!-- END fax -->
@@ -109,7 +109,7 @@
   </td>
  </td>
  <tr>
-  <td colspan="3" style="text-align:left;"><b>Nummer hinzufügen:</b></td>
+  <td colspan="3" style="text-align:left;"><b>{tab1.L_ADD_NUMBER}:</b></td>
  </tr>
  <!-- BEGIN add -->
  <form action="./addressbook_edit.php" method="post">
@@ -119,12 +119,12 @@
   <td><input name="telephonnr" type="text"/></td>
   <td>
   <select name="typ">
-  <option value="1">Telephon</option>
-  <option value="2">Cell Phone</option>
-  <option value="3">Fax</option>
+  <option value="1">{tab1.add.L_TELE}</option>
+  <option value="2">{tab1.add.L_CELL_PHONE}</option>
+  <option value="3">{tab1.add.L_FAX}</option>
   </select>
   <input name="id" type="hidden" value="{tab1.add.ID}"/>
-  <input name="add" value="add" type="submit"/></td>
+  <input name="add" value="{tab1.add.L_ADD}" type="submit"/></td>
  </tr>
  </form>
  <!-- END add -->

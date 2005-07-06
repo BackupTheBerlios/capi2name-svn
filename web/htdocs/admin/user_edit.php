@@ -1,4 +1,4 @@
-<?
+<?php
 /*
     copyright            : (C) 2002-2005 by Jonas Genannt
     email                : jonasge@gmx.net
@@ -32,59 +32,93 @@ echo "<div class=\"ueberschrift_seite\">Change settings for user $username with 
 //------------------- Daten in DB schreiben: ---------------------------------
 if (isset($_POST[edit]))
  {
+$sql_id=$dataB->sql_checkn($_POST[id]);
 //UPDATE userliste SET showrueckruf='$wert' WHERE id=".$_POST[id]
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-$result=$dataB->sql_query("UPDATE users SET name_first='$_POST[first_name]' WHERE id='$_POST[id]'");
+$query=sprintf("UPDATE users SET name_first=%s WHERE id=%s",
+		$dataB->sql_check($_POST[first_name]),
+		$sql_id);
+$result=$dataB->sql_query($query);
 if (!$result) 
    {
     echo "<div class=\"rot_mittig\">Updating first name in database failed!!</div>";
    }
-$result=$dataB->sql_query("UPDATE users SET name_last='$_POST[last_name]' WHERE id='$_POST[id]'");
+$query=sprintf("UPDATE users SET name_last=%s WHERE id=%s",
+		$dataB->sql_check($_POST[last_name]),
+		$sql_id);
+$result=$dataB->sql_query($query);
 if (!result) 
    {
     echo "<div class=\"rot_mittig\">Updating last name in database failed!!</div>";
    }
-$result=$dataB->sql_query("UPDATE users SET show_config='$_POST[show_config]' WHERE id='$_POST[id]'");
+$query=sprintf("UPDATE users SET show_config=%s WHERE id=%s",
+		$dataB->sql_check($_POST[show_config]),
+		$sql_id);
+$result=$dataB->sql_query($query);
 if (!$result) 
    {
     echo "<div class=\"rot_mittig\">Updating show config in database failed!!</div>";
    }
-$result=$dataB->sql_query("UPDATE users SET show_callback='$_POST[show_callback]' WHERE id='$_POST[id]'");
+$query=sprintf("UPDATE users SET show_callback=%s WHERE id=%s",
+		$dataB->sql_check($_POST[show_callback]),
+		$sql_id);
+$result=$dataB->sql_query($query);
 if (!$result) 
    {
     echo "<div class=\"rot_mittig\">Updating show callback in database failed!!</div>";
    }
-$result=$dataB->sql_query("UPDATE users SET msn_listen='$_POST[msn_listen]' WHERE id='$_POST[id]'");
+$query=sprintf("UPDATE users SET msn_listen=%s WHERE id=%s",
+		$dataB->sql_check($_POST[msn_listen]),
+		$sql_id);
+$result=$dataB->sql_query($query);
 if (!$result) 
    {
     echo "<div class=\"rot_mittig\">Updating msn listen in database failed!!</div>";
    }
-$result=$dataB->sql_query("UPDATE users SET show_lines='$_POST[show_lines]' WHERE id='$_POST[id]'");
+$query=sprintf("UPDATE users SET show_lines=%s WHERE id=%s",
+		$dataB->sql_check($_POST[show_lines]),
+		$sql_id);
+$result=$dataB->sql_query($query);
 if (!$result) 
    {
     echo "<div class=\"rot_mittig\">Updating show lines in database failed!!</div>";
    }
-$result=$dataB->sql_query("UPDATE users SET show_prefix='$_POST[show_prefix]' WHERE id='$_POST[id]'");
+$query=sprintf("UPDATE users SET show_prefix=%s WHERE id=%s",
+		$dataB->sql_check($_POST[show_prefix]),
+		$sql_id);
+$result=$dataB->sql_query($query);
 if (!$result) 
    {
     echo "<div class=\"rot_mittig\">Updating show prefix in database failed!!</div>";
    }
-$result=$dataB->sql_query("UPDATE users SET show_msn='$_POST[show_msn]' WHERE id='$_POST[id]'");
+$query=sprintf("UPDATE users SET show_msn=%s WHERE id=%s",
+		$dataB->sql_check($_POST[show_msn]),
+		$sql_id);
+$result=$dataB->sql_query($query);
 if (!$result) 
    {
     echo "<div class=\"rot_mittig\">Updating show msn in database failed!!</div>";
    }
-$result=$dataB->sql_query("UPDATE users SET show_type='$_POST[show_type]' WHERE id='$_POST[id]'");
+$query=sprintf("UPDATE users SET show_type=%s WHERE id=%s",
+		$dataB->sql_check($_POST[show_type]),
+		$sql_id);
+$result=$dataB->sql_query($query);
 if (!$result) 
    {
     echo "<div class=\"rot_mittig\">Updating show type in database failed!!</div>";
    }
-$result=$dataB->sql_query("UPDATE users SET template='$_POST[template]' WHERE id='$_POST[id]'");
+$query=sprintf("UPDATE users SET template=%s WHERE id=%s",
+		$dataB->sql_check($_POST[template]),
+		$sql_id);
+$result=$dataB->sql_query($query);
 if (!$result) 
    {
     echo "<div class=\"rot_mittig\">Updating template in database failed!!</div>";
    }
-$result=$dataB->sql_query("UPDATE users SET allow_delete='$_POST[allow_delete]' WHERE id='$_POST[id]'");
+$query=sprintf("UPDATE users SET allow_delete=%s WHERE id=%s",
+		$dataB->sql_check($_POST[allow_delete]),
+		$sql_id);
+$result=$dataB->sql_query($query);
 if (!$result) 
    {
     echo "<div class=\"rot_mittig\">Updating allow delete in database failed!!</div>";
@@ -92,7 +126,10 @@ if (!$result)
 if (!empty($_POST[passwd]))
 {
 $passwd=md5($_POST[passwd]);
-$result=$dataB->sql_query("UPDATE users SET passwd='$passwd' WHERE id='$_POST[id]'");
+$query=sprintf("UPDATE users SET passwd=%s WHERE id=%s",
+		$dataB->sql_check($passwd),
+		$sql_id);
+$result=$dataB->sql_query($query);
 
 if (!$result) 
    {
@@ -107,7 +144,8 @@ echo "<div class=\"blau_mittig\">data saved to database...</div>";
 
 //--------------- Daten aus DB auslesen-------------------------------
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-$result=$dataB->sql_query("SELECT * FROM users WHERE id='$id'");
+$query=sprintf("SELECT * FROM users WHERE id=%s", $dataB->sql_checkn($id));
+$result=$dataB->sql_query($query);
 $daten=$dataB->sql_fetch_assoc($result);
 $dataB->sql_close();
 if ($daten[show_config]=="0" or $daten[show_config]=="f")
@@ -253,7 +291,7 @@ $dh=opendir($dir);
 <input type="submit" name="edit" value="save user"/>
 </form>
 <br/>
-<?
+<?php
 include("footer.inc.php");
 ?>
 

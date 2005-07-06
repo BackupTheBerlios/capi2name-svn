@@ -30,11 +30,11 @@ $template->assign_vars(array('SITE_TITLE' => 'Einträge mit unbekant aus Datenban
 //abfrage:
 if (isset($_POST[absenden]))
 {
-$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
  if ($_POST[alle_unbekannten]=="on") 
  //loesche alle unbekannten Eintraege
   {
-   $result_loeschen=$zugriff_mysql->sql_abfrage("DELETE FROM angerufene WHERE rufnummer='unbekannt'");
+   $result_loeschen=$dataB->sql_query("DELETE FROM angerufene WHERE rufnummer='unbekannt'");
    if ($result_loeschen)
     { 
      $template->assign_block_vars('delete_ok',array(
@@ -50,7 +50,7 @@ $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql[
  else if ($_POST[nur_ruf_unbekannten]=="on") 
  //loesche alle unbekannten Eintraege und lasse die eintraege mit namen
   {
-   $result_loeschen=$zugriff_mysql->sql_abfrage("DELETE FROM angerufene WHERE rufnummer='unbekannt' AND name='unbekannt'");
+   $result_loeschen=$dataB->sql_connect("DELETE FROM angerufene WHERE rufnummer='unbekannt' AND name='unbekannt'");
    if ($result_loeschen)
     { 
      $template->assign_block_vars('delete_ok',array(
@@ -66,9 +66,9 @@ $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql[
   else
   {
    $sqlabfrage="DELETE FROM angerufene WHERE";
-   $result=$zugriff_mysql->sql_abfrage("SELECT id FROM angerufene WHERE rufnummer='unbekannt'");
+   $result=$dataB->sql_query("SELECT id FROM angerufene WHERE rufnummer='unbekannt'");
    $first=true;
-   while($daten=mysql_fetch_assoc($result))
+   while($daten=$dataB->sql_fetch_assoc($result))
     {
      if ($_POST[$daten[id]]=="on")
       {
@@ -84,7 +84,7 @@ $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql[
       }
     }//END WHILE
     //echo "<br>SQL-Abfrage: $sqlabfrage<br>";
- $result_loeschen=$zugriff_mysql->sql_abfrage($sqlabfrage);
+ $result_loeschen=$dataB->sql_query($sqlabfrage);
  if ($result_loeschen)
    { 
     $template->assign_block_vars('delete_ok',array(
@@ -97,7 +97,7 @@ $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql[
    }
 
 }
-$zugriff_mysql->close_mysql();
+$dataB->sql_close();
 }//if isset absenden
 $template->assign_block_vars('tab2',array(
 		'L_DATE' => $textdata[stat_anrufer_datum],
@@ -106,11 +106,11 @@ $template->assign_block_vars('tab2',array(
 		'L_MSN' => $textdata[stat_anrufer_MSN],
 		'L_NAME' => $textdata[showstatnew_name]));
 $i=0;
-$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-$result_angerufene=$zugriff_mysql->sql_abfrage("SELECT id,rufnummer,name,datum,uhrzeit FROM angerufene WHERE rufnummer='unbekannt' ORDER BY 'id'  DESC");
+$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+$result_angerufene=$dataB->sql_query("SELECT id,rufnummer,name,datum,uhrzeit FROM angerufene WHERE rufnummer='unbekannt' ORDER BY 'id'  DESC");
 if ($result_angerufene)
   {
-   while($daten=mysql_fetch_assoc($result_angerufene))
+   while($daten=$dataB->sql_fetch_assoc($result_angerufene))
     {
      if($i%2==0){ $color=$row_color_1; }
      else       { $color=$row_color_2; }
@@ -132,7 +132,7 @@ if ($result_angerufene)
     $template->assign_block_vars('no_calls_found',array(
     	'L_MSG_CALLS_NOT_FOUND' => 'Keine Anrufe mit Nummer/Name unbekannt gefunden.'));
    }
-$zugriff_mysql->close_mysql();
+$dataB->sql_close();
 
 $template->assign_vars(array(
 		'L_MSG_DELETE_UNKOWN' => 'Lösche alle unbekannten Einträge',

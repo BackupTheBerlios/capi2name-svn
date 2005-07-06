@@ -5,8 +5,8 @@ $sql["dbuser"]              = "capi";
 $sql["dbpasswd"]            = "kljmkgd";
 $sql["db"]                  = "capidb";
 $config['domain']           = "www.mein-lokal.de";
-$config['capi2name_status'] = "no";
-$config['capisuite']        = "yes";
+$config['capi2name_status'] = "yes";
+$config['capisuite']        = "no";
 $config['language']         = "de";
 
 /******************************************************************************

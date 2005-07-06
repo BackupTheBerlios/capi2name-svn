@@ -27,18 +27,17 @@ $template->set_filenames(array('overall_body' => 'templates/'.$userconfig['templ
    die();
   }
 
-
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-$query=sprintf("SELECT t1.*,t2.name_last,t2.name_first,t3.number AS RUFNR FROM callback AS t1 LEFT JOIN addressbook AS t2 ON t1.addr_id=t2.id LEFT JOIN phonenumbers AS t3 ON t3.addr_id=t2.id WHERE t1.user_id=%s AND t1.id=%s AND t3.typ=1 GROUP BY t1.id",
+$query=sprintf("SELECT t1.*,t2.name_last,t2.name_first,t3.number AS RUFNR FROM callback AS t1 LEFT JOIN addressbook AS t2 ON t1.addr_id=t2.id LEFT JOIN phonenumbers AS t3 ON t3.addr_id=t2.id WHERE t1.user_id=%s AND t1.id=%s GROUP BY t1.id",
 	$dataB->sql_checkn($_SESSION['user_id']),
 	$dataB->sql_checkn($_GET[id]));
 $result=$dataB->sql_query($query);
-$dataB->sql_close();
 $daten=mysql_fetch_assoc($result);
-if ($daten==false)
+$dataB->sql_close();
+if (!$daten)
  {
   $template->assign_block_vars('entry_not_found',array(
-  	'L_NOT_FOUND' =>$text[eintragmit_id]." ".$_GET[anz]." ".$text[anadmin_wenden] ));
+  	'L_NOT_FOUND' =>$text[eintragmit_id]." ".$_GET[id]." ".$text[anadmin_wenden] ));
   $template->pparse('overall_body');
   include("footer.inc.php");
   die();
@@ -77,21 +76,21 @@ if ($daten==false)
    $full_name="<a href=\"./addressbook.php?id=$daten[addr_id]#find\">$daten[name_first] $daten[name_last]</a>";
    }
 
-$template->assign_vars(array('L_SITE_TITLE' =>$text[detail]." ".$text[zurueckrufen]));
+$template->assign_vars(array('L_SITE_TITLE' =>$textdata[showaddress_deteilansicht]." ".$textdata[callback_detail_title]));
 
 $template->assign_block_vars('tab1',array(
-	'L_DATE' => $text[datum],
-	'L_CALLBACK_TIME' => $text[zurueck_zeit],
+	'L_DATE' => $textdata[stat_anrufer_datum],
+	'L_CALLBACK_TIME' => $textdata[callback_time],
 	'DATA_CALLBACK_TIME' => $callback_time,
 	'DATA_DATE' => mysql_datum($daten[en_date]),
-	'L_NAME' =>  'Name',
+	'L_NAME' =>  $textdata[showstatnew_name],
 	'DATA_NAME' => $full_name,
-	'L_TIME' => $text[uhrzeit],
+	'L_TIME' => $textdata[stat_anrufer_uhrzeit],
 	'DATA_TIME' => $daten[en_time],
-	'L_NUMBER' => $text[rufnummer],
+	'L_NUMBER' => $textdata[stat_anrufer_rufnummer],
 	'DATA_NUMBER' => $number,
 	'DATA_REASON' => $daten[message],
-	'L_REASON' => $text[grund]));
+	'L_REASON' => $textdata[reason]));
 
 $template->pparse('overall_body');
 include("./footer.inc.php");

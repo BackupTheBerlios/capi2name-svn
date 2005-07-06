@@ -1,4 +1,16 @@
-<?
+<?php
+$textdata[save]="Speichern";
+$textdata[delet]="Löschen";
+$textdata[add]="Hinzufügen";
+$textdata[telephon]="Telefon";
+$textdata[fax]="Fax";
+$textdata[cell_phone]="Mobiltelefon";
+$textdata[saved_to_db]="Daten in Datenbank gespeichert.";
+$textdata[new_entry]="Neuer Eintrag";
+$textdata[stat_monthly]="Monatsübersicht";
+
+
+
 //Header.inc.php Seite:
 $textdata[header_inc_mainmenue]="Hauptmenü";
 $textdata[header_inc_index]="Index";
@@ -15,8 +27,6 @@ $textdata[header_inc_7tage]="7 Tageübersicht";
 $textdata[header_inc_rueckruf]="Rückruf";
 $textdata[header_inc_neuer_eintrag]="Neuer Eintrag";
 $textdata[header_inc_adressbuch]="Adressbuch";
-$textdata[header_inc_notizen]="Notizen";
-$textdata[header_inc_neue_notiz]="Neue Notiz";
 $textdata[header_inc_logout]="Ausloggen";
 $textdata[header_inc_cs_answerphone]="Mein Anrufbeantworter";
 $textdata[header_inc_cs_fax]="Meine Faxe";
@@ -24,7 +34,8 @@ $textdata[header_inc_cs_config]="konfigurieren";
 //Header.inc.php ENDE
 
 
-//addadress.php Seite
+//addressbook_add.php Seite
+$textdata[error_msg]="Fehler beim Speichern der Daten in der Datenbank!";
 $textdata[addadress_neuer_adressbuch_eintrag]="Neuer Adressbucheintrag";
 $textdata[addadress_eintrag_aufgenommen_weiterleitung]="Neuer Eintrag wurde eingetragen.... Sie werden weitergeleitet!";
 $textdata[addadress_vorname]="Vorname";
@@ -43,7 +54,8 @@ $textdata[addadress_email]="E-Mail";
 $textdata[addadress_eintrag_aufnehmen]="Eintrag aufnehmen";
 $textdata[adddress_nicht_eingetragen]="Bitte Vornamen oder Nachnamen eintragen!";
 $textdata[adddress_zurueck]="Zurück";
-//addadress.php ENDE
+$textdata[adddress_add_number]="Nummer hinzufügen";
+//addressbook_add.php ENDE
 
 //adressbuch.php Seite
 $textdata[adressbuch_sortiere_nachname]="Sortiere nach Nachnamen!";
@@ -69,25 +81,7 @@ $textdata[configpage_altes_passwd_gleich]="Altes Passwort gleich: OK!";
 $textdata[configpage_altes_passwd_failed]="Altes Passwort gleich: FAILED!";
 $textdata[configpage_neues_passwd_gleich]="Neue Passwörter gleich: OK!";
 $textdata[configpage_neues_passwd_failed]="Neue Passwörter gleich: FAILED!";
-/*
-$textdata[configpage_geaendert_ok]="Passwort geändert: OK!";
-$textdata[configpage_geaendert_failed]="Password geändert: FAILED!";
-$textdata[configpage_name_geaendert_ok]="Name geändert: OK!";
-$textdata[configpage_name_geaendert_failed]="Name geändert: FAILED!";
-$textdata[configpage_anzahl_geaendert_ok]="Anzahl geändert: OK!";
-$textdata[configpage_anzahl_geaendert_failed]="Anzahl geändert: FAILED!";
-$textdata[configpage_option_rueckruf_ok]="Option Rückruf geändert: OK!";
-$textdata[configpage_option_rueckruf_failed]="Option Rückruf geändert: FAILED!";
-$textdata[configpage_option_notiz_ok]="Option Notiz geändert: OK!";
-$textdata[configpage_option_notiz_failed]="Option Notiz geändert: FAILED!";
-$textdata[configpage_option_ausOrt_ok]="Option \"Aus Ort\" geändert: OK!";
-$textdata[configpage_option_ausOrt_failed]="Option \"Aus Ort\" geändert: FAILED!";
-$textdata[configpage_option_msn_ok]="Option \"Zeige MSN\" geändert: OK!";
-$textdata[configpage_option_msn_failed]="Option \"Zeige MSN\" geändert: FAILED!";
-$textdata[configpage_option_dienst_ok]="Option \"Zeige Anruftyp\" geändert: OK!";
-$textdata[configpage_option_dienst_failed]="Option \"Zeige Anruftyp\" geändert: FAILED!";
-$textdata[configpage_msn_ok]="MSN Auswahl geändert: OK!";
-$textdata[configpage_msn_failed]="MSN Auswahl geändert: FAILED"; */
+
 $textdata[configpage_username]="Benutzername";
 $textdata[configpage_passwort_aendern]="Passwort ändern";
 $textdata[configpage_altes_passwd]="Altes Passwort";
@@ -214,38 +208,24 @@ $textdata[cs_fax_incoming]="Eingegangenes Fax";
 $textdata[cs_config_headline] = "Capi2Name CapiSuite Integrations Manager";
 
 
-
-
-
 //callback sites:
+$textdata[show_reason]="Grund anzeigen.";
 $textdata[callback_morning]="Morgens";
 $textdata[callback_midday]="Mittags";
 $textdata[callback_evening]="Abends";
 $textdata[callback_soon_as_posible]="So bald wie möglich";
-
-
+$textdata[capi2name_user]="Capi2name Benutzer";
+$textdata[callback_created_on]="Eintrag erstellt am";
+$textdata[reason]="Grund";
+$textdata[callback_time]="Rückrufzeit";
+$textdata[callback_notify_title]="Autopopup: Rückrufliste";
+$textdata[callback_detail_title]="Zurückrufen";
 /*
 -----------------------------------------------------------------
 OLD OLD OLD OLD OLD OLD OLD OLD OLD
 ==============================================
 */
 
-// header.inc.php   anfang
-
-
-$text[anrufstat]               = "Anrufsstatistik";
-$text[telefon]                  = "Telefon:";
-$text[erstat]                    = "Erweiterte Statistik:";
-$text[heutanruf]              = "Heutige Anrufe";
-$text[gestanruf]               = "Gestrige Anrufe";
-$text[reuckruf1]               = "Rueckruf:";
-$text[reuckruf2]               = "Rueckruf";
-$text[neuerein]                = "Neuer Eintrag";
-$text[adressbuch1]         = "Adressbuch:";
-$text[adressbuch2]         = "Adressbuch";
-$text[notizen1]                = "Notizen:";
-$text[notizen2]                = "Notizen";
-$text[newnotiz]                = "Neue Notiz";
 // header.inc.php ende
 
 // addadress.php anfang
@@ -285,20 +265,6 @@ $text[loeok]              = "Eintrag wurde gelöscht.<br>Sie werden weitergeleite
 $text[aenok]            = "Eintrag wurde geaendert.<br>Sie werden weitergeleitet.";
 // editadress.php ende
 
-// editnotiz.php anfang
-$text[notizbe]          = "Notiz bearbeiten";
-$text[notizanz]         = "Notiz anzeigen";
-$text[notizloe]            = "Notiz loeschen";
-$text[notizneu]            = "Neue Notiz";
-$text[notizbeanz]       = "Bearbeite Notiz anzeigen";
-$text[notiz1]               = "Bitte Scheiber angeben.";
-$text[notiz2]                = "Bitte Topic angeben.";
-$text[notiz3]                 = "Bitte Text eingeben.";
-$text[schreiber]           = "Schreiber:";
-$text[schreiber1]           = "Schreiber";
-$text[topic]                  = "Topic:";
-$text[topic1]                  = "Topic";
-// editnotiz.php ende
 
 //erstatistik.php anfang
 $text[zurueckrufen]    = "Zurueckrufen";
@@ -309,21 +275,8 @@ $text[uhrzeit]                = "Uhrzeit";
 $text[allan]                    = "Zeige alle Anrufe";
 //erstatistik ende
 
-// footer.inc.php anfang
-$text[logout]           = "Ausloggen";
-// footer.inc.php ende
 
-// login.php anfang
-$text[falslogin] = "Falsches Passwort oder Username eingeben.<br><a href=\"./login.php\">Login</a><br>Sie werden in 5 sec weitergeleitet.";
-$text[login]            = "Einloggen";
-$text[username]       = "Benutzername:";
-$text[passwd]           = "Passwort:";
-$text[login1]           = "Für";
-$text[login2]           = " 2 Tage";
-$text[login3]           = " immer";
-$text[login4]           = "eingeloggt bleiben.";
-$text[login_ok]="Login war erflogreich.<br>Sie werden weitergeleitet.";
-//l ogin.php ende
+
 
 // showaddress.php anfang
 $text[detail]           = "Detailansicht";

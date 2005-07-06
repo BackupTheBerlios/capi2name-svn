@@ -1,4 +1,4 @@
-<?
+<?php
 include("./includes/conf.inc.php");
 include("./language/".$config['language'].".inc.php");
 include("./includes/functions.php");
@@ -134,8 +134,6 @@ $result_userlist=$dataB->sql_query($query);
      {
       $_SESSION['show_callback_notify']=true;
      }  
-       
-       
     }//if passwd OK
    else
     {

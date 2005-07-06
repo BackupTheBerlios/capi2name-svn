@@ -19,6 +19,14 @@ include("./includes/template.php");
 $template = new Template("./templates/blueingrey");
 $template->set_filenames(array('overall_body' => 'templates/blueingrey/callback_notify.tpl'));
 session_start(); 
+$template->assign_vars(array('L_CALL_BACK_NOTIFY_TITLE' => $textdata[callback_notify_title]));
+$template->assign_block_vars('tab2',array(
+	'L_NAME' => $textdata[showstatnew_name],
+	'L_NUMBER' => $textdata[stat_anrufer_rufnummer],
+	'L_CREATED_ON' => $textdata[callback_created_on],
+	'L_REASON' => $textdata[reason],
+	'L_CALLBACK_TIME' => $textdata[callback_time]));
+
 if ($_SESSION['show_callback_notify'])
  {
   $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
@@ -50,30 +58,28 @@ if ($_SESSION['show_callback_notify'])
       case 3:
       	$callback_time=$textdata[callback_evening];
 	break;
-     
-     };  
+      };  
 
-   if ($daten_callback[addr_id]==-1)
-   {
-    $full_name=$daten_callback[full_name];
-   }
-  else
-   {
+if ($daten_callback[addr_id]==-1)
+  {
+   $full_name=$daten_callback[full_name];
+  }
+else
+  {
    $full_name="$daten_callback[name_first] $daten_callback[name_last]";
-   }
-    $template->assign_block_vars('tab1',array(
+  }
+$template->assign_block_vars('tab1',array(
     		'L_DATA_NAME' => $full_name,
 		'L_DATA_NUMBER' => $number,
 		'L_DATA_CREATED_ON' => $daten_callback[en_time]." / ". mysql_datum($daten_callback[en_date]),
 		'L_DATA_CALLBACK_TIME' => $callback_time,
 		'L_DATA_MESSAGE' => $daten_callback[message]));
    }
-  $dataB->sql_close();
+$dataB->sql_close();
  }
 else
  {
-  $template->assign_block_vars('not_found',array('L_MSG_NOT_FOUND' => 'Nicht erlebt/keine Callback entries found'));
-
+  $template->assign_block_vars('not_found',array('L_MSG_NOT_FOUND' => $textdata[configpage_nicht_berechtigt]));
  }
 $template->pparse('overall_body');
 ?>

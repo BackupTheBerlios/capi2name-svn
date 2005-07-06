@@ -40,7 +40,7 @@ $result_anrufe=$dataB->sql_query($sql_query);
 $ges_anzahl=mysql_num_rows($result_anrufe);
 
 
- if ($ges_anzahl!=false) //wenn gar kein anruf gibt
+ if ($ges_anzahl) //wenn gar kein anruf gibt
   {
 
  $id_letzer=$ges_anzahl - 1;
@@ -94,11 +94,7 @@ while($daten=$dataB->sql_fetch_assoc($result))
 		'DATA_FAX' => $daten[number]));	
  }	
  
- 
- 
 $dataB->sql_close();
- 
- 
 $template->assign_block_vars('tab2',array(
 	'L_STAT_CALLERS_COUNTS' => $textdata[stat_anrufer_zahlen_fakten],
 	'L_ALL_CALLS' => $textdata[stat_anrufer_gesamte_anrufe],
@@ -147,15 +143,12 @@ while ($data_angerufene=$dataB->sql_fetch_assoc($result))
 	'DATA_CALL_TO_MSN' => $data_angerufene[msn]));
    $i++;
   }
- 
-
  } // gar kein anruf da ist:
 else
  {
   $template->assign_block_vars('no_call_from_user',array(
   	'L_MSG_NO_CALL' => $textdata[stat_anrufer_keine_anrufe_gefunden]." ".$data_adressbuch[vorname]." ".$data_adressbuch[nachname]." ".$textdata[stat_anrufer_keine_anrufe_gefunden_ende]));
  }
-
 
 $template->pparse('overall_body');
 include("./footer.inc.php");

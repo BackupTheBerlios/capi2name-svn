@@ -9,7 +9,6 @@ Name: <input name="newname" type="text">
  </form><br />
 <!-- END change_name_from_unkown -->
 
-
 <!-- BEGIN tab0 -->
 <p style="text-align:left; margin-bottom:0px; font-weight:bold">{tab0.L_DATE_P} - {tab0.L_DAY_P}</p>
 <br />

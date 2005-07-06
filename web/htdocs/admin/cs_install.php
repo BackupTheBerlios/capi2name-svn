@@ -21,10 +21,12 @@ if (isset($_POST[save]))
  for ($i=0;$i<=5;$i++)
   {
    $value=$data_array[$i];
-   $result=$dataB->sql_query("UPDATE config SET value='$_POST[$value]' WHERE conf='$value'");
+   $query=sprintf("UPDATE config SET value=%s WHERE conf='$value'",
+   		$dataB->sql_check($_POST[$value]));
+   $result=$dataB->sql_query($query);
    if (!$result)
     {
-     echo "Error on updaten config tabele: $value!<br>Mysql-Says: ";
+     echo "Error on update the config table: $value!<br>Mysql-Says: ";
      echo mysql_error();
     }
    

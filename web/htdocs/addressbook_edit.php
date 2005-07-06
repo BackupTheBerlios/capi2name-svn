@@ -149,7 +149,6 @@ if (!$daten)
   exit();
  }
 
- 
 $template->assign_block_vars('tab1', array(
 	'L_FIRST_NAME' => $textdata[addadress_vorname],
 	'DATA_FIRST_NAME' => $daten[name_first],
@@ -166,7 +165,8 @@ $template->assign_block_vars('tab1', array(
 	'DATA_CITY' => $daten[city],
 	'L_E_MAIL' => $textdata[addadress_email],
 	'DATA_E_MAIL' => $daten[email],
-	'CHANGE_ADDR' => $textdata[editadress_eintrag_aendern]));
+	'CHANGE_ADDR' => $textdata[editadress_eintrag_aendern],
+	'L_ADD_NUMBER' => $textdata[adddress_add_number]));
 
 //telephon:
 $result_tele=$dataB->sql_query("SELECT id,number FROM phonenumbers WHERE typ='1' AND addr_id='$daten[id]'");
@@ -176,7 +176,9 @@ while($daten_tele=$dataB->sql_fetch_assoc($result_tele))
 	'L_TELE' => $textdata[addadress_telefonnummer],
 	'L_DB_TELE' => $daten_tele[number],
 	'L_DB_TELE_ID' => $daten_tele[id],
-	'L_DB_ID' => $daten[id]));
+	'L_DB_ID' => $daten[id],
+	'L_SAVE' => $textdata[save],
+	'L_DELETE' => $textdata[delet]));
  }
 //cell phone:
 $result_cellphone=$dataB->sql_query("SELECT id,number FROM phonenumbers WHERE typ='2' AND addr_id='$daten[id]'");
@@ -186,7 +188,9 @@ while($daten_cellphone=$dataB->sql_fetch_assoc($result_cellphone))
 	'L_CELL_PHONE' => $textdata[addadress_handy],
 	'L_DB_TELE' => $daten_cellphone[number],
 	'L_DB_TELE_ID' => $daten_cellphone[id],
-	'L_DB_ID' => $daten[id]));
+	'L_DB_ID' => $daten[id],
+	'L_SAVE' => $textdata[save],
+	'L_DELETE' => $textdata[delet]));
  }
 //fax number:
 $result_fax=$dataB->sql_query("SELECT id,number FROM phonenumbers WHERE typ='3' AND addr_id='$daten[id]'");
@@ -196,17 +200,21 @@ while($daten_fax=$dataB->sql_fetch_assoc($result_fax))
 	'L_FAX' => $textdata[addadress_fax],
 	'L_DB_TELE' => $daten_fax[number],
 	'L_DB_TELE_ID' => $daten_fax[id],
-	'L_DB_ID' => $daten[id]));
+	'L_DB_ID' => $daten[id],
+	'L_SAVE' => $textdata[save],
+	'L_DELETE' => $textdata[delet]));
  }
  
 //add number dialog:
 $template->assign_block_vars('tab1.add',array(
-	'ID' => $daten[id])); 
+	'ID' => $daten[id],
+	'L_ADD' => $textdata[add],
+	'L_CELL_PHONE' => $textdata[cell_phone],
+	'L_TELE' => $textdata[telephon],
+	'L_FAX' => $textdata[fax])); 
  
-	
 $template->assign_block_vars('cancel_edit',array(
 			'CANCEL_EDIT_ADDR' => $textdata[editadress_abbrechen]));
-
 if (isset($_POST[loeschen_OK]) or $_GET[loeschen]==1)
  {
   $template->assign_block_vars('now_delete_really_entry', array(
@@ -220,7 +228,6 @@ else
 		'id' => $daten[id],
 		'DELETE_ENTRY' => $textdata[adressbuch_eintrag_loeschen]));
  }  
-
 
 $dataB->sql_close();
 $template->pparse('overall_body');

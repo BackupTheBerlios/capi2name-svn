@@ -1,4 +1,4 @@
-<?
+<?php
 /*
     copyright            : (C) 2002-2005 by Jonas Genannt
     email                : jonasge@gmx.net
@@ -14,7 +14,6 @@
  ***************************************************************************/
 include("./check_it.php");
 include("./header.inc.php");
-
 echo "<div class=\"ueberschrift_seite\">create a new user</div>";
 
 if (isset($_POST[save])) {
@@ -22,8 +21,20 @@ if (isset($_POST[save])) {
   {
    $passwd=md5($_POST[passwd]);
    $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-   $result=$dataB->sql_query("
-   INSERT INTO users VALUES('', '$_POST[username]','$passwd','','','$_POST[first_name]','$_POST[last_name]','$_POST[show_lines]','$_POST[msns_listen]','$_POST[show_callback]','$_POST[show_prefix]','$_POST[show_msn]','$_POST[show_type]','$_POST[show_config]','$_POST[allow_delete]','')");
+   $query=sprintf("INSERT INTO users VALUES(NULL,%s,%s,NULL,NULL,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,NULL)",
+   		$dataB->sql_check($_POST[username]),
+		$dataB->sql_check($passwd),
+		$dataB->sql_check($_POST[first_name]),
+		$dataB->sql_check($_POST[last_name]),
+		$dataB->sql_checkn($_POST[show_lines]),
+		$dataB->sql_check($_POST[msns_listen]),
+		$dataB->sql_check($_POST[show_callback]),
+		$dataB->sql_check($_POST[show_prefix]),
+		$dataB->sql_check($_POST[show_msn]),
+		$dataB->sql_check($_POST[show_type]),
+		$dataB->sql_check($_POST[show_config]),
+		$dataB->sql_check($_POST[allow_delete]));
+   $result=$dataB->sql_query($query);
    $dataB->sql_close();
    if ($result)
     {
@@ -38,7 +49,6 @@ if (isset($_POST[save])) {
   {
    echo "<div class=\"rot_mittig\">You musst set an username and password for creating an user.</div>";
   }
- 
 }
 ?>
 <form action="user_add.php" method="post">
@@ -134,8 +144,6 @@ if (isset($_POST[save])) {
  </table><br/>
  <input type="submit" name="save" value="add new user"/>
 </form>
-
-
 
 <?php
 include("footer.inc.php");

@@ -22,6 +22,10 @@ Capi2name 0.6.8 YYYY-MM-DD - Jonas Genannt - <jonasge@gmx.net> ---BETA BROKEN!!!
 	o PHP: Improved: calendar.php: moving from GET to POST
 	o PHP: Improved: showstatnew.php and insert names for unknown callers
 	o PHP: Improved: showstatnew7days.php and insert names for unknown callers
+	o PHP: Improved: english language in the admininterface
+	o PHP: Improved: some code in the admininterface
+	o PHP: Improved: Errorhandling in addressbook_add.php
+	o PHP: Improved: Language File selections
 	o PHP: Changed all files that works with the old 'adressbuch' table
 	o PHP: Changed sql_class for postgre support
 	o PHP: Changed showstatnew7days.php now displays 7 days=1week

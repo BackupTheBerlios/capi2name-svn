@@ -1,7 +1,5 @@
 <div class="ueberschrift_seite">{L_SITE_TITLE}</div>
 
-
-
 <table border="0" cellpadding="3" cellspacing="2" style="margin-right:auto;margin-left:auto;text-align:left">
 <tr>
  <td style="vertical-align:buttom;">
@@ -56,9 +54,6 @@
 </tr>
 </table>
 
-
-
-
 <form action="./calendar.php"  method="post"> 
 <p>
 {L_MSG_GO_TO}:
@@ -72,8 +67,4 @@
 <!-- END year_data -->
 </select> <input type="submit" name="datum" value="{L_MSG_GO}"/>
 </p>
-</form> 
-
-
-
-
+</form>
