@@ -34,13 +34,13 @@ $seite=base64_encode("showstatnew.php");
 }
 include("./login_check.inc.php");
 include("./header.inc.php");
-if ($_GET[maxlist] == "alle") { $maxlist=NULL; }
-if (!isset($_GET[maxlist])) { $maxlist=$userconfig['anzahl']; }
+if ($_GET[maxlist] == "all") { $maxlist=NULL; }
+else { $maxlist=$userconfig['anzahl']; }
 if ($_GET[showallmsns]=="yes") { $userconfig['msns']=""; }
 
 if (isset($_GET[datum]))
  {
-$maxlist=NULL; 
+  $maxlist=NULL; 
 if ($_GET[datum]=="gestern")
  {
   $anz_title=$textdata[showstatnew_gestrige_anrufe];
@@ -147,7 +147,7 @@ $sql_query=$sql_query.$sql_query_2;
 if ($maxlist!=NULL)
  {
   $sql_query=$sql_query. " LIMIT $maxlist";
-  //$sql_query=$sql_query. sprintf(" LIMIT %s", $dataB->sql_checkn($maxlist));
+  //$sql_query=$sql_query. sprintf(" LIMIT %s", $dataB->sql_check($maxlist));
 
  }
 $result_angerufene=$dataB->sql_query($sql_query);

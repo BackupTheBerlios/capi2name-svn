@@ -67,19 +67,12 @@ Name: <input name="newname" type="text">
    </a>
    </td>
   <!-- END show delete_func -->
-  
-  
+   
  </tr>
 <!-- END tab1 --> 
  
 </table>
-
-
-
-
 <br />
 <span style="text-align:center">
-<a href="./showstatnew.php?maxlist=alle">{L_SHOW_ALL_CALLS_FROM_AB}</a><br />
+<a href="./showstatnew.php?maxlist=all">{L_SHOW_ALL_CALLS_FROM_AB}</a><br />
 </span>
-
-

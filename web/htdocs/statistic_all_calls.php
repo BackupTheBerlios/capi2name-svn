@@ -19,9 +19,32 @@ include("./header.inc.php");
 $template->set_filenames(array('overall_body' => 'templates/'.$userconfig['template'].'/statistic_all_calls.tpl'));
 $template->assign_vars(array('L_SITE_TITLE' => $textdata[stat_gesamt_stat_alle_anrufe]));
    
+if ($_GET[order]=="firstname")
+ {
+  $oderby="name_first";
+ }
+elseif ($_GET[order]=="lastname")
+ {
+  $oderby="name_last";
+ }
+elseif ($_GET[order]=="date")
+ {
+  $oderby="datum";
+ }
+ else
+ {
+  $oderby="anzahl";
+ }
+if ($_GET[sortby]=="up")
+ {
+  $sortby="ASC";
+ }
+else
+ {
+  $sortby="DESC";
+ }
 
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-
 $sql_query="SELECT COUNT(*) AS anzahl,
 	addressbook.id,addressbook.name_last,
 	addressbook.name_first, MAX(angerufene.datum) AS datum
@@ -30,9 +53,8 @@ $sql_query="SELECT COUNT(*) AS anzahl,
 	LEFT JOIN addressbook ON phonenumbers.addr_id=addressbook.id 
 	WHERE NOT(phonenumbers.typ='null')
 	GROUP BY addressbook.id,addressbook.name_last,addressbook.name_first 
-	ORDER by anzahl DESC";
- 	
- $result_data=$dataB->sql_query($sql_query);
+	ORDER by $oderby $sortby";
+$result_data=$dataB->sql_query($sql_query);
 //mysql_num_rows
 $ges_anzahl=$dataB->sql_num_rows($result_data);
   if (!$ges_anzahl)

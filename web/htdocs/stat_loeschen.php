@@ -18,13 +18,13 @@ include("./header.inc.php");
 
 
 $template->set_filenames(array('overall_body' => 'templates/'.$userconfig['template'].'/stat_del_entry.tpl'));
-$template->assign_vars(array('L_SITE_TITLE' => $text[stat_loeschen]));
+$template->assign_vars(array('L_SITE_TITLE' => $textdata[stat_loeschen]));
 
 //ob er die Page anschauen darf:
  if (!$userconfig['loeschen'])
   {
    $template->assign_block_vars('not_allowed_view', array(
-   		'L_MSG_NOT_ALLOWED' => $text[nichtberechtigt]));
+   		'L_MSG_NOT_ALLOWED' => $textdata[nichtberechtigt]));
    $template->pparse('overall_body');
    include("./footer.inc.php");
    die();

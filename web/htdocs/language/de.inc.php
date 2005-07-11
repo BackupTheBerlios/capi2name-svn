@@ -8,8 +8,19 @@ $textdata[cell_phone]="Mobiltelefon";
 $textdata[saved_to_db]="Daten in Datenbank gespeichert.";
 $textdata[new_entry]="Neuer Eintrag";
 $textdata[stat_monthly]="Monatsübersicht";
+$textdata[stay_login]="Eingeloggt bleiben";
+$textdata[login]="Einloggen";
+$textdata[passwd]="Passwort";
+$textdata[nichtberechtigt]="Du bist nicht berechtigt diese Seite anzuschauen!<br>Bitte wenden Sie sich an den Administrator!";
 
+//stat_un_loeschen.php Seite:
+$textdata[del_unkown_db]="Einträge mit unbekant aus Datenbank löschen";
+$textdata[stat_loeschen]="EIntrag aus Datenbank löschen";
 
+//$textdata[]="";
+//$textdata[]="";
+//$textdata[]="";
+//$textdata[]="";
 
 //Header.inc.php Seite:
 $textdata[header_inc_mainmenue]="Hauptmenü";
@@ -91,6 +102,12 @@ $textdata[configpage_voller_name]="Vollständiger Name";
 $textdata[configpage_zeige_letzte_anrufe]="Zeige die letzten Anrufe in der Statistik";
 $textdata[configpage_zeige_rueckruf]="Zeige Menüpunkt Rückruf und Untermenü";
 $textdata[configpage_zeige_notiz]="Zeige Menüpunkt Notiz und Untermenü";
+$textdata[option_splate_vorwahl]="Zeige Spalte Vorwahl in der Anrufstatistik";
+$textdata[zeige_typ]="Zeige Typ des Anrufes in der Anrufstatistik";
+$textdata[option_splate_msn]="Zeige in der Anrufstatistik auf welcher MSN angerufen wurde";
+$textdata[zeige_msns]="Zeige nur Anrufe von folgenden MSNs in der Anrufstatistik";
+$textdata[warnung_msns]="Achtung: Achte auf richtige Schreibweise. 12345,12345 Dann werden nur diese Nummer angezeigt.<br>
+Achtung: Um alle Nummern anzeigen zu lassen, Feld ganz leeren, und Speichern.";
 //configpage.php ENDE
 
 
@@ -209,6 +226,7 @@ $textdata[cs_config_headline] = "Capi2Name CapiSuite Integrations Manager";
 
 
 //callback sites:
+$textdata[callback_title]="Rückrufübersicht";
 $textdata[show_reason]="Grund anzeigen.";
 $textdata[callback_morning]="Morgens";
 $textdata[callback_midday]="Mittags";
@@ -220,119 +238,4 @@ $textdata[reason]="Grund";
 $textdata[callback_time]="Rückrufzeit";
 $textdata[callback_notify_title]="Autopopup: Rückrufliste";
 $textdata[callback_detail_title]="Zurückrufen";
-/*
------------------------------------------------------------------
-OLD OLD OLD OLD OLD OLD OLD OLD OLD
-==============================================
-*/
-
-// header.inc.php ende
-
-// addadress.php anfang
-$text[newadressbuch]   = "Neuer Adressbucheintrag";
-$text[eintrag_weiterleitung]="Neur Eintrag wurde aufgenommen.<br>Sie werden weitergeleitet.";
-$text[vorname]               = "Vorname:";
-$text[nachname]             = "Nachname:";
-$text[strasse]                  = "Straße:";
-$text[hausnummer]          = "Hausnummer:";
-$text[plz]                           = "PLZ:";
-$text[ort]                          = "Ort:";
-$text[tele1]                       = "Telefonnummer 1:";
-$text[tele2]                      = "Telefonnummer 2:";
-$text[tele3]                       = "Telefonnummer 3:";
-$text[handy]                    = "Handy:";
-$text[fax]                          = "Fax Nr:";
-$text[email]                    = "E-Mail:";
-$text[eintragadd]          = "Eintrag aufnehmen";
-// addadress.php ende
-
-// adressbuch.php anfang
-$text[eintragbe]        = "Eintrag bearbeiten";
-$text[name1]            = "Name";
-$text[vorname1]     = "Vorname";
-$text[telenr]           = "Telefon Nr.";
-$text[handynr]        = "Handy Nr.";
-$text[sortname]      = "Sortiere nach Nachname.";
-$text[sortvorname] =  "Sortiere nach Vorname.";
-// adressbuch.php ende
-
-// editadress.php anfang
-$text[editadress]       ="Adressbucheintrag editieren";
-$text[aendern]          = "Eintrag ändern";
-$text[loeschen]        = "Eintrag löschen";
-$text[loewirk]           = "Soll dieser Adressbucheintrag wirklich geloescht werden ?<br><br>Wenn ja, einfach nochmal auf den Button loeschen klicken.";
-$text[loeok]              = "Eintrag wurde gelöscht.<br>Sie werden weitergeleitet.";
-$text[aenok]            = "Eintrag wurde geaendert.<br>Sie werden weitergeleitet.";
-// editadress.php ende
-
-
-//erstatistik.php anfang
-$text[zurueckrufen]    = "Zurueckrufen";
-$text[rufnummer]        = "Rufnummer";
-$text[insadress]                 = "Ins Adressbuch";
-$text[datum]                = "Datum";
-$text[uhrzeit]                = "Uhrzeit";
-$text[allan]                    = "Zeige alle Anrufe";
-//erstatistik ende
-
-
-
-
-// showaddress.php anfang
-$text[detail]           = "Detailansicht";
-// showaddress.php ende
-
-$text[msn]   ="MSN";
-$text[vorwahl]="Aus Ort";
-$text[anrufertyp]="Anruftyp";
-
-//configpage.php
-$text[configpage]="Konfiguration";
-$text[old_passwd_ok]="Altes Passwort gleich: OK !";
-$text[neues_passwd_ok] ="Neues Passwort gleich: OK!";
-$text[passwd_changed]="Passwort geändert: OK !";
-$text[neues_passwd_failed]="Neues Passwort gleich: failed !";
-$text[old_passwd_failed]="Altes Passwort gleich: failed !";
-$text[name_ok]="Name geändert: OK !";
-$text[anzahl_ok]="Anzahl geändert: OK !";
-$text[rueckruf_ok]="Rueckruf geändert: OK !";
-$text[notiz_ok]="Notiz geändert: OK !";
-$text[msns_ok]="MSNs geändert: OK !";
-$text[vorwahl_ok]="Aus Ort geändert: OK !";
-$text[passwd_aendern]="Passwort ändern:";
-$text[old_passwd]="Altes Passwort:";
-$text[passwd_neu]="Neues Passwort:";
-$text[wiederholen]="Wiederholen:";
-$text[vollst_name]="Vollständiger Name:";
-$text[zeige_anrufe]="Zeige die letzten Anrufe in der Anrufstatistik:";
-$text[option_rueckruf]="Zeige Optionspunkt Rueckruf und Untermenü:";
-$text[option_notiz]="Zeige Optionspunkt Notiz und Untermenü:";
-$text[zeige_msns]="Zeige folgende MSNs in Statistik:";
-$text[warnung_msns]="Achtung: Achte auf richtige Schreibweise. 12345,12345 Dann werden nur diese Nummer angezeigt.<br/>
-  Achtung: Um alle Nummern anzeigen zu lassen, Feld ganz leeren, und Speichern.";
-$text[speichern]="Speichern";
-$text[option_splate_vorwahl]="Zeige die Spalte \"Aus Ort\" in der Statistik:";
-$text[option_splate_msn]="Zeige die Spalte \"MSN\" in der Statistik:";
-$text[msn_ok]="MSN Anzeige geändert: OK !";
-$text[typ_ok]="Anruftyp geändert: OK!";
-$text[zeige_typ]="Zeige die Spalte \"Anrufertyp\" in der Statistik:";
-//configpage.php ENDE
-
-// zurückrufen:
-$text[grund]="Grund:";
-$text[anruf_zeit]="Anrufszeit";
-$text[zurueck_zeit]="Zurueckrufszeit";
-
-
-$text[nichtberechtigt]="Du bist nicht berechtigt diese Seite anzuschauen!<br>Bitte wenden Sie sich an den Administrator!";
-$text[eintragmit_id]="Eintrag mit ID Nr.";
-$text[anadmin_wenden]="nicht gefunden!<br>Falls dieses Problem weiterhin besteht, wenden Sie sich bitte an ihren Systemadministrator!!";
-$text[zeige_alle]="Zeige alle Einträge";
-
-
-//stat_anrufer.php
-$text[stat_anrufer_ueber]="Übersicht über die Anrufe von";
-
-//stat_loeschen.php
-$text[stat_loeschen]="Eintrag in Datenbank löschen";
 ?>

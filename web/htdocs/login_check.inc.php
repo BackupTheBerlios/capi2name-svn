@@ -156,10 +156,11 @@ $userconfig['template']=$daten[value];
 include("./header.inc.php");
 $template->set_filenames(array('overall_body' => 'templates/'.$userconfig['template'].'/login_site.tpl'));
 $template->assign_vars(array(
-	'L_USERNAME' => $text[username],
-	'L_PASSWD' => $text[passwd],
+	'L_USERNAME' => $textdata[configpage_username],
+	'L_PASSWD' => $textdata[passwd],
 	'DATA_TO_SITE' => $seite,
-	'L_LOGIN' => $text[login]));
+	'L_STAY_LOGIN' => $textdata[stay_login],
+	'L_LOGIN' => $textdata[login]));
 $template->pparse('overall_body');
 include("./footer.inc.php");
 exit();

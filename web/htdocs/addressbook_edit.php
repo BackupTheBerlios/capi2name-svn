@@ -63,10 +63,10 @@ if (isset($_POST[tele_save]))
 //telephonenumber delete BEGIN:
 if (isset($_POST[tele_delete]))
  {
-  $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+  $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
   if (is_numeric($_POST[tele_id]))
    {
-    $query=sprintf("DELETE FROM phonenumbers WHERE id=%s", $dataB->check($_POST[tele_id]));
+    $query=sprintf("DELETE FROM phonenumbers WHERE id=%s", $dataB->sql_check($_POST[tele_id]));
     $dataB->sql_query($query);
    }
   $dataB->sql_close();

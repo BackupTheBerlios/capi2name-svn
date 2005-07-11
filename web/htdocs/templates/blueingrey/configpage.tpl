@@ -92,19 +92,19 @@
  <td><input type="checkbox" name="show_callback"  {tab1.DATA_CALL_BACK_FUNC} /></td>
 </tr>
 <tr>
- <td>{tab1.L_SHOW_PREFIX_FUNC}</td>
+ <td>{tab1.L_SHOW_PREFIX_FUNC}:</td>
  <td style="width:10px;"></td>
  <td><input type="checkbox" name="show_prefix" {tab1.DATA_PREFIX_FUNC} /></td>
 </tr>
 
 <tr>
- <td style="vertical-align:top;">{tab1.L_SHOW_TYP_FROM_CALL}</td>
+ <td style="vertical-align:top;">{tab1.L_SHOW_TYP_FROM_CALL}:</td>
  <td style="width:10px;"></td>
  <td><input type="checkbox" name="show_type" {tab1.DATA_SHOW_TYP_FROM_CALL} /></td>
 </tr>
 
 <tr>
- <td>{tab1.L_SHOW_MSN}</td>
+ <td>{tab1.L_SHOW_MSN}:</td>
  <td style="width:10px;"></td>
  <td><input type="checkbox" name="show_msn" {tab1.DATA_SHOW_MSN} /></td>
 </tr>
@@ -123,7 +123,7 @@
 </tr>
 <!-- END template_on -->
 <tr>
- <td style="vertical-align:top;">{tab1.L_SHOW_MSN_FUNC}</td>
+ <td style="vertical-align:top;">{tab1.L_SHOW_MSN_FUNC}:</td>
  <td style="width:10px;"></td>
  <td>
  <input type="text" name="msn_listen" value="{tab1.DATA_SHOW_MSN_FUNC}"/>

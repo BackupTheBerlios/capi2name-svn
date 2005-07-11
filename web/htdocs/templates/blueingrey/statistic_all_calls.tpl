@@ -10,11 +10,10 @@
    <td style="width:30px;text-align:center;">
    <a href="./stat_gesamt.php?order={DATA_ORDER_OPTION}" title="{L_SORT_OPTION}">
     <img src="./bilder/rotate.png" style="border-width:0px;vertical-align:middle;" alt=""/></a></td>
-    <td style="width:100px;">{L_ADDR_LAST_NAME}</td>
-    <td style="width:100px;">{L_ADDR_FIRST_NAME}</td>
-    <td style="width:50px;text-align:center;">{L_ALL_CALLS}</td>
-    <td style="width:95px;text-align:center;">{L_LAST_CALL}</td>
-    <td style="width:10px;"></td>
+    <td style="width:110px;"><a href="./statistic_all_calls.php?order=lastname&#038;sortby=up"><img src="./images/up.png" border="0"></a> {L_ADDR_LAST_NAME} <a href="./statistic_all_calls.php?order=lastname&#038;sortby=down"><img src="./images/down.png" border="0"></a></td>
+    <td style="width:100px;"><a href="./statistic_all_calls.php?order=firstname&#038;sortby=up"><img src="./images/up.png" border="0"></a> {L_ADDR_FIRST_NAME} <a href="./statistic_all_calls.php?order=firstname&#038;sortby=down"><img src="./images/down.png" border="0"></a></td>
+    <td style="width:80px;text-align:center;"><a href="./statistic_all_calls.php?order=&#038;sortby=up"><img src="./images/up.png" border="0"></a> {L_ALL_CALLS} <a href="./statistic_all_calls.php?order=&#038;sortby=down"><img src="./images/down.png" border="0"></a></td>
+    <td style="width:128px;text-align:center;"><a href="./statistic_all_calls.php?order=date&#038;sortby=up"><img src="./images/up.png" border="0"></a> {L_LAST_CALL} <a href="./statistic_all_calls.php?order=date&#038;sortby=down"><img src="./images/down.png" border="0"></a></td>
     <td></td>
  </tr>
  
@@ -25,7 +24,6 @@
   <td><a  href="./addressbook.php?id={tab1.DATA_ID}#find">{tab1.DATA_FIRST_NAME}</a></td>
   <td style="text-align:right;">{tab1.DATA_COUNT}</td>
   <td style="text-align:center;">{tab1.DATA_LAST_CALL}</td>
-  <td style="width:10px;"></td>
   <td style="text-align:center;">
   <a href="./statistic_person.php?id={tab1.DATA_ID}" title="{tab1.call_from_user.L_SEARCH_ENTRY}">
   <img src="./images/search.png" style="border-width:0px;vertical-align:middle;" alt=""/></a>

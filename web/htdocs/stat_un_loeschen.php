@@ -20,12 +20,12 @@ $template->set_filenames(array('overall_body' => 'templates/'.$userconfig['templ
 //ob er die Page anschauen darf:
 if (!$userconfig['loeschen'])
  {
-  $template->assign_block_vars('tab1',array('L_MSG_NOT_ALLOWED' => $text[nichtberechtigt]));
+  $template->assign_block_vars('tab1',array('L_MSG_NOT_ALLOWED' => $textdata[nichtberechtigt]));
   $template->pparse('overall_body');
   include("./footer.inc.php");
   die();
  }
-$template->assign_vars(array('SITE_TITLE' => 'Einträge mit unbekant aus Datenbank löschen'));
+$template->assign_vars(array('SITE_TITLE' => $textdata[del_unkown_db]));
   
 //abfrage:
 if (isset($_POST[absenden]))

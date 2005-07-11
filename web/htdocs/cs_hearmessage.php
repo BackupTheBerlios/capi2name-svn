@@ -1,16 +1,15 @@
 <?php
-	//include("./login_check.inc.php");
-	include("./includes/conf.inc.php");
-	include("./includes/functions.php");
-	include("./cs_functions.inc.php");
-	
-	$file = $_GET['file'];
-	$user = $_GET['csuser'];
+include("./login_check.inc.php");
+include("./cs_functions.inc.php");
+
+$file = $_GET['file'];
+$user = $_GET['csuser'];
 
 
 	
 	$fileDir = $cs_conf['cs_voice_user_dir'] . "/$user/received/"; // supply a path name.
 	$fileName = "voice-$file.la"; // supply a file name.
+	//$fileName = "voice-0.la"; // supply a file name.
 	$fileString=$fileDir.'/'.$fileName; // combine the path and file
 	
 	exec("sox $fileString " . $cs_conf[cs_temp_dir] . "/capi2name-tmp.mp3");

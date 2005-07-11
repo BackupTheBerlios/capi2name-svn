@@ -157,25 +157,25 @@ $template->assign_block_vars('tab1', array(
 	'L_OLD_PASSWD' => $textdata[configpage_altes_passwd],
 	'L_NEW_PASSWD' => $textdata[configpage_neues_passwd],
 	'L_NEW_PASSWD_CONFIRM' => $textdata[configpage_wiederholen],
-	'L_FIRST_NAME' => 'Vorname',
-	'L_LAST_NAME' => 'Nachname',
+	'L_FIRST_NAME' => $textdata[addadress_vorname],
+	'L_LAST_NAME' => $textdata[addadress_nachname],
 	'DATA_FIRST_NAME' => $daten[name_first],
 	'DATA_LAST_NAME' => $daten[name_last],
 	'L_SHOW_NUMBERS_OF_CALLS_IN_STAT' => $textdata[configpage_zeige_letzte_anrufe],
 	'DATA_NUMBERS' => $daten[show_lines],
 	'L_SHOW_CALL_BACK_FUNC' => $textdata[configpage_zeige_rueckruf],
 	'DATA_CALL_BACK_FUNC' => $daten[show_callback],
-	'L_SHOW_PREFIX_FUNC' => $text[option_splate_vorwahl],
+	'L_SHOW_PREFIX_FUNC' => $textdata[option_splate_vorwahl],
 	'DATA_PREFIX_FUNC' => $daten[show_prefix],
-	'L_SHOW_TYP_FROM_CALL' => $text[zeige_typ],
+	'L_SHOW_TYP_FROM_CALL' => $textdata[zeige_typ],
 	'DATA_SHOW_TYP_FROM_CALL' => $daten[show_type],
-	'L_SHOW_MSN' => $text[option_splate_msn],
+	'L_SHOW_MSN' => $textdata[option_splate_msn],
 	'DATA_SHOW_MSN' => $daten[show_msn],
-	'L_SHOW_MSN_FUNC' => $text[zeige_msns],
+	'L_SHOW_MSN_FUNC' => $textdata[zeige_msns],
 	'DATA_SHOW_MSN_FUNC' => $daten[msn_listen],
-	'L_WARNING_FOR_MSN_FUNC' => $text[warnung_msns],
+	'L_WARNING_FOR_MSN_FUNC' => $textdata[warnung_msns],
 	'DATA_ID_FROM_DB' => $daten[id],
-	'L_SAVE_DATA_TO_DB' => $text[speichern])); 
+	'L_SAVE_DATA_TO_DB' => $textdata[save])); 
 
 if ($daten_config[value]==NULL)
  {

@@ -26,7 +26,7 @@ $template->set_filenames(array('overall_body' => 'templates/'.$userconfig['templ
 //ob er die Page anschauen darf:
  if (!$userconfig['showrueckruf'])
   {
-   $template->assign_block_vars('not_allowed',array('L_MSG_NOT_ALLOWED' =>$text[nichtberechtigt] ));
+   $template->assign_block_vars('not_allowed',array('L_MSG_NOT_ALLOWED' =>$textdata[nichtberechtigt] ));
    $template->pparse('overall_body');
    include("./footer.inc.php");
    die();
@@ -81,12 +81,12 @@ if(isset($_POST[save_with_addr]))
  }
 
 
-$template->assign_vars(array('L_SITE_TITLE' => $text[zurueckrufen]));
+$template->assign_vars(array('L_SITE_TITLE' => $textdata[callback_title]));
 $template->assign_block_vars('tab1',array(
-		'L_NAME' => $text[name1],
-		'L_NUMBER' => $text[rufnummer],
-		'L_CALL_TIME' => $text[anruf_zeit],
-		'L_CALL_BACK_TIME' => $text[zurueck_zeit]));
+		'L_NAME' => $textdata[showstatnew_name],
+		'L_NUMBER' => $textdata[stat_anrufer_rufnummer],
+		'L_CALL_TIME' => $textdata[stat_anrufer_datum] ." / ". $textdata[stat_anrufer_uhrzeit],
+		'L_CALL_BACK_TIME' => $textdata[callback_time]));
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 $result_callback=$dataB->sql_query("SELECT t1.*,t2.name_last,t2.name_first,t3.number AS RUFNR FROM callback AS t1 LEFT JOIN addressbook AS t2 ON t1.addr_id=t2.id LEFT JOIN phonenumbers AS t3 ON t3.addr_id=t2.id WHERE t1.user_id=".$_SESSION['user_id']." GROUP BY t1.id");
 
@@ -151,19 +151,19 @@ if ($_GET[add]== "yes")
 
    $template->assign_block_vars('insert_with_addr',array(
    		'L_TITLE_NEW' => $textdata[new_entry],
-		'L_NAME' => $text[name1],
+		'L_NAME' => $textdata[showstatnew_name],
    		'L_DATA_NAME' => $daten_addr[name_first]." ".$daten_addr[name_last],
 		'L_DATA_NUMBER' => $number,
 		'L_DATA_ID' => $daten_addr[id],
-		'L_SAVE_DATA' => $text[speichern],
-		'L_NUMBER' => $text[rufnummer],
-		'L_CALL_BACK_TIME' => $text[zurueck_zeit],
+		'L_SAVE_DATA' => $textdata[save],
+		'L_NUMBER' => $textdata[stat_anrufer_rufnummer],
+		'L_CALL_BACK_TIME' => $textdata[callback_time],
 		'L_MORING' => $textdata[callback_morning],
 		'L_SOON_AS_POSSIBLE' => $textdata[callback_soon_as_posible],
 		'L_EVENING' => $textdata[callback_evening],
 		'L_MIDDAY' => $textdata[callback_midday],
 		'L_USERNAME' => $textdata[capi2name_user],
-		'L_MESSAGE' => $text[grund]));
+		'L_MESSAGE' => $textdata[reason]));
    while($daten_users=$dataB->sql_fetch_assoc($result_users))
     {
      if (empty($daten_users[name_first]) && empty($daten_users[name_last]))
@@ -194,16 +194,16 @@ if ($_GET[add]== "yes")
   {//ANFANG insert_without_addr
   $template->assign_block_vars('insert_without_addr',array(
   		'L_TITLE_NEW' => $textdata[new_entry],
-		'L_NAME' => $text[name1],
-		'L_NUMBER' => $text[rufnummer],
-		'L_CALL_BACK_TIME' => $text[zurueck_zeit],
+		'L_NAME' => $textdata[showstatnew_name],
+		'L_NUMBER' => $textdata[stat_anrufer_rufnummer],
+		'L_CALL_BACK_TIME' => $textdata[callback_time],
 		'L_MORING' => $textdata[callback_morning],
 		'L_SOON_AS_POSSIBLE' => $textdata[callback_soon_as_posible],
 		'L_EVENING' => $textdata[callback_evening],
 		'L_MIDDAY' => $textdata[callback_midday],
 		'L_USERNAME' => $textdata[capi2name_user],
-		'L_SAVE_DATA' => $text[speichern],
-		'L_MESSAGE' => $text[grund],
+		'L_SAVE_DATA' => $textdata[save],
+		'L_MESSAGE' => $textdata[reason],
 		'DATA_NR' => $_GET[nr]));
   while($daten_users=$dataB->sql_fetch_assoc($result_users))
     {

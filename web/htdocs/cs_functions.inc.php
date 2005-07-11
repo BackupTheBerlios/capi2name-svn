@@ -45,4 +45,4 @@ $result=$dataB->sql_query("SELECT * FROM config WHERE conf LIKE 'cs_%'");
    $cs_conf[$daten_cs[conf]]=$daten_cs[value];
   }
 $dataB->sql_close();
-?> 
+?>

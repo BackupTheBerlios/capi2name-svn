@@ -21,7 +21,7 @@ $template->set_filenames(array('overall_body' => 'templates/'.$userconfig['templ
  if (!$userconfig['showrueckruf'])
   {
    $template->assign_block_vars('not_allowed_show',array(
-   		'L_MSG_NOT_ALLOWED' => $text[nichtberechtigt]));
+   		'L_MSG_NOT_ALLOWED' => $textdata[nichtberechtigt]));
    $template->pparse('overall_body');
    include("./footer.inc.php");
    die();
@@ -37,7 +37,7 @@ $dataB->sql_close();
 if (!$daten)
  {
   $template->assign_block_vars('entry_not_found',array(
-  	'L_NOT_FOUND' =>$text[eintragmit_id]." ".$_GET[id]." ".$text[anadmin_wenden] ));
+  	'L_NOT_FOUND' =>$textdata[showaddress_eintrag_nicht]." ".$_GET[id]." ".$textdata[showaddress_admin_wenden]));
   $template->pparse('overall_body');
   include("footer.inc.php");
   die();

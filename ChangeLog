@@ -14,7 +14,6 @@ Capi2name 0.6.8 YYYY-MM-DD - Jonas Genannt - <jonasge@gmx.net> ---BETA BROKEN!!!
 	o PHP: Fixed: link for global_search.php
 	o PHP: Fixed: admin/cs_install.php changed to from ini-file to config table
 	o PHP: Fixed: login.php and including the language file
-	o PHP: Fixed: header.inc.php and check for DB version found by Max
 	o PHP: Fixed: calendar.php and highlighting two days
 	o PHP: Fixed: addressbook_show.php if nothing found: grafics errors
 	o PHP: Improved: callback function
@@ -29,6 +28,7 @@ Capi2name 0.6.8 YYYY-MM-DD - Jonas Genannt - <jonasge@gmx.net> ---BETA BROKEN!!!
 	o PHP: Changed all files that works with the old 'adressbuch' table
 	o PHP: Changed sql_class for postgre support
 	o PHP: Changed showstatnew7days.php now displays 7 days=1week
+	o PHP: Added: statistic_all_calls: order and sort by row
 	o PHP: Added: call from cell phone print out 'cell phone' in showstat*
 	o PHP: Added: Postgresupport REALLY BROKEN
 	o PHP: Added: new addressbook table including phonenumbers table
