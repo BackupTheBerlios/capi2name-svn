@@ -36,6 +36,7 @@ Capi2name 0.6.8 YYYY-MM-DD - Jonas Genannt - <jonasge@gmx.net> ---BETA BROKEN!!!
 	o PHP: Added: language/index.html
 	o PHP: Added: link in admin-interface to projecthomepage
 	o PHP: Added: checks for SQL-Injection: checked all files
+	o PHP: Added: cs_hearmessage.php: user/password checks for downloading msg
 
 Capi2name 0.6.7.6.2 2005-06-29 - Jonas Genannt - <jonasge@gmx.net>
 	o PHP: Fixed: header.inc.php and check for DB version found by Max
