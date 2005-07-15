@@ -1,4 +1,4 @@
-<?
+<?php
 session_start();
 $host=$_SESSION['dbhost'];
 $db=$_SESSION['dbname'];

@@ -133,7 +133,7 @@ a:hover
    <div class="menuitem"><a href="./user_add.php">Add new User</a></div>
    <div class="menuitem"><a href="./global_config.php">Global Config</a></div>
    <div class="menuitem"><a href="./passwd.php">Change Password</a></div>
-   <div class="menuitem"><a href="./vorwahl.php">Change Prefix</a></div>
+   <!-- <div class="menuitem"><a href="./vorwahl.php">Change Prefix</a></div> -->
   <!-- <div class="menuitem"><a href="./farben.php">Colorsetup</a></div> -->
    <div class="menuitem"><a href="./msn2name.php">MSN to name</a></div>
    <div class="menuitem"><a href="./adressbuch_bug.php">Adressbook BUG</a></div>

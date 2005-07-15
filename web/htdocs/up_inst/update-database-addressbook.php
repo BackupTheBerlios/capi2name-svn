@@ -1,21 +1,21 @@
-<?
-
-$host="localhost";
-$db="capidb";
-$username="capi";
-$passwd="kljmkgd";
+<?php
+session_start();
+$host=$_SESSION['dbhost'];
+$db=$_SESSION['dbname'];
+$username=$_SESSION['dbuser'];
+$passwd=$_SESSION['dbpasswd'];
 
 
 echo "<br>Please wait! This site will automaticly load hisself.<br>Please wait until at the button stands 'READY' --- Thank you.";
 
 if (isset($_GET[start]))
- {
-  $start_id=$_GET[start];
- }
+{
+	$start_id=$_GET[start];
+}
 else
- {
-  $start_id=0;
- }
+{
+	$start_id=0;
+}
 mysql_connect($host,$username, $passwd);
 mysql_select_db($db);
 $res_anzahl=mysql_query("SELECT id FROM adressbuch");
@@ -109,18 +109,19 @@ while($daten=mysql_fetch_assoc($result))
    
    
  }//ende while
-mysql_close();
 $wert=$start_id+10;
 echo "<br>Wert: $wert<br>Rows: $rows_anzahl";
 if ($wert <= $rows_anzahl)
  {
-
-   echo "<meta http-equiv=\"refresh\" content=\"1; URL=./update-database-addressbook.php?start=$wert\">";
+	mysql_close();
+	echo "<meta http-equiv=\"refresh\" content=\"1; URL=./update-database-addressbook.php?start=$wert\">";
  }
  else
  {
-  echo "<font color=\"red\"><b><br>READY</b></font>";
+  //adressbuch muss umbenannt werden!!!!!!!!!!!!!!!!!
+  mysql_query("ALTER TABLE `adressbuch` RENAME `adressbuchOLD`");
+  mysql_close();
+  echo "<font color=\"red\"><b><br>READY</b></font><br/>Wait 10 secundes.br/> You will be forwarded to update.php";
+  echo "<meta http-equiv=\"refresh\" content=\"10; URL=./update.php\">";
  }
-
-
 ?>
