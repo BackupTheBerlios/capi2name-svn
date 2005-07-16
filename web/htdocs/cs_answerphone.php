@@ -15,7 +15,7 @@
 $seite=base64_encode("cs_answerphone.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
-require_once("./cs_functions.inc.php");
+require_once("./includes/cs_functions.inc.php");
 	
 if (checkUsername($_SESSION['username']) != 0)
  die("<h1>username does not match local user</h1>");
@@ -53,16 +53,17 @@ usort($li, "cmp");
 foreach ($li as $value) {
 		list(,$file) = split(";", $value);
 		$lines = file($dir . $file);
-		echo "<tr><td>";
-		echo preg_replace("/(.*=\")(.*)(\")/", "\\2", $lines[7]);
-		echo "</td><td>";
-		echo nummer2Name(preg_replace("/(.*=\")(.*)(\"\n)/", "\\2", $lines[5]));
-		echo "</td><td>";
-		echo msnzuname(preg_replace("/(.*=\")(.*)(\"\n)/", "\\2", $lines[6]));
-		echo "</td><td>";
+		$test=preg_replace("/(.*=\")(.*)(\"\n)/", "\\2", $lines[5]);
+		echo "--$test --";
 		$a = preg_replace("/(.*-)(\d{1,4})(\.l.*)/", "\\2",$lines[4]);
-		echo "<a href=\"cs_hearmessage.php?file=$a&amp;csuser=".$_SESSION['username']."\">$textdata[cs_ap_play]</a>";
-		echo "</td></tr>";
+		$template->assign_block_vars('tab1.tab2',array(
+			'DATA_1' => preg_replace("/(.*=\")(.*)(\")/", "\\2", $lines[7]),
+			'DATA_2' => nummer2Name(preg_replace("/(.*=\")(.*)(\"\n)/", "\\2", $lines[5])),
+			'DATA_3' =>msnzuname(preg_replace("/(.*=\")(.*)(\"\n)/", "\\2", $lines[6])),
+			'DATA_A' => $a,
+			'DATA_4' => $textdata[cs_ap_play],
+			'USER' => $_SESSION['username']
+			));
 	}
 	$dataB->sql_close();
 

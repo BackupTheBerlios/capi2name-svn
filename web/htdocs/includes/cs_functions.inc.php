@@ -13,15 +13,23 @@
  *                                                                         *
  ***************************************************************************/
   // 	editor: Kai Römer 
-	function nummer2Name($nummer) {
-		$tab_adressbuch = mysql_query("SELECT `id`, `vorname`, `nachname`, `handy`, `fax` FROM `adressbuch` WHERE `tele1`='$nummer' OR `tele2`='$nummer' OR `tele3`='$nummer' OR `handy`='$nummer' OR `fax`='$nummer'");
-		if (mysql_num_rows($tab_adressbuch) == 0) return "<a href=\"addressbook_add.php?" . handynr_vorhanden($nummer) . "\">$nummer</a>";
+function nummer2Name($nummer) 
+{
+	$tab_adressbuch = mysql_query("SELECT t1.name_first,t1.name_last,t1.id,
+	 	t2.areacode
+		FROM phonenumbers AS t2 
+		LEFT JOIN addressbook AS t1 ON t2.addr_id=t1.id WHERE t2.number='$nummer'");
+		if (mysql_num_rows($tab_adressbuch) == 0)
+		{
+			return "<a href=\"addressbook_add.php?rufnr=$nummer\">$nummer</a>";
+		}
 		else if (mysql_num_rows($tab_adressbuch) == 1) {
-			list($id, $vorname, $nachname,$handy,$fax) = mysql_fetch_array($tab_adressbuch);
+			$data=mysql_fetch_assoc($tab_adressbuch);
 			if ($fax == $nummer) $zusatz = "(Fax)";
 			if ($handy == $nummer) $zusatz = "(Handy)";
-			return "<a href=\"addressbook.php?id=$id#find\">$nachname, $vorname<br />$zusatz</a>";
+			return "<a href=\"addressbook.php?id=$data[id]#find\">$data[name_last], $data[name_first]<br />$zusatz</a>";
 		}
+		
 		return "error";
 	}
 	

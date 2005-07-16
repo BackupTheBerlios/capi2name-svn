@@ -93,6 +93,7 @@ while($daten=mysql_fetch_assoc($result))
 	  { 
 	   echo "found prefix in prefix table, addin prefix-gr.id to phonenumbers";
 	   $prefix=$vorwahl_row[id];
+	   break;
 	  }
       }//while vorwahl END
     $sql_query_phonenumber="INSERT INTO phonenumbers VALUES('','$last_id',

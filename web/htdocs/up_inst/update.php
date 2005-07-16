@@ -494,7 +494,7 @@ if ($db_layout_version=="0.6.7.6.2")
 	{
 		if ($data[0]=="vorwahl")
 		{
-			echo "Found Vorwahl col<br>";
+			//echo "Found Vorwahl col<br>";
 			if ($data[1]=="varchar(100)")
 			{
 				echo "Col are varchar(100)<br>";

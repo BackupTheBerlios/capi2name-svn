@@ -51,7 +51,7 @@ else if($config['capi2name_status']=="yes" && $config['capisuite'] == "yes")
     else 
         {
 	 $template->assign_block_vars('capisuite_not_running',array(
-	 	'MSG_CSU_RUN' => $textdata[index_status_laeuft_nicht],
+	 	'MSG_CSU_RUN' => $textdata[index_status_laeft_nicht],
 		'L_STAT' => $textdata[index_status_capisuite]));
 	}
    }

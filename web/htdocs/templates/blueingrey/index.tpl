@@ -28,7 +28,7 @@
 <!-- BEGIN capisuite_not_running -->
 <br /><br />
 <div style="text-align:left">
-{capisuite_running.L_STAT}: &nbsp; <span style="color:blue">{capisuite_running.MSG_CSU_RUN}</span>
+{capisuite_not_running.L_STAT}: &nbsp; <span style="color:red">{capisuite_not_running.MSG_CSU_RUN}</span>
 </div>
 <!-- END capisuite_not_running -->
 

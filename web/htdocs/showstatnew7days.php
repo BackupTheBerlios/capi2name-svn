@@ -106,13 +106,16 @@ if ($userconfig['loeschen'])
  
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 $tmp=$dataB->sql_check(datum_mysql($datum[$es]));
-$sql_query="SELECT  t1.id,t1.rufnummer,t1.datum,t1.uhrzeit,t1.name,t1.dienst,t1.vorwahl,t1.msn,
+$sql_query="SELECT  t1.id,t1.rufnummer,t1.datum,t1.uhrzeit,t1.name,t1.dienst,
+		t5.name AS vorwahl,t1.msn,
 		t3.name_first, t3.name_last,t3.id AS ADDR_ID,t2.areacode,
 		t4.name AS msn_name
 		FROM angerufene AS t1
 		LEFT JOIN phonenumbers AS t2 ON t1.rufnummer=t2.number
 		LEFT JOIN addressbook AS t3 ON t2.addr_id=t3.id
-		LEFT JOIN msnzuname AS t4 ON t1.msn=t4.msn WHERE t1.datum=$tmp ORDER BY t1.id DESC";
+		LEFT JOIN msnzuname AS t4 ON t1.msn=t4.msn
+		LEFT JOIN vorwahl AS t5 ON t1.vorwahl=t5.id
+		WHERE t1.datum=$tmp ORDER BY t1.id DESC";
 
 
 $result_angerufene=$dataB->sql_query($sql_query);
@@ -126,11 +129,7 @@ while($daten=$dataB->sql_fetch_assoc($result_angerufene))
  $anz_insaddr="";
  $anz_rueckruf="";
  $anz_msn="";
- //bugfix for daemon program:
- //we do not show what service the cell phone uses, we print out 'cell phone'
- //for the calls from cell phone.
- //because you can take your number from XX to XX service provider
- if ($daten[areacode]==2)
+if ($daten[vorwahl]=="cell phone")
   {
    $anz_vorwahl=$textdata[cell_pone];
   }

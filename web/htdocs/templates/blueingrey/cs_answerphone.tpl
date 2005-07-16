@@ -11,6 +11,16 @@
     <td>{tab1.CS_AP_TO}</td>
   <td></td>
   </tr>
+  <!-- BEGIN tab2 -->
+  <tr>
+   <td>{tab1.tab2.DATA_1}</td>
+   <td>{tab1.tab2.DATA_2}</td>
+   <td>{tab1.tab2.DATA_3}</td>
+   <td><a href="cs_hearmessage.php?file={tab1.tab2.DATA_A}&amp;csuser={tab1.tab2.USER}">{tab1.tab2.DATA_4}</a></td>
+   
+   </td>
+  </tr>
+  <!-- END tab2 -->
  </thead>
 <tbody>
 <!-- END tab1 -->

@@ -13,13 +13,10 @@
  *                                                                         *
  ***************************************************************************/
  // 	editor: Kai Römer 
-
-?>
-<?php
-	$seite=base64_encode("cs_fax.php");
-	include("./login_check.inc.php");
-	include("./header.inc.php");
-	require_once("./cs_functions.inc.php");
+$seite=base64_encode("cs_fax.php");
+include("./login_check.inc.php");
+include("./header.inc.php");
+require_once("./includes/cs_functions.inc.php");
 	
 	if (checkUsername($_SESSION['username']) != 0) die("<h1>username does not match local user</h1>");
 	
@@ -28,7 +25,7 @@
 <div style="margin:5px;">
 <?php
 	$dir = $cs_conf['cs_fax_user_dir'] . "/" . $_SESSION['username'] . "/received/";
-	$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+	$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 	
 	if(isset($_GET['viewfax'])) {
 		$fax = $_GET['fax'];
@@ -79,7 +76,7 @@
 		<tbody>
 
 <?php
-	$zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"], $sql["db"] );
+	$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"], $sql["db"] );
 	
 	$c = 0;
 	
@@ -118,7 +115,7 @@
 	</table>
 <?php 
 	}
-	$zugriff_mysql->close_mysql();
+	$dataB->sql_close();
 ?>
 </div>
 <?php
