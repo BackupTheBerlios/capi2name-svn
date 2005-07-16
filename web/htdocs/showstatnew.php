@@ -138,12 +138,12 @@ $sql_query_1="SELECT  t1.id,t1.rufnummer,t1.datum,t1.uhrzeit,t1.name,t1.dienst,
 $sql_query_2=" ORDER BY t1.id DESC";
 if (!empty($sql_datum))
 {
- $sql_query=$sql_query_1 . sprintf(" WHERE t1.datum=%s",
+ $sql_query=$sql_query_1 . sprintf(" WHERE t1.datum=%s AND t1.aktive='1'",
  	 $dataB->sql_check(datum_mysql($sql_datum)));
 }
 else
 {
- $sql_query=$sql_query_1;
+ $sql_query=$sql_query_1. " WHERE t1.aktive='1'";
 }
 $sql_query=$sql_query.$sql_query_2;
 if ($maxlist!=NULL)

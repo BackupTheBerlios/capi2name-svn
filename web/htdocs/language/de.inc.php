@@ -11,14 +11,21 @@ $textdata[stat_monthly]="Monatsübersicht";
 $textdata[stay_login]="Eingeloggt bleiben";
 $textdata[login]="Einloggen";
 $textdata[passwd]="Passwort";
+$textdata[id]="ID";
 $textdata[nichtberechtigt]="Du bist nicht berechtigt diese Seite anzuschauen!<br>Bitte wenden Sie sich an den Administrator!";
 
 //stat_un_loeschen.php Seite:
 $textdata[del_unkown_db]="Einträge mit unbekant aus Datenbank löschen";
-$textdata[stat_loeschen]="EIntrag aus Datenbank löschen";
+$textdata[stat_loeschen]="Eintrag aus Datenbank löschen";
 
-//$textdata[]="";
-//$textdata[]="";
+
+//stat_loeschen.php Seite:
+$textdata[stat_del_1]="Soll dieser Eintrag mit ID ";
+$textdata[stat_del_2]=" gelöscht werden?<br/>Zum Löschen auf \"Löschen\" klicken!";
+$textdata[del_OK_forward]="Eintrag erfolgreich gelöscht.<br/>Sie werden in zwei Sekunden weitergeleitet.";
+
+
+
 //$textdata[]="";
 //$textdata[]="";
 

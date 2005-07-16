@@ -32,8 +32,9 @@ $template->assign_vars(array('L_SITE_TITLE' => $textdata[stat_loeschen]));
 if (isset($_POST[btn_loeschen]))
   {
    //Eintrag löschen:
-   $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] ); 
-   $res=$dataB->sql_query("DELETE FROM angerufene WHERE id=$_POST[id]");
+   $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"]);
+   $sql=sprintf("UPDATE angerufene SET aktive='0' WHERE id=%s",$_POST[id]);
+   $res=$dataB->sql_query($sql);
    $dataB->sql_close();
      if ($_POST[datum]!="")
       {
@@ -46,7 +47,7 @@ if (isset($_POST[btn_loeschen]))
    if ($res == 1)
     {
      $template->assign_block_vars('del_entry_successfully', array(
-  	'L_MSG_SUCCESS' => 'Eintrag erfolgreich gelöscht, Sie werden in 2sec weitergeleitet.',
+  	'L_MSG_SUCCESS' => $textdata[del_OK_forward],
 	'DATA_DATE' => $datum));
     }
   }
@@ -54,22 +55,23 @@ if (isset($_POST[btn_loeschen]))
 if (isset($_GET[id]))
   {
     $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-    $result=$dataB->sql_query("SELECT * FROM angerufene WHERE id=$_GET[id]");
+    $sql=sprintf("SELECT * FROM angerufene WHERE id=%s", $dataB->sql_checkn($_GET[id]));
+    $result=$dataB->sql_query($sql);
     $dataB->sql_close();
     $daten=$dataB->sql_fetch_assoc($result);
     $datum1=mysql_datum($daten[datum]);
     $template->assign_block_vars('check_if_del',array(
-    	'L_MSG_CHECK_TO_DEL' => 'Soll dieser Eintrag mit ID '.$_GET[id]. ' gelöscht werden?&nbsp;-Zum Löschen einfach nochmal auf "Löschen" klicken!',
-	'L_ID' => 'ID',
-	'L_DATE' => 'Datum',
-	'L_TIME' => 'Uhrzeit',
-	'L_NUMBER' => 'Rufnummer',
+    	'L_MSG_CHECK_TO_DEL' => $textdata[stat_del_1].$_GET[id]. $textdata[stat_del_2],
+	'L_ID' => $textdata[id],
+	'L_DATE' => $textdata[stat_anrufer_datum],
+	'L_TIME' => $textdata[stat_anrufer_uhrzeit],
+	'L_NUMBER' => $textdata[stat_anrufer_rufnummer],
 	'DATA_ID' => $daten[id],
 	'DATA_DATE' => $datum1,
 	'DATA_TIME' => $daten[uhrzeit],
 	'DATA_NUMBER' => $daten[rufnummer],
 	'DATA_FROM_GET' => $_GET[datum],
-	'L_DELETE' => 'Löschen'));
+	'L_DELETE' => $textdata[delet]));
     
 
   }

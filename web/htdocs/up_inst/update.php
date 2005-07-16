@@ -466,6 +466,7 @@ if ($db_layout_version=="0.6.7.6.2")
 {
 	echo "Found Version 0.6.7.6.2 updating to 0.6.8...........<br>";
 	$control=mysql_query("ALTER TABLE `config` CHANGE `value` `value` CHAR( 50 ) DEFAULT NULL");
+	$control=mysql_query("ALTER TABLE `angerufene` CHANGE `aktive` `aktive` TINYINT( 2 ) DEFAULT '1' NOT NULL ");
 	if (!$control)
 	{
 		echo "Update failed: <br/>Mysql-Error: ". mysql_error();

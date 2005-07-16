@@ -115,7 +115,7 @@ $sql_query="SELECT  t1.id,t1.rufnummer,t1.datum,t1.uhrzeit,t1.name,t1.dienst,
 		LEFT JOIN addressbook AS t3 ON t2.addr_id=t3.id
 		LEFT JOIN msnzuname AS t4 ON t1.msn=t4.msn
 		LEFT JOIN vorwahl AS t5 ON t1.vorwahl=t5.id
-		WHERE t1.datum=$tmp ORDER BY t1.id DESC";
+		WHERE t1.datum=$tmp AND t1.aktive='1' ORDER BY t1.id DESC ";
 
 
 $result_angerufene=$dataB->sql_query($sql_query);
