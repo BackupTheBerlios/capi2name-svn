@@ -100,7 +100,7 @@ include("./includes/functions.php");
 		$einheit+=90;
 	}
 	
-	$fileName	= "stats.png";
+	//$fileName	= "stats.png";
 	
 	// translate file name properly for Internet Explorer.
 	if (strstr($_SERVER['HTTP_USER_AGENT'], "MSIE")){
@@ -108,8 +108,8 @@ include("./includes/functions.php");
 	}
 	header("Cache-Control: ");// leave blank to avoid IE errors
 	header("Pragma: ");// leave blank to avoid IE errors
-	header("Content-type: image/png");
-	header("Content-Disposition: attachment; filename=\"".$fileName."\"");
+	//header("Content-type: image/png");
+	//header("Content-Disposition: attachment; filename=\"".$fileName."\"");
 	
 	
 	

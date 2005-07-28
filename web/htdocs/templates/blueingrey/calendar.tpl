@@ -7,7 +7,7 @@
  <ins>
  <input type="hidden" value="{DATA_CUR_MONTH1}" name="monat"/>
  <input type="hidden" value="{DATA_CUR_YEAR1}" name="jahr"/>
- <input type="image" src="./images/1leftarrow.gif"/>
+ <input type="image" src="./images/1leftarrow.gif" style="border:0px;background-color:#C8CECE;"/>
  </ins>
  </form>
  </td>
@@ -17,7 +17,7 @@
  <ins>
  <input type="hidden" value="{DATA_CUR_MONTH2}" name="monat"/>
  <input type="hidden" value="{DATA_CUR_YEAR1}" name="jahr"/>
- <input type="image" src="./images/1rightarrow.gif"/>
+ <input type="image" src="./images/1rightarrow.gif" style="border:0px;background-color:#C8CECE;"/>
  </ins>
  </form>
  </td>

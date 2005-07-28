@@ -92,9 +92,10 @@ echo "</table>";
 if (isset($_GET[newentry]) )
  {
   echo "
-  <br><center><h2>Neuer Eintrag</h2>
+  <br/><hr/>
+  <h2>Neuer Eintrag</h2>
   <form action=\"msn2name.php\" method=\"post\">
-  <table border=\"0\">
+  <table border=\"0\" style=\"margin-right:auto;margin-left:auto;\">
   <tr>
    <td>MSN:</td>
    <td><input type=\"text\" name=\"msn\"/></td>
@@ -103,13 +104,17 @@ if (isset($_GET[newentry]) )
    <td>Name:</td>
    <td><input type=\"text\" name=\"name\"/></td>
   </tr>
+  <tr>
+   <td colspan=\"2\"><input type=\"submit\" name=\"absenden\" value=\"Eintragen\"/></td>
+  </tr>
   </table>
-  <input type=\"submit\" name=\"absenden\" value=\"Eintragen\"/>
-  </form><br/><br/></center>";
+  </form><br/><br/>";
  }
    
-
-echo "<br/><br/>- <a href=\"./msn2name.php?newentry=yes\">New entry</a> -<br>";
+if (!isset($_GET[newentry]))
+{
+	echo "<br/><br/>- <a href=\"./msn2name.php?newentry=yes\">New entry</a> -<br>";
+}
 
 $dataB->sql_close();
 include("footer.inc.php");

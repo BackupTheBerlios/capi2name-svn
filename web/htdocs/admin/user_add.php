@@ -134,16 +134,19 @@ if (isset($_POST[save])) {
      <td style="width:5px;"></td>
      <td style="text-align:right;"><select name="allow_delete">
      <option value="1">Yes</option>
-     <option selected value="0">No</option></select></td>
+     <option selected="selected" value="0">No</option></select></td>
    </tr>
    <tr>
       <td style="text-align:left;"><span style="font-weight:bold;">[<a href="./doc.html#12" onClick="showDoc()" target="showDoc">i</a>]</span>&nbsp;password:</td>
       <td style="width:5px;"></td>
       <td style="text-align:right;"><input type="password" name="passwd"/></td>
    </tr>
- </table><br/>
- <input type="submit" name="save" value="add new user"/>
+   <tr>
+    <td colspan="3"><input type="submit" name="save" value="add new user"/></td>
+   </tr>
+ </table>
 </form>
+<br/>
 
 <?php
 include("footer.inc.php");

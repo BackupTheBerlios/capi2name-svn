@@ -176,8 +176,8 @@ if ($daten[vorwahl]=="cell phone")
      if (isset($_GET[datum])) $submit_date="&datum=$_GET[datum]";
      else if (isset($_GET[sdatum])) $submit_date="&datum=$_GET[sdatum]";
      else $submit_date=""; 
-     $anz_name="<a href=\"./showstatnew.php?unbekannt=yes&einid=$daten[id]$submit_date\">unbekannt</a>";
-     $anz_rueckruf="<a href=\"./callback.php?add=yes&amp;addr=\">
+     $anz_name="<a href=\"./showstatnew.php?unbekannt=yes&#038;einid=$daten[id]$submit_date\">unbekannt</a>";
+     $anz_rueckruf="<a href=\"./callback.php?add=yes&#038;addr=\">
    <img src=\"./images/1leftarrow.gif\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
     }
    elseif ($daten[rufnummer]!="unbekannt" && $daten[name_last]==NULL)
@@ -185,13 +185,13 @@ if ($daten[vorwahl]=="cell phone")
      $anz_name=$daten[name];
      $wertaddaddr=handynr_vorhanden($daten[rufnummer]);
      $anz_insaddr="<a href=\"./addressbook_add.php?$wertaddaddr\"><img src=\"./images/1rightarrow.gif\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\" /></a>";
-     $anz_rueckruf="<a href=\"./callback.php?add=yes&amp;addr=&nr=$daten[rufnummer]\">
+     $anz_rueckruf="<a href=\"./callback.php?add=yes&#038;addr=&#038;nr=$daten[rufnummer]\">
    <img src=\"./images/1leftarrow.gif\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
     }
    elseif ($daten[rufnummer]=="unbekannt" && $daten[name]!="unbekannt")
     {
      $anz_name=$daten[name];
-     $anz_rueckruf="<a href=\"./callback.php?add=yes&amp;addr=\">
+     $anz_rueckruf="<a href=\"./callback.php?add=yes&#038;addr=\">
    <img src=\"./images/1leftarrow.gif\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
     }
    else

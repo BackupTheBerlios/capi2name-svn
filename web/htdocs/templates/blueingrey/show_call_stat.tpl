@@ -10,13 +10,13 @@ Name: <input name="newname" type="text">
 <!-- END change_name_from_unkown -->
 
 <table border="0" cellpadding="1" cellspacing="2" style="margin-right:auto;margin-left:auto;">
- <tr>
+ <tr style="font-weight:bold;">
   <td></td>
-  <td style="text-align:center">{L_DATE}</td>
-  <td style="text-align:center">{L_CLOCK}</td>
-  <td style="width:110px; text-align:center">{L_CALL_NUMBER}</td>
+  <td style="width:80px;text-align:center">{L_DATE}</td>
+  <td style="width:70px;text-align:center">{L_CLOCK}</td>
+  <td style="width:110px;text-align:center">{L_CALL_NUMBER}</td>
   <!-- BEGIN userconfig_show_typ -->
-  <td style="text-align:center">{L_CALLERS_TYP}</td>
+  <td style="width:70px;text-align:center">{L_CALLERS_TYP}</td>
   <!-- END userconfig_show_typ -->
   
   <!-- BEGIN userconfig_show_prefix -->
@@ -61,7 +61,7 @@ Name: <input name="newname" type="text">
   <td style="text-align:center">{tab1.DATA_TO_ADDR}</td>
   <!-- BEGIN show_delete_func -->
   <td style="text-align:center">
-   <a href="./stat_loeschen.php?id={tab1.show_delete_func.DATA_LINK_DELETE_FUNC}" title="{tab1.show_delete_func.L_DELETE_ENTRY_FROM_DB}">
+   <a href="./statistic_del_entry.php?id={tab1.show_delete_func.DATA_LINK_DELETE_FUNC}" title="{tab1.show_delete_func.L_DELETE_ENTRY_FROM_DB}">
    <img  src="./images/edittrash.png" style="border-width:0px;vertical-align:middle;"
    alt=""/>
    </a>

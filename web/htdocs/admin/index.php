@@ -39,11 +39,11 @@ while($daten=$dataB->sql_fetch_assoc($result))
      <td>$daten[passwd]</td>
      <td>$daten[lastlogin_d] / $daten[lastlogin_t]</td>
      <td style=\"text-align:center;\">
-     <a href=\"./user_edit.php?id=$daten[id]&username=$daten[username]\">
+     <a href=\"./user_edit.php?id=$daten[id]&#038;username=$daten[username]\">
      <img src=\"../images/edit.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>
      </td>
      <td>
-     <a href=\"./user_del.php?id=$daten[id]&username=$daten[username]\">
+     <a href=\"./user_del.php?id=$daten[id]&#038;username=$daten[username]\">
      <img src=\"../images/edittrash.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/>
      </a>
      </td>

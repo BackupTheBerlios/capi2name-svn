@@ -17,7 +17,7 @@ include("./header.inc.php");
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 if (isset($_POST[save]))
  {
- $data_array=array("cs_voice_user_dir", "cs_fax_user_dir","cs_use_mogrify", "cs_mogrify", "cs_sff2misc", "cs_temp_dir" );
+ $data_array=array("cs_use_mogrify", "cs_mogrify", "cs_sff2misc", "cs_temp_dir" );
  for ($i=0;$i<=5;$i++)
   {
    $value=$data_array[$i];
@@ -47,14 +47,6 @@ $dataB->sql_close();
 <div class="ueberschrift_seite">CapiSuite Setup</div>
 <div style="text-align:left; margin:5px; width:80%;margin:0px 10%;">
 <form action="./cs_install.php" method="post">
-<h3>capisuite Variablen</h3>
-<p style="margin-right:20%; text-align:right;">
-Have a look at your /etc/capisuite/* files for more information.<br />
-voice_user_dir: <input name="cs_voice_user_dir" value="<?=$cs_conf['cs_voice_user_dir']?>" type="text" size="40" maxlength="80" />
-<br />
-fax_user_dir : <input name="cs_fax_user_dir" value="<?=$cs_conf['cs_fax_user_dir']?>" type="text" size="40" maxlength="80" />
-<br />
-</p>
 <h3>Programms</h3>
 <p style="margin-right:20%; text-align:right;">
 use mogrify: <select name="cs_use_mogrify" size="1">

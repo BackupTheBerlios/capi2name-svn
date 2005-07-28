@@ -16,6 +16,7 @@
 <!-- BEGIN tab1 -->
 
 
+
 <table border="0" cellpadding="3" style="margin-right:auto;margin-left:auto;">
 <form action="./addressbook_edit.php" method="post">
  <tr>
@@ -61,9 +62,12 @@
   <input type="submit" name="aendern" value="{tab1.CHANGE_ADDR}" />
   </td>
  </tr>
- </form>
+  </form>
+ <tr>
+ <td colspan="3">
  <!-- BEGIN telephon -->
  <form action="./addressbook_edit.php" method="post">
+  <table border="0">
  <tr>
   <td style="text-align:left;">{tab1.telephon.L_TELE}:</td>
   <td style="width:12px"></td>
@@ -74,10 +78,12 @@
   <input name="tele_save" value="{tab1.telephon.L_SAVE}" type="submit"/>
   <input name="tele_delete" value="{tab1.telephon.L_DELETE}" type="submit"/></td>
  </tr>
+ </table>
  </form>
  <!-- END telephon -->
  <!-- BEGIN cellphone -->
  <form action="./addressbook_edit.php" method="post">
+ <table border="0">
  <tr>
   <td style="text-align:left;">{tab1.cellphone.L_CELL_PHONE}:</td>
   <td style="width:12px"></td>
@@ -88,10 +94,12 @@
   <input name="tele_save" value="{tab1.cellphone.L_SAVE}" type="submit"/>
   <input name="tele_delete" value="{tab1.cellphone.L_DELETE}" type="submit"/></td>
  </tr>
+ </table>
  </form>
+ 
  <!-- END cellphone -->
  <!-- BEGIN fax -->
- <form action="./addressbook_edit.php" method="post">
+  <form action="./addressbook_edit.php" method="post">
  <tr>
   <td style="text-align:left;">{tab1.fax.L_FAX}:</td>
   <td style="width:12px"></td>
@@ -104,15 +112,13 @@
  </tr>
  </form>
  <!-- END fax -->
- <tr>
-  <td>
-  </td>
- </td>
- <tr>
-  <td colspan="3" style="text-align:left;"><b>{tab1.L_ADD_NUMBER}:</b></td>
- </tr>
+
  <!-- BEGIN add -->
- <form action="./addressbook_edit.php" method="post">
+  <form action="./addressbook_edit.php" method="post">
+ <table border="0">
+  <tr>
+  <td colspan="5" style="text-align:left;"><b>{tab1.L_ADD_NUMBER}:</b></td>
+ </tr>
  <tr>
   <td style="text-align:left;">Nummer:</td>
   <td style="width:12px"></td>
@@ -126,9 +132,12 @@
   <input name="id" type="hidden" value="{tab1.add.ID}"/>
   <input name="add" value="{tab1.add.L_ADD}" type="submit"/></td>
  </tr>
+ </table>
  </form>
  <!-- END add -->
+ </td></tr>
 </table>
+
 <br/>
 <!-- END tab1 -->
 

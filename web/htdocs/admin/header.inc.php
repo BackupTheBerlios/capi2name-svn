@@ -127,7 +127,7 @@ a:hover
    <div style="font-weight:bold; margin-top: 1em;"></div>
    
    <div class="menuitem"><a href="../index.php">Go to Webinterface</a></div>
-   <div class="menuitem"><a href="http://www.capi2name.de" target="_blank">Go to Projecthomepage</a></div>
+   <div class="menuitem"><a href="http://www.capi2name.de">Go to Projecthomepage</a></div>
    <br/>
    <div class="menuitem"><a href="./index.php">Index</a></div>
    <div class="menuitem"><a href="./user_add.php">Add new User</a></div>

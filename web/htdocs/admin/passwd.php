@@ -58,7 +58,7 @@ echo "<div class=\"rot_mittig\">The new passwords are not the same or the new pa
   <td style="text-align:right;"><input type="password" name="altespasswd"/></td>
  </tr>
  <tr>
-  <td style="text-align:left;">new password:<br>again:</td>
+  <td style="text-align:left;">new password:<br/>again:</td>
   <td style="width:10px;"></td>
   <td style="text-align:right;"><input type="password" name="passwd1"/><br/><input name="passwd2" type="password"/></td>
  </tr>

@@ -28,7 +28,7 @@
   </tr>
 </table>
 <br />
-<form action="stat_loeschen.php" method="post">
+<form action="statistic_del_entry.php" method="post">
  <ins>
   <input type="hidden" name="id" value="{check_if_del.DATA_ID}"/>
   <input type="hidden" name="datum" value="{check_if_del.DATA_FROM_GET}"/>

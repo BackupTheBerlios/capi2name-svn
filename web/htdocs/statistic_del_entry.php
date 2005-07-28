@@ -12,12 +12,12 @@
  *   any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-$seite=base64_encode("stat_loeschen.php");
+$seite=base64_encode("statistic_del_entry.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
 
 
-$template->set_filenames(array('overall_body' => 'templates/'.$userconfig['template'].'/stat_del_entry.tpl'));
+$template->set_filenames(array('overall_body' => 'templates/'.$userconfig['template'].'/statistic_del_entry.tpl'));
 $template->assign_vars(array('L_SITE_TITLE' => $textdata[stat_loeschen]));
 
 //ob er die Page anschauen darf:
@@ -75,7 +75,6 @@ if (isset($_GET[id]))
     
 
   }
-
 $template->pparse('overall_body');  
 include("./footer.inc.php");
 ?>

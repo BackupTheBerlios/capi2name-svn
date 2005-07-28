@@ -29,7 +29,7 @@ if (isset($_POST['absenden']))
 {
 
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-$sql_query=sprintf("SELECT id,username,passwd,name_first,name_last FROM users WHERE username=%s", $dataB->sql_check($_POST[login_name]));
+$sql_query=sprintf("SELECT id,cs_user,username,passwd,name_first,name_last FROM users WHERE username=%s", $dataB->sql_check($_POST[login_name]));
 $result_userlist=$dataB->sql_query($sql_query);
  if ($result_userlist && $_POST['login_name']!="" && $_POST['login_passwd']!="")
   {
@@ -46,6 +46,7 @@ $result_userlist=$dataB->sql_query($sql_query);
      $_SESSION['username']=$_POST['login_name'];
      $_SESSION['password']=$row_userlist['passwd'];
      $_SESSION['user_id']=$row_userlist['id'];
+     $_SESSION['cs_user']=$result_userlist['cs_user'];
      $loginok=1;
      $template->assign_block_vars('tab1',array(
      		'L_PASSWD_OK' => 'PASSWD Richtig... Sie werden weitergeleitet...',

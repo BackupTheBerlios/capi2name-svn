@@ -216,17 +216,16 @@ $textdata[days7_]="";
 // cs_answerphone.php
 $textdata[cs_ap_answerphone]="CapiSuite Anrufbeantworter";
 $textdata[cs_ap_liste]="Liste der eingegangenen Nachrichten";
-$textdata[cs_ap_time]="Zeit";
-$textdata[cs_ap_from]="von";
-$textdata[cs_ap_to]="an";
-$textdata[cs_ap_play]="abspielen";
+$textdata[cs_ap_play]="Abspielen";
+$textdata[cs_user_not_found]="Username not found in ConfigTable";
+
 // cs_fax.php
 $textdata[cs_fax_headline]="CapiSuite Fax Betrachter";
-$textdata[cs_fax_liste]="Liste der eingegangenen Faxe";
+$textdata[cs_fax_list]="Liste der eingegangenen Faxe";
+$textdata[cs_fax_view]="FAX anzeigen";
 $textdata[cs_fax_time]="Zeit";
 $textdata[cs_fax_from]="von";
 $textdata[cs_fax_to]="an";
-$textdata[cs_fax_view]="ansehen";
 $textdata[cs_fax_incoming]="Eingegangenes Fax";
 // cs_install
 $textdata[cs_config_headline] = "Capi2Name CapiSuite Integrations Manager";

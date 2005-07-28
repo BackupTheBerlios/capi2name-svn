@@ -12,112 +12,108 @@
  *   any later version.                                   *
  *                                                                         *
  ***************************************************************************/
- // 	editor: Kai Römer 
 $seite=base64_encode("cs_fax.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
 require_once("./includes/cs_functions.inc.php");
-	
-	if (checkUsername($_SESSION['username']) != 0) die("<h1>username does not match local user</h1>");
-	
-?>
-<?php echo "<div class=\"ueberschrift_seite\">$textdata[cs_fax_headline]</div>"; ?>
-<div style="margin:5px;">
-<?php
-	$dir = $cs_conf['cs_fax_user_dir'] . "/" . $_SESSION['username'] . "/received/";
-	$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-	
-	if(isset($_GET['viewfax'])) {
-		$fax = $_GET['fax'];
-		$rotate = "0";
-		if($_GET['rotate'] == "180") $rotate = "180";
-		$file = "fax-$fax.txt";
-		$lines = file($dir . $file);
-		
-?>
-	<h3><?php echo $textdata[cs_fax_incoming]; ?></h3>
-	<p>
-		<?php echo $textdata[cs_fax_time]; ?>: <?php echo preg_replace("/(.*=\")(.*)(\")/", "\\2", $lines[7]); ?><br />
-		<?php echo $textdata[cs_fax_from]; ?>: <?php echo preg_replace("/(.*=\")(.*)(\")/", "\\2", $lines[5]); ?><br />
-		<?php echo $textdata[cs_fax_to]; ?>: <?php echo msnzuname(preg_replace("/(.*=\")(.*)(\")/", "\\2", $lines[6])); ?><br />
-	</p>
-<?php
-	if (($cs_conf['use_mogrify'] == "yes") && ($rotate != "180")) {
-		echo "<p style=\";text-align:center;\"><a href=\"cs_fax.php?viewfax&amp;fax=$fax&amp;rotate=180\">drehen</a></p>";
-	}
-	else {
-		echo "<p style=\";text-align:center;\"><a href=\"cs_fax.php?viewfax&amp;fax=$fax&amp;rotate=0\">drehen</a></p>";
-	}
-?>
-	<p style="margin:4px;text-align:center;">Achtung! Es wird derzeit nur die <b>erste</b> Seite des Faxes angezeigt.<br /><img alt="fax" width="98%" border="1" src="cs_viewfax.php?file=<?php echo $fax; ?>&amp;csuser=<?php echo $_SESSION['username']; ?>&amp;rotate=<?php echo $rotate; ?>" /></p>
-<?php
-	if (($cs_conf['use_mogrify'] == "yes") && ($rotate != "180")) {
-		echo "<p style=\";text-align:center;\"><a href=\"cs_fax.php?viewfax&amp;fax=$fax&amp;rotate=180\">drehen</a></p>";
-	}
-	else {
-		echo "<p style=\";text-align:center;\"><a href=\"cs_fax.php?viewfax&amp;fax=$fax&amp;rotate=0\">drehen</a></p>";
-	}
-?>
-	
-<?
-	}
-	else {
-?>
-	<h3><?php echo $textdata[cs_fax_liste]; ?></h3>
-	<table width="650px" align="center">
-		<thead style="text-size:large;">
-			<tr>
-				<td><?php echo $textdata[cs_fax_time]; ?></td>
-				<td><?php echo $textdata[cs_fax_from]; ?></td>
-				<td><?php echo $textdata[cs_fax_to]; ?></td>
-				<td></td>
-			</tr>
-		</thead>
-		<tbody>
 
-<?php
-	$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"], $sql["db"] );
-	
-	$c = 0;
-	
-	$dir = $cs_conf['cs_fax_user_dir'] . "/" .$_SESSION['username'] . "/received/";
-	if (is_dir($dir)) {
-		if ($dh = opendir($dir)) {
-			while (($file = readdir($dh)) !== false) {
-				if(preg_match("/fax-\d{1,7}\.txt/i", $file)) {
-					$li[$c] = filectime($dir . $file) . ";$file";
-					$c++;
-				}
-			}
-			closedir($dh);
-		} else "<h1>ERROR: cannot open $dir</h1>";
-	} else "<h1>ERROR: cannot open $dir</h1>";
-	
-	usort($li, "cmp");
-	
-	foreach ($li as $value) {
-		list(,$file) = split(";", $value);
-		$lines = file($dir . $file);
-		echo "<tr><td>";
-		echo preg_replace("/(.*=\")(.*)(\")/", "\\2", $lines[7]);
-		echo "</td><td>";
-		echo nummer2Name(preg_replace("/(.*=\")(.*)(\"\n)/", "\\2", $lines[5]));
-		echo "</td><td>";
-		echo msnzuname(preg_replace("/(.*=\")(.*)(\"\n)/", "\\2", $lines[6]));
-		echo "</td><td>";
-		$a = preg_replace("/(.*-)(\d{1,4})(\.sff.*)/", "\\2",$lines[4]);
-		echo "<a href=\"cs_fax.php?viewfax&amp;fax=$a\">$textdata[cs_fax_view]</a>";
-		echo "</td></tr>";
-	}
-?>
-			<tr><td></td></tr>
-		</tbody>
-	</table>
-<?php 
-	}
+$template->set_filenames(array('overall_body' => 'templates/'.$userconfig['template'].'/cs_fax.tpl'));
+
+$template->assign_vars(array('L_SITE_TITLE' => $textdata[cs_fax_headline]));
+
+if ($userconfig['cs_user']=="")
+{
+	$template->assign_block_vars('user_error',array(
+			'L_USER_NOT_FOUND' => $textdata[cs_user_not_found]));
+	$template->pparse('overall_body');
 	$dataB->sql_close();
-?>
-</div>
-<?php
+	include("./footer.inc.php");
+	die();	
+}
+
+if (isset($_GET[del]))
+{
+	$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"], $sql["db"] );
+	$sql_query=sprintf("UPDATE capisuite SET aktive='0' WHERE id=%s",
+		$dataB->sql_checkn($_GET[del]));
+	$result=$dataB->sql_query($sql_query);
+	$dataB->sql_close();
+}
+
+$template->assign_block_vars('tab1',array(
+	'CS_FAX_LIST' => $textdata[cs_fax_list],
+	'CS_AP_TIME' => $textdata[stat_anrufer_uhrzeit],
+	'CS_AP_DATE' => $textdata[stat_anrufer_datum],
+	'CS_AP_NR' => $textdata[stat_anrufer_rufnummer],
+	'CS_AP_MSN' => $textdata[stat_anrufer_MSN],
+	'CS_AP_NAME' => $textdata[showstatnew_name],
+	'CS_VIEW' => $textdata[cs_fax_view]));
+if ($userconfig['loeschen'])
+{
+	$template->assign_block_vars('tab1.del',array(
+		'L_DELETE' => $textdata[showstatnew_loeschen]));
+}
+
+$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"], $sql["db"] );
+$sql_query=sprintf("SELECT t1.id AS cs_id,
+		UNIX_TIMESTAMP(t1.date_time)AS TIME_DATE,t1.from_nr,t1.msn,
+		t3.name_first, t3.name_last,t3.id AS ADDR_ID,t4.name AS msn_name 
+		FROM capisuite as t1
+		LEFT JOIN phonenumbers AS t2 ON t1.from_nr=t2.number
+		LEFT JOIN addressbook AS t3 ON t2.addr_id=t3.id
+		LEFT JOIN msnzuname AS t4 ON t1.msn=t4.msn
+		WHERE ident='2' AND cs_user=%s AND aktive='1' ORDER BY cs_id DESC",
+		$dataB->sql_check($userconfig['cs_user']));
+$result_cs=$dataB->sql_query($sql_query);
+$i=0;
+while($data_cs=$dataB->sql_fetch_assoc($result_cs))
+{
+	if ($data_cs[msn_name]==NULL)
+	{
+		$anz_msn=$data_cs[msn];
+	}
+	else
+	{
+		$anz_msn=$data_cs[msn_name];
+	}
+	if ($data_cs[from_nr]==NULL)
+	{
+		$number="unbekannt";
+		$name="unbekannt";
+	}
+	else
+	{
+		if ($data_cs[name_first]==NULL AND $data_cs[name_last]==NULL)
+		{
+			$name="unbekannt";
+			$number=$data_cs[from_nr];
+		}
+		else
+		{
+			$name="<a href=\"./addressbook.php?id=$data_cs[ADDR_ID]\">$data_cs[name_first] $data_cs[name_last]</a>";
+			$number=$data_cs[from_nr];
+		}
+	}
+	if ($i%2==0) $color=$row_color_1;
+	else $color=$row_color_2;
+	
+	$template->assign_block_vars('tab1.tab2',array(
+		'DATA_COLOR' => $color,
+		'DATA_DATE' => date("d.m.Y",$data_cs[TIME_DATE]),
+		'DATA_TIME' => date("H:m:s",$data_cs[TIME_DATE]),
+		'DATA_NUMBER' => $number,
+		'DATA_MSN' => $anz_msn,
+		'DATA_NAME' => $name,
+		'DATA_CS_ID' => $data_cs[cs_id]));
+	if ($userconfig['loeschen'])
+	{
+		$template->assign_block_vars('tab1.tab2.delD',array(
+			'DATA_ID' => $data_cs[cs_id]));
+	}	
+	$i++;
+}
+
+$dataB->sql_close();
+$template->pparse('overall_body');
 include("./footer.inc.php");
 ?>

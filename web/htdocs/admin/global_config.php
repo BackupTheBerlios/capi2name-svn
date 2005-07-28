@@ -43,13 +43,13 @@ if (isset($_POST[submit_data]))
  }
 ?>
 
+<form action="global_config.php" method="post">
 <table border="0" style="margin-right:auto;margin-left:auto;">
  <tr>
   <td style="width:50px;text-align:center;">id</td>
   <td style="width:144px;text-align:left;">Option</td>
   <td style="width:70px;text-align:center;">value</td>
  </tr>
-<form action="global_config.php" method="post">
 <?
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 $result=$dataB->sql_query("SELECT * FROM config ORDER by id ");
@@ -140,8 +140,10 @@ while($daten=$dataB->sql_fetch_assoc($result))
   }
  }
 ?>
+<tr>
+ <td colspan="3"><input name="submit_data" type="submit" value="Submit data"/></td>
+</tr>
 </table>
-<input name="submit_data" type="submit" value="Submit data"/>
 </form>
 
 

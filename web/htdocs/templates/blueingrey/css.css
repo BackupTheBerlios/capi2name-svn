@@ -1,36 +1,38 @@
-
-	body
-	{
-  	 background-color:		#9EA3A3;
-   	 position:			static;
-	}
-	a:link, a:visited, a:active
-	{
-	 color:				#213D56;
-	}
-	a:hover
-	{
-	 color:				#346763;
-	}
-	#mainframe
-	{
+body
+{
+	 background-color:		#9EA3A3;
+	 position:			static;
+	 font-family:			arial,helvetica,geneva;
+	 font-size:			small;
+}
+a:link, a:visited, a:active
+{
+	color:				#213D56;
+}
+a:hover
+{
+	color:				#346763;
+}
+#mainframe
+{
 	 background-color:		#B8BEBE;
 	 padding:			3px;
 	 padding-top:			0.6cm;
 	 min-height:			630px;
 	 padding-bottom:		20px;
-	}
-	#menu
-	{
+}
+#menu
+{
 	 background-color:		#C8CECE;
 	 border-width:			1px;
 	 border-style:			solid;
 	 border-color:			#294C6B;
 	 width:				148px;
 	 position:			fixed;
-	}
-	*.header
-	{
+}
+*.header
+{
+	 font-family:			arial,helvetica,geneva;
 	 background-color:		#6DA5D6;
 	 border-width:			1px;
 	 border-bottom-style:		solid;
@@ -41,9 +43,10 @@
 	 padding-bottom:		3px;
 	 margin:			0cm;
 	 height:			20px;
-	}
-	*.header2
-	{
+}
+*.header2
+{
+	 font-family:			arial,helvetica,geneva;
 	 background-color:		#6DA5D6;
 	 border-width:			0px;
 	 border-style:			solid;
@@ -57,52 +60,61 @@
 	 padding-bottom:		3px;
 	 margin:			0cm;
 	 height:			20px;
-	}
-	*.menulist
-	{
+}
+*.menulist
+{
 	 font-family:			arial,helvetica,geneva;
 	 font-size:			small;
 	 background-color:		#C8CECE;
 	 padding:			3px;
 	 padding-left:			3px;
 	 margin:			0cm;
-	}
-	*.menuitem {
+}
+*.menuitem
+{
 	margin:				0px;
 	padding:			0px;
-	}
+}
 
-	*.menuitem:before {
+*.menuitem:before
+{
 	content:			"· ";
 	font-size:			large;
-	}
-	#main
-	{
+}
+#main
+{
 	 font-family:			arial,helvetica,geneva;
 	 background-color:		#C8CECE;
+	 font-size:			small;
 	 margin-left:			158px;
 	 border-width:			1px;
 	 border-style:			solid;
 	 border-color:			#294C6B;
 	 text-align:			center;
 	 padding-bottom:		7px;
-	}
-	.ueberschrift_seite
-	{
+}
+.ueberschrift_seite
+{
+	 font-family:			arial,helvetica,geneva;	 
 	 text-align:			center;
 	 font-size:			22pt;
 	 font-weight:			bold;
 	 padding-top:			23px;
 	 padding-bottom:		23px;
-	 
-	}
-	.rot_mittig
-	{
+}
+.rot_mittig
+{
 	 text-align:			center;
 	 color:				red;
-	}
-	.blau_mittig
-	{
+}
+.blau_mittig
+{
 	 text-align:			center;
 	 color:				blue;
-	}
+}
+input,textarea,select
+{
+	background-color:		#6DA5D6;
+	border-color:			#9EA3A3;
+	border:				2px solid;
+}

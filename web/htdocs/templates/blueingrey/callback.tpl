@@ -1,12 +1,17 @@
+<div class="ueberschrift_seite">{L_SITE_TITLE}</div>
+
 <!-- BEGIN not_allowed -->
-<div class="rot_mittig">{not_allowed.L_MSG_NOT_ALLOWED}</div>
+<br/><div class="rot_mittig">{not_allowed.L_MSG_NOT_ALLOWED}</div>
 <!-- END not_allowed -->
+
+<!-- BEGIN del_entry -->
+<br/><div class="blau_mittig">{del_entry.L_MSG_DEL_FORWARD}</div>
+<meta http-equiv="refresh" content="2; URL=./callback.php">
+<!-- END del_entry -->
 
 <!-- BEGIN saved_with_addr -->
 <br/><div class="blau_mittig">{saved_with_addr.L_MSG_SAVED}</div><br/>
 <!-- END saved_with_addr -->
-
-<div class="ueberschrift_seite">{L_SITE_TITLE}</div>
 
 <!-- BEGIN tab1 -->
 <table border="0" style="margin-right:auto;margin-left:auto;text-align:left;">
@@ -20,7 +25,7 @@
 <!-- END tab1 -->
 
 <!-- BEGIN tab2 -->
-<tr>
+<tr bgcolor="{tab2.DATA_COLOR}">
   <td style="width:150px;">{tab2.DATA_NAME}</td>
   <td style="width:150px; text-align:center;">
   <a href="./callback_show.php?id={tab2.DATA_ID}" title="{tab2.L_SHOW_REASON}">{tab2.DATA_NUMBER}</a></td>

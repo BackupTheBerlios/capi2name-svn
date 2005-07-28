@@ -1,7 +1,6 @@
 <?php
 /*
-    copyright            : (C) 2002-2005 by Jonas Genannt and
-    					    Kai Römer
+    copyright            : (C) 2002-2005 by Jonas Genannt
     email                : jonasge@gmx.net
  ***************************************************************************/
 
@@ -17,34 +16,59 @@ $seite=base64_encode("cs_answerphone.php");
 include("./login_check.inc.php");
 include("./includes/cs_functions.inc.php");
 
-$file = $_GET['file'];
-$user = $_GET['csuser'];
+$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"], $sql["db"] );
+$sql_query=sprintf("SELECT data FROM capisuite WHERE id=%s AND cs_user=%s",
+		$dataB->sql_check($_GET[file]),
+		$dataB->sql_check($userconfig['cs_user']));
+$result=$dataB->sql_query($sql_query);
+$dataB->sql_close();
+$data=$dataB->sql_fetch_assoc($result);
+srand((double)microtime()*1000000);
+$tmp_file="$cs_conf[cs_temp_dir]/capi2name-";
+for ($i=0;$i<5;$i++)
+{
+	$num = rand(48,120);
+	while (($num >= 58 && $num <= 64) || ($num >= 91 && $num <= 96))
+	$num = rand(48,120);
+	$tmp_file .= chr($num);
+}
+//echo "<br>$tmp_file<br>";
+$db_filename=$tmp_file.".la";
+$mp3_filename=$tmp_file.".wav";
+if (($file_handler=fopen($db_filename, "w+"))==FALSE)
+{
+	echo "Could not open file $db_filename!!";
+	die();
+}
+if (!(fwrite($file_handler,$data[data])))
+{
+	echo "Could not write to file $db_filename!!";
+	die();
+}
+fclose($file_handler);
 
-
-	
-	$fileDir = $cs_conf['cs_voice_user_dir'] . "/$user/received/"; // supply a path name.
-	$fileName = "voice-$file.la"; // supply a file name.
-	//$fileName = "voice-0.la"; // supply a file name.
-	$fileString=$fileDir.'/'.$fileName; // combine the path and file
-	
-	exec("sox $fileString " . $cs_conf[cs_temp_dir] . "/capi2name-tmp.mp3");
-	$fileString	= $cs_conf[cs_temp_dir] . "/capi2name-tmp.mp3";
-	$fileName	= "answerphone-$file.mp3";
-	
-	// translate file name properly for Internet Explorer.
-	if (strstr($_SERVER['HTTP_USER_AGENT'], "MSIE")){
-		$fileName = preg_replace('/\./', '%2e', $fileName, substr_count($fileName, '.') - 1);
-	}
-	// make sure the file exists before sending headers
-	if(!$fdl=@fopen($fileString,'r')){
-		die("$fileString \nCannot Open File!");
-	} else {
-		header("Cache-Control: ");// leave blank to avoid IE errors
-		header("Pragma: ");// leave blank to avoid IE errors
-		header("Content-type: audio/x-mpeg");
-		header("Content-Disposition: attachment; filename=\"".$fileName."\"");
-		header("Content-length:".(string)(filesize($fileString)));
-		sleep(1);
-		fpassthru($fdl);
-	}
+$exec_tmp="sox -r 48000 $db_filename $mp3_filename";
+exec($exec_tmp);
+exec("rm $db_filename");
+// translate file name properly for Internet Explorer.
+if (strstr($_SERVER['HTTP_USER_AGENT'], "MSIE"))
+{
+	$mp3_filename = preg_replace('/\./', '%2e', $mp3_filename, substr_count($mp3_filename, '.') - 1);
+}
+// make sure the file exists before sending headers
+if(!$fdl=@fopen($mp3_filename,'r'))
+{
+	die("$mp3_filename \nCannot Open File! on sending");
+}
+else
+{
+	header("Cache-Control: ");// leave blank to avoid IE errors
+	header("Pragma: ");// leave blank to avoid IE errors
+	header("Content-type: audio/x-mpeg");
+	header("Content-Disposition: attachment; filename=\"capisuite-AB.wav\"");
+	header("Content-length:".(string)(filesize($mp3_filename)));
+	sleep(1);
+	fpassthru($fdl);
+}
+exec("rm $mp3_filename");
 ?>

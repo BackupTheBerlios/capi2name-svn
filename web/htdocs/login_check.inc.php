@@ -6,7 +6,8 @@ session_start();
 $realname=$_SESSION['realname'];
 $username=$_SESSION['username']; 
 $password=$_SESSION['password'];
-$user_id  =$_SESSION['user_id'];
+$user_id=$_SESSION['user_id'];
+$cs_user=$_SESSION['cs_user']; 
 $login_ok=0;
 
 if ($_SESSION['remember_login'])
@@ -15,6 +16,7 @@ if ($_SESSION['remember_login'])
   setcookie("ck_passwd",$password, time()+172800000 );  
   setcookie("ck_realname",$realname, time()+172800000 );  
   setcookie("ck_user_id",$user_id, time()+172800000 );
+  setcookie("ck_cs_user",$cs_user, time()+172800000 );
   $_SESSION['remember_login']=false;
  }
 
@@ -24,10 +26,12 @@ if ($_COOKIE['ck_username']!="" && $_COOKIE['ck_passwd']!="" && $_COOKIE['ck_rea
   $_SESSION['username']=$_COOKIE['ck_username']; 
   $_SESSION['password']=$_COOKIE['ck_passwd'];
   $_SESSION['user_id'] =$_COOKIE['ck_user_id'];
+  $_SESSION['cs_user']=$_COOKIE['ck_cs_user'];
   $realname=$_SESSION['realname'];
   $username=$_SESSION['username']; 
   $password=$_SESSION['password'];
   $user_id =$_SESSION['user_id'];
+  $cs_user=$_SESSION['cs_user'];
  }
 
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
@@ -100,6 +104,10 @@ $result_userlist=$dataB->sql_query($query);
      else
       {
        $userconfig['loeschen']=false;
+      }
+      if ($row_userlist['cs_user']!="")
+      {
+       $userconfig['cs_user']=$row_userlist['cs_user'];
       }
       //template suchen und schauen wegen global oder nicht ;)
       $result_config=$dataB->sql_query("SELECT * FROM config WHERE conf='template'");

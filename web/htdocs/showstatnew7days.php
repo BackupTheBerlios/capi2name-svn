@@ -139,8 +139,8 @@ if ($daten[vorwahl]=="cell phone")
   }
    if ($daten[rufnummer]=="unbekannt" && $daten[name]=="unbekannt")
     {
-     $anz_name="<a href=\"./showstatnew7days.php?unbekannt=yes&einid=$daten[id]\">unbekannt</a>";
-     $anz_rueckruf="<a href=\"./callback.php?add=yes&amp;addr=\">
+     $anz_name="<a href=\"./showstatnew7days.php?unbekannt=yes&#038;einid=$daten[id]\">unbekannt</a>";
+     $anz_rueckruf="<a href=\"./callback.php?add=yes&#038;addr=\">
    <img src=\"./images/1leftarrow.gif\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
     }
    elseif ($daten[rufnummer]!="unbekannt" && $daten[name_last]==NULL)
@@ -148,13 +148,13 @@ if ($daten[vorwahl]=="cell phone")
      $anz_name=$daten[name];
      $wertaddaddr=handynr_vorhanden($daten[rufnummer]);
      $anz_insaddr="<a href=\"./addressbook_add.php?$wertaddaddr\"><img src=\"./images/1rightarrow.gif\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\" /></a>";
-     $anz_rueckruf="<a href=\"./callback.php?add=yes&amp;addr=\">
+     $anz_rueckruf="<a href=\"./callback.php?add=yes&#038;addr=\">
    <img src=\"./images/1leftarrow.gif\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
     }
    elseif ($daten[rufnummer]=="unbekannt" && $daten[name]!="unbekannt")
     {
      $anz_name=$daten[name];
-     $anz_rueckruf="<a href=\"./callback.php?add=yes&amp;addr=\">
+     $anz_rueckruf="<a href=\"./callback.php?add=yes&#038;addr=\">
    <img src=\"./images/1leftarrow.gif\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
     }
    else

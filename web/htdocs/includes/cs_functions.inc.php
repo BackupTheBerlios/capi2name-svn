@@ -27,7 +27,7 @@ function nummer2Name($nummer)
 			$data=mysql_fetch_assoc($tab_adressbuch);
 			if ($fax == $nummer) $zusatz = "(Fax)";
 			if ($handy == $nummer) $zusatz = "(Handy)";
-			return "<a href=\"addressbook.php?id=$data[id]#find\">$data[name_last], $data[name_first]<br />$zusatz</a>";
+			return "<a href=\"addressbook.php?id=$data[id]#find\">$data[name_first] $data[name_last]</a>";
 		}
 		
 		return "error";

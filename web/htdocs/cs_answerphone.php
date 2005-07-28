@@ -16,57 +16,113 @@ $seite=base64_encode("cs_answerphone.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
 require_once("./includes/cs_functions.inc.php");
-	
-if (checkUsername($_SESSION['username']) != 0)
- die("<h1>username does not match local user</h1>");
- 
+
 $template->set_filenames(array('overall_body' => 'templates/'.$userconfig['template'].'/cs_answerphone.tpl'));
 $template->assign_vars(array('L_SITE_TITLE' => $textdata[cs_ap_answerphone]));
 
+if ($userconfig['cs_user']=="")
+{
+	$template->assign_block_vars('user_error',array(
+			'L_USER_NOT_FOUND' => $textdata[cs_user_not_found]));
+	$template->pparse('overall_body');
+	$dataB->sql_close();
+	include("./footer.inc.php");
+	die();	
+}
+
+if (isset($_GET[del]))
+{
+	$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"], $sql["db"] );
+	$sql_query=sprintf("UPDATE capisuite SET aktive='0' WHERE id=%s",
+		$dataB->sql_checkn($_GET[del]));
+	$result=$dataB->sql_query($sql_query);
+	$dataB->sql_close();
+}
+
 $template->assign_block_vars('tab1',array(
 		'CS_AP_LIST' => $textdata[cs_ap_liste],
-		'CS_AP_TIME' => $textdata[cs_ap_time],
-		'CS_AP_FROM' => $textdata[cs_ap_from],
-		'CS_AP_TO' => $textdata[cs_ap_to]));
-
-
-$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"], $sql["db"] );
-$c = 0;
-$dir = $cs_conf['cs_voice_user_dir']."/".$_SESSION['username']."/received/";
-
-if (is_dir($dir)) {
- if ($dh = opendir($dir)) {
-   while (($file = readdir($dh)) !== false) {
-     if(preg_match("/voice.*\.txt/i", $file)) {
-      $li[$c] = filectime($dir . $file) . ";$file";
-      $c++;
-     }
-   }
-  closedir($dh);
- }
- else "<h1>ERROR: cannot open $dir</h1>";
+		'CS_AP_TIME' => $textdata[stat_anrufer_uhrzeit],
+		'CS_AP_DATE' => $textdata[stat_anrufer_datum],
+		'CS_AP_NR' => $textdata[stat_anrufer_rufnummer],
+		'CS_AP_MSN' => $textdata[stat_anrufer_MSN],
+		'CS_AP_NAME' => $textdata[showstatnew_name],
+		'CS_PLAY' => $textdata[cs_ap_play]));
+if ($userconfig['loeschen'])
+{
+	$template->assign_block_vars('tab1.del',array(
+		'L_DELETE' => $textdata[showstatnew_loeschen]));
 }
-else "<h1>ERROR: cannot open $dir</h1>";
+
+
+$sql_query=sprintf("SELECT t1.id AS cs_id,
+		UNIX_TIMESTAMP(t1.date_time)AS TIME_DATE,t1.from_nr,t1.msn,
+		t3.name_first, t3.name_last,t3.id AS ADDR_ID,t4.name AS msn_name 
+		FROM capisuite as t1
+		LEFT JOIN phonenumbers AS t2 ON t1.from_nr=t2.number
+		LEFT JOIN addressbook AS t3 ON t2.addr_id=t3.id
+		LEFT JOIN msnzuname AS t4 ON t1.msn=t4.msn
+		WHERE ident='1' AND cs_user=%s AND aktive='1' ORDER BY cs_id DESC",
+		$dataB->sql_check($userconfig['cs_user']));
+$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"], $sql["db"] );
+$result_cs=$dataB->sql_query($sql_query);
+$i=0;
+while($data_cs=$dataB->sql_fetch_assoc($result_cs))
+{
+	if ($data_cs[msn_name]==NULL)
+	{
+		$anz_msn=$data_cs[msn];
+	}
+	else
+	{
+		$anz_msn=$data_cs[msn_name];
+	}
+	if ($data_cs[from_nr]==NULL)
+	{
+		$number="unbekannt";
+		$name="unbekannt";
+	}
+	else
+	{
+		if ($data_cs[name_first]==NULL AND $data_cs[name_last]==NULL)
+		{
+			$name="unbekannt";
+			$number=$data_cs[from_nr];
+		}
+		else
+		{
+			$name="<a href=\"./addressbook.php?id=$data_cs[ADDR_ID]\">$data_cs[name_first] $data_cs[name_last]</a>";
+			$number=$data_cs[from_nr];
+		}
+	}
+	if ($i%2==0) $color=$row_color_1;
+	else $color=$row_color_2;
 	
-usort($li, "cmp");
-	
-foreach ($li as $value) {
-		list(,$file) = split(";", $value);
-		$lines = file($dir . $file);
-		$test=preg_replace("/(.*=\")(.*)(\"\n)/", "\\2", $lines[5]);
-		echo "--$test --";
-		$a = preg_replace("/(.*-)(\d{1,4})(\.l.*)/", "\\2",$lines[4]);
+	$template->assign_block_vars('tab1.tab2',array(
+		'DATA_COLOR' => $color,
+		'DATA_DATE' => date("d.m.Y",$data_cs[TIME_DATE]),
+		'DATA_TIME' => date("H:m:s",$data_cs[TIME_DATE]),
+		'DATA_NUMBER' => $number,
+		'DATA_MSN' => $anz_msn,
+		'DATA_NAME' => $name,
+		'DATA_CS_ID' => $data_cs[cs_id]));
+	if ($userconfig['loeschen'])
+	{
+		$template->assign_block_vars('tab1.tab2.delD',array(
+			'DATA_ID' => $data_cs[cs_id]));
+	}
+	$i++;
+}
+
+/*
 		$template->assign_block_vars('tab1.tab2',array(
 			'DATA_1' => preg_replace("/(.*=\")(.*)(\")/", "\\2", $lines[7]),
 			'DATA_2' => nummer2Name(preg_replace("/(.*=\")(.*)(\"\n)/", "\\2", $lines[5])),
 			'DATA_3' =>msnzuname(preg_replace("/(.*=\")(.*)(\"\n)/", "\\2", $lines[6])),
 			'DATA_A' => $a,
 			'DATA_4' => $textdata[cs_ap_play],
-			'USER' => $_SESSION['username']
-			));
-	}
-	$dataB->sql_close();
-
+			'USER' => $_SESSION['username']	));
+*/
+$dataB->sql_close();
 $template->pparse('overall_body');
 include("./footer.inc.php");
 ?>

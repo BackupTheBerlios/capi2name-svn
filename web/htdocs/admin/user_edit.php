@@ -170,7 +170,7 @@ $dh=opendir($dir);
    }
  }
 ?>
-<form action="user_edit.php" method="POST">
+<form action="user_edit.php" method="post">
 <table border="0" style="margin-right:auto;margin-left:auto;">
  <tr>
    <td style="text-align:left;">
@@ -286,9 +286,10 @@ $dh=opendir($dir);
       <td style="width:5px;"></td>
       <td style="text-align:right;"><input type="password" name="passwd"/></td>
    </tr>
+   <tr>
+   <td colspan="3"><input type="submit" name="edit" value="save user"/></td>
+   </tr>
 </table>
-<br/>
-<input type="submit" name="edit" value="save user"/>
 </form>
 <br/>
 <?php
