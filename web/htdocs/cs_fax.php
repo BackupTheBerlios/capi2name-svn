@@ -1,7 +1,7 @@
 <?php
 /*
-    copyright            : (C) 2002-2004 by Jonas Genannt
-    email                : jonasge@gmx.net
+    copyright            : (C) 2002-2005 by Jonas Genannt
+    email                : jonas.genannt@capi2name.de
  ***************************************************************************/
 
 /***************************************************************************
@@ -17,21 +17,20 @@ include("./login_check.inc.php");
 include("./header.inc.php");
 require_once("./includes/cs_functions.inc.php");
 
-$template->set_filenames(array('overall_body' => 'templates/'.$userconfig['template'].'/cs_fax.tpl'));
+$template->set_filenames(array('overall_body' => 'templates/'.$_SESSION['template'].'/cs_fax.tpl'));
 
 $template->assign_vars(array('L_SITE_TITLE' => $textdata[cs_fax_headline]));
 
-if ($userconfig['cs_user']=="")
+if ($_SESSION['cs_user']=="" OR check_cs_username($_SESSION['cs_user'])!=0)
 {
 	$template->assign_block_vars('user_error',array(
 			'L_USER_NOT_FOUND' => $textdata[cs_user_not_found]));
 	$template->pparse('overall_body');
-	$dataB->sql_close();
 	include("./footer.inc.php");
 	die();	
 }
 
-if (isset($_GET[del]))
+if (isset($_GET[del])&& $_SESSION['allow_delete'])
 {
 	$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"], $sql["db"] );
 	$sql_query=sprintf("UPDATE capisuite SET aktive='0' WHERE id=%s",
@@ -48,7 +47,7 @@ $template->assign_block_vars('tab1',array(
 	'CS_AP_MSN' => $textdata[stat_anrufer_MSN],
 	'CS_AP_NAME' => $textdata[showstatnew_name],
 	'CS_VIEW' => $textdata[cs_fax_view]));
-if ($userconfig['loeschen'])
+if ($_SESSION['allow_delete'])
 {
 	$template->assign_block_vars('tab1.del',array(
 		'L_DELETE' => $textdata[showstatnew_loeschen]));
@@ -63,7 +62,7 @@ $sql_query=sprintf("SELECT t1.id AS cs_id,
 		LEFT JOIN addressbook AS t3 ON t2.addr_id=t3.id
 		LEFT JOIN msnzuname AS t4 ON t1.msn=t4.msn
 		WHERE ident='2' AND cs_user=%s AND aktive='1' ORDER BY cs_id DESC",
-		$dataB->sql_check($userconfig['cs_user']));
+		$dataB->sql_check($_SESSION['cs_user']));
 $result_cs=$dataB->sql_query($sql_query);
 $i=0;
 while($data_cs=$dataB->sql_fetch_assoc($result_cs))
@@ -105,14 +104,13 @@ while($data_cs=$dataB->sql_fetch_assoc($result_cs))
 		'DATA_MSN' => $anz_msn,
 		'DATA_NAME' => $name,
 		'DATA_CS_ID' => $data_cs[cs_id]));
-	if ($userconfig['loeschen'])
+	if ($_SESSION['allow_delete'])
 	{
 		$template->assign_block_vars('tab1.tab2.delD',array(
 			'DATA_ID' => $data_cs[cs_id]));
 	}	
 	$i++;
 }
-
 $dataB->sql_close();
 $template->pparse('overall_body');
 include("./footer.inc.php");

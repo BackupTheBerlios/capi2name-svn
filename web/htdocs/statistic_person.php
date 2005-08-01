@@ -25,7 +25,7 @@ $dataB->sql_close();
 
 
 
-$template->set_filenames(array('overall_body' => 'templates/'.$userconfig['template'].'/statistic_person.tpl'));
+$template->set_filenames(array('overall_body' => 'templates/'.$_SESSION['template'].'/statistic_person.tpl'));
 $template->assign_vars(array(
 		'L_SITE_TITLE'  => $textdata[stat_anrufer_ueberschrift]." ".$data_adressbuch[name_first]." ".$data_adressbuch[name_last]));
 $id=$data_adressbuch[id];

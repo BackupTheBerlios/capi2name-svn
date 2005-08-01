@@ -17,7 +17,7 @@
 include("login_check.inc.php");
 include("./header.inc.php");
 
-$template->set_filenames(array('overall_body' => 'templates/'.$userconfig['template'].'/powered.tpl'));
+$template->set_filenames(array('overall_body' => 'templates/'.$_SESSION['template'].'/powered.tpl'));
 $template->assign_vars(array(
 		'DATA_CODENAME' => $codenamen,
 		'DATA_C2N_VERSION' => $version));

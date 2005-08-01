@@ -16,7 +16,7 @@ $seite=base64_encode("addressbook_add.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
 
-$template->set_filenames(array('overall_body' => './templates/'.$userconfig['template'].'/addressbook_add.tpl'));
+$template->set_filenames(array('overall_body' => './templates/'.$_SESSION['template'].'/addressbook_add.tpl'));
 $template->assign_vars(array('L_NEW_ENTRY_TO_ADDR' => $textdata[addadress_neuer_adressbuch_eintrag]));
 
 // Eintrag eintragen.

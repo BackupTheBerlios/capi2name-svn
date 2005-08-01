@@ -26,7 +26,7 @@
   <td style="text-align:center;">{tab1.DATA_LAST_CALL}</td>
   <td style="text-align:center;">
   <a href="./statistic_person.php?id={tab1.DATA_ID}" title="{tab1.call_from_user.L_SEARCH_ENTRY}">
-  <img src="./images/search.png" style="border-width:0px;vertical-align:middle;" alt=""/></a>
+  <img src="./images/data.png" style="border-width:0px;vertical-align:middle;" alt=""/></a>
   </td>
  </tr>
  <!-- END tab1 -->

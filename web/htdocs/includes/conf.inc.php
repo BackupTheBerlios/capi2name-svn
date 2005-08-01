@@ -1,4 +1,4 @@
-<?
+<?php
 $sql["host"]                = "localhost";
 $sql["dbuser"]              = "capi";
 $sql["dbpasswd"]            = "kljmkgd";

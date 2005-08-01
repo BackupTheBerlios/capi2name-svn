@@ -2,7 +2,7 @@
 <br />
 <span style="text-align:center">
 Jonas Genannt<br />
-<a href="mailto:jonasge@gmx.net">jonasge@gmx.net</a><br />
+<a href="mailto:jonas.genannt@capi2name.de">jonas.genannt@capi2name.de</a><br />
 If you find that Software good and usefull write me an e-Mail :-)
 
 

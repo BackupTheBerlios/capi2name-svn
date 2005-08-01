@@ -16,7 +16,7 @@ $seite=base64_encode("addressbook.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
 
-$template->set_filenames(array('overall_body' => 'templates/'.$userconfig['template'].'/addressbook.tpl'));
+$template->set_filenames(array('overall_body' => 'templates/'.$_SESSION['template'].'/addressbook.tpl'));
 $template->assign_vars(array('L_ADDRESS_BOOK' => $textdata[header_inc_adressbuch]));
 
 $template->assign_vars(array('L_ADDR_SORT_LAST_NAME' => $textdata[adressbuch_sortiere_nachname]));

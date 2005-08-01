@@ -465,13 +465,22 @@ if ($db_layout_version=="0.6.7.6.1")
 if ($db_layout_version=="0.6.7.6.2")
 {
 	echo "Found Version 0.6.7.6.2 updating to 0.6.8...........<br>";
-	$control=mysql_query("ALTER TABLE `config` CHANGE `value` `value` CHAR( 50 ) DEFAULT NULL");
-	$control=mysql_query("ALTER TABLE `angerufene` CHANGE `aktive` `aktive` TINYINT( 2 ) DEFAULT '1' NOT NULL ");
-	if (!$control)
+	//sql file einspielen:
+	$file=fopen("update-database-0.6.7.6.2-0.6.8.sql", "rb");
+	$inhalt= fread ($file, filesize("update-database-0.6.7.6.2-0.6.8.sql"));
+	$array_inhalt=split("(;\n|;\r)",$inhalt);
+	for($i=0;$i<sizeof($array_inhalt)-1; $i++)
 	{
-		echo "Update failed: <br/>Mysql-Error: ". mysql_error();
-		die();
-	}  
+		$array_inhalt[$i]=trim($array_inhalt[$i]);
+		$control=mysql_query($array_inhalt[$i]);
+		if (!$control)
+		{
+			echo "Insert failed: $array_inhalt[$i]<br/>Mysql-Error:". mysql_error();
+			die();
+		}
+	}
+	fclose($file);
+	
 	//wenn addressbook nicht gibt, dann nach adder gehen.
 	$result_db=mysql_list_tables($dbname);
 	$addr_found=0;

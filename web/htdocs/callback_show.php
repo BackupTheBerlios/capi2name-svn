@@ -16,20 +16,20 @@ $seite=base64_encode("callback_show.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
 
-$template->set_filenames(array('overall_body' => 'templates/'.$userconfig['template'].'/callback_show.tpl'));
+$template->set_filenames(array('overall_body' => 'templates/'.$_SESSION['template'].'/callback_show.tpl'));
 //ob er die Page anschauen darf:
- if (!$userconfig['showrueckruf'])
-  {
-   $template->assign_block_vars('not_allowed_show',array(
-   		'L_MSG_NOT_ALLOWED' => $textdata[nichtberechtigt]));
-   $template->pparse('overall_body');
-   include("./footer.inc.php");
-   die();
-  }
+if (!$_SESSION['show_callback'])
+{
+	$template->assign_block_vars('not_allowed_show',array(
+		'L_MSG_NOT_ALLOWED' => $textdata[nichtberechtigt]));
+	$template->pparse('overall_body');
+	include("./footer.inc.php");
+	die();
+}
 
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 $query=sprintf("SELECT t1.*,t2.name_last,t2.name_first,t3.number AS RUFNR FROM callback AS t1 LEFT JOIN addressbook AS t2 ON t1.addr_id=t2.id LEFT JOIN phonenumbers AS t3 ON t3.addr_id=t2.id WHERE t1.user_id=%s AND t1.id=%s GROUP BY t1.id",
-	$dataB->sql_checkn($_SESSION['user_id']),
+	$dataB->sql_checkn($_SESSION['userid']),
 	$dataB->sql_checkn($_GET[id]));
 $result=$dataB->sql_query($query);
 $daten=mysql_fetch_assoc($result);

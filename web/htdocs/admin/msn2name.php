@@ -14,7 +14,7 @@
  ***************************************************************************/
 include("./check_it.php");
 include("./header.inc.php");
-$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"]);
 ?>
 <div class="ueberschrift_seite">MSN to name</div>
 You can set up names for your local MSN's. These names will you see in the calling stat in the normal userinterface instead of the local MSN's numbers.
@@ -37,33 +37,26 @@ You can set up names for your local MSN's. These names will you see in the calli
   }
 
 if (isset($_POST[absenden]))
- {
-  if (isset($_POST[msn]))
-   {
-    if (isset($_POST[name]))
-     {
-      $query=sprintf("INSERT INTO msnzuname VALUES(NULL,%s,%s)",
-      		$dataB->sql_checkn($_POST[msn]),
-		$dataB->sql_check($_POST[name]));
-      $result=$dataB->sql_query($query);
-      if ($result)
-        {
-         echo "<br/><span class=\"blau_mittig\">Data sucessfully written to database.</span><br/><br/>";	
-        }
-      else
-        {
-         echo "<br/><span class=\"rot_mittig\">Data NOT sucessfully written to database.</span><br/><br/>";
-        }
-     }
-    else
-     {
-      echo "<br/><span class=\"rot_mittig\">Please insert name for the MSN!</span><br/><br/>";
-     }
-  }
- else
-  {
-   echo "<br/><span class=\"rot_mittig\">Please insert MSN</span><br/><br/>";
-  }
+{
+	if (isset($_POST[msn]) && isset($_POST[name]))
+	{
+		$query=sprintf("INSERT INTO msnzuname VALUES(NULL,%s,%s)",
+			$dataB->sql_checkn($_POST[msn]),
+			$dataB->sql_check($_POST[name]));
+		$result=$dataB->sql_query($query);
+		if ($result)
+		{
+			echo "<br/><span class=\"blau_mittig\">Data sucessfully written to database.</span><br/><br/>";	
+		}
+		else
+		{
+			echo "<br/><span class=\"rot_mittig\">Data NOT sucessfully written to database.</span><br/><br/>";
+		}
+	}
+	else
+	{
+		echo "<br/><span class=\"rot_mittig\">Please insert name and MSN number for the MSN!</span><br/><br/>";
+	}
 }
 ?>
 
@@ -115,7 +108,6 @@ if (!isset($_GET[newentry]))
 {
 	echo "<br/><br/>- <a href=\"./msn2name.php?newentry=yes\">New entry</a> -<br>";
 }
-
 $dataB->sql_close();
 include("footer.inc.php");
 ?>

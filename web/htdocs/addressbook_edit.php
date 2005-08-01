@@ -16,7 +16,7 @@ $seite=base64_encode("addressbook_edit.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
 
-$template->set_filenames(array('overall_body' => 'templates/'.$userconfig['template'].'/addressbook_edit.tpl'));
+$template->set_filenames(array('overall_body' => 'templates/'.$_SESSION['template'].'/addressbook_edit.tpl'));
 $template->assign_vars(array('L_SITE_TITLE' => $textdata[editadress_adressbucheintrag_editieren]));
 
 

@@ -1,7 +1,7 @@
 <?php
 /*
     copyright            : (C) 2002-2005 by Jonas Genannt
-    email                : jonasge@gmx.net
+    email                : jonas.genannt@capi2name.de
  ***************************************************************************/
 
 /***************************************************************************
@@ -12,6 +12,46 @@
  *   any later version.                                                    *
  *                                                                         *
  ***************************************************************************/
+function check_cs_username($cs_user)
+{
+	 $a = exec("id -g $cs_user",$a, $retval);
+	 return $retval;
+}
+function fill_sessions($row_userlist)
+{
+	$_SESSION['realname']=$row_userlist[name_first]." ".$row_userlist[name_last];
+	$_SESSION['username']=$_POST[login_name];
+	$_SESSION['password']=$row_userlist[passwd];
+	$_SESSION['userid']=$row_userlist[id];
+	$_SESSION['cs_user']=$row_userlist[cs_user];
+	$_SESSION['show_callback']=$row_userlist[show_callback];
+	$_SESSION['show_prefix']=$row_userlist[show_prefix];
+	$_SESSION['show_msn']=$row_userlist[show_msn];
+	$_SESSION['show_config']=$row_userlist[show_config];
+	$_SESSION['show_type']=$row_userlist[show_type];
+	$_SESSION['allow_delete']=$row_userlist[allow_delete];
+	$_SESSION['show_lines']=$row_userlist[show_lines];
+	$_SESSION['msn_listen']=$row_userlist[msn_listen];
+}
+
+function fill_template_session($daten_config,$daten_config1)
+{
+	if (!$daten_config[value])
+	{
+		if (check_template($row_userlist[template]))
+		{
+			$_SESSION['template']=$row_userlist[template];
+		}
+		else
+		{
+			$_SESSION['template']=$daten_config1[value];
+		}
+	}
+	else
+	{
+		$_SESSION['template']=$daten_config['value'];
+	}
+}
 //check if template is avaiable in the template-Directory
 function check_template($check)
 {

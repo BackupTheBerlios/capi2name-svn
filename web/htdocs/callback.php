@@ -23,24 +23,26 @@ else
 include("./login_check.inc.php");
 include("./header.inc.php");
 
-$template->set_filenames(array('overall_body' => 'templates/'.$userconfig['template'].'/callback.tpl'));
-
-$template->assign_vars(array('L_SITE_TITLE' => $textdata[callback_title]));
+$template->set_filenames(array('overall_body' => 'templates/'.$_SESSION['template'].'/callback.tpl'));
 
 //ob er die Page anschauen darf:
-if (!$userconfig['showrueckruf'])
+if (!$_SESSION['show_callback'])
 {
-	$template->assign_block_vars('not_allowed',array('L_MSG_NOT_ALLOWED' =>$textdata[nichtberechtigt] ));
+	$template->assign_block_vars('not_allowed',array(
+		'L_MSG_NOT_ALLOWED' =>$textdata[nichtberechtigt] ));
 	$template->pparse('overall_body');
 	include("./footer.inc.php");
 	die();
 }
 
+$template->assign_vars(array('L_SITE_TITLE' => $textdata[callback_title]));
 if(isset($_GET[del])&& is_numeric($_GET[del]))
 {
 	$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-	$d_id=$dataB->sql_checkn($_GET[del]);
-	$result=$dataB->sql_query("DELETE FROM callback WHERE id=$d_id");
+	$query=sprintf("DELETE FROm callback WHERE id=%s AND user_id=%s",
+		$dataB->sql_checkn($_GET[del]),
+		$dataB->sql_checkn($_SESSION[userid]));
+	$result=$dataB->sql_query($query);
 	$dataB->sql_close();
 	if ($result)
 	{
@@ -97,7 +99,9 @@ $template->assign_block_vars('tab1',array(
 		'L_CALL_TIME' => $textdata[stat_anrufer_datum] ." / ". $textdata[stat_anrufer_uhrzeit],
 		'L_CALL_BACK_TIME' => $textdata[callback_time]));
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-$result_callback=$dataB->sql_query("SELECT t1.*,t2.name_last,t2.name_first,t3.number AS RUFNR FROM callback AS t1 LEFT JOIN addressbook AS t2 ON t1.addr_id=t2.id LEFT JOIN phonenumbers AS t3 ON t3.addr_id=t2.id WHERE t1.user_id=".$_SESSION['user_id']." GROUP BY t1.id");
+$query=sprintf("SELECT t1.*,t2.name_last,t2.name_first,t3.number AS RUFNR FROM callback AS t1 LEFT JOIN addressbook AS t2 ON t1.addr_id=t2.id LEFT JOIN phonenumbers AS t3 ON t3.addr_id=t2.id WHERE t1.user_id=%s GROUP BY t1.id", 
+	$dataB->sql_checkn($_SESSION['userid']));
+$result_callback=$dataB->sql_query($query);
 $i=0;
 while($daten=$dataB->sql_fetch_assoc($result_callback))
 {

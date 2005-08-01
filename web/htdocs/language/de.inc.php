@@ -13,6 +13,7 @@ $textdata[login]="Einloggen";
 $textdata[passwd]="Passwort";
 $textdata[id]="ID";
 $textdata[nichtberechtigt]="Du bist nicht berechtigt diese Seite anzuschauen!<br>Bitte wenden Sie sich an den Administrator!";
+$textdata[login_OK_forward]="Passwort richtig.<br/>Sie werden weitergeleitet...";
 
 //stat_un_loeschen.php Seite:
 $textdata[del_unkown_db]="Einträge mit unbekant aus Datenbank löschen";
@@ -24,7 +25,14 @@ $textdata[stat_del_1]="Soll dieser Eintrag mit ID ";
 $textdata[stat_del_2]=" gelöscht werden?<br/>Zum Löschen auf \"Löschen\" klicken!";
 $textdata[del_OK_forward]="Eintrag erfolgreich gelöscht.<br/>Sie werden in zwei Sekunden weitergeleitet.";
 
-
+//global search:
+$textdata[site_search_title]="Suchfunktion";
+$textdata[search]="Suchen";
+$textdata[search_on_msn]="Suche auf MSN";
+$textdata[in_call_stat]="Suche in der Anfstatistik";
+$textdata[in_addr_book]="Suche im Adressbuch";
+$textdata[error_onsearch]="Fehler, keine Rufnummer angegeben oder nicht konforme Nummer eingegeben!";
+$textdata[addr_not_found]="Keine Eintrag mit dieser Rufnummer gefunden!";
 
 //$textdata[]="";
 //$textdata[]="";
@@ -200,6 +208,8 @@ $textdata[showstatnew_zeige_anrufstat]="Zeige genaue Anrufstatistik von";
 $textdata[showstatnew_loesche_db]="Lösche diesen Eintrag aus der Datenbank";
 $textdata[showstatnew_alle_eintraege]="Zeige alle Einträge";
 $textdata[cell_pone]="Handy";
+$textdata[warning]="Achtung";
+$textdata[date_in_future]="Ausgewähltes Datum liegt in der Zukunft!";
 //showstatnew.php ENDE
 
 $textdata[days7_7tage_uebersicht]="7 Tage Übersicht";
@@ -227,8 +237,6 @@ $textdata[cs_fax_time]="Zeit";
 $textdata[cs_fax_from]="von";
 $textdata[cs_fax_to]="an";
 $textdata[cs_fax_incoming]="Eingegangenes Fax";
-// cs_install
-$textdata[cs_config_headline] = "Capi2Name CapiSuite Integrations Manager";
 
 
 //callback sites:

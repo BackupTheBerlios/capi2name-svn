@@ -9,6 +9,10 @@ Name: <input name="newname" type="text">
  </form><br />
 <!-- END change_name_from_unkown -->
 
+<!-- BEGIN in_future -->
+<div class="blau_mittig"><span style="font-size:medium;font-weight:bold;color:red;">{in_future.warning}:</span> {in_future.L_DATA}</div><br/><br/>
+<!-- END in_future -->
+
 <table border="0" cellpadding="1" cellspacing="2" style="margin-right:auto;margin-left:auto;">
  <tr style="font-weight:bold;">
   <td></td>

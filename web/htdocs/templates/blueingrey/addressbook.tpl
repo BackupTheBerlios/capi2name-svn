@@ -33,7 +33,7 @@
    <td style="width:10px;">&nbsp;</td>
    <td style="text-align:center;">
    <a href="./statistic_person.php?id={tab.addr_id}" title="{tab.addr_search_entry}">
-   <img src="./images/search.png" style="border-width:0px;vertical-align:middle;" alt=""/></a></td>
+   <img src="./images/data.png" style="border-width:0px;vertical-align:middle;" alt=""/></a></td>
   </tr>
 <!-- END tab -->
 </table>

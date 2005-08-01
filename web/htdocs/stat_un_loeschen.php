@@ -16,9 +16,9 @@ $seite=base64_encode("stat_un_loeschen.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
  
-$template->set_filenames(array('overall_body' => 'templates/'.$userconfig['template'].'/stat_un_loeschen.tpl')); 
+$template->set_filenames(array('overall_body' => 'templates/'.$_SESSION['template'].'/stat_un_loeschen.tpl')); 
 //ob er die Page anschauen darf:
-if (!$userconfig['loeschen'])
+if (!$_SESSION['allow_delete'])
  {
   $template->assign_block_vars('tab1',array('L_MSG_NOT_ALLOWED' => $textdata[nichtberechtigt]));
   $template->pparse('overall_body');
@@ -28,7 +28,7 @@ if (!$userconfig['loeschen'])
 $template->assign_vars(array('SITE_TITLE' => $textdata[del_unkown_db]));
   
 //abfrage:
-if (isset($_POST[absenden]))
+if (isset($_POST[absenden]) && $_SESSION['allow_delete'])
 {
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
  if ($_POST[alle_unbekannten]=="on") 

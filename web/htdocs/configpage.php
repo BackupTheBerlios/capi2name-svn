@@ -16,9 +16,9 @@ $seite=base64_encode("configpage.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
 
-$template->set_filenames(array('overall_body' => './templates/'.$userconfig['template'].'/configpage.tpl'));
+$template->set_filenames(array('overall_body' => './templates/'.$_SESSION['template'].'/configpage.tpl'));
 //ob er die Page anschauen darf:
- if (!$userconfig['showconfig'])
+ if (!$_SESSION['show_config'])
   {
    $template->assign_block_vars('userconfig_show_configpage', array(
    	'L_NOT_SHOW_THIS_PAGE' => $textdata[configpage_nicht_berechtigt]));

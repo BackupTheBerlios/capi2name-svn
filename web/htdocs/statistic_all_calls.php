@@ -16,7 +16,7 @@ $seite=base64_encode("statistic_all_calls.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
 
-$template->set_filenames(array('overall_body' => 'templates/'.$userconfig['template'].'/statistic_all_calls.tpl'));
+$template->set_filenames(array('overall_body' => 'templates/'.$_SESSION['template'].'/statistic_all_calls.tpl'));
 $template->assign_vars(array('L_SITE_TITLE' => $textdata[stat_gesamt_stat_alle_anrufe]));
    
 if ($_GET[order]=="firstname")

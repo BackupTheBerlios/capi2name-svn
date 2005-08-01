@@ -15,445 +15,279 @@
 $seite=base64_encode("global_search.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
-?>
-<? echo "<div class=\"ueberschrift_seite\">Suche</div>"; ?>
 
-<br />
-<br />
-<form method="post" action="global_search.php">
-<table border="0" style="margin-right:auto;margin-left:auto;text-align:left">
-  <tr>
-   <td>Suche Rufnummer:</td>
-   <td> </td>
-   <td><input type="text" name="suche_rufnummer"/></td>
-  </tr>
-  <tr>
-   <td style="vertical-align:top;">Suche Anrufe zwischen:</td>
-   <td> </td>
-   <td>
-    <select name="suche_anfang_tag">
-     <?
-       for ($i=1;$i<=31; $i++)
-        {  echo "<option>$i</option>"; }
-     ?>
-    </select>
-    <select name="suche_anfang_monat"> 
-     <?
-       for ($i=1;$i<=12; $i++)
-        {  echo "<option>$i</option>"; }
-     ?>
-    </select>
-    <select name="suche_anfang_jahr">
-     <?
-       for ($i=2000;$i<=2008; $i++)
-        { echo "<option>$i</option>"; }
-     ?>
-    </select><br/>
-    <select name="suche_ende_tag">
-     <?
-       for ($i=1;$i<=31; $i++)
-        {  echo "<option>$i</option>"; }
-     ?>
-    </select>
-    <select name="suche_ende_monat">
-     <?
-       for ($i=1;$i<=12; $i++)
-        { echo "<option>$i</option>"; }
-     ?>
-    </select>
-    <select name="suche_ende_jahr">
-     <?
-       for ($i=2000;$i<=2008; $i++)
-        { echo "<option>$i</option>"; }
-     ?> 
-    </select><br/>
-    <input type="checkbox" name="suche_auch_rufnummer" value="yes" /> nur mit Rufnummer s.o.<br/>
-    Suche nur auf MSN: <input type="text" name="suche_msn" />
-    
-   </td>
-  </tr>
-  <tr>
-   <td style="vertical-align:top;">Suche Anrufe ohne<br />Adressbucheintrag:</td>
-   <td></td>
-   <td style="vertical-align:top;">
-   <input type="checkbox" name="suche_anrufe_ohne_adressbuch" value="yes"/> Ja<br />
-   <input type="checkbox" name="suche_nur_msn" value="yes"/> Suche nur auf dieser MSN s.o.
-   </td>
-  </tr>
-</table>
+$template->set_filenames(array('overall_body' => './templates/'.$_SESSION['template'].'/global_search.tpl'));
+$template->assign_vars(array('L_SITE_TITLE' => $textdata[site_search_title]));
 
 
+$template->assign_block_vars('tab1',array(
+	'L_SEARCH' => $textdata[search],
+	'L_NUMBER' => $textdata[stat_anrufer_rufnummer],
+	'L_SEARCH_MSN' => $textdata[search_on_msn],
+	'L_IN_CALL_STAT' => $textdata[in_call_stat],
+	'L_IN_ADDR' => $textdata[in_addr_book]
+	));
 
-<ins><br/>
-<input type="submit" name="suchen" value="suchen"/>
-</ins>
-</form>
+for ($i=1;$i<=31;$i++)
+{
+	$template->assign_block_vars('tab1.first_d',array('NR' => $i));
+	$template->assign_block_vars('tab1.last_d',array('NR' => $i));
+}
+for ($i=1;$i<=12;$i++)
+{
+	$template->assign_block_vars('tab1.first_m',array('NR' => $i));
+	$template->assign_block_vars('tab1.last_m',array('NR' => $i));
+}
+for ($i=2001;$i<=2006;$i++)
+{
+	$template->assign_block_vars('tab1.first_j',array('NR' => $i));
+	$template->assign_block_vars('tab1.last_y',array('NR' => $i));
+}
 
-<?
-if (isset($_POST[suchen]))
- {
- 
-   
-  if ($_POST[suche_rufnummer]!="" && $_POST[suche_auch_rufnummer]!="yes") //Anfang suche nur im Adressbuch nach Nummer
-   {
-    $sruf=$_POST[suche_rufnummer];
-    echo "<br>Suche im Adressbuch nur nach der Nummer $sruf...<br><br>";
-    $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-   $result=mysql_query("SELECT id,vorname,nachname,tele1,tele2,tele3,handy FROM adressbuch WHERE tele1=$sruf OR tele2=$sruf OR tele3=$sruf OR handy=$sruf ");
-    $row=mysql_fetch_row($result);
-      if ($row==true)
-      {
-       $color=$c_color[11];
-       echo "<table border=\"0\" style=\"margin-right:auto;margin-left:auto;\">
-        <tr>
-  	<td style=\"width:150px;font-weight:bold;text-align:left;\">        
-       $textdata[addadress_nachname]</td>
-        <td style=\"width:100px; font-weight:bold;text-align:left;\">        
-      $textdata[addadress_vorname]</td>
-      <td style=\"width:150px; text-align:center; font-weight:bold;\">
-      $textdata[adressbuch_telefonNR]</td>
-     <td style=\"width:150px; text-align:center; font-weight:bold;\">$textdata[addadress_handy]</td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td  style=\"width:10px;\"></td>
-  <td></td>
- </tr>
- <tr style=\"background-color:$color\">
-   <td style=\"text-align:left;\"><a href=\"./showaddress.php?show=$row[0]\" >$row[2]</a></td>
-   <td style=\"text-align:left;\"><a href=\"./showaddress.php?show=$row[0]\">$row[1]</a></td>
-   <td style=\"text-align:center;\">$row[3]</td>
-   <td style=\"text-align:center;\">$row[6]</td>
-   <td style=\"text-align:center;\">
-     <a href=\"./editadress.php?bearbeiten=$row[0]\" title=\"$textdata[adressbuch_eintrag_bearbeiten]\">
-     <img src=\"./bilder/edit.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a></td>
-   <td style=\"width:10px;\"></td>
-   <td style=\"text-align:center;\">
-    <a href=\"./editadress.php?bearbeiten=$row[0]&amp;loeschen=1\" title=\"$textdata[adressbuch_eintrag_loeschen]\">
-   <img src=\"./bilder/edittrash.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a></td>
-   <td style=\"width:10px;\">&nbsp;</td>
-   <td style=\"text-align:center;\">
-   <a href=\"./stat_anrufer.php?id=$row[0]\" title=\"$textdata[adressbuch_suche_eintraege]\">
-   <img src=\"./bilder/search.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a></td>
-  </tr>
- </table>
-";
-       
-      }
-      else
-      {
-       echo "Leider keine Nummer im Adressbuch gefunden</br>";
-      }
-    $zugriff_mysql->close_mysql();
-   } // ENDE nur nach Rufnummer im Adressbuch zu suchen.
- if ($_POST[suche_rufnummer]=="" && $_POST[suche_auch_rufnummer]!="yes" && $_POST[suche_anrufe_ohne_adressbuch]!="yes" || $_POST[suche_rufnummer]!="" && $_POST[suche_auch_rufnummer]=="yes"  && $_POST[suche_anrufe_ohne_adressbuch]!="yes" ) //suche nur nach anrufen zwischen zwei daten
+if (isset($_POST[n_search]))
+{
+if (!empty($_POST[s_number]) && is_numeric($_POST[s_number]))
+{
+	$number="%".$_POST[s_number]."%";
+	$number=sprintf("%s",$dataB->sql_check($number));
+	if ($_POST[addr_calls]=="addr" && isset($_POST[s_number]))
+	{
+		$sqlquery="SELECT t1.id,t1.name_first,t1.name_last,t2.number FROM phonenumbers AS t2 LEFT JOIN addressbook AS t1 ON t1.id=t2.addr_id WHERE t2.number LIKE $number";
+	}
+	elseif ($_POST[addr_calls]=="call" && isset($_POST[s_number]))
+	{	
+		$sqlquery="SELECT  t1.id,t1.rufnummer,t1.datum,t1.uhrzeit,t1.name,t1.dienst,
+		t5.name AS vorwahl,t1.msn,
+		t3.name_first, t3.name_last,t3.id AS ADDR_ID,t2.areacode,
+		t4.name AS msn_name
+		FROM phonenumbers AS t2
+		LEFT JOIN angerufene AS t1 ON t1.rufnummer=t2.number
+		LEFT JOIN addressbook AS t3 ON t2.addr_id=t3.id
+		LEFT JOIN msnzuname AS t4 ON t1.msn=t4.msn
+		LEFT JOIN vorwahl AS t5 ON t1.vorwahl=t5.id WHERE t1.rufnummer LIKE $number";
+		/*
+		$sqlquery="SELECT t1.id ,t1.rufnummer,t1.uhrzeit,t5.name AS vorwahl,t1.datum,t1.dienst,t1.msn,t3.id AS ADDR_ID,t4.name AS msn_name,t3.name_first,t3.name_last FROM angerufene AS t1 LEFT JOIN phonenumbers AS t2 ON t2.number=t1.rufnummer LEFT JOIN addressbook As t3 ON t2.addr_id=t3.id LEFT JOIN vorwahl AS t5 ON t1.vorwahl=t5.id LEFT JOIN msnzuname AS t4 ON t1.msn=t4.msn WHERE t1.rufnummer LIKE $number";
+		*/
+	}
+	if (!empty($_POST[s_msn]) && is_numeric($_POST[s_msn]))
+	{
+		$sqlquery=sprintf("%s AND t1.msn=%s",$sqlquery,
+			$dataB->sql_checkn($_POST[s_msn]));
+	}
+	if ($_POST[be_dates]=="on" && is_numeric($_POST[first_d]) &&
+		is_numeric($_POST[first_m]) && is_numeric($_POST[first_j]) &&
+		is_numeric($_POST[last_d]) && is_numeric($_POST[last_m]) &&
+		is_numeric($_POST[last_y]))
+	{
+		$datum1=sprintf("%s-%s-%s",$_POST[first_j],$_POST[first_m],$_POST[first_d]);
+		$datum2=sprintf("%s-%s-%s",$_POST[last_y],$_POST[last_m],$_POST[last_d]);
+		$sqlquery=sprintf("%s AND UNIX_TIMESTAMP(t1.datum)>=UNIX_TIMESTAMP(%s) AND UNIX_TIMESTAMP(t1.datum)<=UNIX_TIMESTAMP(%s)", $sqlquery,$dataB->sql_check($datum1),$dataB->sql_check($datum2));
+		
+	}
+	
+}
+else
+{
+	$template->assign_block_vars('tab2',array(
+		'L_SEARCH_ERROR' => $textdata[error_onsearch]));
+	$template->pparse('overall_body');
+	include("./footer.inc.php");
+	die();
+}
+//AUSGABE AN BROWSER SUCHERGEBNIS:
+$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+if ($_POST[addr_calls]=="addr")
+{
+	$i=0;
+	$template->assign_block_vars('addr',array(
+		'L_ADDR_LAST_NAME' => $textdata[addadress_nachname],
+		'L_ADDR_FIRST_NAME' => $textdata[addadress_vorname],
+		'L_ADDR_TELEPHON_NUMBER' => $textdata[adressbuch_telefonNR],
+		'L_ADDR_CELL_PHONE' => $textdata[addadress_handy]));
+	$result_addr=$dataB->sql_query($sqlquery);
+	if ($dataB->sql_num_rows($result_addr)<1)
+	{
+		$template->assign_block_vars('addr_not_found',array(
+			'L_NOT_FOUND_ADDR' =>$textdata[addr_not_found]));
+	}
+	while($daten_addr=$dataB->sql_fetch_assoc($result_addr))
+	{
+		if($i%2==0)
+		{
+			$color=$row_color_1;
+		}
+		else
+		{
+			$color=$row_color_2;
+		}
+		$result_cell=$dataB->sql_query("SELECT number FROM phonenumbers WHERE typ='2' AND addr_id='$daten_addr[id]' LIMIT 1");
+		$daten_cell=$dataB->sql_fetch_assoc($result_cell);
+		$template->assign_block_vars('addr.data', array(
+				'color' => $color,
+				'addr_id' => $daten_addr[id],
+				'addr_last_name' => $daten_addr[name_last],
+				'addr_first_name' => $daten_addr[name_first],
+				'addr_tele_1' => $daten_addr[number],
+				'addr_cell_phone' => $daten_cell[number],
+				'addr_edit_entry' => $textdata[adressbuch_eintrag_bearbeiten],
+				'addr_delete_entry' => $textdata[adressbuch_eintrag_loeschen],
+				'addr_search_entry' => $textdata[adressbuch_suche_eintraege]
+  				));
+		
+			  
+		$i++;
+	}
+}//ADDR AUSGEBENE ENDE:
+if ($_POST[addr_calls]=="call")
+{
+	$template->assign_block_vars('cell',array(
+		'L_DATE' => $textdata[stat_anrufer_datum],
+		'L_CLOCK' => $textdata[stat_anrufer_uhrzeit],
+		'L_CALL_NUMBER' => $textdata[stat_anrufer_rufnummer],
+		'L_CALLERS_NAME' =>$textdata[showstatnew_name],
+		'L_COPY_TO_ADDR' => $textdata[showstatnew_ins_addr]));
+	if ($_SESSION['show_type'])
+	{
+	$template->assign_block_vars('cell.userconfig_show_typ', array('L_CALLERS_TYP' => $textdata[showstatnew_anrufertyp]));
+	}
+	if ($_SESSION['show_prefix'])
+	{
+	$template->assign_block_vars('cell.userconfig_show_prefix', array('L_FROM_CITY' => $textdata[showstatnew_aus_ort]));
+	}
+	if ($_SESSION['show_msn'])
+	{
+	$template->assign_block_vars('cell.userconfig_show_msn', array('L_CALL_TO_MSN' => $textdata[stat_anrufer_MSN]));
+	}
+	if ($_SESSION['show_callback'])
+	{
+	$template->assign_block_vars('cell.userconfig_show_call_back', array('L_SHOW_CALL_BACK' => $textdata[showstatnew_zurueckrufen]));
+	}
+	if ($_SESSION['allow_delete']) 
+	{
+	$template->assign_block_vars('cell.userconfig_show_delete', array('L_DELETE_ENTRY_TITLE' => $textdata[showstatnew_loeschen]));
+	}
+	$i=0;
+	$result_call=$dataB->sql_query($sqlquery);
+	if ($dataB->sql_num_rows($result_call)<1)
+	{
+		$template->assign_block_vars('addr_not_found',array(
+			'L_NOT_FOUND_ADDR' =>$textdata[addr_not_found]));
+	}
+	while($daten=$dataB->sql_fetch_assoc($result_call))
+	{
+ //resetten der vars:
+ $anz_statistik="";
+ $anz_name="";
+ $anz_insaddr="";
+ $anz_rueckruf="";
+ $anz_msn="";
+if ($daten[vorwahl]=="cell phone")
   {
-   $datum1="$_POST[suche_anfang_jahr]-$_POST[suche_anfang_monat]-$_POST[suche_anfang_tag]";
-   $datum2="$_POST[suche_ende_jahr]-$_POST[suche_ende_monat]-$_POST[suche_ende_tag]";
-   $i=0;
-  // echo "<br>Suche nach Anrufen zwischen zwei Daten, ohne Rufnummer...<br><br>";
-   echo "
-   
-   <table border=\"0\" cellpadding=\"1\" cellspacing=\"2\" style=\"margin-right:auto;margin-left:auto;\">
-    <tr>
-    <td></td>
-    <td style=\"text-align:center\">$textdata[stat_anrufer_datum]</td>
-    <td style=\"text-align:center\">$textdata[stat_anrufer_uhrzeit]</td>
-    <td style=\"width:110px; text-align:center\">$textdata[stat_anrufer_rufnummer]</td>";
-  if ($showtyp=="yes") 
-    { echo "<td style=\"text-align:center\">$textdata[showstatnew_anrufertyp]</td>"; } 
-  if ($show_vorwahl=="yes")
-    { echo "<td style=\"text-align:center\">$textdata[showstatnew_aus_ort]</td>"; } 
-  if ($show_msn=="yes")
-    { echo "<td style=\"text-align:center\">$textdata[stat_anrufer_MSN]</td>"; } 
-  echo "<td style=\"text-align:center\">$textdata[showstatnew_name]</td>";
-  if ($show_rueckruf=="yes")
-   { echo "<td style=\"text-align:center\">$textdata[showstatnew_zurueckrufen]</td>"; } 
-  echo "<td style=\"text-align:center\">$textdata[showstatnew_ins_addr]</td>";
-  if ($showloeschen=="yes") { echo "<td>$textdata[showstatnew_loeschen]</td>"; }
- echo " </tr>";
-   
-   
-
-    
-    //SQL ABfragen erstellen
-    if ($_POST[suche_rufnummer]=="" && $_POST[suche_auch_rufnummer]!="yes") //suche nur nach anrufen zwischen zwei daten
-   {
-  $query="SELECT * FROM angerufene WHERE  UNIX_TIMESTAMP(datum)>=UNIX_TIMESTAMP('$datum1') AND UNIX_TIMESTAMP(datum)<=UNIX_TIMESTAMP('$datum2') ORDER BY 'id' desc ";
-   }
-  if ($_POST[suche_rufnummer]!="" && $_POST[suche_auch_rufnummer]=="yes") //suche nach rufnummer zweischen zwei daten
-   {
-   $query="SELECT * FROM angerufene WHERE  UNIX_TIMESTAMP(datum)>=UNIX_TIMESTAMP('$datum1') AND UNIX_TIMESTAMP(datum)<=UNIX_TIMESTAMP('$datum2') AND rufnummer=$_POST[suche_rufnummer] ORDER BY 'id' desc ";
-   }
-   if ($_POST[suche_rufnummer]=="" && $_POST[suche_auch_rufnummer]!="yes" && $_POST[suche_msn]!="") //suche nach zwei daten mit msn
-    {
-     $query="SELECT * FROM angerufene WHERE  UNIX_TIMESTAMP(datum)>=UNIX_TIMESTAMP('$datum1') AND UNIX_TIMESTAMP(datum)<=UNIX_TIMESTAMP('$datum2') AND msn='$_POST[suche_msn]' ORDER BY 'id' desc ";
-    }
-   if ($_POST[suche_rufnummer]!="" && $_POST[suche_auch_rufnummer]=="yes" && $_POST[suche_msn]!="") 
-   {
-   $query="SELECT * FROM angerufene WHERE  UNIX_TIMESTAMP(datum)>=UNIX_TIMESTAMP('$datum1') AND UNIX_TIMESTAMP(datum)<=UNIX_TIMESTAMP('$datum2') AND rufnummer=$_POST[suche_rufnummer] AND msn='$_POST[suche_msn]' ORDER BY 'id' desc ";
-   }
-  //ENDE SQL ABFRAGEN ERSTELLEN   
-   
-
-   $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-   
-   $result=$zugriff_mysql->sql_abfrage($query);
-   echo "Anrufe gefunden:".mysql_num_rows($result). "<br>";
-    while($data=mysql_fetch_row($result))
-   {
-
-    //alles zurücksetzten:
-    $data[2]=mysql_datum($data[2]);
-    $anz_name="";
-    $anz_reuckruf="";
-    $anz_vorwahl="";
-    $anz_insaddr="";
-    $anz_statistik="";
-
-    if($i%2==0)
-      { $color="$c_color[11]"; }
-    else
-      { $color="$c_color[12]"; }
-
-    //MSNS überprüfen:
-    $show_entry_msns=msns_ueberpruefen($msns,$data[6]);
-
-   $tab_adressbuch =$zugriff_mysql->sql_abfrage("SELECT id,vorname,nachname,tele1,tele2,tele3,handy FROM adressbuch WHERE tele1='$data[1]' OR tele2='$data[1]' OR tele3='$data[1]' OR handy='$data[1]'");
-  $adress_data=mysql_fetch_row($tab_adressbuch);
-   if ($adress_data==false)
-    {
-     if ($data[1]=="unbekannt")
-      {
-        if ($data[5]=="unbekannt")
-         {
-          $anz_name="<a href=\"./showstatnew.php?unbekannt=yes&amp;einid=$data[0]\">unbekannt</a>";
-		  $anz_name1_d="unbekannt";
-	 }
-	else
-	 {
-	  $anz_name="$data[5]";
-	  $anz_name1_d="$data[5]";
-	 }
-      } // if data[1]==unbekannt ebde
-     else
-      {
-      //ins adressbuch anzeigen
-     $anz_name=$textdata[showstatnew_unbekannt];
-     
-  //erkenne handyNr oder Festnetznummer:
-  $wertaddaddr=handynr_vorhanden($data[1]); 
-       
-
-      $anz_insaddr="<a href=\"./addadress.php?$wertaddaddr\"><img src=\"./bilder/1rightarrow.gif\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
-      }
-    $anz_name1=$anz_name;
-    } // if adresse gefunden in DB ENDE
-    else
-    {
-      if ($adress_data[6]==$data[1])
-       {
-        $full_name="$adress_data[1] $adress_data[2] $textdata[showstatnew_handy]";
-       }
-      else
-       {
-       $full_name="$adress_data[1] $adress_data[2]";
-       }
-     $anz_name1_d=$full_name;
-     $anz_name="<a href=\"./adressbuch.php?findnr=$data[1]#find\">$full_name</a>";
-     $anz_statistik="<a href=\"./stat_anrufer.php?id=$adress_data[0]\" title=\"$textdata[showstatnew_zeige_anrufstat] $adress_data[1] $adress_data[2]\">
-      <img  src=\"./bilder/data.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
-    } // else ende adresse in DB gefunden
-   $d_name=base64_encode($anz_name1_d);
-   $d_uhrzeit=base64_encode($data[3]);
-   $d_datum=base64_encode($data[2]);
-   $anz_rueckruf="<a href=\"./zurueckruf.php?add=yes&amp;addname=$d_name&amp;addrufnummer=$data[1]&amp;zuhrzeit=$d_uhrzeit&amp;zdatum=$d_datum\">
-   <img src=\"./bilder/1leftarrow.gif\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
-
-//show_vorwahl ende   
-if ($show_vorwahl=="yes")
- {
-  $anz_vorwahl=$data[7];
- }
-//MSN zu Name
-$anz_msn=msnzuname($data[6]);
-
-// Anruftyp bzw Dienstkennung erkennen:
-$anz_dienst=ermittle_typ_anruf($data[8]);
-
-
-
-
-// SCHREIBE DATEN in TABELLE:
-//datenblock in eine Variable schreiben:
-$vorwahl_data="";
-$msn_data="";
-$rueckruf_data="";
-$anruftyp="";
-$anruf_loeschen="";
- if ($show_vorwahl=="yes") 
-     { $vorwahl_data="<td style=\"text-align:center\">$anz_vorwahl</td>";  }
- if ($show_msn=="yes") 
-     { $msn_data="<td>$anz_msn</td>";  }
- if ($show_rueckruf=="yes") 
-     { $rueckruf_data="<td style=\"text-align:center\">$anz_rueckruf</td>";  }
- if ($showtyp=="yes")
-     { $anruftyp="<td style=\"text-align:center\">$anz_dienst</td>"; }
- if ($showloeschen=="yes")
-     { $anruf_loeschen="<td style=\"text-align:center\"><a href=\"./stat_loeschen.php?id=$data[0]$loeschen_seiten\" title=\"$textdata[showstatnew_loesche_db]\">
- <img  src=\"./bilder/edittrash.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a></td>"; }
- 
- 
- $ALL="<tr style=\"background-color:$color\">
-       <td>$anz_statistik</td>
-       <td style=\"text-align:center\">$data[2]</td>
-       <td style=\"text-align:center\">$data[3]</td>
-       <td style=\"text-align:center\">$data[1]</td>
-       $anruftyp
-       $vorwahl_data
-       $msn_data
-       <td style=\"text-align:center\">$anz_name</td>
-       $rueckruf_data
-       <td style=\"text-align:center\">$anz_insaddr</td>
-       $anruf_loeschen
-       </tr>";
-   
-
-  echo "$ALL"; 
-  $i++;   
-
-
-} // ENDE WHILE angerufene
-echo "</table>"; 
-$zugriff_mysql->close_mysql();
-}//suche nur nach anrufen zwischen zwei daten ENDE
-
-  
-//suche anrufe die keinen Eintrag im Adressbuch hat
-if(isset($_POST[suche_anrufe_ohne_adressbuch]))
- {
-  $zugriff_mysql->connect_mysql($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-
-  if ($_POST[suche_nur_msn]=="yes")
-   {
-    $sqlquery="SELECT * FROM angerufene WHERE rufnummer!='unbekannt' AND msn='$_POST[suche_msn]' ORDER BY 'id' desc";
-   }
+   $anz_vorwahl=$textdata[cell_pone];
+  }
   else
-   {
-    $sqlquery="SELECT * FROM angerufene WHERE rufnummer!='unbekannt' ORDER BY 'id' desc";
-   }
-  $result=$zugriff_mysql->sql_abfrage($sqlquery);
-  
-  //echo "<br>Suche alle anrufe ohne nummer im ADDR";
-   echo "
-   
-   <table border=\"0\" cellpadding=\"1\" cellspacing=\"2\" style=\"margin-right:auto;margin-left:auto;\">
-    <tr>
-    <td></td>
-    <td style=\"text-align:center\">$textdata[stat_anrufer_datum]</td>
-    <td style=\"text-align:center\">$textdata[stat_anrufer_uhrzeit]</td>
-    <td style=\"width:110px; text-align:center\">$textdata[stat_anrufer_rufnummer]</td>";
-  if ($showtyp=="yes") 
-    { echo "<td style=\"text-align:center\">$textdata[showstatnew_anrufertyp]</td>"; } 
-  if ($show_vorwahl=="yes")
-    { echo "<td style=\"text-align:center\">$textdata[showstatnew_aus_ort]</td>"; } 
-  if ($show_msn=="yes")
-    { echo "<td style=\"text-align:center\">$textdata[stat_anrufer_MSN]</td>"; } 
-  echo "<td style=\"text-align:center\">$textdata[showstatnew_name]</td>";
-  if ($show_rueckruf=="yes")
-   { echo "<td style=\"text-align:center\">$textdata[showstatnew_zurueckrufen]</td>"; } 
-  echo "<td style=\"text-align:center\">$textdata[showstatnew_ins_addr]</td>";
-  if ($showloeschen=="yes") { echo "<td>$textdata[showstatnew_loeschen]</td>"; }
- echo " </tr>";
- 
-   while($data=mysql_fetch_row($result))
+  {
+   $anz_vorwahl=$daten[vorwahl];
+  }
+   if ($daten[rufnummer]=="unbekannt" && $daten[name]=="unbekannt")
     {
-     //data[1]==rufnummer
-    $data[2]=mysql_datum($data[2]);
-    $anz_name="";
-    $anz_reuckruf="";
-    $anz_vorwahl="";
-    $anz_insaddr="";
-    $anz_statistik="";
-    $anz_typ="";
-
-
-    if($i%2==0)
-      { $color=$c_color[11]; }
-    else
-      { $color=$c_color[12]; }
-
-  
-     
-       $result_adresse=mysql_query("SELECT id,vorname,nachname,tele1,tele2,tele3,handy FROM adressbuch WHERE tele1='$data[1]' OR tele2='$data[1]' OR tele3='$data[1]' OR handy='$data[1]'");
-       $adress_data=mysql_fetch_row($result_adresse);
-       if($adress_data==false)
-        {
-	 $anz_name="unbekannt";
-	  //erkenne handyNr oder Festnetznummer:
-	$wertaddaddr=handynr_vorhanden($data[1]); 
-
-      $anz_insaddr="<a href=\"./addadress.php?$wertaddaddr\"><img src=\"./bilder/1rightarrow.gif\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
-      if ($show_vorwahl=="yes")
-   {
-   	  $anz_vorwahl=$data[7];
-
-    }//show_vorwahl ende
-//MSN zu Name
-$anz_msn=msnzuname($data[6]);
-// Anruftyp bzw Dienstkennung erkennen:
-$anz_dienst=ermittle_typ_anruf($data[8]);
-
-   // SCHREIBE DATEN in TABELLE:
-   //datenblock in eine Variable schreiben:
-$vorwahl_data="";
-$msn_data="";
-$rueckruf_data="";
-$anruftyp="";
-$anruf_loeschen="";
- if ($show_vorwahl=="yes") 
-     { $vorwahl_data="<td style=\"text-align:center\">$anz_vorwahl</td>";  }
- if ($show_msn=="yes") 
-     { $msn_data="<td>$anz_msn</td>";  }
- if ($show_rueckruf=="yes") 
-     { $rueckruf_data="<td style=\"text-align:center\">$anz_rueckruf</td>";  }
- if ($showtyp=="yes")
-     { $anruftyp="<td style=\"text-align:center\">$anz_dienst</td>"; }
- if ($showloeschen=="yes")
-     { $anruf_loeschen="<td style=\"text-align:center\"><a href=\"./stat_loeschen.php?id=$data[0]$loeschen_seiten\" title=\"$textdata[showstatnew_loesche_db]\">
- <img  src=\"./bilder/edittrash.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a></td>"; }
- 
- 
- $ALL="<tr style=\"background-color:$color\">
-       <td>$anz_statistik</td>
-       <td style=\"text-align:center\">$data[2]</td>
-       <td style=\"text-align:center\">$data[3]</td>
-       <td style=\"text-align:center\">$data[1]</td>
-       $anruftyp
-       $vorwahl_data
-       $msn_data
-       <td style=\"text-align:center\">$anz_name</td>
-       $rueckruf_data
-       <td style=\"text-align:center\">$anz_insaddr</td>
-       $anruf_loeschen
-       </tr>";
-   
-
-
-  
-      echo "$ALL"; $i++; 
-
-	} //ENDE wenn nummer nicht im ADDR
+     if (isset($_GET[datum])) $submit_date="&datum=$_GET[datum]";
+     else if (isset($_GET[sdatum])) $submit_date="&datum=$_GET[sdatum]";
+     else $submit_date=""; 
+     $anz_name="<a href=\"./showstatnew.php?unbekannt=yes&#038;einid=$daten[id]$submit_date\">unbekannt</a>";
+     $anz_rueckruf="<a href=\"./callback.php?add=yes&#038;addr=\">
+   <img src=\"./images/1leftarrow.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
     }
-  echo "</table>"; 
- $zugriff_mysql->close_mysql();
+   elseif ($daten[rufnummer]!="unbekannt" && $daten[name_last]==NULL)
+    {
+     $anz_name=$daten[name];
+     $wertaddaddr=handynr_vorhanden($daten_cell[rufnummer]);
+     $anz_insaddr="<a href=\"./addressbook_add.php?$wertaddaddr\"><img src=\"./images/1rightarrow.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\" /></a>";
+     $anz_rueckruf="<a href=\"./callback.php?add=yes&#038;addr=&#038;nr=$daten[rufnummer]\">
+   <img src=\"./images/1leftarrow.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
+    }
+   elseif ($daten[rufnummer]=="unbekannt" && $daten[name]!="unbekannt")
+    {
+     $anz_name=$daten[name];
+     $anz_rueckruf="<a href=\"./callback.php?add=yes&#038;addr=\">
+   <img src=\"./images/1leftarrow.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
+    }
+   else
+    {
+     $anz_name="<a href=\"./addressbook.php?id=$daten[ADDR_ID]#find\">$daten[name_first] $daten[name_last]</a>";
+     $anz_statistik="<a href=\"./statistic_person.php?id=$daten[ADDR_ID]\" title=\"$textdata[showstatnew_zeige_anrufstat] $daten[name_first] $daten[name_last]\"><img  src=\"./images/data.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\" /></a>";
+     $anz_rueckruf="<a href=\"./callback.php?add=yes&amp;addr=$daten[ADDR_ID]\">
+   <img src=\"./images/1leftarrow.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
+    }
+    if ($daten[msn_name]==NULL)
+     {
+      $anz_msn=$daten[msn];
+     }
+    else
+     {
+      $anz_msn=$daten[msn_name];
+     }
+    //MSNS überprüfen:
+    $show_entry_msns=msns_ueberpruefen($userconfig['msns'],$daten[msn]);
+    //Datum umwandeln, und wegen Heute/Gestern funktion:
+    $anz_datum=anzeige_datum(mysql_datum($daten[datum]));
+    //ermittle Dienstkennung:
+    $anz_dienst=ermittle_typ_anruf($daten[dienst]);
+    //TEMPLATE FUELLEN ANFANG:
+    if ($show_entry_msns)
+     {  
+      if($i%2==0)
+      { $color=$row_color_1; }
+      else
+      { $color=$row_color_2; }
+      $template->assign_block_vars('cell.data', array(
+	'DATA_ROW_COLOR' => $color,
+	'DATA_SHOW_SINGEL_STAT' => $anz_statistik,
+	'DATA_SHOW_DATE' => $anz_datum,
+	'DATA_SHOW_CLOCK' => $daten[uhrzeit],
+	'DATA_SHOW_NUMBER' => $daten[rufnummer],
+	'DATA_SHOW_CALLERS_NAME' => $anz_name,
+	'DATA_TO_ADDR' => $anz_insaddr));
+
+if ($_SESSION['show_type'])
+ {
+  $template->assign_block_vars('cell.data.show_call_typ', array('DATA_CALLERS_TYP' =>$anz_dienst));
  }
-//suche anrufe die keinen Eintrag im Adressbuch hat ENDE
-  
- }//ende isset $_POST[suchen]
-?>
+if ($_SESSION['show_prefix'])
+ {
+  $template->assign_block_vars('cell.data.show_prefix', array('DATA_SHOW_PREFIX' => $anz_vorwahl));
+ }
+if ($_SESSION['show_msn']) 
+ {
+  $template->assign_block_vars('cell.data.show_msn', array('DATA_SHOW_MSN' => $anz_msn));
+ }
+if ($_SESSION['show_callback']) 
+ {
+  $template->assign_block_vars('cell.data.show_call_back',array('DATA_SHOW_CALL_BACK' =>$anz_rueckruf ));
+ }
+if ($_SESSION['allow_delete'])
+ {
+  $template->assign_block_vars('cell.data.show_delete_func', array(
+  	'DATA_LINK_DELETE_FUNC' => $daten[id].$loeschen_seiten,
+	'L_DELETE_ENTRY_FROM_DB' => $textdata[showstatnew_loesche_db]));
+ }
+		
+		
+		$i++;
+	}
+	}
+}//Statistik ausgeben ende
 
 
-<?php
+
+$dataB->sql_close();
+}//isset search set!
+
+
+
+
+
+
+$template->pparse('overall_body');
 include("./footer.inc.php");
 ?>

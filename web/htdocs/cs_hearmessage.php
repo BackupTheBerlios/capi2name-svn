@@ -1,7 +1,7 @@
 <?php
 /*
     copyright            : (C) 2002-2005 by Jonas Genannt
-    email                : jonasge@gmx.net
+    email                : jonas.genannt@capi2name.de
  ***************************************************************************/
 
 /***************************************************************************
@@ -19,7 +19,7 @@ include("./includes/cs_functions.inc.php");
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"], $sql["db"] );
 $sql_query=sprintf("SELECT data FROM capisuite WHERE id=%s AND cs_user=%s",
 		$dataB->sql_check($_GET[file]),
-		$dataB->sql_check($userconfig['cs_user']));
+		$dataB->sql_check($_SESSION['cs_user']));
 $result=$dataB->sql_query($sql_query);
 $dataB->sql_close();
 $data=$dataB->sql_fetch_assoc($result);

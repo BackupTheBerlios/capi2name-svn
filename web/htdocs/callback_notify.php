@@ -31,8 +31,8 @@ if ($_SESSION['show_callback_notify'])
  {
   $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
   $result_callback=$dataB->sql_query("SELECT t1.*,t2.name_first,t2.name_last,t3.number AS RUFNR
-  FROM callback AS t1 LEFT JOIN addressbook AS t2 ON t1.addr_id=t2.id LEFT JOIN phonenumbers AS t3 ON t3.addr_id=t2.id WHERE t1.user_id=".$_SESSION['user_id']  ." AND t1.notify=1 GROUP BY t1.id");
- $dataB->sql_query("UPDATE callback SET notify=0 WHERE user_id=".$_SESSION['user_id']);
+  FROM callback AS t1 LEFT JOIN addressbook AS t2 ON t1.addr_id=t2.id LEFT JOIN phonenumbers AS t3 ON t3.addr_id=t2.id WHERE t1.user_id=".$_SESSION['userid']  ." AND t1.notify=1 GROUP BY t1.id");
+ $dataB->sql_query("UPDATE callback SET notify=0 WHERE user_id=".$_SESSION['userid']);
   $_SESSION['show_callback_notify']=false;
   while($daten_callback=$dataB->sql_fetch_assoc($result_callback))
    {

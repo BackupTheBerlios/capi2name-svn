@@ -16,7 +16,7 @@ $seite=base64_encode("addressbook_show.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
 
-$template->set_filenames(array('overall_body' => 'templates/'.$userconfig['template'].'/addressbook_show.tpl'));
+$template->set_filenames(array('overall_body' => 'templates/'.$_SESSION['template'].'/addressbook_show.tpl'));
 $template->assign_vars(array('L_ADDRESS_BOOK_VIEW_ENTRY' => $textdata[showaddress_deteilansicht]));
 
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] ); 

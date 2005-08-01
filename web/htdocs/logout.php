@@ -14,9 +14,8 @@
  ***************************************************************************/
 session_start();
 session_destroy();
-setcookie("ck_username","", time()-172800000 );  
+setcookie("ck_userid","", time()-172800000 );  
 setcookie("ck_passwd","", time()-172800000 );  
-setcookie("ck_realname","", time()-172800000 );
 include("./includes/conf.inc.php");
 include("./includes/functions.php");  
 include("./includes/template.php");
@@ -25,9 +24,9 @@ $result=$dataB->sql_query("SELECT conf,value FROM config WHERE conf='default_tem
 
 $daten=$dataB->sql_fetch_assoc($result); 
 $dataB->sql_close();
-$userconfig['template']=$daten[value];
-$template = new Template("./templates/".$userconfig['template']);
-$template->set_filenames(array('overall_body' => 'templates/'.$userconfig['template'].'/logout.tpl'));
+$L_template=$daten[value];
+$template = new Template("./templates/".$L_template);
+$template->set_filenames(array('overall_body' => 'templates/'.$L_template.'/logout.tpl'));
 $template->assign_vars(array('L_LOGOUT' => 'Ausgeloggt'));
 $template->pparse('overall_body');
 ?>
