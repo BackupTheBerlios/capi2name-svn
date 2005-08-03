@@ -27,50 +27,42 @@ $template->assign_vars(array('L_ADDR_TELEPHON_NUMBER' => $textdata[adressbuch_te
 $template->assign_vars(array('L_ADDR_CELL_PHONE' => $textdata[addadress_handy] ));
 
 
-
-
-$i=0;
 // Auslesen:
 if ($_GET[order]=="firstname")
- {
-  $sqlabfrage="SELECT id,name_first,name_last FROM addressbook ORDER BY name_first";
- }
+{
+	$sqlabfrage="SELECT id,name_first,name_last FROM addressbook ORDER BY name_first";
+}
 else
- {
-  $sqlabfrage="SELECT id,name_first,name_last FROM addressbook ORDER BY name_last";
- }
+{
+	$sqlabfrage="SELECT id,name_first,name_last FROM addressbook ORDER BY name_last";
+}
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] ); 
 $result=$dataB->sql_query($sqlabfrage);
-
+$i=0;
 while($data_addr=$dataB->sql_fetch_assoc($result))
- {
-  if($i%2==0)
-   {
-     $color=$row_color_1;
-     $i=1; 
-   }
-  else
-   {
-     $color=$row_color_2;
-     $i=0; 
-    }
-  $result_tele=$dataB->sql_query("SELECT number FROM phonenumbers WHERE  typ='1' AND addr_id='$data_addr[id]' LIMIT 1");
-  $data_tele=$dataB->sql_fetch_assoc($result_tele);
-  $result_cellphone=$dataB->sql_query("SELECT number FROM phonenumbers WHERE  typ='2' AND addr_id='$data_addr[id]' LIMIT 1");  
-  $data_cellphone=$dataB->sql_fetch_assoc($result_cellphone);
-     
-     
-     
-  if (isset($_GET[id]))
-   {
-    if($_GET[id]==$data_addr[id])
-     {
-      $color=$hightlight_color;
-      $data_tele[number]="<a name=\"find\">$data_tele[number]</a>";
-     }
-   }
-   
-$template->assign_block_vars('tab', array(
+{
+	if($i%2==0)
+	{
+		$color=$row_color_1;
+		$i=1; 
+	}
+	else
+	{
+		$color=$row_color_2;
+		$i=0; 
+	}
+	$result_tele=$dataB->sql_query("SELECT number FROM phonenumbers WHERE  typ='1' AND addr_id='$data_addr[id]' LIMIT 1");
+	$data_tele=$dataB->sql_fetch_assoc($result_tele);
+	$result_cellphone=$dataB->sql_query("SELECT number FROM phonenumbers WHERE  typ='2' AND addr_id='$data_addr[id]' LIMIT 1");
+	$data_cellphone=$dataB->sql_fetch_assoc($result_cellphone);
+	
+	if (isset($_GET[id]) && $_GET[id]==$data_addr[id])
+	{
+		$color=$hightlight_color;
+		$data_tele[number]="<a name=\"find\">$data_tele[number]</a>";
+	}
+	
+	$template->assign_block_vars('tab', array(
 				'color' => $color,
 				'addr_id' => $data_addr[id],
 				'addr_last_name' => $data_addr[name_last],
@@ -80,9 +72,8 @@ $template->assign_block_vars('tab', array(
 				'addr_edit_entry' => $textdata[adressbuch_eintrag_bearbeiten],
 				'addr_delete_entry' => $textdata[adressbuch_eintrag_loeschen],
 				'addr_search_entry' => $textdata[adressbuch_suche_eintraege]
-  				));
-
- }
+				));
+}
 // Auslesen ENde
 $dataB->sql_close();
 $template->pparse('overall_body');

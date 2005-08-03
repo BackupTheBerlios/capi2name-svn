@@ -123,6 +123,6 @@ if ($wert <= $rows_anzahl)
   mysql_query("ALTER TABLE `adressbuch` RENAME `adressbuchOLD`");
   mysql_close();
   echo "<font color=\"red\"><b><br>READY</b></font><br/>Wait 10 secundes.br/> You will be forwarded to update.php";
-  echo "<meta http-equiv=\"refresh\" content=\"10; URL=./update.php\">";
+  echo "<meta http-equiv=\"refresh\" content=\"10; URL=./update.php?update=yes\">";
  }
 ?>

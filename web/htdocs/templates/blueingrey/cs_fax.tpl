@@ -25,7 +25,7 @@
    <td>{tab1.tab2.DATA_NUMBER}</td>
    <td>{tab1.tab2.DATA_MSN}</td>
    <td>{tab1.tab2.DATA_NAME}</td>
-   <td><a href="ge.php?file={tab1.tab2.DATA_CS_ID}"><img src="./images/view.png" border="0"></a></td>
+   <td><a href="cs_viewfax.php?file={tab1.tab2.DATA_CS_ID}"><img src="./images/view.png" border="0"></a></td>
   <!-- BEGIN delD -->
   <td style="text-align:center;"><a href="./cs_fax.php?del={tab1.tab2.delD.DATA_ID}"><img src="./images/edittrash.png" border="0"></a></td>
   <!-- END delD -->

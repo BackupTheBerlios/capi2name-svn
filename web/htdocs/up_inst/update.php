@@ -349,31 +349,26 @@ if ($db_layout_version=="0.6.7.5")
 	if (!$control)
 	{
 		echo "Insert failed: <br/>Mysql-Error: ". mysql_error();
-		die();
 	} 
 	$control=mysql_query("DROP TABLE notiz");
 	if (!$control)
 	{
 		echo "Insert failed: <br/>Mysql-Error: ". mysql_error();
-		die();
 	} 
 	$control=mysql_query("DROP TABLE angerufene_");
 	if (!$control)
 	{
 		echo "Insert failed: <br/>Mysql-Error: ". mysql_error();
-		// die();
 	}
 	$control=mysql_query("DROP TABLE farben");
 	if (!$control)
 	{
 		echo "Insert failed: <br/>Mysql-Error: ". mysql_error();
-		die();
 	}  
 	$control=mysql_query("DROP TABLE zurueckrufen");
 	if (!$control)
 	{
 		echo "Insert failed: <br/>Mysql-Error: ". mysql_error();
-		die();
 	} 
 	$capi_version_tabelle=false;
 	$file=fopen("update-database-0.6.7.5-0.6.7.6.sql", "rb");
@@ -458,6 +453,7 @@ if ($db_layout_version=="0.6.7.6.1")
 		echo "Update failed: <br/>Mysql-Error: ". mysql_error();
 		die();
 	}
+}
 /***************** VERSION 0.6.7.6.1->0.6.7.6.2 END **************************/
 
 
@@ -465,6 +461,20 @@ if ($db_layout_version=="0.6.7.6.1")
 if ($db_layout_version=="0.6.7.6.2")
 {
 	echo "Found Version 0.6.7.6.2 updating to 0.6.8...........<br>";
+	$result_db=mysql_list_tables($dbname);
+	$phone_found=0;
+	while($data=mysql_fetch_row($result_db))
+	{
+		if($data[0]=="phonenumbers")
+		{
+			$phone_found=1;
+			echo "Phonenumberstable found<br>";
+			break;
+		}
+	}
+	echo "Phone-NR: $phone_found<br>";
+	if ($phone_found!=1)
+	{
 	//sql file einspielen:
 	$file=fopen("update-database-0.6.7.6.2-0.6.8.sql", "rb");
 	$inhalt= fread ($file, filesize("update-database-0.6.7.6.2-0.6.8.sql"));
@@ -480,11 +490,11 @@ if ($db_layout_version=="0.6.7.6.2")
 		}
 	}
 	fclose($file);
-	
+	}
 	//wenn addressbook nicht gibt, dann nach adder gehen.
 	$result_db=mysql_list_tables($dbname);
 	$addr_found=0;
-	while($data=mysql_fetch_row($result))
+	while($data=mysql_fetch_row($result_db))
 	{
 		if($data[0]=="adressbuch")
 		{
@@ -536,7 +546,7 @@ if (!$control)
 
 if ($db_layout_version==$db_layout_neue_version)
 {
-	echo "<br/><br/><font color=green>OK! DB-Layout update ready!</font><br/>";
+	echo "<br/><br/><font color=green>OK! DB-Layout update ready!<br/><br/>Please delet the up_inst Folder!!!</font><br/>";
 }
 
 }//ende isset (absenden)

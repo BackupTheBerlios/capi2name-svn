@@ -32,9 +32,8 @@ for ($i=0;$i<5;$i++)
 	$num = rand(48,120);
 	$tmp_file .= chr($num);
 }
-$db_filename=$tmp_file.".sff";
-$jpg_filename=$tmp_file."-jp.jpg";
-echo "<br>$tmp_file<br>$db_filename<br>$jpg_filename<br>";
+$db_filename=$tmp_file.".ps";
+$pdf_filename=$tmp_file.".pdf";
 if (($file_handler=fopen($db_filename, "w+"))==FALSE)
 {
 	echo "Could not open file $db_filename!!";
@@ -46,19 +45,13 @@ if (!(fwrite($file_handler,$data[data])))
 	die();
 }
 fclose($file_handler);
-$cmd_sff="/usr/bin/sfftobmp -f -j $db_filename -o $jpg_filename";
-echo "- $cmd_sff -<br>";
-exec($cmd_sff);
+$cmd_pdf="/usr/bin/ps2pdf -sPAPERSIZE=a4 $db_filename $pdf_filename";
+exec($cmd_pdf);
 
 
 
-// translate file name properly for Internet Explorer.
-if (strstr($_SERVER['HTTP_USER_AGENT'], "MSIE"))
-{
-	$fileName = preg_replace('/\./', '%2e', $fileName, substr_count($fileName, '.') - 1);
-}
 // make sure the file exists before sending headers
-if(!$fdl=@fopen($fileString,'r'))
+if(!$fdl=@fopen($pdf_filename,'r'))
 {
 	die("Cannot Open File!");
 }
@@ -66,10 +59,12 @@ else
 {
 	header("Cache-Control: ");// leave blank to avoid IE errors
 	header("Pragma: ");// leave blank to avoid IE errors
-	header("Content-type: image/jpeg");
-	header("Content-Disposition: attachment; filename=\"".$fileName."\"");
-	header("Content-length:".(string)(filesize($fileString)));
+	header("Content-type: image/pdf");
+	header("Content-Disposition: attachment; filename=\"FAX.pdf\"");
+	header("Content-length:".(string)(filesize($pdf_filename)));
 	sleep(1);
 	fpassthru($fdl);
 }
+exec("rm $db_filename");
+exec("rm $pdf_filename");
 ?>

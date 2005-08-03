@@ -73,6 +73,43 @@ else
 }
 $template->set_filenames(array('overall_body' => './templates/'.$_SESSION['template'].'/show_call_stat.tpl'));
 $template->assign_vars(array('L_CALL_STAT_TITLE' => $anz_title));
+if ($checkdate)
+{
+	$ex_datum=explode(".",$sql_datum);
+	$tstamp1=mktime(0,0,0,$ex_datum[1],$ex_datum[0]-1,$ex_datum[2]);
+	$tstamp2=mktime(0,0,0,$ex_datum[1],$ex_datum[0]+1,$ex_datum[2]);
+}
+else
+{
+	$tstamp1  = mktime(0, 0, 0, date("m"), date("d")-1, date("Y"));
+	$tstamp2  = mktime(0, 0, 0, date("m"), date("d")+1, date("Y"));
+}
+if (date("d.m.Y", $tstamp1)==date("d.m.Y",mktime(0,0,0,date("m"), date("d")-1, date("Y"))))
+{
+	$template->assign_vars(array('date_back' => "datum=gestern"));
+}
+elseif(date("d.m.Y", $tstamp1)==date("d.m.Y",mktime(0,0,0,date("m"), date("d"), date("Y"))))
+{
+	$template->assign_vars(array('date_back' => "datum=heute"));
+}
+else
+{
+	$template->assign_vars(array('date_back' => "sdatum=".date("d.m.Y", $tstamp1)));
+}
+if (date("d.m.Y",$tstamp2)==date("d.m.Y"))
+{
+	$template->assign_vars(array('date_for' => "datum=heute"));
+}
+elseif(date("d.m.Y",$tstamp2)==date("d.m.Y",mktime(0,0,0,date("m"), date("d")-1, date("Y"))))
+{
+	$template->assign_vars(array('date_for' => "datum=gestern"));
+}
+else
+{
+	$template->assign_vars(array('date_for' => "sdatum=".date("d.m.Y", $tstamp2)));
+}
+$template->assign_vars(array('day_left' =>$textdata[day_left]));
+$template->assign_vars(array('day_right' =>$textdata[day_right]));
 
 if ($checkdate)
 {

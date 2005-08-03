@@ -33,6 +33,7 @@ Capi2name 0.6.8 YYYY-MM-DD - Jonas Genannt - <jonas.genannt@capi2name.de> BETA
 	o PHP: Improved: Desigen blueingrey template
 	o PHP: Improved: Sessionhandling 
 	o PHP: Improved: login_check method->faster
+	o PHP: Improved: search function
 	o PHP: Improved: delete Function and check allow_delete (security problem)
 	o PHP: Changed: all files that works with the old 'adressbuch' table
 	o PHP: Changed: admin/cs_install.php changed to from ini-file to config table
@@ -57,6 +58,10 @@ Capi2name 0.6.8 YYYY-MM-DD - Jonas Genannt - <jonas.genannt@capi2name.de> BETA
 	o PHP: Added: cs_answerphone.php complete rewrite now DB based
 	o PHP: Added: New icons
 	o PHP: Added: showstatnew.php warning if date is in future
+	o PHP: Added: showstatnew.php buttons for navigate thow(durch) dates left and right
+	o C2N: removed: daemon/contrib/SuSE: incompatible with this version
+	o C2N: removed: daemon/contrib/isdn4linux: incompatible with this version
+	o C2N: removed: daemon/contrib/capisuite: incompatible with this version
 
 Capi2name 0.6.7.6.2 2005-06-29 - Jonas Genannt - <jonasge@gmx.net>
 	o PHP: Fixed: header.inc.php and check for DB version found by Max

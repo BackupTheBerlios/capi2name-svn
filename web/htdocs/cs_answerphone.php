@@ -1,7 +1,7 @@
 <?php
 /*
     copyright            : (C) 2002-2005 by Jonas Genannt
-    email                : jonasge@gmx.net
+    email                : jonas.genannt@capi2name.de
  ***************************************************************************/
 
 /***************************************************************************
@@ -75,7 +75,7 @@ while($data_cs=$dataB->sql_fetch_assoc($result_cs))
 	{
 		$anz_msn=$data_cs[msn_name];
 	}
-	if ($data_cs[from_nr]==NULL)
+	if ($data_cs[from_nr]=="-")
 	{
 		$number="unbekannt";
 		$name="unbekannt";

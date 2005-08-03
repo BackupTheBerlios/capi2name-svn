@@ -1,4 +1,4 @@
-<?
+<?php
 /*
     copyright            : (C) 2002-2005 by Jonas Genannt
     email                : jonasge@gmx.net
@@ -12,9 +12,7 @@
  *   any later version.                                   *
  *                                                                         *
  ***************************************************************************/
- ?>
-<?
-include("login_check.inc.php");
+include("./login_check.inc.php");
 include("./header.inc.php");
 
 $template->set_filenames(array('overall_body' => 'templates/'.$_SESSION['template'].'/powered.tpl'));

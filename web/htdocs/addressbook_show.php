@@ -24,14 +24,14 @@ $s_id=$dataB->sql_checkn($_GET[show]);
 $result=$dataB->sql_query("SELECT * FROM addressbook WHERE id=$s_id");
 $data_addr=$dataB->sql_fetch_assoc($result);
 if (!$data_addr)
- {
-  $template->assign_block_vars('show_msg_entry_not_found', array());
-  $template->assign_vars(array('L_MSG_ENTRY_NOT_FOUND'=> $textdata[showaddress_eintrag_nicht] . $_GET[show]." ".$textdata[showaddress_admin_wenden]));
-  $template->pparse('overall_body');
-  $dataB->sql_close();
-  include("./footer.inc.php");
-  die();  
- }
+{
+	$template->assign_block_vars('show_msg_entry_not_found', array());
+	$template->assign_vars(array('L_MSG_ENTRY_NOT_FOUND'=> $textdata[showaddress_eintrag_nicht] . $_GET[show]." ".$textdata[showaddress_admin_wenden]));
+	$template->pparse('overall_body');
+	$dataB->sql_close();
+	include("./footer.inc.php");
+	die();  
+}
 
 
 $template->assign_block_vars('tab1',array(
@@ -52,32 +52,30 @@ $template->assign_block_vars('tab1',array(
 		'L_DB_CITY' => $data_addr[city],
 		'L_DB_E_MAIL' => $data_addr[email]));
 
-
 // telephon:
 $result_tele=$dataB->sql_query("SELECT number FROM phonenumbers WHERE typ='1' AND addr_id='$data_addr[id]'");
 while($daten_tele=$dataB->sql_fetch_assoc($result_tele))
- {
-  $template->assign_block_vars('tab1.telephon',array(
-  	'L_TELE' => $textdata[addadress_telefonnummer],
-	'L_DB_TELE' => $daten_tele[number]));
- }
+{
+	$template->assign_block_vars('tab1.telephon',array(
+		'L_TELE' => $textdata[addadress_telefonnummer],
+		'L_DB_TELE' => $daten_tele[number]));
+}
 //cell phone
 $result_cell=$dataB->sql_query("SELECT number FROM phonenumbers WHERE typ='2' AND addr_id='$data_addr[id]'");
 while($daten_cell=$dataB->sql_fetch_assoc($result_cell))
- {
-  $template->assign_block_vars('tab1.cellphone',array(
-  	'L_CELL_PHONE' => $textdata[addadress_handy],
-	'L_DB_CELL_PHONE' => $daten_cell[number]));
- }
+{
+	$template->assign_block_vars('tab1.cellphone',array(
+		'L_CELL_PHONE' => $textdata[addadress_handy],
+		'L_DB_CELL_PHONE' => $daten_cell[number]));
+}
 //fax numbers
 $result_fax=$dataB->sql_query("SELECT number FROM phonenumbers WHERE typ='3' AND addr_id='$data_addr[id]'");
 while($daten_fax=$dataB->sql_fetch_assoc($result_fax))
- {
-  $template->assign_block_vars('tab1.fax',array(
-  	'L_FAX' => $textdata[addadress_fax],
-	'L_DB_FAX' => $daten_fax[number]));
- }
-  
+{
+	$template->assign_block_vars('tab1.fax',array(
+		'L_FAX' => $textdata[addadress_fax],
+		'L_DB_FAX' => $daten_fax[number]));
+}
 $dataB->sql_close();
 $template->pparse('overall_body');
 include("./footer.inc.php");

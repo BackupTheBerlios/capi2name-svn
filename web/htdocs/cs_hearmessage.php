@@ -33,28 +33,22 @@ for ($i=0;$i<5;$i++)
 	$tmp_file .= chr($num);
 }
 //echo "<br>$tmp_file<br>";
-$db_filename=$tmp_file.".la";
+$db_filename=$tmp_file.".wav";
 $mp3_filename=$tmp_file.".wav";
 if (($file_handler=fopen($db_filename, "w+"))==FALSE)
 {
 	echo "Could not open file $db_filename!!";
 	die();
 }
-if (!(fwrite($file_handler,$data[data])))
+if (!(fwrite($file_handler,base64_decode($data[data]))))
 {
 	echo "Could not write to file $db_filename!!";
 	die();
 }
 fclose($file_handler);
 
-$exec_tmp="sox -r 48000 $db_filename $mp3_filename";
-exec($exec_tmp);
-exec("rm $db_filename");
-// translate file name properly for Internet Explorer.
-if (strstr($_SERVER['HTTP_USER_AGENT'], "MSIE"))
-{
-	$mp3_filename = preg_replace('/\./', '%2e', $mp3_filename, substr_count($mp3_filename, '.') - 1);
-}
+
+$mp3_filename=$db_filename;
 // make sure the file exists before sending headers
 if(!$fdl=@fopen($mp3_filename,'r'))
 {

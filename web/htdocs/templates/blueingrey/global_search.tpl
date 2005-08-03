@@ -88,7 +88,7 @@ Suche zwischen:
 <!-- BEGIN data -->
    <tr style="background-color:{addr.data.color}">
    <td style="text-align:left;"><a href="./addressbook_show.php?show={addr.data.addr_id}" >{addr.data.addr_last_name}</a></td>
-   <td style="text-align:left;"><a href="./addressbook_show.php?show={addr.tab.addr_id}">{addr.data.addr_first_name}</a></td>
+   <td style="text-align:left;"><a href="./addressbook_show.php?show={addr.data.addr_id}">{addr.data.addr_first_name}</a></td>
    <td style="text-align:center;">{addr.data.addr_tele_1}</td>
    <td style="text-align:center;">{addr.data.addr_cell_phone}</td>
    <td style="text-align:center;">

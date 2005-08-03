@@ -8,7 +8,7 @@
 <!--
 /*
     copyright            : (C) 2002-2005 by Jonas Genannt
-    email                : jonasge@gmx.net
+    email                : jonas.genannt@capi2name.de
  ***************************************************************************/
 
 /***************************************************************************
@@ -34,10 +34,10 @@ $template->assign_vars(array('L_HAUPTMENU' => $textdata[header_inc_mainmenue]));
 $template->assign_vars(array('L_INDEX' => $textdata[header_inc_index]));
 $template->assign_vars(array('L_POWERED_BY' => $textdata[header_inc_powered]));
 if ($_SESSION['show_config'])
-   {
-    $template->assign_block_vars('show_config_page_on', array());
-    $template->assign_vars(array('L_CONFIGPAGE' => $textdata[header_inc_configpage]));
-   }
+{
+	$template->assign_block_vars('show_config_page_on', array());
+	$template->assign_vars(array('L_CONFIGPAGE' => $textdata[header_inc_configpage]));
+}
   
 $template->assign_vars(array('L_TELEPOHN' => $textdata[header_inc_telefon]));
 $template->assign_vars(array('L_CALL_STAT_NORMAL' => $textdata[header_inc_anrufstatistik]));
@@ -50,28 +50,28 @@ $template->assign_vars(array('L_CALL_STAT_MONTH' => 'Monatsübersicht'));
 $template->assign_vars(array('L_SEARCH' => 'Suche'));
 $template->assign_vars(array('L_CALENDAR' => $textdata[header_inc_kalender]));
 if ($_SESSION['allow_delete'])
-   {
-    $template->assign_block_vars('show_delete_page_unkown_calls_on', array());
-    $template->assign_vars(array('L_DELETE_FUNCTION' => 'Löschfunktion'));
-   }
+{
+	$template->assign_block_vars('show_delete_page_unkown_calls_on', array());
+	$template->assign_vars(array('L_DELETE_FUNCTION' => 'Löschfunktion'));
+}
 if ($_SESSION['show_callback'])
-   {
-    $template->assign_block_vars('show_call_back_pages_on', array());
-    $template->assign_vars(array('L_CALL_BACK' => $textdata[header_inc_rueckruf]));
-    $template->assign_vars(array('L_NEW_ENTRY' => $textdata[header_inc_neuer_eintrag]));
-   }
+{
+	$template->assign_block_vars('show_call_back_pages_on', array());
+	$template->assign_vars(array('L_CALL_BACK' => $textdata[header_inc_rueckruf]));
+	$template->assign_vars(array('L_NEW_ENTRY' => $textdata[header_inc_neuer_eintrag]));
+}
 $template->assign_vars(array('L_ADDRESS_BOOK' => $textdata[header_inc_adressbuch]));
 $template->assign_vars(array('L_NEW_ENTRY' => $textdata[header_inc_neuer_eintrag]));
 if ($config['capisuite'] == "yes")
-   {
-    $template->assign_block_vars('show_capi_suite_on', array());
-    $template->assign_vars(array('L_CAPI_SUITE' => 'CapiSuite'));
-    $template->assign_vars(array('L_CAPI_SUITE_ANSWERPHONE' => $textdata[header_inc_cs_answerphone]));
-    $template->assign_vars(array('L_CAPI_SUITE_FAX' => 'Meine Faxe'));
-   }
+{
+	$template->assign_block_vars('show_capi_suite_on', array());
+	$template->assign_vars(array('L_CAPI_SUITE' => 'CapiSuite'));
+	$template->assign_vars(array('L_CAPI_SUITE_ANSWERPHONE' => $textdata[header_inc_cs_answerphone]));
+	$template->assign_vars(array('L_CAPI_SUITE_FAX' => 'Meine Faxe'));
+}
 
 if ($_SESSION['show_callback_notify'])
- {
+{
   echo " <script type=\"text/javascript\">
   <!--
   F1 = window.open(\"callback_notify.php\",\"Fenster1\",\"width=570,height=190,left=0,top=0\");
@@ -102,6 +102,4 @@ if ( is_dir("up_inst")) {
 }
 */
 $template->pparse('overall_header');
-
-
 ?>
