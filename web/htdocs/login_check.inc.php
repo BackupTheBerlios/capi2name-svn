@@ -6,6 +6,7 @@ include("./includes/functions.php");
 session_start();
 $login_ok=0;
 $login_cockie=0;
+$password="";
 if (isset($_SESSION['remember_login']) && $_SESSION['remember_login'])
 {
 	setcookie("ck_userid",$_SESSION['userid'], time()+172800000 );  
@@ -13,13 +14,13 @@ if (isset($_SESSION['remember_login']) && $_SESSION['remember_login'])
 	$_SESSION['remember_login']=false;
 }
 
-if ($_SESSION['userid']==NULL || $_SESSION['password']==NULL)
+if (isset($_COOKIE['ck_userid'])&&!isset($_SESSION['userid']) && !isset($_SESSION['password']) )
 {
 	$user_id=$_COOKIE['ck_userid'];
 	$password=$_COOKIE['ck_passwd'];
 	$login_cockie=1;
 } 
-elseif ($_SESSION['userid']!="" && $_SESSION['password']!="")
+elseif (isset($_SESSION['userid'])&&$_SESSION['userid']!="" && $_SESSION['password']!="")
 {
 	$user_id=$_SESSION['userid'];
 	$password=$_SESSION['password'];
@@ -31,7 +32,7 @@ else
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 $query=sprintf("SELECT passwd FROM users WHERE id=%s", $dataB->sql_checkn($user_id));
 $result_userlist=$dataB->sql_query($query);
-if ($result_userlist && $password!="")
+if ($result_userlist && !isset($password) || $password!="")
 {
 	$row_userlist=$dataB->sql_fetch_assoc($result_userlist);
 	if ($password==$row_userlist['passwd'])
@@ -45,13 +46,14 @@ if ($result_userlist && $password!="")
 	{
 		$query=sprintf("SELECT * FROM users WHERE id=%s", $dataB->sql_checkn($user_id));
 		$result_userlist=$dataB->sql_query($query);
-		fill_sessions($dataB->sql_fetch_assoc($result_userlist));
+		$row_userlist=$dataB->sql_fetch_assoc($result_userlist);
+		fill_sessions($row_userlist);
 		//template suchen und schauen wegen global oder nicht ;)
 		$result_config=$dataB->sql_query("SELECT * FROM config WHERE conf='template'");
 		$daten_config=$dataB->sql_fetch_assoc($result_config);
 		$result_config1=$dataB->sql_query("SELECT * FROM config WHERE conf='default_template'");
 		$daten_config1=$dataB->sql_fetch_assoc($result_config1);
-		fill_template_session($daten_config,$daten_config1);
+		fill_template_session($daten_config,$daten_config1,$row_userlist['template']);
 
 	}
 	//update lastlogin_d and lastlogin_t
@@ -89,15 +91,15 @@ if ($login_ok == 0)
 	$result=$dataB->sql_query("SELECT conf,value FROM config WHERE conf='default_template'");
 	$daten=$dataB->sql_fetch_assoc($result); 
 	$dataB->sql_close();
-	$_SESSION['template']=$daten[value];
+	$_SESSION['template']=$daten['value'];
 	include("./header.inc.php");
 	$template->set_filenames(array('overall_body' => 'templates/'.$_SESSION['template'].'/login_site.tpl'));
 	$template->assign_vars(array(
-		'L_USERNAME' => $textdata[configpage_username],
-		'L_PASSWD' => $textdata[passwd],
+		'L_USERNAME' => $textdata['configpage_username'],
+		'L_PASSWD' => $textdata['passwd'],
 		'DATA_TO_SITE' => $seite,
-		'L_STAY_LOGIN' => $textdata[stay_login],
-		'L_LOGIN' => $textdata[login]));
+		'L_STAY_LOGIN' => $textdata['stay_login'],
+		'L_LOGIN' => $textdata['login']));
 	$template->pparse('overall_body');
 	include("./footer.inc.php");
 	exit();

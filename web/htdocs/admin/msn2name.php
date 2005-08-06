@@ -21,7 +21,7 @@ You can set up names for your local MSN's. These names will you see in the calli
 <br/>
 <br/>
 <?php
- if (isset($_GET[delmsn]))
+ if (isset($_GET['delmsn']))
   {
    $query=sprintf("DELETE FROM msnzuname WHERE id=%s",
    	 $dataB->sql_check($_GET[delmsn]));
@@ -36,13 +36,13 @@ You can set up names for your local MSN's. These names will you see in the calli
     }
   }
 
-if (isset($_POST[absenden]))
+if (isset($_POST['absenden']))
 {
-	if (isset($_POST[msn]) && isset($_POST[name]))
+	if (isset($_POST['msn']) && isset($_POST['name']))
 	{
 		$query=sprintf("INSERT INTO msnzuname VALUES(NULL,%s,%s)",
-			$dataB->sql_checkn($_POST[msn]),
-			$dataB->sql_check($_POST[name]));
+			$dataB->sql_checkn($_POST['msn']),
+			$dataB->sql_check($_POST['name']));
 		$result=$dataB->sql_query($query);
 		if ($result)
 		{
@@ -82,7 +82,7 @@ while($row=$dataB->sql_fetch_assoc($result))
  }
 echo "</table>";
 
-if (isset($_GET[newentry]) )
+if (isset($_GET['newentry']) )
  {
   echo "
   <br/><hr/>
@@ -104,7 +104,7 @@ if (isset($_GET[newentry]) )
   </form><br/><br/>";
  }
    
-if (!isset($_GET[newentry]))
+if (!isset($_GET['newentry']))
 {
 	echo "<br/><br/>- <a href=\"./msn2name.php?newentry=yes\">New entry</a> -<br>";
 }

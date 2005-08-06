@@ -19,32 +19,32 @@ function check_cs_username($cs_user)
 }
 function fill_sessions($row_userlist)
 {
-	$_SESSION['realname']=$row_userlist[name_first]." ".$row_userlist[name_last];
-	$_SESSION['username']=$_POST[login_name];
-	$_SESSION['password']=$row_userlist[passwd];
-	$_SESSION['userid']=$row_userlist[id];
-	$_SESSION['cs_user']=$row_userlist[cs_user];
-	$_SESSION['show_callback']=$row_userlist[show_callback];
-	$_SESSION['show_prefix']=$row_userlist[show_prefix];
-	$_SESSION['show_msn']=$row_userlist[show_msn];
-	$_SESSION['show_config']=$row_userlist[show_config];
-	$_SESSION['show_type']=$row_userlist[show_type];
-	$_SESSION['allow_delete']=$row_userlist[allow_delete];
-	$_SESSION['show_lines']=$row_userlist[show_lines];
-	$_SESSION['msn_listen']=$row_userlist[msn_listen];
+	$_SESSION['realname']=$row_userlist['name_first']." ".$row_userlist['name_last'];
+	$_SESSION['username']=$row_userlist['username'];
+	$_SESSION['password']=$row_userlist['passwd'];
+	$_SESSION['userid']=$row_userlist['id'];
+	$_SESSION['cs_user']=$row_userlist['cs_user'];
+	$_SESSION['show_callback']=$row_userlist['show_callback'];
+	$_SESSION['show_prefix']=$row_userlist['show_prefix'];
+	$_SESSION['show_msn']=$row_userlist['show_msn'];
+	$_SESSION['show_config']=$row_userlist['show_config'];
+	$_SESSION['show_type']=$row_userlist['show_type'];
+	$_SESSION['allow_delete']=$row_userlist['allow_delete'];
+	$_SESSION['show_lines']=$row_userlist['show_lines'];
+	$_SESSION['msn_listen']=$row_userlist['msn_listen'];
 }
 
-function fill_template_session($daten_config,$daten_config1)
+function fill_template_session($daten_config,$daten_config1,$u_template)
 {
-	if (!$daten_config[value])
+	if (!$daten_config['value'])
 	{
-		if (check_template($row_userlist[template]))
+		if (check_template($u_template))
 		{
-			$_SESSION['template']=$row_userlist[template];
+			$_SESSION['template']=$u_template;
 		}
 		else
 		{
-			$_SESSION['template']=$daten_config1[value];
+			$_SESSION['template']=$daten_config1['value'];
 		}
 	}
 	else

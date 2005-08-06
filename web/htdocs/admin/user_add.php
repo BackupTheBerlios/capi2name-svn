@@ -16,26 +16,26 @@ include("./check_it.php");
 include("./header.inc.php");
 echo "<div class=\"ueberschrift_seite\">create a new user</div>";
 
-if (isset($_POST[save])) {
- if (isset($_POST[username]) && isset($_POST[passwd])) 
+if (isset($_POST['save'])) {
+ if (isset($_POST['username']) && isset($_POST['passwd'])) 
   {
-   $passwd=md5($_POST[passwd]);
+   $passwd=md5($_POST['passwd']);
    $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
    $query=sprintf("INSERT INTO users VALUES(NULL,%s,%s,%s,NULL,NULL,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,NULL,%s)",
-   		$dataB->sql_check($_POST[username]),
-		$dataB->sql_check($_POST[cs_user]),
+   		$dataB->sql_check($_POST['username']),
+		$dataB->sql_check($_POST['cs_user']),
 		$dataB->sql_check($passwd),
-		$dataB->sql_check($_POST[first_name]),
-		$dataB->sql_check($_POST[last_name]),
-		$dataB->sql_checkn($_POST[show_lines]),
-		$dataB->sql_check($_POST[msns_listen]),
-		$dataB->sql_checkn($_POST[show_callback]),
-		$dataB->sql_checkn($_POST[show_prefix]),
-		$dataB->sql_checkn($_POST[show_msn]),
-		$dataB->sql_checkn($_POST[show_type]),
-		$dataB->sql_checkn($_POST[show_config]),
-		$dataB->sql_checkn($_POST[allow_delete]),
-		$dataB->sql_checkn($_POST[cs_audio]));
+		$dataB->sql_check($_POST['first_name']),
+		$dataB->sql_check($_POST['last_name']),
+		$dataB->sql_checkn($_POST['show_lines']),
+		$dataB->sql_check($_POST['msns_listen']),
+		$dataB->sql_checkn($_POST['show_callback']),
+		$dataB->sql_checkn($_POST['show_prefix']),
+		$dataB->sql_checkn($_POST['show_msn']),
+		$dataB->sql_checkn($_POST['show_type']),
+		$dataB->sql_checkn($_POST['show_config']),
+		$dataB->sql_checkn($_POST['allow_delete']),
+		$dataB->sql_checkn($_POST['cs_audio']));
    $result=$dataB->sql_query($query);
    $dataB->sql_close();
    if ($result)

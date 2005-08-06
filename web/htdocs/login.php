@@ -33,12 +33,12 @@ $sql_query=sprintf("SELECT * FROM users WHERE username=%s", $dataB->sql_check($_
 $result_userlist=$dataB->sql_query($sql_query);
 if ($result_userlist && $_POST['login_name']!="" && $_POST['login_passwd']!="")
 {
-	$passwd_ggg=md5($_POST[login_passwd]);
+	$passwd_ggg=md5($_POST['login_passwd']);
 	$row_userlist=$dataB->sql_fetch_assoc($result_userlist);
-	if (md5($_POST[login_passwd])==$row_userlist[passwd])
+	if (md5($_POST['login_passwd'])==$row_userlist['passwd'])
 	{
-		$seite=base64_decode($_POST[seite]);
-		if ($_POST[remember_login]=="on")
+		$seite=base64_decode($_POST['seite']);
+		if ($_POST['remember_login']=="on")
 		{
 			$_SESSION['remember_login']=true;
 		}
@@ -48,10 +48,10 @@ if ($result_userlist && $_POST['login_name']!="" && $_POST['login_passwd']!="")
 		$daten_config=$dataB->sql_fetch_assoc($result_config);
 		$result_config1=$dataB->sql_query("SELECT * FROM config WHERE conf='default_template'");
 		$daten_config1=$dataB->sql_fetch_assoc($result_config1);
-		fill_template_session($daten_config,$daten_config1);
+		fill_template_session($daten_config,$daten_config1,$row_userlist['template']);
 		$loginok=1;
 		$template->assign_block_vars('tab1',array(
-			'L_PASSWD_OK' => $textdata[login_OK_forward],
+			'L_PASSWD_OK' => $textdata['login_OK_forward'],
 			'DATA_SITE_FORWARD' => $seite));
 		$template->pparse('overall_body');
 		include("./footer.inc.php");

@@ -20,18 +20,18 @@ $template->set_filenames(array('overall_body' => 'templates/'.$_SESSION['templat
 //ob er die Page anschauen darf:
 if (!$_SESSION['allow_delete'])
  {
-  $template->assign_block_vars('tab1',array('L_MSG_NOT_ALLOWED' => $textdata[nichtberechtigt]));
+  $template->assign_block_vars('tab1',array('L_MSG_NOT_ALLOWED' => $textdata['nichtberechtigt']));
   $template->pparse('overall_body');
   include("./footer.inc.php");
   die();
  }
-$template->assign_vars(array('SITE_TITLE' => $textdata[del_unkown_db]));
+$template->assign_vars(array('SITE_TITLE' => $textdata['del_unkown_db']));
   
 //abfrage:
-if (isset($_POST[absenden]) && $_SESSION['allow_delete'])
+if (isset($_POST['absenden']) && $_SESSION['allow_delete'])
 {
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
- if ($_POST[alle_unbekannten]=="on") 
+ if ($_POST['alle_unbekannten']=="on") 
  //loesche alle unbekannten Eintraege
   {
    $result_loeschen=$dataB->sql_query("DELETE FROM angerufene WHERE rufnummer='unbekannt'");
@@ -47,7 +47,7 @@ $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
     }
     
   }
- else if ($_POST[nur_ruf_unbekannten]=="on") 
+ else if ($_POST['nur_ruf_unbekannten']=="on") 
  //loesche alle unbekannten Eintraege und lasse die eintraege mit namen
   {
    $result_loeschen=$dataB->sql_connect("DELETE FROM angerufene WHERE rufnummer='unbekannt' AND name='unbekannt'");
@@ -74,12 +74,12 @@ $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
       {
        if ($first)
         {
-	 $sqlabfrage .=" id=$daten[id]";
+	 $sqlabfrage .=" id=".$daten['id'];
 	 $first=false;
 	}
        else
         {
-	 $sqlabfrage .=" OR id=$daten[id]";
+	 $sqlabfrage .=" OR id=".$daten['id'];
 	}
       }
     }//END WHILE
@@ -100,30 +100,28 @@ $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 $dataB->sql_close();
 }//if isset absenden
 $template->assign_block_vars('tab2',array(
-		'L_DATE' => $textdata[stat_anrufer_datum],
-		'L_TIME' => $textdata[stat_anrufer_uhrzeit],
-		'L_NUMBER' => $textdata[stat_anrufer_rufnummer],
-		'L_MSN' => $textdata[stat_anrufer_MSN],
-		'L_NAME' => $textdata[showstatnew_name]));
+		'L_DATE' => $textdata['stat_anrufer_datum'],
+		'L_TIME' => $textdata['stat_anrufer_uhrzeit'],
+		'L_NUMBER' => $textdata['stat_anrufer_rufnummer'],
+		'L_MSN' => $textdata['stat_anrufer_MSN'],
+		'L_NAME' => $textdata['showstatnew_name']));
 $i=0;
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-$result_angerufene=$dataB->sql_query("SELECT id,rufnummer,name,datum,uhrzeit FROM angerufene WHERE rufnummer='unbekannt' ORDER BY 'id'  DESC");
+$result_angerufene=$dataB->sql_query("SELECT id,rufnummer,msn,name,datum,uhrzeit FROM angerufene WHERE rufnummer='unbekannt' ORDER BY 'id'  DESC");
 if ($result_angerufene)
   {
    while($daten=$dataB->sql_fetch_assoc($result_angerufene))
     {
      if($i%2==0){ $color=$row_color_1; }
      else       { $color=$row_color_2; }
-     $datum=mysql_datum($daten[datum]);
-     $msn=msnzuname($daten[msn]);
      $template->assign_block_vars('tab3',array(
      		'DATA_COLOR' => $color,
-		'DATA_ID' =>$daten[id],
-		'DATA_DATE' => $datum,
-		'DATA_TIME' => $daten[uhrzeit],
-		'DATA_NUMBER' => $daten[rufnummer],
-		'DATA_MSN' => $msn,
-		'DATA_NAME' => $daten[name]));
+		'DATA_ID' =>$daten['id'],
+		'DATA_DATE' => mysql_datum($daten['datum']),
+		'DATA_TIME' => $daten['uhrzeit'],
+		'DATA_NUMBER' => $daten['rufnummer'],
+		'DATA_MSN' => msnzuname($daten['msn']),
+		'DATA_NAME' => $daten['name']));
      $i++;
      }
    }//if true

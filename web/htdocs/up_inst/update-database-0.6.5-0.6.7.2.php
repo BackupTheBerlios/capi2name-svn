@@ -64,7 +64,7 @@ $rows_anzahl=mysql_num_rows($res_anzahl);
 $result=mysql_db_query($db, "SELECT * FROM angerufene LIMIT $start_id, 50");
  while($daten=mysql_fetch_array($result))
   {
-    $teil=explode('.', $daten[datum]);
+    $teil=explode('.', $daten['datum']);
     $new_date="$teil[2]-$teil[1]-$teil[0]";
     $res=mysql_db_query($db, "UPDATE angerufene SET datum_='$new_date' WHERE id='$daten[id]'");
      if ($res==true) { echo "Eintrag $daten[id] neu geschrieben...<br>"; }

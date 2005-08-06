@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ALL);
 /*
     copyright            : (C) 2002-2005 by Jonas Genannt
     email                : jonasge@gmx.net
@@ -15,7 +16,11 @@
 include("../includes/conf.inc.php");
 include("../includes/functions.php");
 session_start(); 
-$password=$_SESSION['adminpassword'];
+$password="";
+if (isset($_SESSION['adminpassword']))
+{
+	$password=$_SESSION['adminpassword'];
+}
 $login_ok=0;
 
 

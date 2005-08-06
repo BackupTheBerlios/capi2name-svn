@@ -15,23 +15,23 @@
 include("./check_it.php");
 include("./header.inc.php");
 echo "<div class=\"ueberschrift_seite\">Global Config</div>";
-if (isset($_POST[submit_data]))
+if (isset($_POST['submit_data']))
  {
   $all_ok=true;
   $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-  if ($_POST[template]== "user_define")
+  if (isset($_POST['template'])&&$_POST['template']== "user_define")
    {
     $result=$dataB->sql_query("UPDATE config SET value='' WHERE conf='template'");
    }
   else
    {
    $query=sprintf("UPDATE config SET value=%s WHERE conf='template'",
-   		$dataB->sql_check($_POST[template]));
+   		$dataB->sql_check($_POST['template']));
    $result=$dataB->sql_query($query);
    if (!$result) $all_ok=false;
    }
    $query=sprintf("UPDATE config SET value=%s WHERE conf='default_template'",
-   		$dataB->sql_check($_POST[default_template]));
+   		$dataB->sql_check($_POST['default_template']));
    $result=$dataB->sql_query($query);
    if (!$result) $all_ok=false;   
  if (!$all_ok)
@@ -67,7 +67,7 @@ $dh=opendir($dir);
 
 while($daten=$dataB->sql_fetch_assoc($result))
  {
- if ($daten[conf]=="db_version")
+ if ($daten['conf']=="db_version")
   {
    echo "
     <tr>
@@ -76,7 +76,7 @@ while($daten=$dataB->sql_fetch_assoc($result))
      <td style=\"text-align:right;\">$daten[value]</td>
     </tr>";   
   }
- elseif ($daten[conf]=="template")
+ elseif ($daten['conf']=="template")
   {
    
    echo "<tr>
@@ -85,7 +85,7 @@ while($daten=$dataB->sql_fetch_assoc($result))
    foreach ($files as $dirs)  
    {
 
-    if ($dirs==$daten[value])
+    if ($dirs==$daten['value'])
       {
        
 	echo "<option selected=\"selected\" value=\"$daten[value]\">$daten[value]</option>";
@@ -95,7 +95,7 @@ while($daten=$dataB->sql_fetch_assoc($result))
        echo "<option value=\"$dirs\">$dirs</option>";
       }
    } 
-  if ($daten[value]==NULL)
+  if ($daten['value']==NULL)
    {
     echo "<option selected=\"selected\" value=\"user_define\">User define</option>";
    }
@@ -106,7 +106,7 @@ while($daten=$dataB->sql_fetch_assoc($result))
    
   echo "</select></td></tr>";
   }
- elseif ($daten[conf]=="default_template")
+ elseif ($daten['conf']=="default_template")
   {
      
    echo "<tr>
@@ -116,7 +116,7 @@ while($daten=$dataB->sql_fetch_assoc($result))
    foreach ($files as $dirs)  
    {
 
-    if ($dirs==$daten[value])
+    if ($dirs==$daten['value'])
       {
        
 	echo "<option selected=\"selected\" value=\"$daten[value]\">$daten[value]</option>";

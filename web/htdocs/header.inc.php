@@ -33,7 +33,7 @@ $template->assign_vars(array('L_HAUPTMENU' => $textdata['header_inc_mainmenue'])
 
 $template->assign_vars(array('L_INDEX' => $textdata['header_inc_index']));
 $template->assign_vars(array('L_POWERED_BY' => $textdata['header_inc_powered']));
-if ($_SESSION['show_config'])
+if (isset($_SESSION['show_config'])&&$_SESSION['show_config'])
 {
 	$template->assign_block_vars('show_config_page_on', array());
 	$template->assign_vars(array('L_CONFIGPAGE' => $textdata['header_inc_configpage']));
@@ -49,12 +49,12 @@ $template->assign_vars(array('L_CALL_ALL_STAT' => $textdata['header_inc_gesamtst
 $template->assign_vars(array('L_CALL_STAT_MONTH' => 'Monatsübersicht'));
 $template->assign_vars(array('L_SEARCH' => 'Suche'));
 $template->assign_vars(array('L_CALENDAR' => $textdata['header_inc_kalender']));
-if ($_SESSION['allow_delete'])
+if (isset($_SESSION['allow_delete'])&&$_SESSION['allow_delete'])
 {
 	$template->assign_block_vars('show_delete_page_unkown_calls_on', array());
 	$template->assign_vars(array('L_DELETE_FUNCTION' => 'Löschfunktion'));
 }
-if ($_SESSION['show_callback'])
+if (isset($_SESSION['show_callback'])&&$_SESSION['show_callback'])
 {
 	$template->assign_block_vars('show_call_back_pages_on', array());
 	$template->assign_vars(array('L_CALL_BACK' => $textdata['header_inc_rueckruf']));

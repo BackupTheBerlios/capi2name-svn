@@ -213,7 +213,7 @@ if (isset($_SESSION['show_callback']) && $_SESSION['show_callback'])
 if (isset($_SESSION['allow_delete']) && $_SESSION['allow_delete'])
  {
   $template->assign_block_vars('tab0.tab1.show_delete_func', array(
-  	'DATA_LINK_DELETE_FUNC' => $daten['id'].$loeschen_seiten,
+  	'DATA_LINK_DELETE_FUNC' => $daten['id'],
 	'L_DELETE_ENTRY_FROM_DB' => $textdata['showstatnew_loesche_db']));
  }
  $i++;

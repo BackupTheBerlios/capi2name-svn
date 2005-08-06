@@ -31,7 +31,7 @@ $result=$dataB->sql_query("SELECT id,username,passwd,lastlogin_d,lastlogin_t FRO
 $dataB->sql_close();
 while($daten=$dataB->sql_fetch_assoc($result))
  {
-  if ($daten[id]!=1)
+  if ($daten['id']!=1)
    {
     echo "
      <tr>

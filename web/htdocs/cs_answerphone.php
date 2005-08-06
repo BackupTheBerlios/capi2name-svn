@@ -66,30 +66,30 @@ $result_cs=$dataB->sql_query($sql_query);
 $i=0;
 while($data_cs=$dataB->sql_fetch_assoc($result_cs))
 {
-	if ($data_cs[msn_name]==NULL)
+	if ($data_cs['msn_name']==NULL)
 	{
-		$anz_msn=$data_cs[msn];
+		$anz_msn=$data_cs['msn'];
 	}
 	else
 	{
-		$anz_msn=$data_cs[msn_name];
+		$anz_msn=$data_cs['msn_name'];
 	}
-	if ($data_cs[from_nr]=="-")
+	if ($data_cs['from_nr']=="-")
 	{
 		$number="unbekannt";
 		$name="unbekannt";
 	}
 	else
 	{
-		if ($data_cs[name_first]==NULL AND $data_cs[name_last]==NULL)
+		if ($data_cs['name_first']==NULL AND $data_cs['name_last']==NULL)
 		{
 			$name="unbekannt";
-			$number=$data_cs[from_nr];
+			$number=$data_cs['from_nr'];
 		}
 		else
 		{
 			$name="<a href=\"./addressbook.php?id=$data_cs[ADDR_ID]\">$data_cs[name_first] $data_cs[name_last]</a>";
-			$number=$data_cs[from_nr];
+			$number=$data_cs['from_nr'];
 		}
 	}
 	if ($i%2==0) $color=$row_color_1;
@@ -97,16 +97,16 @@ while($data_cs=$dataB->sql_fetch_assoc($result_cs))
 	
 	$template->assign_block_vars('tab1.tab2',array(
 		'DATA_COLOR' => $color,
-		'DATA_DATE' => date("d.m.Y",$data_cs[TIME_DATE]),
-		'DATA_TIME' => date("H:m:s",$data_cs[TIME_DATE]),
+		'DATA_DATE' => date("d.m.Y",$data_cs['TIME_DATE']),
+		'DATA_TIME' => date("H:m:s",$data_cs['TIME_DATE']),
 		'DATA_NUMBER' => $number,
 		'DATA_MSN' => $anz_msn,
 		'DATA_NAME' => $name,
-		'DATA_CS_ID' => $data_cs[cs_id]));
+		'DATA_CS_ID' => $data_cs['cs_id']));
 	if ($_SESSION['allow_delete'])
 	{
 		$template->assign_block_vars('tab1.tab2.delD',array(
-			'DATA_ID' => $data_cs[cs_id]));
+			'DATA_ID' => $data_cs['cs_id']));
 	}
 	$i++;
 }

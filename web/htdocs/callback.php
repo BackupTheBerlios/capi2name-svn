@@ -163,99 +163,104 @@ if (isset($_GET['add']) && $_GET['add']== "yes")
 {
 	$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 	$result_users=$dataB->sql_query("SELECT id,username,name_first,name_last FROM users");
-	if (!empty($_GET[addr]))
+	if (!empty($_GET['addr']))
 	{
 	//user kommt von showstatnew.php und hat id vom addr
-		$query=sprintf("SELECT t1.id,t1.name_first,t1.name_last,t2.number FROM addressbook AS t1 LEFT JOIN  phonenumbers AS t2 ON t2.addr_id=t1.id WHERE t1.id=%s LIMIT 1", $dataB->sql_checkn($_GET[addr]));
+		$query=sprintf("SELECT t1.id,t1.name_first,t1.name_last,t2.number FROM addressbook AS t1 LEFT JOIN  phonenumbers AS t2 ON t2.addr_id=t1.id WHERE t1.id=%s LIMIT 1", $dataB->sql_checkn($_GET['addr']));
 		$result_addr=$dataB->sql_query($query);
 		$daten_addr=$dataB->sql_fetch_assoc($result_addr);
 		$template->assign_block_vars('insert_with_addr',array(
-		'L_TITLE_NEW' => $textdata[new_entry],
-		'L_NAME' => $textdata[showstatnew_name],
-		'L_DATA_NAME' => $daten_addr[name_first]." ".$daten_addr[name_last],
+		'L_TITLE_NEW' => $textdata['new_entry'],
+		'L_NAME' => $textdata['showstatnew_name'],
+		'L_DATA_NAME' => $daten_addr['name_first']." ".$daten_addr['name_last'],
 		'L_DATA_NUMBER' => $number,
-		'L_DATA_ID' => $daten_addr[id],
-		'L_SAVE_DATA' => $textdata[save],
-		'L_NUMBER' => $textdata[stat_anrufer_rufnummer],
-		'L_CALL_BACK_TIME' => $textdata[callback_time],
-		'L_MORING' => $textdata[callback_morning],
-		'L_SOON_AS_POSSIBLE' => $textdata[callback_soon_as_posible],
-		'L_EVENING' => $textdata[callback_evening],
-		'L_MIDDAY' => $textdata[callback_midday],
-		'L_USERNAME' => $textdata[capi2name_user],
-		'L_MESSAGE' => $textdata[reason]));
+		'L_DATA_ID' => $daten_addr['id'],
+		'L_SAVE_DATA' => $textdata['save'],
+		'L_NUMBER' => $textdata['stat_anrufer_rufnummer'],
+		'L_CALL_BACK_TIME' => $textdata['callback_time'],
+		'L_MORING' => $textdata['callback_morning'],
+		'L_SOON_AS_POSSIBLE' => $textdata['callback_soon_as_posible'],
+		'L_EVENING' => $textdata['callback_evening'],
+		'L_MIDDAY' => $textdata['callback_midday'],
+		'L_USERNAME' => $textdata['capi2name_user'],
+		'L_MESSAGE' => $textdata['reason']));
    while($daten_users=$dataB->sql_fetch_assoc($result_users))
     {
-     if (empty($daten_users[name_first]) && empty($daten_users[name_last]))
+     if (empty($daten_users['name_first']) && empty($daten_users['name_last']))
       {
-	$full_name="$daten_users[username]";
+	$full_name=$daten_users['username'];
       }
      else 
       {
-        $full_name=$daten_users[name_first]." ".$daten_users[name_last];
+        $full_name=$daten_users['name_first']." ".$daten_users['name_last'];
       }
-     if ($daten_users[username]==$_SESSION[username] && $daten_users[username]!="admin")
+     if ($daten_users['username']==$_SESSION['username'] && $daten_users['username']!="admin")
       {
        //selectet=selected
        $template->assign_block_vars('insert_with_addr.select_users',array(
        			'L_DATA_NAME' => $full_name,
-			'L_DATA_ID' => $daten_users[id],
+			'L_DATA_ID' => $daten_users['id'],
 			'L_DATA_SELECTED' => 'selected="selected"'));
       }
      elseif($daten_users[username]!="admin")
       {
        $template->assign_block_vars('insert_with_addr.select_users',array(
        			'L_DATA_NAME' => $full_name,
-			'L_DATA_ID' => $daten_users[id]));
+			'L_DATA_ID' => $daten_users['id']));
       }
     }//WHILE ZU ENDE
   }
   else
   {//ANFANG insert_without_addr
+  $add_nr="";
+  if (isset($_GET['nr']))
+  {
+  	$add_nr=$_GET['nr'];
+  }
   $template->assign_block_vars('insert_without_addr',array(
-  		'L_TITLE_NEW' => $textdata[new_entry],
-		'L_NAME' => $textdata[showstatnew_name],
-		'L_NUMBER' => $textdata[stat_anrufer_rufnummer],
-		'L_CALL_BACK_TIME' => $textdata[callback_time],
-		'L_MORING' => $textdata[callback_morning],
-		'L_SOON_AS_POSSIBLE' => $textdata[callback_soon_as_posible],
-		'L_EVENING' => $textdata[callback_evening],
-		'L_MIDDAY' => $textdata[callback_midday],
-		'L_USERNAME' => $textdata[capi2name_user],
-		'L_SAVE_DATA' => $textdata[save],
-		'L_MESSAGE' => $textdata[reason],
-		'DATA_NR' => $_GET[nr]));
+  		'L_TITLE_NEW' => $textdata['new_entry'],
+		'L_NAME' => $textdata['showstatnew_name'],
+		'L_NUMBER' => $textdata['stat_anrufer_rufnummer'],
+		'L_CALL_BACK_TIME' => $textdata['callback_time'],
+		'L_MORING' => $textdata['callback_morning'],
+		'L_SOON_AS_POSSIBLE' => $textdata['callback_soon_as_posible'],
+		'L_EVENING' => $textdata['callback_evening'],
+		'L_MIDDAY' => $textdata['callback_midday'],
+		'L_USERNAME' => $textdata['capi2name_user'],
+		'L_SAVE_DATA' => $textdata['save'],
+		'L_MESSAGE' => $textdata['reason'],
+		'DATA_NR' => $add_nr));
   while($daten_users=$dataB->sql_fetch_assoc($result_users))
     {
-    if (empty($daten_users[name_first]) && empty($daten_users[name_last]))
+    if (empty($daten_users['name_first']) && empty($daten_users['name_last']))
       {
-	$full_name="$daten_users[username]";
+	$full_name=$daten_users['username'];
       }
      else 
       {
-        $full_name=$daten_users[name_first]." ".$daten_users[name_last];
+        $full_name=$daten_users['name_first']." ".$daten_users['name_last'];
       }
-     if ($daten_users[username]==$_SESSION[username] && $daten_users[username]!="admin")
+     if ($daten_users['username']==$_SESSION['username'] && $daten_users['username']!="admin")
       {
        //selectet=selected
        $template->assign_block_vars('insert_without_addr.select_users',array(
        			'L_DATA_NAME' => $full_name,
-			'L_DATA_ID' => $daten_users[id],
+			'L_DATA_ID' => $daten_users['id'],
 			'L_DATA_SELECTED' => 'selected="selected"'));
       }
-     elseif($daten_users[username]!="admin")
+     elseif($daten_users['username']!="admin")
       {
        $template->assign_block_vars('insert_without_addr.select_users',array(
        			'L_DATA_NAME' => $full_name,
-			'L_DATA_ID' => $daten_users[id]));
+			'L_DATA_ID' => $daten_users['id']));
       }
     }
   $result_addr=$dataB->sql_query("SELECT id,name_last,name_first FROM addressbook ORDER BY name_last");
   while($daten_addr=$dataB->sql_fetch_assoc($result_addr))
    {
     $template->assign_block_vars('insert_without_addr.tab1',array(
-  		'DATA_ADDR_ID' => $daten_addr[id],
-		'DATA_ADDR_NAME' => $daten_addr[name_first]." ".$daten_addr[name_last]));
+  		'DATA_ADDR_ID' => $daten_addr['id'],
+		'DATA_ADDR_NAME' => $daten_addr['name_first']." ".$daten_addr['name_last']));
    }  
 
   }//END insert_without_addr
