@@ -41,6 +41,7 @@
    <!-- BEGIN show_config_page_on -->
    <div class="menuitem"><a href="./configpage.php">{L_CONFIGPAGE}</a></div>
    <!-- END show_config_page_on -->
+   <div class="menuitem" style="font-weight:bold;"><a href="./logout.php">{L_LOGOUT}</a></div>
    <div style="font-weight:bold; margin-top: 1em;">{L_TELEPOHN}:</div>
    <div class="menuitem"><a href="./showstatnew.php">{L_CALL_STAT_NORMAL}</a></div>
    <div style="font-weight:bold; margin-top: 1em;">{L_CALL_STAT_EXTENED}:</div>

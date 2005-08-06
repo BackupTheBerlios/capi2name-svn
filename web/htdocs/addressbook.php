@@ -17,18 +17,18 @@ include("./login_check.inc.php");
 include("./header.inc.php");
 
 $template->set_filenames(array('overall_body' => 'templates/'.$_SESSION['template'].'/addressbook.tpl'));
-$template->assign_vars(array('L_ADDRESS_BOOK' => $textdata[header_inc_adressbuch]));
+$template->assign_vars(array('L_ADDRESS_BOOK' => $textdata['header_inc_adressbuch']));
 
-$template->assign_vars(array('L_ADDR_SORT_LAST_NAME' => $textdata[adressbuch_sortiere_nachname]));
-$template->assign_vars(array('L_ADDR_LAST_NAME' => $textdata[addadress_nachname]));
-$template->assign_vars(array('L_ADDR_SORT_FIRST_NAME' => $textdata[adressbuch_sortiere_vorname]));
-$template->assign_vars(array('L_ADDR_FIRST_NAME' => $textdata[addadress_vorname]));
-$template->assign_vars(array('L_ADDR_TELEPHON_NUMBER' => $textdata[adressbuch_telefonNR]));
-$template->assign_vars(array('L_ADDR_CELL_PHONE' => $textdata[addadress_handy] ));
+$template->assign_vars(array('L_ADDR_SORT_LAST_NAME' => $textdata['adressbuch_sortiere_nachname']));
+$template->assign_vars(array('L_ADDR_LAST_NAME' => $textdata['addadress_nachname']));
+$template->assign_vars(array('L_ADDR_SORT_FIRST_NAME' => $textdata['adressbuch_sortiere_vorname']));
+$template->assign_vars(array('L_ADDR_FIRST_NAME' => $textdata['addadress_vorname']));
+$template->assign_vars(array('L_ADDR_TELEPHON_NUMBER' => $textdata['adressbuch_telefonNR']));
+$template->assign_vars(array('L_ADDR_CELL_PHONE' => $textdata['addadress_handy']));
 
 
 // Auslesen:
-if ($_GET[order]=="firstname")
+if (isset($_GET['order']) && $_GET['order']=="firstname")
 {
 	$sqlabfrage="SELECT id,name_first,name_last FROM addressbook ORDER BY name_first";
 }
@@ -56,22 +56,22 @@ while($data_addr=$dataB->sql_fetch_assoc($result))
 	$result_cellphone=$dataB->sql_query("SELECT number FROM phonenumbers WHERE  typ='2' AND addr_id='$data_addr[id]' LIMIT 1");
 	$data_cellphone=$dataB->sql_fetch_assoc($result_cellphone);
 	
-	if (isset($_GET[id]) && $_GET[id]==$data_addr[id])
+	if (isset($_GET['id']) && $_GET['id']==$data_addr['id'])
 	{
 		$color=$hightlight_color;
-		$data_tele[number]="<a name=\"find\">$data_tele[number]</a>";
+		$data_tele['number']='<a name="find">'.$data_tele['number'].'</a>';
 	}
 	
 	$template->assign_block_vars('tab', array(
 				'color' => $color,
-				'addr_id' => $data_addr[id],
-				'addr_last_name' => $data_addr[name_last],
-				'addr_first_name' => $data_addr[name_first],
-				'addr_tele_1' => $data_tele[number],
-				'addr_cell_phone' => $data_cellphone[number],
-				'addr_edit_entry' => $textdata[adressbuch_eintrag_bearbeiten],
-				'addr_delete_entry' => $textdata[adressbuch_eintrag_loeschen],
-				'addr_search_entry' => $textdata[adressbuch_suche_eintraege]
+				'addr_id' => $data_addr['id'],
+				'addr_last_name' => $data_addr['name_last'],
+				'addr_first_name' => $data_addr['name_first'],
+				'addr_tele_1' => $data_tele['number'],
+				'addr_cell_phone' => $data_cellphone['number'],
+				'addr_edit_entry' => $textdata['adressbuch_eintrag_bearbeiten'],
+				'addr_delete_entry' => $textdata['adressbuch_eintrag_loeschen'],
+				'addr_search_entry' => $textdata['adressbuch_suche_eintraege']
 				));
 }
 // Auslesen ENde

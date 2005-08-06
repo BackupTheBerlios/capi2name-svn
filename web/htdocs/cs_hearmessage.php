@@ -17,10 +17,20 @@ include("./login_check.inc.php");
 include("./includes/cs_functions.inc.php");
 
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"], $sql["db"] );
-$sql_query=sprintf("SELECT data FROM capisuite WHERE id=%s AND cs_user=%s",
-		$dataB->sql_check($_GET[file]),
+$sql_query=sprintf("SELECT data FROM capisuite WHERE id=%s AND cs_user=%s AND ident='1'",
+		$dataB->sql_checkn($_GET[file]),
 		$dataB->sql_check($_SESSION['cs_user']));
 $result=$dataB->sql_query($sql_query);
+$sql_query=sprintf("SELECT cs_audio FROM users WHERE id=%s",
+	$dataB->sql_checkn($_SESSION['userid']));
+$result_file=$dataB->sql_query($sql_query);
+$daten_file=$dataB->sql_fetch_assoc($result_file);
+if ($result_file==false or $daten_file==false)
+{
+	echo "ERROR DATABASE returned ERROR! file=????";
+	die();
+}
+$fileformat=$daten_file[cs_audio];
 $dataB->sql_close();
 $data=$dataB->sql_fetch_assoc($result);
 srand((double)microtime()*1000000);
@@ -34,7 +44,6 @@ for ($i=0;$i<5;$i++)
 }
 //echo "<br>$tmp_file<br>";
 $db_filename=$tmp_file.".wav";
-$mp3_filename=$tmp_file.".wav";
 if (($file_handler=fopen($db_filename, "w+"))==FALSE)
 {
 	echo "Could not open file $db_filename!!";
@@ -47,22 +56,43 @@ if (!(fwrite($file_handler,base64_decode($data[data]))))
 }
 fclose($file_handler);
 
-
-$mp3_filename=$db_filename;
-// make sure the file exists before sending headers
-if(!$fdl=@fopen($mp3_filename,'r'))
+if ($fileformat==3) //ogg
 {
-	die("$mp3_filename \nCannot Open File! on sending");
+	$s_filename="CapiSuite-AB-$_GET[file].ogg";
+	$fi_filename=$tmp_file.".ogg";
+	$s_Content_type="application/ogg";
+	exec("sox -v 1.9 $db_filename $fi_filename");
+	exec("rm -f $db_filename");
+}
+elseif ($fileformat==2) //mp3
+{
+	$fi_filename=$tmp_file.".mp3";
+	$s_Content_type="audio/mpeg";
+	exec("/usr/bin/lame  -m s -a $db_filename $fi_filename");
+	$s_filename="CapiSuite-AB-$_GET[file].mp3";
+	exec("rm -f $db_filename");
+}
+else //wav
+{
+	$s_Content_type="audio/x-wav";
+	$s_filename="CapiSuite-AB-$_GET[file].wav";
+	$fi_filename=$db_filename;
+}
+
+// make sure the file exists before sending headers
+if(!$fdl=@fopen($fi_filename,'r'))
+{
+	die("Cannot Open File: $fi_filename!");
 }
 else
 {
 	header("Cache-Control: ");// leave blank to avoid IE errors
 	header("Pragma: ");// leave blank to avoid IE errors
-	header("Content-type: audio/x-mpeg");
-	header("Content-Disposition: attachment; filename=\"capisuite-AB.wav\"");
-	header("Content-length:".(string)(filesize($mp3_filename)));
+	header("Content-type: $s_Content_type");
+	header("Content-Disposition: attachment; filename=\"$s_filename\"");
+	header("Content-length:".(string)(filesize($fi_filename)));
 	sleep(1);
 	fpassthru($fdl);
 }
-exec("rm $mp3_filename");
+exec("rm $fi_filename");
 ?>

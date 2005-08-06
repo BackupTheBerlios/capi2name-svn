@@ -26,7 +26,7 @@ if (isset($_GET[datum]))
   }
 elseif (isset($_GET[sdatum]))
   {
-   $seite=base64_encode("showstatnew.php?sdatum=$_GET[sdatum]");
+   $seite=base64_encode("showstatnew.php?sdatum=".$_GET['sdatum']);
   }
 else
 {
@@ -35,41 +35,41 @@ $seite=base64_encode("showstatnew.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
 $checkdate=false;
-if ($_GET[maxlist] == "all") { $maxlist=NULL; }
+if ($_GET['maxlist'] == "all") { $maxlist=NULL; }
 else { $maxlist=$_SESSION['show_lines']; } //FIXME FIXME FIXME: nicht sessions ueberschreiben!!!!
-if ($_GET[showallmsns]=="yes") { $userconfig['msns']=""; }
-
-if (isset($_GET[datum]))
+if ($_GET['showallmsns']=="yes") { $userconfig['msns']=""; }
+$loeschen_seiten="";
+if (isset($_GET['datum']))
 {
 	$maxlist=NULL; 
 	$checkdate=true;
-	if ($_GET[datum]=="gestern")
+	if ($_GET['datum']=="gestern")
 	{
-		$anz_title=$textdata[showstatnew_gestrige_anrufe];
+		$anz_title=$textdata['showstatnew_gestrige_anrufe'];
 		$tstamp  = mktime(0, 0, 0, date("m"), date("d")-1, date("Y"));
 		$datum = date("d.m.Y", $tstamp);
 		$sql_datum=date("d.m.Y", $tstamp);
 		$loeschen_seiten="&amp;datum=gestern";
 	}
-	elseif ($_GET[datum]=="heute")
+	elseif ($_GET['datum']=="heute")
 	{
-		$anz_title=$textdata[showstatnew_heutige_anrufe];
+		$anz_title=$textdata['showstatnew_heutige_anrufe'];
 		$datum = date("d.m.Y");
 		$sql_datum=date("d.m.Y");
 		$loeschen_seiten="&amp;datum=heute";
 	}
 }
-elseif (isset($_GET[sdatum]))
+elseif (isset($_GET['sdatum']))
 {
 	$checkdate=true;
 	$maxlist=NULL;
-	$anz_title=$textdata[header_inc_anrufstatistik] . " " . $textdata[showstatnew_vom] . " " . $_GET[sdatum];
-	$sql_datum=$_GET[sdatum];
-	$loeschen_seiten="&amp;sdatum=$_GET[sdatum]";
+	$anz_title=$textdata['header_inc_anrufstatistik'] . " " . $textdata['showstatnew_vom'] . " " . $_GET['sdatum'];
+	$sql_datum=$_GET['sdatum'];
+	$loeschen_seiten="&amp;sdatum=".$_GET['sdatum'];
 }
 else
 {
-	$anz_title=$textdata[header_inc_anrufstatistik];
+	$anz_title=$textdata['header_inc_anrufstatistik'];
 }
 $template->set_filenames(array('overall_body' => './templates/'.$_SESSION['template'].'/show_call_stat.tpl'));
 $template->assign_vars(array('L_CALL_STAT_TITLE' => $anz_title));
@@ -108,8 +108,8 @@ else
 {
 	$template->assign_vars(array('date_for' => "sdatum=".date("d.m.Y", $tstamp2)));
 }
-$template->assign_vars(array('day_left' =>$textdata[day_left]));
-$template->assign_vars(array('day_right' =>$textdata[day_right]));
+$template->assign_vars(array('day_left' =>$textdata['day_left']));
+$template->assign_vars(array('day_right' =>$textdata['day_right']));
 
 if ($checkdate)
 {
@@ -118,61 +118,61 @@ if ($checkdate)
 	if ($ck_date>time())
 	{
 		$template->assign_block_vars('in_future',array(
-			'warning' => $textdata[warning],
-			'L_DATA' => $textdata[date_in_future]));
+			'warning' => $textdata['warning'],
+			'L_DATA' => $textdata['date_in_future']));
 	}
 }
 
 
-if (isset($_GET[unbekannt]))
+if (isset($_GET['unbekannt']))
 {
 	if (isset($_GET[datum])) $submit_date="?datum=$_GET[datum]";
 	else if (isset($_GET[sdatum])) $submit_date="?datum=$_GET[sdatum]";
 	else  $submit_date="";
 	$template->assign_block_vars('change_name_from_unkown', array(
-		'DATA_ID_FROM_DB' => $_GET[einid],
-		'L_SUBMIT_ENTRY' => $textdata[addadress_eintrag_aufnehmen],
+		'DATA_ID_FROM_DB' => $_GET['einid'],
+		'L_SUBMIT_ENTRY' => $textdata['addadress_eintrag_aufnehmen'],
 		'DATE' => $submit_date));
 }
-if (isset($_POST[eintragen]))
+if (isset($_POST['eintragen']))
 {
 	$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 	$query=sprintf("UPDATE angerufene SET name=%s WHERE id=%s",
-		$dataB->sql_check($_POST[newname]),
-		$dataB->sql_checkn($_POST[newid]));
+		$dataB->sql_check($_POST['newname']),
+		$dataB->sql_checkn($_POST['newid']));
 	$dataB->sql_query($query);
 	$dataB->sql_close();
 }
 $template->assign_vars(array(
-		'L_DATE' => $textdata[stat_anrufer_datum],
-		'L_CLOCK' => $textdata[stat_anrufer_uhrzeit],
-		'L_CALL_NUMBER' => $textdata[stat_anrufer_rufnummer],
-		'L_CALLERS_NAME' =>$textdata[showstatnew_name],
-		'L_COPY_TO_ADDR' => $textdata[showstatnew_ins_addr]));
+		'L_DATE' => $textdata['stat_anrufer_datum'],
+		'L_CLOCK' => $textdata['stat_anrufer_uhrzeit'],
+		'L_CALL_NUMBER' => $textdata['stat_anrufer_rufnummer'],
+		'L_CALLERS_NAME' =>$textdata['showstatnew_name'],
+		'L_COPY_TO_ADDR' => $textdata['showstatnew_ins_addr']));
 if ($_SESSION['show_type'])
 {
 	$template->assign_block_vars('userconfig_show_typ', array());
-	$template->assign_vars(array('L_CALLERS_TYP' => $textdata[showstatnew_anrufertyp]));
+	$template->assign_vars(array('L_CALLERS_TYP' => $textdata['showstatnew_anrufertyp']));
 }
 if ($_SESSION['show_prefix'])
 {
 	$template->assign_block_vars('userconfig_show_prefix', array());
-	$template->assign_vars(array('L_FROM_CITY' => $textdata[showstatnew_aus_ort]));
+	$template->assign_vars(array('L_FROM_CITY' => $textdata['showstatnew_aus_ort']));
 }
 if ($_SESSION['show_msn'])
 {
 	$template->assign_block_vars('userconfig_show_msn', array());
-	$template->assign_vars(array('L_CALL_TO_MSN' => $textdata[stat_anrufer_MSN]));
+	$template->assign_vars(array('L_CALL_TO_MSN' => $textdata['stat_anrufer_MSN']));
 }
 if ($_SESSION['show_callback'])
 {
 	$template->assign_block_vars('userconfig_show_call_back', array());
-	$template->assign_vars(array('L_SHOW_CALL_BACK' => $textdata[showstatnew_zurueckrufen]));
+	$template->assign_vars(array('L_SHOW_CALL_BACK' => $textdata['showstatnew_zurueckrufen']));
 }
 if ($_SESSION['allow_delete']) 
 {
 	$template->assign_block_vars('userconfig_show_delete', array());
-	$template->assign_vars(array('L_DELETE_ENTRY_TITLE' => $textdata[showstatnew_loeschen]));
+	$template->assign_vars(array('L_DELETE_ENTRY_TITLE' => $textdata['showstatnew_loeschen']));
 }
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 $sql_query_1="SELECT  t1.id,t1.rufnummer,t1.datum,t1.uhrzeit,t1.name,t1.dienst,
@@ -211,34 +211,34 @@ while($daten=$dataB->sql_fetch_assoc($result_angerufene))
  $anz_insaddr="";
  $anz_rueckruf="";
  $anz_msn="";
-if ($daten[vorwahl]=="cell phone")
+if ($daten['vorwahl']=="cell phone")
   {
-   $anz_vorwahl=$textdata[cell_pone];
+   $anz_vorwahl=$textdata['cell_pone'];
   }
   else
   {
-   $anz_vorwahl=$daten[vorwahl];
+   $anz_vorwahl=$daten['vorwahl'];
   }
-   if ($daten[rufnummer]=="unbekannt" && $daten[name]=="unbekannt")
+   if ($daten['rufnummer']=="unbekannt" && $daten['name']=="unbekannt")
     {
-     if (isset($_GET[datum])) $submit_date="&datum=$_GET[datum]";
-     else if (isset($_GET[sdatum])) $submit_date="&datum=$_GET[sdatum]";
+     if (isset($_GET['datum'])) $submit_date="&datum=".$_GET['datum'];
+     else if (isset($_GET['sdatum'])) $submit_date="&datum=".$_GET['sdatum'];
      else $submit_date=""; 
      $anz_name="<a href=\"./showstatnew.php?unbekannt=yes&#038;einid=$daten[id]$submit_date\">unbekannt</a>";
      $anz_rueckruf="<a href=\"./callback.php?add=yes&#038;addr=\">
    <img src=\"./images/1leftarrow.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
     }
-   elseif ($daten[rufnummer]!="unbekannt" && $daten[name_last]==NULL)
+   elseif ($daten['rufnummer']!="unbekannt" && $daten['name_last']==NULL)
     {
-     $anz_name=$daten[name];
-     $wertaddaddr=handynr_vorhanden($daten[rufnummer]);
+     $anz_name=$daten['name'];
+     $wertaddaddr=handynr_vorhanden($daten['rufnummer']);
      $anz_insaddr="<a href=\"./addressbook_add.php?$wertaddaddr\"><img src=\"./images/1rightarrow.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\" /></a>";
      $anz_rueckruf="<a href=\"./callback.php?add=yes&#038;addr=&#038;nr=$daten[rufnummer]\">
    <img src=\"./images/1leftarrow.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
     }
-   elseif ($daten[rufnummer]=="unbekannt" && $daten[name]!="unbekannt")
+   elseif ($daten['rufnummer']=="unbekannt" && $daten['name']!="unbekannt")
     {
-     $anz_name=$daten[name];
+     $anz_name=$daten['name'];
      $anz_rueckruf="<a href=\"./callback.php?add=yes&#038;addr=\">
    <img src=\"./images/1leftarrow.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
     }
@@ -249,20 +249,20 @@ if ($daten[vorwahl]=="cell phone")
      $anz_rueckruf="<a href=\"./callback.php?add=yes&amp;addr=$daten[ADDR_ID]\">
    <img src=\"./images/1leftarrow.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
     }
-    if ($daten[msn_name]==NULL)
+    if ($daten['msn_name']==NULL)
      {
-      $anz_msn=$daten[msn];
+      $anz_msn=$daten['msn'];
      }
     else
      {
-      $anz_msn=$daten[msn_name];
+      $anz_msn=$daten['msn_name'];
      }
     //MSNS überprüfen:
-    $show_entry_msns=msns_ueberpruefen($userconfig['msns'],$daten[msn]);
+    $show_entry_msns=msns_ueberpruefen($userconfig['msns'],$daten['msn']);
     //Datum umwandeln, und wegen Heute/Gestern funktion:
-    $anz_datum=anzeige_datum(mysql_datum($daten[datum]));
+    $anz_datum=anzeige_datum(mysql_datum($daten['datum']));
     //ermittle Dienstkennung:
-    $anz_dienst=ermittle_typ_anruf($daten[dienst]);
+    $anz_dienst=ermittle_typ_anruf($daten['dienst']);
     //TEMPLATE FUELLEN ANFANG:
     if ($show_entry_msns)
      {  
@@ -274,8 +274,8 @@ if ($daten[vorwahl]=="cell phone")
 	'DATA_ROW_COLOR' => $color,
 	'DATA_SHOW_SINGEL_STAT' => $anz_statistik,
 	'DATA_SHOW_DATE' => $anz_datum,
-	'DATA_SHOW_CLOCK' => $daten[uhrzeit],
-	'DATA_SHOW_NUMBER' => $daten[rufnummer],
+	'DATA_SHOW_CLOCK' => $daten['uhrzeit'],
+	'DATA_SHOW_NUMBER' => $daten['rufnummer'],
 	'DATA_SHOW_CALLERS_NAME' => $anz_name,
 	'DATA_TO_ADDR' => $anz_insaddr));
 
@@ -298,8 +298,8 @@ if ($_SESSION['show_callback'])
 if ($_SESSION['allow_delete'])
  {
   $template->assign_block_vars('tab1.show_delete_func', array(
-  	'DATA_LINK_DELETE_FUNC' => $daten[id].$loeschen_seiten,
-	'L_DELETE_ENTRY_FROM_DB' => $textdata[showstatnew_loesche_db]));
+  	'DATA_LINK_DELETE_FUNC' => $daten['id'].$loeschen_seiten,
+	'L_DELETE_ENTRY_FROM_DB' => $textdata['showstatnew_loesche_db']));
  }
  $i++;
  }//END SHOW MSN
@@ -307,7 +307,7 @@ if ($_SESSION['allow_delete'])
  
    
 }//END WHILE $result_angerufene
-$template->assign_vars(array('L_SHOW_ALL_CALLS_FROM_AB' => $textdata[showstatnew_alle_eintraege]));
+$template->assign_vars(array('L_SHOW_ALL_CALLS_FROM_AB' => $textdata['showstatnew_alle_eintraege']));
 $template->pparse('overall_body');
 include("./footer.inc.php");
 ?>

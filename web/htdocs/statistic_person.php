@@ -18,7 +18,7 @@ include("./header.inc.php");
  
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 $query=sprintf("SELECT * FROM addressbook WHERE id=%s", 
-		$dataB->sql_check($_GET[id]));
+		$dataB->sql_check($_GET['id']));
 $result_adressbuch=$dataB->sql_query($query);
 $data_adressbuch=$dataB->sql_fetch_assoc($result_adressbuch);
 $dataB->sql_close();
@@ -27,8 +27,8 @@ $dataB->sql_close();
 
 $template->set_filenames(array('overall_body' => 'templates/'.$_SESSION['template'].'/statistic_person.tpl'));
 $template->assign_vars(array(
-		'L_SITE_TITLE'  => $textdata[stat_anrufer_ueberschrift]." ".$data_adressbuch[name_first]." ".$data_adressbuch[name_last]));
-$id=$data_adressbuch[id];
+		'L_SITE_TITLE'  => $textdata['stat_anrufer_ueberschrift']." ".$data_adressbuch['name_first']." ".$data_adressbuch['name_last']));
+$id=$data_adressbuch['id'];
 
 //Daten sammeln:
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
@@ -65,60 +65,60 @@ $anrufe_woche= round($ges_anzahl/$wochen_genau, 2);
 
 $template->assign_block_vars('tab1',array(
 	'L_DETAIL_VIEW' => 'Detailansicht',
-	'L_ADDR_FRIST_NAME' => $textdata[addadress_vorname],
-	'L_ADDR_LAST_NAME' => $textdata[addadress_nachname],
-	'DATA_FIRST_NAME' => $data_adressbuch[name_first],
-	'DATA_LAST_NAME' => $data_adressbuch[name_last]));
+	'L_ADDR_FRIST_NAME' => $textdata['addadress_vorname'],
+	'L_ADDR_LAST_NAME' => $textdata['addadress_nachname'],
+	'DATA_FIRST_NAME' => $data_adressbuch['name_first'],
+	'DATA_LAST_NAME' => $data_adressbuch['name_last']));
 
 $result=$dataB->sql_query("SELECT number FROM phonenumbers WHERE addr_id='$id' AND typ='1'");
 while($daten=$dataB->sql_fetch_assoc($result))
  {
    $template->assign_block_vars('show_tele',array(
-   		'L_TELE' => $textdata[addadress_telefonnummer],
-		'DATA_TELE' => $daten[number]));	
+   		'L_TELE' => $textdata['addadress_telefonnummer'],
+		'DATA_TELE' => $daten['number']));	
  }	
 
 $result=$dataB->sql_query("SELECT number FROM phonenumbers WHERE addr_id='$id' AND typ='2'");
 while($daten=$dataB->sql_fetch_assoc($result))
  {
    $template->assign_block_vars('show_cell_phone',array(
-   		'L_CELL_PHONE' => $textdata[addadress_handy],
-		'DATA_CELL_PHONE' => $daten[number]));	
+   		'L_CELL_PHONE' => $textdata['addadress_handy'],
+		'DATA_CELL_PHONE' => $daten['number']));	
  }	
 
 $result=$dataB->sql_query("SELECT number FROM phonenumbers WHERE addr_id='$id' AND typ='3'");
 while($daten=$dataB->sql_fetch_assoc($result))
  {
    $template->assign_block_vars('show_fax',array(
-   		'L_FAX' => $textdata[addadress_fax],
-		'DATA_FAX' => $daten[number]));	
+   		'L_FAX' => $textdata['addadress_fax'],
+		'DATA_FAX' => $daten['number']));	
  }	
  
 $dataB->sql_close();
 $template->assign_block_vars('tab2',array(
-	'L_STAT_CALLERS_COUNTS' => $textdata[stat_anrufer_zahlen_fakten],
-	'L_ALL_CALLS' => $textdata[stat_anrufer_gesamte_anrufe],
+	'L_STAT_CALLERS_COUNTS' => $textdata['stat_anrufer_zahlen_fakten'],
+	'L_ALL_CALLS' => $textdata['stat_anrufer_gesamte_anrufe'],
 	'DATA_ALL_CALLS' => $ges_anzahl,
-	'L_STAT_TIME' => $textdata[stat_anrufer_geht_ueber],
+	'L_STAT_TIME' => $textdata['stat_anrufer_geht_ueber'],
 	'DATA_WEEKS' => $wochen_genau,
 	'L_WEKKS' => 'Wochen',
-	'L_LAST_CALL' => $textdata[stat_anrufer_letzter_anruf],
+	'L_LAST_CALL' => $textdata['stat_anrufer_letzter_anruf'],
 	'DATA_LAST_DATE' => $datum_letzter,
 	'DATA_LAST_TIME' => $uhrzeit_letzer,
-	'L_FRIST_CALL' => $textdata[stat_anrufer_erster_anruf],
+	'L_FRIST_CALL' => $textdata['stat_anrufer_erster_anruf'],
 	'DATA_FIRST_DATE' => $datum_erster,
 	'DATA_FIRST_TIME' => $uhrzeit_erster,
-	'L_CALLS_AVERAGE' => $textdata[stat_anrufer_durchschnitt_anrufe],
+	'L_CALLS_AVERAGE' => $textdata['stat_anrufer_durchschnitt_anrufe'],
 	'DATA_CALLS_AVERAGE' => $anrufe_woche)); 
  
 $template->assign_vars(array('DATA_ID_CALLERS' => $id)); 
 
 $template->assign_block_vars('tab3',array(
-	'L_LSIT_ALL_CALLS' => $textdata[stat_anrufer_alle_anrufe_von]." ".$data_adressbuch[name_first]." ".$data_adressbuch[name_last],
-	'L_DATE' => $textdata[stat_anrufer_datum],
-	'L_TIME' => $textdata[stat_anrufer_uhrzeit],
-	'L_CALL_NUMBER' => $textdata[stat_anrufer_rufnummer],
-	'L_CALL_TO_MSN' => $textdata[stat_anrufer_MSN]));
+	'L_LSIT_ALL_CALLS' => $textdata['stat_anrufer_alle_anrufe_von']." ".$data_adressbuch['name_first']." ".$data_adressbuch['name_last'],
+	'L_DATE' => $textdata['stat_anrufer_datum'],
+	'L_TIME' => $textdata['stat_anrufer_uhrzeit'],
+	'L_CALL_NUMBER' => $textdata['stat_anrufer_rufnummer'],
+	'L_CALL_TO_MSN' => $textdata['stat_anrufer_MSN']));
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 $sql_query="SELECT datum,uhrzeit,msn,rufnummer FROM
 	angerufene AS t1,
@@ -137,17 +137,17 @@ while ($data_angerufene=$dataB->sql_fetch_assoc($result))
 
    $template->assign_block_vars('tab4', array(
    	'DATA_COLOR' => $color,
-	'DATA_DATE' => mysql_datum($data_angerufene[datum]),
-	'DATA_TIME' => $data_angerufene[uhrzeit],
-	'DATA_NUMBER' => $data_angerufene[rufnummer],
-	'DATA_CALL_TO_MSN' => $data_angerufene[msn]));
+	'DATA_DATE' => mysql_datum($data_angerufene['datum']),
+	'DATA_TIME' => $data_angerufene['uhrzeit'],
+	'DATA_NUMBER' => $data_angerufene['rufnummer'],
+	'DATA_CALL_TO_MSN' => $data_angerufene['msn']));
    $i++;
   }
  } // gar kein anruf da ist:
 else
  {
   $template->assign_block_vars('no_call_from_user',array(
-  	'L_MSG_NO_CALL' => $textdata[stat_anrufer_keine_anrufe_gefunden]." ".$data_adressbuch[vorname]." ".$data_adressbuch[nachname]." ".$textdata[stat_anrufer_keine_anrufe_gefunden_ende]));
+  	'L_MSG_NO_CALL' => $textdata['stat_anrufer_keine_anrufe_gefunden']." ".$data_adressbuch['vorname']." ".$data_adressbuch['nachname']." ".$textdata['stat_anrufer_keine_anrufe_gefunden_ende']));
  }
 
 $template->pparse('overall_body');

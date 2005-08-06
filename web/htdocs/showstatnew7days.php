@@ -23,24 +23,24 @@ for ($e=0;$e<=7;$e++)
  $tag[$e]=date("D",$tstamp );
  }
 $template->set_filenames(array('overall_body' => './templates/'.$_SESSION['template'].'/show_call_stat7.tpl'));
-$template->assign_vars(array('L_SITE_TITLE' => $textdata[days7_7tage_uebersicht]));
+$template->assign_vars(array('L_SITE_TITLE' => $textdata['days7_7tage_uebersicht']));
 
 
 
-if (isset($_GET[unbekannt]))
+if (isset($_GET['unbekannt']))
  {
   $template->assign_block_vars('change_name_from_unkown', array(
-  	'DATA_ID_FROM_DB' => $_GET[einid],
-	'L_SUBMIT_ENTRY' => $textdata[addadress_eintrag_aufnehmen]));
+  	'DATA_ID_FROM_DB' => $_GET['einid'],
+	'L_SUBMIT_ENTRY' => $textdata['addadress_eintrag_aufnehmen']));
  }
 
 
-if (isset($_POST[eintragen]))
+if (isset($_POST['eintragen']))
   {
    $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
    $query=sprintf("UPDATE angerufene SET name=%s WHERE id=%s",
-		$dataB->sql_check($_POST[newname]),
-		$dataB->sql_checkn($_POST[newid]));
+		$dataB->sql_check($_POST['newname']),
+		$dataB->sql_checkn($_POST['newid']));
    $dataB->sql_query($query);
    $dataB->sql_close();
   }
@@ -50,56 +50,56 @@ for ($es=0;$es<=7;$es++)
 switch ($tag[$es])
    {
     case 'Mon':
-     $tag[$es]="$textdata[days7_montag]";
+     $tag[$es]=$textdata['days7_montag'];
     break;
     case 'Tue':
-     $tag[$es]="$textdata[days7_dienstag]";
+     $tag[$es]=$textdata['days7_dienstag'];
     break;
     case 'Wed':
-     $tag[$es]="$textdata[days7_mittwoch]";
+     $tag[$es]=$textdata['days7_mittwoch'];
     break;
     case 'Thu':
-     $tag[$es]="$textdata[days7_donnerstag]";
+     $tag[$es]=$textdata['days7_donnerstag'];
     break;
     case 'Fri':
-     $tag[$es]="$textdata[days7_freitag]";
+     $tag[$es]=$textdata['days7_freitag'];
     break;
     case 'Sat':
-     $tag[$es]="$textdata[days7_samstag]";
+     $tag[$es]=$textdata['days7_samstag'];
     break;
     case 'Sun':
-     $tag[$es]="$textdata[days7_sonntag]";
+     $tag[$es]=$textdata['days7_sonntag'];
     break;
    }
 
 $template->assign_block_vars('tab0',array(
 		'L_DATE_P' => $datum[$es],
 		'L_DAY_P' => $tag[$es],
-  		'L_DATE' => $textdata[stat_anrufer_datum],
-		'L_CLOCK' => $textdata[stat_anrufer_uhrzeit],
-		'L_CALL_NUMBER' => $textdata[stat_anrufer_rufnummer],
-		'L_CALLERS_NAME' =>$textdata[showstatnew_name],
-		'L_COPY_TO_ADDR' => $textdata[showstatnew_ins_addr]));
-if ($_SESSION['show_type'])
+  		'L_DATE' => $textdata['stat_anrufer_datum'],
+		'L_CLOCK' => $textdata['stat_anrufer_uhrzeit'],
+		'L_CALL_NUMBER' => $textdata['stat_anrufer_rufnummer'],
+		'L_CALLERS_NAME' =>$textdata['showstatnew_name'],
+		'L_COPY_TO_ADDR' => $textdata['showstatnew_ins_addr']));
+if (isset($_SESSION['show_type']) && $_SESSION['show_type'])
  {
-  $template->assign_block_vars('tab0.userconfig_show_typ',array('L_CALLERS_TYP' => $textdata[showstatnew_anrufertyp]));
+  $template->assign_block_vars('tab0.userconfig_show_typ',array('L_CALLERS_TYP' => $textdata['showstatnew_anrufertyp']));
  }
-if ($_SESSION['show_prefix'])
+if (isset($_SESSION['show_prefix']) && $_SESSION['show_prefix'])
  {
-  $template->assign_block_vars('tab0.userconfig_show_prefix',array('L_FROM_CITY' => $textdata[showstatnew_aus_ort]));
+  $template->assign_block_vars('tab0.userconfig_show_prefix',array('L_FROM_CITY' => $textdata['showstatnew_aus_ort']));
  }
-if ($_SESSION['show_msn'])
+if (isset($_SESSION['show_msn']) && $_SESSION['show_msn'])
  {
-  $template->assign_block_vars('tab0.userconfig_show_msn',array('L_CALL_TO_MSN' => $textdata[stat_anrufer_MSN]));
+  $template->assign_block_vars('tab0.userconfig_show_msn',array('L_CALL_TO_MSN' => $textdata['stat_anrufer_MSN']));
  }
-if ($_SESSION['show_callback'])
+if (isset($_SESSION['show_callback']) && $_SESSION['show_callback'])
  {
  
-  $template->assign_block_vars('tab0.userconfig_show_call_back',array('L_SHOW_CALL_BACK' => $textdata[showstatnew_zurueckrufen]));
+  $template->assign_block_vars('tab0.userconfig_show_call_back',array('L_SHOW_CALL_BACK' => $textdata['showstatnew_zurueckrufen']));
  }
-if ($_SESSION['allow_delete']) 
+if (isset($_SESSION['allow_delete']) && $_SESSION['allow_delete']) 
  {
-  $template->assign_block_vars('tab0.userconfig_show_delete',array('L_DELETE_ENTRY_TITLE' => $textdata[showstatnew_loeschen]));
+  $template->assign_block_vars('tab0.userconfig_show_delete',array('L_DELETE_ENTRY_TITLE' => $textdata['showstatnew_loeschen']));
  }
  
 
@@ -129,55 +129,55 @@ while($daten=$dataB->sql_fetch_assoc($result_angerufene))
  $anz_insaddr="";
  $anz_rueckruf="";
  $anz_msn="";
-if ($daten[vorwahl]=="cell phone")
+if ($daten['vorwahl']=="cell phone")
   {
-   $anz_vorwahl=$textdata[cell_pone];
+   $anz_vorwahl=$textdata['cell_pone'];
   }
   else
   {
-   $anz_vorwahl=$daten[vorwahl];
+   $anz_vorwahl=$daten['vorwahl'];
   }
-   if ($daten[rufnummer]=="unbekannt" && $daten[name]=="unbekannt")
+   if ($daten['rufnummer']=="unbekannt" && $daten['name']=="unbekannt")
     {
      $anz_name="<a href=\"./showstatnew7days.php?unbekannt=yes&#038;einid=$daten[id]\">unbekannt</a>";
      $anz_rueckruf="<a href=\"./callback.php?add=yes&#038;addr=\">
    <img src=\"./images/1leftarrow.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
     }
-   elseif ($daten[rufnummer]!="unbekannt" && $daten[name_last]==NULL)
+   elseif ($daten['rufnummer']!="unbekannt" && $daten['name_last']==NULL)
     {
-     $anz_name=$daten[name];
-     $wertaddaddr=handynr_vorhanden($daten[rufnummer]);
+     $anz_name=$daten['name'];
+     $wertaddaddr=handynr_vorhanden($daten['rufnummer']);
      $anz_insaddr="<a href=\"./addressbook_add.php?$wertaddaddr\"><img src=\"./images/1rightarrow.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\" /></a>";
      $anz_rueckruf="<a href=\"./callback.php?add=yes&#038;addr=\">
    <img src=\"./images/1leftarrow.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
     }
-   elseif ($daten[rufnummer]=="unbekannt" && $daten[name]!="unbekannt")
+   elseif ($daten['rufnummer']=="unbekannt" && $daten['name']!="unbekannt")
     {
-     $anz_name=$daten[name];
+     $anz_name=$daten['name'];
      $anz_rueckruf="<a href=\"./callback.php?add=yes&#038;addr=\">
    <img src=\"./images/1leftarrow.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
     }
    else
     {
-     $anz_name="<a href=\"./addressbook.php?id=$daten[ADDR_ID]#find\">$daten[name_first] $daten[name_last]</a>";
-     $anz_statistik="<a href=\"./statistic_person.php?id=$daten[ADDR_ID]\" title=\"$textdata[showstatnew_zeige_anrufstat] $daten[name_first] $daten[name_last]\"><img  src=\"./images/data.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\" /></a>";
+     $anz_name='<a href="./addressbook.php?id=' . $daten['ADDR_ID'] . '#find">' . $daten['name_first'].' '.$daten['name_last'] . '</a>';
+     $anz_statistik='<a href="./statistic_person.php?id='.$daten['ADDR_ID'].'" title="'.$textdata['showstatnew_zeige_anrufstat'].' '.$daten['name_first'].' '. $daten['name_last'].'"><img  src="./images/data.png" style="border-width:0px;vertical-align:middle;" alt="" /></a>';
      $anz_rueckruf="<a href=\"./callback.php?add=yes&amp;addr=$daten[ADDR_ID]\">
    <img src=\"./images/1leftarrow.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
     }
-    if ($daten[msn_name]==NULL)
+    if ($daten['msn_name']==NULL)
      {
-      $anz_msn=$daten[msn];
+      $anz_msn=$daten['msn'];
      }
     else
      {
-      $anz_msn=$daten[msn_name];
+      $anz_msn=$daten['msn_name'];
      }
     //MSNS überprüfen:
-    $show_entry_msns=msns_ueberpruefen($userconfig['msns'],$daten[msn]);
+    $show_entry_msns=msns_ueberpruefen($userconfig['msns'],$daten['msn']);
     //Datum umwandeln, und wegen Heute/Gestern funktion:
-    $anz_datum=anzeige_datum(mysql_datum($daten[datum]));
+    $anz_datum=anzeige_datum(mysql_datum($daten['datum']));
     //ermittle Dienstkennung:
-    $anz_dienst=ermittle_typ_anruf($daten[dienst]); 
+    $anz_dienst=ermittle_typ_anruf($daten['dienst']); 
 
 if ($show_entry_msns) 
 {  
@@ -189,32 +189,32 @@ if ($show_entry_msns)
   'DATA_ROW_COLOR' => $color,
   'DATA_SHOW_SINGEL_STAT' => $anz_statistik,
   'DATA_SHOW_DATE' => $anz_datum,
-  'DATA_SHOW_CLOCK' => $daten[uhrzeit],
-  'DATA_SHOW_NUMBER' => $daten[rufnummer],
+  'DATA_SHOW_CLOCK' => $daten['uhrzeit'],
+  'DATA_SHOW_NUMBER' => $daten['rufnummer'],
   'DATA_SHOW_CALLERS_NAME' => $anz_name,
   'DATA_TO_ADDR' => $anz_insaddr));
 
-if ($_SESSION['show_type'])
+if (isset($_SESSION['show_type']) && $_SESSION['show_type'])
  {
   $template->assign_block_vars('tab0.tab1.show_typ', array('DATA_CALLERS' =>$anz_dienst));
  }
-if ($_SESSION['show_prefix'])
+if (isset($_SESSION['show_prefix']) && $_SESSION['show_prefix'])
  {
   $template->assign_block_vars('tab0.tab1.show_prefix', array('DATA_SHOW_PREFIX' => $anz_vorwahl));
  }
-if ($_SESSION['show_msn']) 
+if (isset($_SESSION['show_msn']) && $_SESSION['show_msn']) 
  {
   $template->assign_block_vars('tab0.tab1.show_msn', array('DATA_SHOW_MSN' => $anz_msn));
  }
-if ($_SESSION['show_callback']) 
+if (isset($_SESSION['show_callback']) && $_SESSION['show_callback']) 
  {
   $template->assign_block_vars('tab0.tab1.show_call_back',array('DATA_SHOW_CALL_BACK' =>$anz_rueckruf ));
  }
-if ($_SESSION['allow_delete'])
+if (isset($_SESSION['allow_delete']) && $_SESSION['allow_delete'])
  {
   $template->assign_block_vars('tab0.tab1.show_delete_func', array(
-  	'DATA_LINK_DELETE_FUNC' => $daten[id].$loeschen_seiten,
-	'L_DELETE_ENTRY_FROM_DB' => $textdata[showstatnew_loesche_db]));
+  	'DATA_LINK_DELETE_FUNC' => $daten['id'].$loeschen_seiten,
+	'L_DELETE_ENTRY_FROM_DB' => $textdata['showstatnew_loesche_db']));
  }
  $i++;
  }//show entry msn 

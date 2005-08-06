@@ -17,17 +17,17 @@ include("./login_check.inc.php");
 include("./header.inc.php");
 
 $template->set_filenames(array('overall_body' => 'templates/'.$_SESSION['template'].'/statistic_all_calls.tpl'));
-$template->assign_vars(array('L_SITE_TITLE' => $textdata[stat_gesamt_stat_alle_anrufe]));
+$template->assign_vars(array('L_SITE_TITLE' => $textdata['stat_gesamt_stat_alle_anrufe']));
    
-if ($_GET[order]=="firstname")
+if (isset($_GET['order']) && $_GET['order']=="firstname")
  {
   $oderby="name_first";
  }
-elseif ($_GET[order]=="lastname")
+elseif (isset($_GET['order']) && $_GET['order']=="lastname")
  {
   $oderby="name_last";
  }
-elseif ($_GET[order]=="date")
+elseif (isset($_GET['order']) && $_GET['order']=="date")
  {
   $oderby="datum";
  }
@@ -35,7 +35,7 @@ elseif ($_GET[order]=="date")
  {
   $oderby="anzahl";
  }
-if ($_GET[sortby]=="up")
+if (isset($_GET['sortby']) && $_GET['sortby']=="up")
  {
   $sortby="ASC";
  }
@@ -60,7 +60,7 @@ $ges_anzahl=$dataB->sql_num_rows($result_data);
   if (!$ges_anzahl)
     {
      $template->assign_block_vars('no_entry_found',array(
-     		'L_MSG_NOT_FOUND' => $textdata[stat_gesamt_keine_stat]));
+     		'L_MSG_NOT_FOUND' => $textdata['stat_gesamt_keine_stat']));
      $dataB->sql_close();
      $template->pparse('overall_body');  
      include("./footer.inc.php");
@@ -70,12 +70,11 @@ $ges_anzahl=$dataB->sql_num_rows($result_data);
  
 
 $template->assign_vars(array(
-	'DATA_ORDER_OPTION' =>$option_order,
-	'L_SORT_OPTION' => $textdata[stat_gesamt_sortierung],
-	'L_ADDR_LAST_NAME' =>  $textdata[addadress_nachname],
-	'L_ADDR_FIRST_NAME' => $textdata[addadress_vorname],
-	'L_ALL_CALLS' => $textdata[stat_gesamt_anrufe],
-	'L_LAST_CALL' => $textdata[stat_anrufer_letzter_anruf]));
+	'L_SORT_OPTION' => $textdata['stat_gesamt_sortierung'],
+	'L_ADDR_LAST_NAME' =>  $textdata['addadress_nachname'],
+	'L_ADDR_FIRST_NAME' => $textdata['addadress_vorname'],
+	'L_ALL_CALLS' => $textdata['stat_gesamt_anrufe'],
+	'L_LAST_CALL' => $textdata['stat_anrufer_letzter_anruf']));
 $i=1;
 while($data=$dataB->sql_fetch_assoc($result_data)) 
  {
@@ -90,11 +89,11 @@ while($data=$dataB->sql_fetch_assoc($result_data))
   $template->assign_block_vars('tab1',array(
   	'DATA_COLOR' => $color,
 	'DATA_INDEX' => $i,
-	'DATA_ID' => $data[id],
-	'DATA_LAST_NAME' => $data[name_last],
-	'DATA_FIRST_NAME' => $data[name_first],
-	'DATA_COUNT' => $data[anzahl],
-	'DATA_LAST_CALL' => mysql_datum($data[datum])));
+	'DATA_ID' => $data['id'],
+	'DATA_LAST_NAME' => $data['name_last'],
+	'DATA_FIRST_NAME' => $data['name_first'],
+	'DATA_COUNT' => $data['anzahl'],
+	'DATA_LAST_CALL' => mysql_datum($data['datum'])));
   $i++;
  }
 

@@ -1,11 +1,12 @@
 <?php
+error_reporting(E_ALL);
 include("./includes/conf.inc.php");
 include("./language/".$config['language'].".inc.php");
 include("./includes/functions.php");
 session_start();
 $login_ok=0;
 $login_cockie=0;
-if ($_SESSION['remember_login'])
+if (isset($_SESSION['remember_login']) && $_SESSION['remember_login'])
 {
 	setcookie("ck_userid",$_SESSION['userid'], time()+172800000 );  
 	setcookie("ck_passwd",$_SESSION['password'], time()+172800000 );  
@@ -55,12 +56,17 @@ if ($result_userlist && $password!="")
 	}
 	//update lastlogin_d and lastlogin_t
 	//UPDATE capi_version SET version='0.6.7.2' WHERE id='1'
-	$datum=$dataB->sql_fetch_assoc($dataB->sql_query("SELECT lastlogin_d FROM users WHERE username='$username'"));
-	if ($datum[lastlogin_d]!=date("Y-m-d"))
+	$sqlquery=sprintf("SELECT lastlogin_d FROM users WHERE id=%s",
+		$dataB->sql_checkn($user_id));
+	$datum=$dataB->sql_fetch_assoc($sqlquery);
+	if ($datum['lastlogin_d']!=date("Y-m-d"))
 	{
-		$dataB->sql_query("UPDATE users SET lastlogin_t=NOW(),lastlogin_d=NOW() WHERE username='$username'");
+		$sqlquery=sprintf("UPDATE users SET lastlogin_t=NOW(),lastlogin_d=NOW() WHERE id=%s",
+		$dataB->sql_checkn($user_id));
+		$dataB->sql_query($sqlquery);
 	}
-	$result_callback=$dataB->sql_query("SELECT user_id,notify FROM callback WHERE user_id='$row_userlist[id]' AND notify='1'");
+	$sqlquery=sprintf("SELECT user_id,notify FROM callback WHERE user_id=%s AND notify='1'", $dataB->sql_checkn($user_id));
+	$result_callback=$dataB->sql_query($sqlquery);
 	$daten_callback=$dataB->sql_fetch_assoc($result_callback);
 	if ($daten_callback)
 	{

@@ -19,6 +19,7 @@ Capi2name 0.6.8 YYYY-MM-DD - Jonas Genannt - <jonas.genannt@capi2name.de> BETA
 	o PHP: Fixed: calendar.php and highlighting two days
 	o PHP: Fixed: addressbook_show.php if nothing found: grafics errors
 	o PHP: Fixed: index.php and index.tpl displays capisuite status
+	o PHP: Fixed: error in all files with array ['']
 	o PHP: Improved: callback Site: del entry and forwarding
 	o PHP: Improved: callback function
 	o PHP: Improved: login_check.inc.php and selecting table
@@ -52,13 +53,18 @@ Capi2name 0.6.8 YYYY-MM-DD - Jonas Genannt - <jonas.genannt@capi2name.de> BETA
 	o PHP: Added: language/index.html
 	o PHP: Added: link in admin-interface to projecthomepage
 	o PHP: Added: checks for SQL-Injections
+	o PHP: Added: admin/user_add/user_edit: option for wav/ogg/mp3
+	o PHP: Added: configpage.php: option for wav/ogg/mp3
 	o PHP: Added: cs_hearmessage.php: user/password checks for downloading msg
-	o PHP: Added: cs_hearmessage.php complete rewrite now DB based
+	o PHP: Added: cs_hearmessage.php: complete rewrite now DB based
+	o PHP: Added: cs_hearmessage.php: user can change between wav/ogg/mp3
+	o PHP: Added: cs_viewfax.php: complete rewrite new DB based
+	o PHP: Added: cs_viewfax.php: user/passwd checks for downloading fax
 	o PHP: Added: cs_fax.php complete rewrite now DB based
 	o PHP: Added: cs_answerphone.php complete rewrite now DB based
 	o PHP: Added: New icons
 	o PHP: Added: showstatnew.php warning if date is in future
-	o PHP: Added: showstatnew.php buttons for navigate thow(durch) dates left and right
+	o PHP: Added: showstatnew.php buttons for navigate through dates 
 	o C2N: removed: daemon/contrib/SuSE: incompatible with this version
 	o C2N: removed: daemon/contrib/isdn4linux: incompatible with this version
 	o C2N: removed: daemon/contrib/capisuite: incompatible with this version

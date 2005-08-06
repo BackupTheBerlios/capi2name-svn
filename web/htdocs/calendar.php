@@ -17,26 +17,26 @@ include("./login_check.inc.php");
 include("./header.inc.php");
 
 $template->set_filenames(array('overall_body' => 'templates/'.$_SESSION['template'].'/calendar.tpl'));
-$template->assign_vars(array('L_SITE_TITLE' => $textdata[header_inc_kalender]));
+$template->assign_vars(array('L_SITE_TITLE' => $textdata['header_inc_kalender']));
 
 //uebergabe kalender.php?datum=yes&monat=04&jahr=2004
 //wenn nicht gesetzt, dann diesen Monat nehmen:
-if (   !isset($_POST[monat]) OR 
-	!isset($_POST[jahr]) OR 
-	!is_numeric($_POST[jahr]) OR 
-	!is_numeric($_POST[monat]))
+if (   !isset($_POST['monat']) OR 
+	!isset($_POST['jahr']) OR 
+	!is_numeric($_POST['jahr']) OR 
+	!is_numeric($_POST['monat']))
 {
-	$cur_monat=date(n);
-	$cur_jahr=date(Y);
+	$cur_monat=date('n');
+	$cur_jahr=date('Y');
 }
 else
 {
-	$cur_monat=$_POST[monat];
-	$cur_jahr=$_POST[jahr];
+	$cur_monat=$_POST['monat'];
+	$cur_jahr=$_POST['jahr'];
 }
-$tage_des_monats=date(t, mktime(0,0,0,$cur_monat,01, $cur_jahr));
-$erster_tag=date(D, mktime(0,0,0,$cur_monat,01,$cur_jahr));
-$monat_zeichen=date(M, mktime(0,0,0,$cur_monat,01,$cur_jahr));
+$tage_des_monats=date('t', mktime(0,0,0,$cur_monat,01, $cur_jahr));
+$erster_tag=date('D', mktime(0,0,0,$cur_monat,01,$cur_jahr));
+$monat_zeichen=date('M', mktime(0,0,0,$cur_monat,01,$cur_jahr));
 
 if ($cur_monat != 10)  { $cur_monat = str_replace("0","",$cur_monat); }
 if ( $cur_monat < 10)  { $cur_monat="0$cur_monat"; }
@@ -61,7 +61,7 @@ else
 	$cur_monat_2=$cur_monat +1;
 	$cur_jahr_2=$cur_jahr ;
 }
-$tage_vormonat=date(t,mktime(0,0,0,$cur_monat_1,01,$cur_jahr_1)); 
+$tage_vormonat=date('t',mktime(0,0,0,$cur_monat_1,01,$cur_jahr_1)); 
 if ( $cur_monat_1 < 10) {  $cur_monat_1="0$cur_monat_1"; } 
 if ( $cur_monat_2 < 10) {  $cur_monat_2="0$cur_monat_2"; } 
 
@@ -72,15 +72,15 @@ $template->assign_vars(array(
 		'DATA_CUR_MONTH2' => $cur_monat_2,
 		'DATA_CUR_YEAR2'  => $cur_jahr_2,
 		'DATA_TITLE_YEAR' => $monat_zeichen ." ". $cur_jahr,
-		'L_DAY_MO'  => $textdata[kalender_tag_mo],
-		'L_DAY_TUE' => $textdata[kalender_tag_di],
-		'L_DAY_WED' => $textdata[kalender_tag_mi],
-		'L_DAY_THU' => $textdata[kalender_tag_do],
-		'L_DAY_FRI' => $textdata[kalender_tag_fr],
-		'L_DAY_SAT' => $textdata[kalender_tag_sa],
-		'L_DAY_SUN' => $textdata[kalender_tag_so]));
+		'L_DAY_MO'  => $textdata['kalender_tag_mo'],
+		'L_DAY_TUE' => $textdata['kalender_tag_di'],
+		'L_DAY_WED' => $textdata['kalender_tag_mi'],
+		'L_DAY_THU' => $textdata['kalender_tag_do'],
+		'L_DAY_FRI' => $textdata['kalender_tag_fr'],
+		'L_DAY_SAT' => $textdata['kalender_tag_sa'],
+		'L_DAY_SUN' => $textdata['kalender_tag_so']));
 
-
+$index=0;
 if ($erster_tag=="Mo")  {  $index=0; }
 if ($erster_tag=="Tue") {  $index=1; }
 if ($erster_tag=="Wed") {  $index=2; }
@@ -100,7 +100,7 @@ for ($i=1; $i<=$index; $i++)
 	{
 		$color=$row_color_2; 
 	}
-	if ($tage_vormonat==date(d) && $cur_monat_1==date(m) && $cur_jahr_1==date(Y)) $color=$hightlight_color; 
+	if ($tage_vormonat==date('d') && $cur_monat_1==date('m') && $cur_jahr_1==date('Y')) $color=$hightlight_color; 
 	
 	$template->assign_block_vars('tab1',array(
 		'DATA_COLOR' => $color,
@@ -120,7 +120,7 @@ for ( $e=1;  $e<=$tage_des_monats;  $e++)
 	{
 		$color=$row_color_2;
 	}
-	if ($e==date(d) && $cur_monat==date(m) && $cur_jahr==date(Y))
+	if ($e==date('d') && $cur_monat==date('m') && $cur_jahr==date('Y'))
 	{
 		$color=$hightlight_color;
 	}
@@ -156,7 +156,7 @@ for ($r=$index; $r<7;$r++)
 	{
 		$color=$row_color_2;
 	}
-	if ($tag==date(d) && $cur_monat_2==date(m)&& $cur_jahr_2==date(Y))
+	if ($tag==date('d') && $cur_monat_2==date('m')&& $cur_jahr_2==date('Y'))
 	{
 		$color=$hightlight_color;
 	}
@@ -169,8 +169,8 @@ for ($r=$index; $r<7;$r++)
 }
 
 $template->assign_vars(array(
-		'L_MSG_GO_TO' => $textdata[kalender_schnellsprung],
-		'L_MSG_GO' => $textdata[kalender_los]));
+		'L_MSG_GO_TO' => $textdata['kalender_schnellsprung'],
+		'L_MSG_GO' => $textdata['kalender_los']));
 
 for ($i=1; $i<=12; $i++)
 {

@@ -28,7 +28,8 @@ a:hover
 	 border-style:			solid;
 	 border-color:			#294C6B;
 	 width:				148px;
-	 position:			fixed;
+	 position:			absolute;
+	/* position:			fixed; */
 }
 *.header
 {
@@ -80,6 +81,7 @@ a:hover
 {
 	content:			"· ";
 	font-size:			large;
+	font-weight:normal;
 }
 #main
 {

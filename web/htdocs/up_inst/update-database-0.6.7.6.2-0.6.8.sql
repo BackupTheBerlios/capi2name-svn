@@ -21,6 +21,8 @@ CREATE TABLE `addressbook` (
 UPDATE `vorwahl` SET `name` = 'cell phone' WHERE `id` =2 LIMIT 1 ;
 
 ALTER TABLE `users` ADD `cs_user` char (8) AFTER `username`;
+ALTER TABLE `users` ADD `cs_audio` TINYINT( 2 ) DEFAULT '1' NOT NULL ;
+ALTER TABLE `users` ADD `cs_fax` TINYINT( 2 ) DEFAULT '1' NOT NULL ;
 
 ALTER TABLE `angerufene` CHANGE `aktive` `aktive` TINYINT( 2 ) DEFAULT '1' NOT NULL;
 UPDATE `angerufene` SET `aktive` = '1';

@@ -18,28 +18,28 @@ include("./header.inc.php");
 
 
 $template->set_filenames(array('overall_body' => 'templates/'.$_SESSION['template'].'/statistic_del_entry.tpl'));
-$template->assign_vars(array('L_SITE_TITLE' => $textdata[stat_loeschen]));
+$template->assign_vars(array('L_SITE_TITLE' => $textdata['stat_loeschen']));
 
 //ob er die Page anschauen darf:
  if (!$_SESSION['allow_delete'])
   {
    $template->assign_block_vars('not_allowed_view', array(
-   		'L_MSG_NOT_ALLOWED' => $textdata[nichtberechtigt]));
+   		'L_MSG_NOT_ALLOWED' => $textdata['nichtberechtigt']));
    $template->pparse('overall_body');
    include("./footer.inc.php");
    die();
   }
-if (isset($_POST[btn_loeschen]) && $_SESSION['allow_delete'])
+if (isset($_POST['btn_loeschen']) && $_SESSION['allow_delete'])
 {
 	//Eintrag löschen:
 	$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"]);
 	$sql=sprintf("UPDATE angerufene SET aktive='0' WHERE id=%s",
-		$dataB->sql_checkn($_POST[id]));
+		$dataB->sql_checkn($_POST['id']));
 	$res=$dataB->sql_query($sql);
 	$dataB->sql_close();
 	if ($_POST[datum]!="")
 	{
-		$datum="?datum=$_POST[datum]";
+		$datum="?datum=".$_POST['datum'];
 	}
 	else
 	{
@@ -48,33 +48,33 @@ if (isset($_POST[btn_loeschen]) && $_SESSION['allow_delete'])
 	if ($res)
 	{
 		$template->assign_block_vars('del_entry_successfully', array(
-			'L_MSG_SUCCESS' => $textdata[del_OK_forward],
+			'L_MSG_SUCCESS' => $textdata['del_OK_forward'],
 			'DATA_DATE' => $datum));
 	}
 }
 
-if (isset($_GET[id]) && $_SESSION['allow_delete'])
+if (isset($_GET['id']) && $_SESSION['allow_delete'])
 {
 	$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 	$sql=sprintf("SELECT * FROM angerufene WHERE id=%s",
-		$dataB->sql_checkn($_GET[id]));
+		$dataB->sql_checkn($_GET['id']));
 	$result=$dataB->sql_query($sql);
 	$dataB->sql_close();
 	$daten=$dataB->sql_fetch_assoc($result);
-	$datum1=mysql_datum($daten[datum]);
+	$datum1=mysql_datum($daten['datum']);
 	
 	$template->assign_block_vars('check_if_del',array(
-    		'L_MSG_CHECK_TO_DEL' => $textdata[stat_del_1].$_GET[id]. $textdata[stat_del_2],
-		'L_ID' => $textdata[id],
-		'L_DATE' => $textdata[stat_anrufer_datum],
-		'L_TIME' => $textdata[stat_anrufer_uhrzeit],
-		'L_NUMBER' => $textdata[stat_anrufer_rufnummer],
-		'DATA_ID' => $daten[id],
+    		'L_MSG_CHECK_TO_DEL' => $textdata['stat_del_1'].$_GET['id']. $textdata['stat_del_2'],
+		'L_ID' => $textdata['id'],
+		'L_DATE' => $textdata['stat_anrufer_datum'],
+		'L_TIME' => $textdata['stat_anrufer_uhrzeit'],
+		'L_NUMBER' => $textdata['stat_anrufer_rufnummer'],
+		'DATA_ID' => $daten['id'],
 		'DATA_DATE' => $datum1,
-		'DATA_TIME' => $daten[uhrzeit],
-		'DATA_NUMBER' => $daten[rufnummer],
-		'DATA_FROM_GET' => $_GET[datum],
-		'L_DELETE' => $textdata[delet]));
+		'DATA_TIME' => $daten['uhrzeit'],
+		'DATA_NUMBER' => $daten['rufnummer'],
+		'DATA_FROM_GET' => $_GET['datum'],
+		'L_DELETE' => $textdata['delet']));
 }
 $template->pparse('overall_body');  
 include("./footer.inc.php");

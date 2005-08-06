@@ -29,25 +29,25 @@ $template->set_filenames(array('overall_body' => 'templates/'.$_SESSION['templat
 if (!$_SESSION['show_callback'])
 {
 	$template->assign_block_vars('not_allowed',array(
-		'L_MSG_NOT_ALLOWED' =>$textdata[nichtberechtigt] ));
+		'L_MSG_NOT_ALLOWED' =>$textdata['nichtberechtigt'] ));
 	$template->pparse('overall_body');
 	include("./footer.inc.php");
 	die();
 }
 
-$template->assign_vars(array('L_SITE_TITLE' => $textdata[callback_title]));
-if(isset($_GET[del])&& is_numeric($_GET[del]))
+$template->assign_vars(array('L_SITE_TITLE' => $textdata['callback_title']));
+if(isset($_GET['del'])&& is_numeric($_GET['del']))
 {
 	$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 	$query=sprintf("DELETE FROm callback WHERE id=%s AND user_id=%s",
-		$dataB->sql_checkn($_GET[del]),
-		$dataB->sql_checkn($_SESSION[userid]));
+		$dataB->sql_checkn($_GET['del']),
+		$dataB->sql_checkn($_SESSION['userid']));
 	$result=$dataB->sql_query($query);
 	$dataB->sql_close();
 	if ($result)
 	{
 		$template->assign_block_vars('del_entry',array(
-		'L_MSG_DEL_FORWARD' => $textdata[del_OK_forward]));
+		'L_MSG_DEL_FORWARD' => $textdata['del_OK_forward']));
 		$template->pparse('overall_body');
 		include("./footer.inc.php");
 		die();
@@ -55,49 +55,49 @@ if(isset($_GET[del])&& is_numeric($_GET[del]))
 }
 
  
-if(isset($_POST[save_without_addr]))
+if(isset($_POST['save_without_addr']))
  {
   $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-  if (is_numeric($_POST[addname]))
+  if (is_numeric($_POST['addname']))
    {
     $sql_query=sprintf("INSERT INTO callback VALUES(NULL,%s,%s,NOW(),NOW(),%s,%s,'1',NULL,NULL)",
-    	$dataB->sql_checkn($_POST[addname]),
-	$dataB->sql_checkn($_POST[user_id]),
-	$dataB->sql_checkn($_POST[callback_time]),
-	$dataB->sql_check($_POST[message]));
+    	$dataB->sql_checkn($_POST['addname']),
+	$dataB->sql_checkn($_POST['user_id']),
+	$dataB->sql_checkn($_POST['callback_time']),
+	$dataB->sql_check($_POST['message']));
    }
   else
    {
     $sql_query=sprintf("INSERT INTO callback VALUES(NULL,'-1',%s,NOW(),NOW(),%s,%s,'1',%s,%s)",
-    	$dataB->sql_checkn($_POST[user_id]),
-	$dataB->sql_checkn($_POST[callback_time]),
-	$dataB->sql_check($_POST[message]),
-	$dataB->sql_check($_POST[addnumber]),
-	$dataB->sql_check($_POST[addname]));
+    	$dataB->sql_checkn($_POST['user_id']),
+	$dataB->sql_checkn($_POST['callback_time']),
+	$dataB->sql_check($_POST['message']),
+	$dataB->sql_check($_POST['addnumber']),
+	$dataB->sql_check($_POST['addname']));
    }
   $dataB->sql_query($sql_query);
   $dataB->sql_close();
-  $template->assign_block_vars('saved_with_addr',array('L_MSG_SAVED' => $textdata[saved_to_db]));
+  $template->assign_block_vars('saved_with_addr',array('L_MSG_SAVED' => $textdata['saved_to_db']));
  } 
  
-if(isset($_POST[save_with_addr]))
+if(isset($_POST['save_with_addr']))
  {
   $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
   $query=sprintf("INSERT INTO callback VALUES(NULL,%s,%s,NOW(),NOW(),%s,%s,'1',NULL,NULL)",
-  	$dataB->sql_checkn($_POST[addid]),
-	$dataB->sql_checkn($_POST[user_id]),
-	$dataB->sql_checkn($_POST[callback_time]),
-	$dataB->sql_check($_POST[message]));
+  	$dataB->sql_checkn($_POST['addid']),
+	$dataB->sql_checkn($_POST['user_id']),
+	$dataB->sql_checkn($_POST['callback_time']),
+	$dataB->sql_check($_POST['message']));
   $dataB->sql_query($query);
   $dataB->sql_close();
-  $template->assign_block_vars('saved_with_addr',array('L_MSG_SAVED' => $textdata[saved_to_db]));
+  $template->assign_block_vars('saved_with_addr',array('L_MSG_SAVED' => $textdata['saved_to_db']));
  }
 
 $template->assign_block_vars('tab1',array(
-		'L_NAME' => $textdata[showstatnew_name],
-		'L_NUMBER' => $textdata[stat_anrufer_rufnummer],
-		'L_CALL_TIME' => $textdata[stat_anrufer_datum] ." / ". $textdata[stat_anrufer_uhrzeit],
-		'L_CALL_BACK_TIME' => $textdata[callback_time]));
+		'L_NAME' => $textdata['showstatnew_name'],
+		'L_NUMBER' => $textdata['stat_anrufer_rufnummer'],
+		'L_CALL_TIME' => $textdata['stat_anrufer_datum'] ." / ". $textdata['stat_anrufer_uhrzeit'],
+		'L_CALL_BACK_TIME' => $textdata['callback_time']));
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 $query=sprintf("SELECT t1.*,t2.name_last,t2.name_first,t3.number AS RUFNR FROM callback AS t1 LEFT JOIN addressbook AS t2 ON t1.addr_id=t2.id LEFT JOIN phonenumbers AS t3 ON t3.addr_id=t2.id WHERE t1.user_id=%s GROUP BY t1.id", 
 	$dataB->sql_checkn($_SESSION['userid']));
@@ -114,52 +114,52 @@ while($daten=$dataB->sql_fetch_assoc($result_callback))
 		$color=$row_color_2;
 	}
 	$i++;
-	if($daten[addr_id]==-1)
+	if($daten['addr_id']==-1)
 	{
-		$number=$daten[number];
+		$number=$daten['number'];
 	}
 	else
 	{
-		$number=$daten[RUFNR];
+		$number=$daten['RUFNR'];
 	}
 	
-	switch ($daten[callback_time])
+	switch ($daten['callback_time'])
 	{
 	case 0:
-		$callback_time=$textdata[callback_soon_as_posible];
+		$callback_time=$textdata['callback_soon_as_posible'];
 		break;
 	case 1:
-		$callback_time=$textdata[callback_morning];
+		$callback_time=$textdata['callback_morning'];
 		break;
 	case 2:
-		$callback_time=$textdata[callback_midday];
+		$callback_time=$textdata['callback_midday'];
 		break;
 	case 3:
 		$callback_time=$textdata[callback_evening];
 		break;
 	}; 
 	
-	if ($daten[addr_id]==-1)
+	if ($daten['addr_id']==-1)
 	{
-		$full_name=$daten[full_name];
+		$full_name=$daten['full_name'];
 	}
 	else  
 	{
-		$full_name="<a href=\"./addressbook.php?id=$daten[addr_id]\">$daten[name_first] $daten[name_last]</a>";
+		$full_name='<a href="addressbook.php?id='.$daten['addr_id'].'">'.$daten['name_first'].' '.$daten['name_last'].'</a>';
 	}
 	$template->assign_block_vars('tab2',array(
 	'DATA_COLOR' => $color,
 	'DATA_NAME' => $full_name,
-	'DATA_ID' => $daten[id],
+	'DATA_ID' => $daten['id'],
 	'DATA_NUMBER' => $number,
-	'L_SHOW_REASON' => $textdata[show_reason],
-	'DATA_TIME' => $daten[en_time],
-	'DATA_DATE' => mysql_datum($daten[en_date]),
+	'L_SHOW_REASON' => $textdata['show_reason'],
+	'DATA_TIME' => $daten['en_time'],
+	'DATA_DATE' => mysql_datum($daten['en_date']),
 	'DATA_CALL_BACK_TIME' => $callback_time,
-	'L_DELETE' => $textdata[delet]));
+	'L_DELETE' => $textdata['delet']));
 }
 $dataB->sql_close();
-if ($_GET[add]== "yes")
+if (isset($_GET['add']) && $_GET['add']== "yes")
 {
 	$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 	$result_users=$dataB->sql_query("SELECT id,username,name_first,name_last FROM users");

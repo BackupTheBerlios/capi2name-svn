@@ -119,6 +119,13 @@ if (isset($_POST[edit]))
 	{
 		echo "<div class=\"rot_mittig\">Updating allow delete in database failed!!</div>";
 	}
+	$query=sprintf("UPDATE users SET cs_audio=%s WHERE id=%s",
+		$dataB->sql_check($_POST[cs_audio]),$sql_id);
+	$result=$dataB->sql_query($query);
+	if (!$result) 
+	{
+		echo "<div class=\"rot_mittig\">Updating cs_audio in database failed!!</div>";
+	}
 	if (!empty($_POST[passwd]))
 	{
 		$passwd=md5($_POST[passwd]);
@@ -154,6 +161,12 @@ if ($daten[show_type]=="0"or $daten[show_type]=="f")
 	$option[show_type]="selected";
 if ($daten[allow_delete]=="0" or $daten[allow_delete]=="f")
 	$option[allow_delete]="selected";
+if ($daten[cs_audio]=="1")
+	$option[cs_audio_wave]="selected";
+if ($daten[cs_audio]=="2")
+	$option[cs_audio_mp3]="selected";
+if ($daten[cs_audio]=="3")
+	$option[cs_audio_ogg]="selected";
 $dir= "../templates/";
 $dh=opendir($dir);
  while (false!== ($filename=readdir($dh)))
@@ -255,6 +268,18 @@ $dh=opendir($dir);
      <option value="1">Yes</option>
      <option <?=$option[allow_delete]?> value="0">No</option></select></td>
    </tr>
+   <tr>
+   <td style="text-align:left;">
+     <span style="font-weight:bold;">[<a href="./doc.html#11" onClick="showDoc()" target="showDoc">i</a>]</span>&nbsp;send type of audio on CS answerphone:</td>
+     <td style="width:5px;"></td>
+     <td style="text-align:right;"><select name="cs_audio">
+     <option value="1" <?=$option[cs_audio_wave]?> >Wave</option>
+     <option value="2" <?=$option[cs_audio_mp3]?> >MP3</option>
+     <option value="3" <?=$option[cs_audio_ogg]?> >OGG</option>
+     </select></td>
+   </tr>
+   
+   
    <tr>
     <td style="text-align:left;">
     <span style="font-weight:bold;">[<a href="./doc.html#13" onClick="showDoc()" target="showDoc">i</a>]</span>&nbsp;template:</td>

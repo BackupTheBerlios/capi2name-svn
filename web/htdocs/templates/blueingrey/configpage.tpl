@@ -42,6 +42,9 @@
 <!-- BEGIN db_update_show_type -->
 <div class="rot_mittig">{db_update_show_type.L_MSG_SHOW_TYPE}</div>
 <!-- END db_update_show_type -->
+<!-- BEGIN db_update_cs_audio -->
+<div class="rot_mittig">{db_update_cs_audio.L_MSG_CS_AUDIO}</div>
+<!-- END db_update_cs_audio -->
 <!-- BEGIN db_update -->
 <div class="blau_mittig">{db_update.L_MSG_SAVED}</div>
 <!-- END db_update -->
@@ -122,6 +125,17 @@
  </td>
 </tr>
 <!-- END template_on -->
+<tr>
+ <td>{tab1.L_T_CS_AUDIO}:</td>
+ <td style="width:10px;"></td>
+ <td>
+ <select name="cs_audio">
+ <!-- BEGIN tab3 -->
+ <option {tab1.tab3.DATA_SELECT} value="{tab1.tab3.DATA_ID}">{tab1.tab3.DATA_NAME}</option>
+ <!-- END tab3 -->
+ </select>
+ </td>
+</tr>
 <tr>
  <td style="vertical-align:top;">{tab1.L_SHOW_MSN_FUNC}:</td>
  <td style="width:10px;"></td>

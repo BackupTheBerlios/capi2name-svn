@@ -17,7 +17,7 @@ include("./login_check.inc.php");
 include("./header.inc.php");
 
 $template->set_filenames(array('overall_body' => 'templates/'.$_SESSION['template'].'/statistic_monthly.tpl')); 
-$template->assign_vars(array('L_SITE_TITLE' => $textdata[stat_monthly])); 
+$template->assign_vars(array('L_SITE_TITLE' => $textdata['stat_monthly'])); 
 $template->pparse('overall_body');
 include("./footer.inc.php");
 ?>

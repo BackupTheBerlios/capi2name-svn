@@ -21,19 +21,21 @@ if (isset($_POST[save])) {
   {
    $passwd=md5($_POST[passwd]);
    $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-   $query=sprintf("INSERT INTO users VALUES(NULL,%s,%s,NULL,NULL,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,NULL)",
+   $query=sprintf("INSERT INTO users VALUES(NULL,%s,%s,%s,NULL,NULL,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,NULL,%s)",
    		$dataB->sql_check($_POST[username]),
+		$dataB->sql_check($_POST[cs_user]),
 		$dataB->sql_check($passwd),
 		$dataB->sql_check($_POST[first_name]),
 		$dataB->sql_check($_POST[last_name]),
 		$dataB->sql_checkn($_POST[show_lines]),
 		$dataB->sql_check($_POST[msns_listen]),
-		$dataB->sql_check($_POST[show_callback]),
-		$dataB->sql_check($_POST[show_prefix]),
-		$dataB->sql_check($_POST[show_msn]),
-		$dataB->sql_check($_POST[show_type]),
-		$dataB->sql_check($_POST[show_config]),
-		$dataB->sql_check($_POST[allow_delete]));
+		$dataB->sql_checkn($_POST[show_callback]),
+		$dataB->sql_checkn($_POST[show_prefix]),
+		$dataB->sql_checkn($_POST[show_msn]),
+		$dataB->sql_checkn($_POST[show_type]),
+		$dataB->sql_checkn($_POST[show_config]),
+		$dataB->sql_checkn($_POST[allow_delete]),
+		$dataB->sql_checkn($_POST[cs_audio]));
    $result=$dataB->sql_query($query);
    $dataB->sql_close();
    if ($result)
@@ -54,11 +56,16 @@ if (isset($_POST[save])) {
 <form action="user_add.php" method="post">
 <table border="0" style="margin-right:auto;margin-left:auto;">
  <tr>
-   <td style="text-align:left;">
-   <span style="font-weight:bold;">
+   <td style="text-align:left;"><span style="font-weight:bold;">
    [<a href="./doc.html#1" onClick="showDoc()" target="showDoc">i</a>]</span>&nbsp;username:</td>
   <td style="width:5px;"></td>
   <td style="text-align:right;"><input type="text" maxlength="8" name="username"/></td>
+ </tr>
+ <tr>
+ <td style="text-align:left;"><span style="font-weight:bold;">
+ [<a href="./doc.html#20" onclick="showDoc()"target="showDoc">i</a>]</span>&nbsp;CapiSuite username:</td>
+ <td style="width:5px;"></td>
+ <td style="text-align:right;"><input type="text" maxlength="8" name="cs_user"/></td>
  </tr>
  <tr>
   <td style="text-align:left;">
@@ -136,6 +143,17 @@ if (isset($_POST[save])) {
      <option value="1">Yes</option>
      <option selected="selected" value="0">No</option></select></td>
    </tr>
+   <tr>
+   </tr>
+   <td style="text-align:left;">
+     <span style="font-weight:bold;">[<a href="./doc.html#21" onClick="showDoc()" target="showDoc">i</a>]</span>&nbsp;send type of audio on CS answerphone:</td>
+     <td style="width:5px;"></td>
+     <td style="text-align:right;"><select name="cs_audio">
+     <option value="1">Wave</option>
+     <option value="2">MP3</option>
+     <option value="3">OGG</option>
+     </select></td>
+   
    <tr>
       <td style="text-align:left;"><span style="font-weight:bold;">[<a href="./doc.html#12" onClick="showDoc()" target="showDoc">i</a>]</span>&nbsp;password:</td>
       <td style="width:5px;"></td>

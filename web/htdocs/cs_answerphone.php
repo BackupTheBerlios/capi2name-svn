@@ -15,41 +15,40 @@
 $seite=base64_encode("cs_answerphone.php");
 include("./login_check.inc.php");
 include("./header.inc.php");
-require_once("./includes/cs_functions.inc.php");
 
 $template->set_filenames(array('overall_body' => 'templates/'.$_SESSION['template'].'/cs_answerphone.tpl'));
-$template->assign_vars(array('L_SITE_TITLE' => $textdata[cs_ap_answerphone]));
+$template->assign_vars(array('L_SITE_TITLE' => $textdata['cs_ap_answerphone']));
 
 if ($_SESSION['cs_user']=="" OR check_cs_username($_SESSION['cs_user'])!=0)
 {
 	$template->assign_block_vars('user_error',array(
-			'L_USER_NOT_FOUND' => $textdata[cs_user_not_found]));
+			'L_USER_NOT_FOUND' => $textdata['cs_user_not_found']));
 	$template->pparse('overall_body');
 	include("./footer.inc.php");
 	die();	
 }
 
-if (isset($_GET[del]) && $_SESSION['allow_delete'])
+if (isset($_GET['del']) && $_SESSION['allow_delete'])
 {
 	$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"], $sql["db"] );
 	$sql_query=sprintf("UPDATE capisuite SET aktive='0' WHERE id=%s",
-		$dataB->sql_checkn($_GET[del]));
+		$dataB->sql_checkn($_GET['del']));
 	$result=$dataB->sql_query($sql_query);
 	$dataB->sql_close();
 }
 
 $template->assign_block_vars('tab1',array(
-		'CS_AP_LIST' => $textdata[cs_ap_liste],
-		'CS_AP_TIME' => $textdata[stat_anrufer_uhrzeit],
-		'CS_AP_DATE' => $textdata[stat_anrufer_datum],
-		'CS_AP_NR' => $textdata[stat_anrufer_rufnummer],
-		'CS_AP_MSN' => $textdata[stat_anrufer_MSN],
-		'CS_AP_NAME' => $textdata[showstatnew_name],
-		'CS_PLAY' => $textdata[cs_ap_play]));
+		'CS_AP_LIST' => $textdata['cs_ap_liste'],
+		'CS_AP_TIME' => $textdata['stat_anrufer_uhrzeit'],
+		'CS_AP_DATE' => $textdata['stat_anrufer_datum'],
+		'CS_AP_NR' => $textdata['stat_anrufer_rufnummer'],
+		'CS_AP_MSN' => $textdata['stat_anrufer_MSN'],
+		'CS_AP_NAME' => $textdata['showstatnew_name'],
+		'CS_PLAY' => $textdata['cs_ap_play']));
 if ($_SESSION['allow_delete'])
 {
 	$template->assign_block_vars('tab1.del',array(
-		'L_DELETE' => $textdata[showstatnew_loeschen]));
+		'L_DELETE' => $textdata['showstatnew_loeschen']));
 }
 
 
