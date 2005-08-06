@@ -2,6 +2,7 @@ Capi2name 0.6.8 YYYY-MM-DD - Jonas Genannt - <jonas.genannt@capi2name.de> BETA
 	o PHP: removed: cs_capisuite_config.inc.php
 	o PHP: removed: cs_help.php
 	o PHP: removed: admin/cs_conf.inc.ini
+	o PHP: removed: web/htdocs/includes/cs_functions.inc.php
 	o PHP: removed: Admin: Menuitem 'Prefix' we don't need it anymore.
 	o PHP: removed: web/sontiges we don't need it anymore->template system
 	o PHP: removed: help point in header.tpl for capisuite
