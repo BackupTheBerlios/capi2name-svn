@@ -15,14 +15,14 @@
 include("./check_it.php");
 include("./header.inc.php");
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-if (isset($_POST[save]))
+if (isset($_POST['save']))
  {
- $data_array=array("cs_use_mogrify", "cs_mogrify", "cs_sff2misc", "cs_temp_dir" );
- for ($i=0;$i<=5;$i++)
+ $data_array=array('cs_temp_dir','cs_sox','cs_lame','cs_ps2pdf','cs_sfftobmp','cs_tiff2ps','cs_rm');
+ for ($i=0;$i<=6;$i++)
   {
-   $value=$data_array[$i];
-   $query=sprintf("UPDATE config SET value=%s WHERE conf='$value'",
-   		$dataB->sql_check($_POST[$value]));
+   $query=sprintf("UPDATE config SET value=%s WHERE conf=%s",
+   		$dataB->sql_check($_POST[$data_array[$i]]),
+		$dataB->sql_check($data_array[$i]));
    $result=$dataB->sql_query($query);
    if (!$result)
     {
@@ -39,7 +39,7 @@ if (isset($_POST[save]))
 $result=$dataB->sql_query("SELECT * FROM config WHERE conf LIKE 'cs_%'");
  while($daten_cs=$dataB->sql_fetch_assoc($result))
   {
-   $cs_conf[$daten_cs[conf]]=$daten_cs[value];
+   $cs_conf[$daten_cs['conf']]=$daten_cs['value'];
   }
 $dataB->sql_close();
 
@@ -48,21 +48,49 @@ $dataB->sql_close();
 <div style="text-align:left; margin:5px; width:80%;margin:0px 10%;">
 <form action="./cs_install.php" method="post">
 <h3>Programms</h3>
-<p style="margin-right:20%; text-align:right;">
-use mogrify: <select name="cs_use_mogrify" size="1">
-<option <?php if ($cs_conf['cs_use_mogrify'] == "yes") echo "selected"; ?>>yes</option>
-<option <?php if ($cs_conf['cs_use_mogrify'] == "no") echo "selected"; ?>>no</option>
-</select><br />
-mogrify: <input name="cs_mogrify" value="<?=$cs_conf['cs_mogrify']?>" type="text" size="40" maxlength="80" />
-<br />
-sff2misc : <input name="cs_sff2misc" value="<?=$cs_conf['cs_sff2misc']?>" type="text" size="40" maxlength="80" />
-<br />
-</p>
+<table border="1">
+<tr>
+ <td>rm</td>
+ <td style="width:10px;"></td>
+ <td><input name="cs_rm" value="<?=$cs_conf['cs_rm']?>"/></td>
+</td>
+</tr>
+<tr>
+<td>sfftobmp</td>
+ <td style="width:10px;"></td>
+ <td><input name="cs_sfftobmp" value="<?=$cs_conf['cs_sfftobmp']?>"/></td>
+</tr>
+<tr>
+<td>tiff2ps</td>
+ <td style="width:10px;"></td>
+ <td><input name="cs_tiff2ps" value="<?=$cs_conf['cs_tiff2ps']?>"/></td>
+</tr>
+<tr>
+<td>ps2pdf</td>
+ <td style="width:10px;"></td>
+ <td><input name="cs_ps2pdf" value="<?=$cs_conf['cs_ps2pdf']?>"/></td>
+</tr>
+<tr>
+<td>sox</td>
+ <td style="width:10px;"></td>
+ <td><input name="cs_sox" value="<?=$cs_conf['cs_sox']?>"/></td>
+</tr>
+<tr>
+<td>lame</td>
+ <td style="width:10px;"></td>
+ <td><input name="cs_lame" value="<?=$cs_conf['cs_lame']?>"/></td>
+</tr>
+</table>
+
 <h3>Temp</h3>
-<p style="margin-right:20%; text-align:right;">
-temp dir: <input name="cs_temp_dir" value="<?=$cs_conf['cs_temp_dir']?>" type="text" size="40" maxlength="80" />
-<br />
-</p>
+<table border="1">
+<tr>
+ <td>temp dir</td>
+ <td style="width:10px;"></td>
+ <td> <input name="cs_temp_dir" value="<?=$cs_conf['cs_temp_dir']?>" type="text" /></td>
+</tr>
+</table> 
+<br/>
 <input type="submit" name="save" value="save to database" />
 </form>
 </div>

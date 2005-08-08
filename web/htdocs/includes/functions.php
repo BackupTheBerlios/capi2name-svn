@@ -123,11 +123,11 @@ function get_id_from_prefix($number)
       $prefix=0;
        while($vorwahl_row=mysql_fetch_assoc($tab_vorwahl))
         {
-          $laenge=strlen($vorwahl_row[vorwahlnr]);
+          $laenge=strlen($vorwahl_row['vorwahlnr']);
           $vorwahl_nr=substr($number,0,$laenge);
-          if($vorwahl_row[vorwahlnr]==$vorwahl_nr)
+          if($vorwahl_row['vorwahlnr']==$vorwahl_nr)
 	   { 
-	    $typ=$vorwahl_row[id];
+	    $typ=$vorwahl_row['id'];
 	    break;
 	   }
       }//while vorwahl END

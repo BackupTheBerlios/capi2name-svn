@@ -9,11 +9,11 @@ session_start();
 <?php
 
 
-if (!isset($_POST[absenden]) && !isset($_GET[update]))
+if (!isset($_POST['absenden']) && !isset($_GET['update']))
  {
 
  echo "<br/<br/>
- <center><font color=\"red\">plaese <b>backup</b> your database befor you continue with the update!!</font></center>
+ <center><font color=\"red\">please <b>backup</b> your database before you continue with the update!!</font></center>
  <br/><br/>please enter the connect informations for access the database.<br/><br/>";
   echo "<form action=\"$PHP_SELF\" method=\"post\">
    
@@ -49,26 +49,25 @@ if (!isset($_POST[absenden]) && !isset($_GET[update]))
  }
 
 
-if (isset($_POST[absenden]) or isset($_GET[update]))
- {
-if (isset($_POST[absenden]))
+if (isset($_POST['absenden']) or isset($_GET['update']))
+{
+if (isset($_POST['absenden']))
 { 
-$dbuser=$_POST[dbuser];
-$dbpasswd=$_POST[dbpasswd];
-$dbname=$_POST[dbname];
-$dbhost=$_POST[dbhost];
-$_SESSION['dbuser']=$dbuser;
-$_SESSION['dbpasswd']=$dbpasswd;
-$_SESSION['dbname']=$dbname;
-$_SESSION['dbhost']=$dbhost;
+	$dbuser=$_POST['dbuser'];
+	$dbpasswd=$_POST['dbpasswd'];
+	$dbname=$_POST['dbname'];
+	$dbhost=$_POST['dbhost'];
+	$_SESSION['dbuser']=$dbuser;
+	$_SESSION['dbpasswd']=$dbpasswd;
+	$_SESSION['dbname']=$dbname;
+	$_SESSION['dbhost']=$dbhost;
 }
 else
 {
-$dbuser=$_SESSION['dbuser'];
-$dbpasswd=$_SESSION['dbpasswd'];
-$dbname=$_SESSION['dbname'];
-$dbhost=$_SESSION['dbhost'];
-
+	$dbuser=$_SESSION['dbuser'];
+	$dbpasswd=$_SESSION['dbpasswd'];
+	$dbname=$_SESSION['dbname'];
+	$dbhost=$_SESSION['dbhost'];
 }
 
 

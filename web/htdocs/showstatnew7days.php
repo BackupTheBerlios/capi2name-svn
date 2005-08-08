@@ -173,7 +173,7 @@ if ($daten['vorwahl']=="cell phone")
       $anz_msn=$daten['msn_name'];
      }
     //MSNS überprüfen:
-    $show_entry_msns=msns_ueberpruefen($userconfig['msns'],$daten['msn']);
+    $show_entry_msns=msns_ueberpruefen($_SESSION['msn_listen'],$daten['msn']);
     //Datum umwandeln, und wegen Heute/Gestern funktion:
     $anz_datum=anzeige_datum(mysql_datum($daten['datum']));
     //ermittle Dienstkennung:

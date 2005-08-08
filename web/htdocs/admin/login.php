@@ -42,5 +42,6 @@ else
     echo "<span class=\"rot_mittig\">Password field is empty or SQL querry returned an error.</span>";
    } 
 $dataB->sql_close();
+include("./footer.inc.php");
 }//absenden ende
 ?>

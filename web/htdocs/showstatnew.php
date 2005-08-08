@@ -34,10 +34,24 @@ $seite=base64_encode("showstatnew.php");
 }
 include("./login_check.inc.php");
 include("./header.inc.php");
+//pages berechung:
+$cur_page="";
+$maxlist=NULL;
+$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
+$result_angerufene=$dataB->sql_query("SELECT COUNT(*) AS all_calls FROM angerufene");
+$daten_angerufene=$dataB->sql_fetch_assoc($result_angerufene);
+$all_calls=$daten_angerufene['all_calls'];
+$pages_num=(int)($daten_angerufene['all_calls']/100)+1;
+
 $checkdate=false;
-if ($_GET['maxlist'] == "all") { $maxlist=NULL; }
-else { $maxlist=$_SESSION['show_lines']; } //FIXME FIXME FIXME: nicht sessions ueberschreiben!!!!
-if ($_GET['showallmsns']=="yes") { $userconfig['msns']=""; }
+if (!isset($_GET['page'])) //zeige alle eintraege an
+{
+	$maxlist=$_SESSION['show_lines'];
+}
+else
+{
+	$cur_page=$_GET['page'];
+}
 $loeschen_seiten="";
 if (isset($_GET['datum']))
 {
@@ -73,6 +87,7 @@ else
 }
 $template->set_filenames(array('overall_body' => './templates/'.$_SESSION['template'].'/show_call_stat.tpl'));
 $template->assign_vars(array('L_CALL_STAT_TITLE' => $anz_title));
+// buttons left and right with datum calc
 if ($checkdate)
 {
 	$ex_datum=explode(".",$sql_datum);
@@ -109,8 +124,10 @@ else
 	$template->assign_vars(array('date_for' => "sdatum=".date("d.m.Y", $tstamp2)));
 }
 $template->assign_vars(array('day_left' =>$textdata['day_left']));
-$template->assign_vars(array('day_right' =>$textdata['day_right']));
-
+if ($tstamp2 < time())
+{
+	$template->assign_block_vars('b_right',array());
+}
 if ($checkdate)
 {
 	$ex_datum=explode(".",$sql_datum);
@@ -122,12 +139,13 @@ if ($checkdate)
 			'L_DATA' => $textdata['date_in_future']));
 	}
 }
+// END buttons left and right datum calc
 
 
 if (isset($_GET['unbekannt']))
 {
-	if (isset($_GET[datum])) $submit_date="?datum=$_GET[datum]";
-	else if (isset($_GET[sdatum])) $submit_date="?datum=$_GET[sdatum]";
+	if (isset($_GET['datum'])) $submit_date="?datum=".$_GET['datum'];
+	else if (isset($_GET['sdatum'])) $submit_date="?datum=".$_GET['sdatum'];
 	else  $submit_date="";
 	$template->assign_block_vars('change_name_from_unkown', array(
 		'DATA_ID_FROM_DB' => $_GET['einid'],
@@ -136,12 +154,10 @@ if (isset($_GET['unbekannt']))
 }
 if (isset($_POST['eintragen']))
 {
-	$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 	$query=sprintf("UPDATE angerufene SET name=%s WHERE id=%s",
 		$dataB->sql_check($_POST['newname']),
 		$dataB->sql_checkn($_POST['newid']));
 	$dataB->sql_query($query);
-	$dataB->sql_close();
 }
 $template->assign_vars(array(
 		'L_DATE' => $textdata['stat_anrufer_datum'],
@@ -200,8 +216,12 @@ if ($maxlist!=NULL)
 	$sql_query=$sql_query. " LIMIT $maxlist";
 	//$sql_query=$sql_query. sprintf(" LIMIT %s", $dataB->sql_check($maxlist));
 }
+elseif (isset($_GET['page']) && is_numeric($_GET['page']) )
+{
+	$tmp_start=$_GET['page']*100;
+	$sql_query=$sql_query. " LIMIT $tmp_start, 100";
+}
 $result_angerufene=$dataB->sql_query($sql_query);
-$dataB->sql_close();
 $i=0;
 while($daten=$dataB->sql_fetch_assoc($result_angerufene))
 {
@@ -258,7 +278,7 @@ if ($daten['vorwahl']=="cell phone")
       $anz_msn=$daten['msn_name'];
      }
     //MSNS überprüfen:
-    $show_entry_msns=msns_ueberpruefen($userconfig['msns'],$daten['msn']);
+    $show_entry_msns=msns_ueberpruefen($_SESSION['msn_listen'],$daten['msn']);
     //Datum umwandeln, und wegen Heute/Gestern funktion:
     $anz_datum=anzeige_datum(mysql_datum($daten['datum']));
     //ermittle Dienstkennung:
@@ -307,7 +327,22 @@ if ($_SESSION['allow_delete'])
  
    
 }//END WHILE $result_angerufene
-$template->assign_vars(array('L_SHOW_ALL_CALLS_FROM_AB' => $textdata['showstatnew_alle_eintraege']));
+for ($i=1;$i<=$pages_num;$i++)
+{
+	if ($i==$cur_page)
+	{
+		$template->assign_block_vars('show_pages',array(
+			'D_PAGE'=> $i,
+			'D_BOLD' => 'text-weidth:bold;'));
+	}
+	else
+	{
+		$template->assign_block_vars('show_pages',array(
+			'D_PAGE'=> $i,
+			'D_BOLD'  => ''));
+	}
+}
+$dataB->sql_close();
 $template->pparse('overall_body');
 include("./footer.inc.php");
 ?>

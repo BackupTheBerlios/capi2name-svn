@@ -21,5 +21,6 @@ unset($_SESSION['adminpassword']);
 </head>
 <body bgcolor="#DFDFDF">
 <div align="center"><h2>Log Off</h2></div>
+<meta http-equiv="refresh" content="1; URL=index.php">";
 </body>
 </html>

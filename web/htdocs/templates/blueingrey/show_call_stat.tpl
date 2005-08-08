@@ -3,7 +3,12 @@
 <td style="width:60px;text-aligen:left;">
 <a href="./showstatnew.php?{date_back}" title="{day_left}"><img src="./images/1leftarrow.png" style="border-width:0px;vertical-align:middle;"/></a></td>
 <td style="text-aligen:center;"><div class="ueberschrift_seite">{L_CALL_STAT_TITLE}</div></td>
-<td style="width:60px;text-aligen:right;"><a href="./showstatnew.php?{date_for}" title="{day_right}"><img src="./images/1rightarrow.png" style="border-width:0px;vertical-align:middle;" /></a></td>
+<td style="width:60px;text-aligen:right;">
+<!-- BEGIN b_right -->
+<a href="./showstatnew.php?{date_for}" title="{day_right}">
+<img src="./images/1rightarrow.png" style="border-width:0px;vertical-align:middle;" /></a>
+<!-- END b_right -->
+</td>
 </tr>
 </table>
 <!-- BEGIN change_name_from_unkown -->
@@ -82,7 +87,10 @@ Name: <input name="newname" type="text">
 <!-- END tab1 --> 
  
 </table>
-<br />
-<span style="text-align:center">
-<a href="./showstatnew.php?maxlist=all">{L_SHOW_ALL_CALLS_FROM_AB}</a><br />
+<br /><br/>
+<!-- BEGIN show_pages -->
+<span style="text-align:center;{show_pages.D_BOLD}">
+ | <a href="./showstatnew.php?maxlist=yes&amp;page={show_pages.D_PAGE}">
+{show_pages.D_PAGE}</a> | 
 </span>
+<!-- END show_pages -->

@@ -17,14 +17,14 @@ include("./header.inc.php");
 
 echo "<div class=\"ueberschrift_seite\">Change Administrator password</div>";
 
-if (isset($_POST[change]))
+if (isset($_POST['change']))
 {
-if ($_POST[passwd1]==$_POST[passwd2] && ! empty($_POST[passwd1]))
+if ($_POST['passwd1']==$_POST['passwd2'] && ! empty($_POST['passwd1']))
 {
  $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
  $result=$dataB->sql_query("SELECT username,passwd FROM users WHERE username='admin'");
  $daten=$dataB->sql_fetch_assoc($result);
-  if (md5($_POST[altespasswd]) == $daten[passwd])
+  if (md5($_POST['altespasswd']) == $daten['passwd'])
    {
     $passwd_md5=md5($_POST[passwd2]);
     $query=sprintf("UPDATE users SET passwd=%s", $dataB->sql_check($passwd_md5));

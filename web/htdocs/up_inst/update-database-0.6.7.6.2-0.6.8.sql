@@ -28,12 +28,14 @@ ALTER TABLE `angerufene` CHANGE `aktive` `aktive` TINYINT( 2 ) DEFAULT '1' NOT N
 UPDATE `angerufene` SET `aktive` = '1';
 
 ALTER TABLE `config` CHANGE `value` `value` CHAR( 50 ) DEFAULT NULL;
-
-INSERT INTO `config` VALUES (NULL, 'cs_use_mogrify', 'no'),
-(NULL, 'cs_mogrify', '/usr/bin/mogrify'),
-(NULL, 'cs_sff2misc', '/usr/bin/sff2misc'),
-(NULL, 'cs_temp_dir', '/tmp');
-
+Delete FROm config WHERE id>3;
+INSERT INTO `config` VALUES (4, 'cs_temp_dir', '/tmp'),
+(5, 'cs_sfftobmp', '/usr/bin/sfftobmp'),
+(6, 'cs_tiff2ps', '/usr/bin/tiff2ps'),
+(7, 'cs_ps2pdf', '/usr/ps2pdf'),
+(8, 'cs_rm', '/bin/rm'),
+(9, 'cs_sox', '/usr/bin/sox');
+        
 
 CREATE TABLE `capisuite` (
   `id` int(11) NOT NULL auto_increment,

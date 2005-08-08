@@ -14,27 +14,33 @@
  ***************************************************************************/
 $seite=base64_encode("cs_answerphone.php");
 include("./login_check.inc.php");
-include("./includes/cs_functions.inc.php");
 
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"], $sql["db"] );
 $sql_query=sprintf("SELECT data FROM capisuite WHERE id=%s AND cs_user=%s AND ident='1'",
-		$dataB->sql_checkn($_GET[file]),
+		$dataB->sql_checkn($_GET['file']),
 		$dataB->sql_check($_SESSION['cs_user']));
 $result=$dataB->sql_query($sql_query);
+$result_config=$dataB->sql_query("SELECT * FROM config WHERE conf LIKE 'cs_%'");
+while($daten_cs=$dataB->sql_fetch_assoc($result_config))
+  {
+   $cs_conf[$daten_cs['conf']]=$daten_cs['value'];
+  }
 $sql_query=sprintf("SELECT cs_audio FROM users WHERE id=%s",
 	$dataB->sql_checkn($_SESSION['userid']));
 $result_file=$dataB->sql_query($sql_query);
 $daten_file=$dataB->sql_fetch_assoc($result_file);
-if ($result_file==false or $daten_file==false)
+$fileformat=$daten_file['cs_audio'];
+$data=$dataB->sql_fetch_assoc($result);
+$dataB->sql_close();
+
+if ($result==false or $data==false)
 {
 	echo "ERROR DATABASE returned ERROR! file=????";
 	die();
 }
-$fileformat=$daten_file[cs_audio];
-$dataB->sql_close();
-$data=$dataB->sql_fetch_assoc($result);
+
 srand((double)microtime()*1000000);
-$tmp_file="$cs_conf[cs_temp_dir]/capi2name-";
+$tmp_file=$cs_conf['cs_temp_dir']."/capi2name-";
 for ($i=0;$i<5;$i++)
 {
 	$num = rand(48,120);
@@ -49,7 +55,7 @@ if (($file_handler=fopen($db_filename, "w+"))==FALSE)
 	echo "Could not open file $db_filename!!";
 	die();
 }
-if (!(fwrite($file_handler,base64_decode($data[data]))))
+if (!(fwrite($file_handler,base64_decode($data['data']))))
 {
 	echo "Could not write to file $db_filename!!";
 	die();
@@ -61,16 +67,16 @@ if ($fileformat==3) //ogg
 	$s_filename="CapiSuite-AB-$_GET[file].ogg";
 	$fi_filename=$tmp_file.".ogg";
 	$s_Content_type="application/ogg";
-	exec("sox -v 1.9 $db_filename $fi_filename");
-	exec("rm -f $db_filename");
+	exec($cs_conf['cs_sox']." -v 1.9 $db_filename $fi_filename");
+	exec($cs_conf['cs_rm']." -f $db_filename");
 }
 elseif ($fileformat==2) //mp3
 {
 	$fi_filename=$tmp_file.".mp3";
 	$s_Content_type="audio/mpeg";
-	exec("/usr/bin/lame  -m s -a $db_filename $fi_filename");
+	exec($cs_conf['cs_lame']."  -m s -a $db_filename $fi_filename");
 	$s_filename="CapiSuite-AB-$_GET[file].mp3";
-	exec("rm -f $db_filename");
+	exec($cs_conf['cs_rm']." -f $db_filename");
 }
 else //wav
 {
@@ -94,5 +100,5 @@ else
 	sleep(1);
 	fpassthru($fdl);
 }
-exec("rm $fi_filename");
+exec($cs_conf['cs_rm']." $fi_filename");
 ?>

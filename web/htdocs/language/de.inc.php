@@ -165,6 +165,7 @@ $textdata['stat_gesamt_stat_alle_anrufe']="Statistik über alle Anrufe";
 $textdata['stat_gesamt_anrufe']="Anrufe";
 $textdata['stat_gesamt_sortierung']="Sortierung ändern";
 $textdata['stat_gesamt_keine_stat']="Es gibt keine Adressbucheinträge!<br>Nur mit vorhandenen Adressbucheinträgen, kann man diese Gesamtstatistik anschauen.";
+$textdata['search_calls_from']="Suche alle Anrufe von ";
 //stat_gesamt.php ENDE
 
 

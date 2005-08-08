@@ -202,7 +202,7 @@ if (isset($_GET['add']) && $_GET['add']== "yes")
 			'L_DATA_ID' => $daten_users['id'],
 			'L_DATA_SELECTED' => 'selected="selected"'));
       }
-     elseif($daten_users[username]!="admin")
+     elseif($daten_users['username']!="admin")
       {
        $template->assign_block_vars('insert_with_addr.select_users',array(
        			'L_DATA_NAME' => $full_name,

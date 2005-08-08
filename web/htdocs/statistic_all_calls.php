@@ -93,7 +93,8 @@ while($data=$dataB->sql_fetch_assoc($result_data))
 	'DATA_LAST_NAME' => $data['name_last'],
 	'DATA_FIRST_NAME' => $data['name_first'],
 	'DATA_COUNT' => $data['anzahl'],
-	'DATA_LAST_CALL' => mysql_datum($data['datum'])));
+	'DATA_LAST_CALL' => mysql_datum($data['datum']),
+	'L_SEARCH_ENTRY' => $textdata['search_calls_from']. $data['name_first'].' '. $data['name_last']));
   $i++;
  }
 

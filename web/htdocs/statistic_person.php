@@ -147,7 +147,7 @@ while ($data_angerufene=$dataB->sql_fetch_assoc($result))
 else
  {
   $template->assign_block_vars('no_call_from_user',array(
-  	'L_MSG_NO_CALL' => $textdata['stat_anrufer_keine_anrufe_gefunden']." ".$data_adressbuch['vorname']." ".$data_adressbuch['nachname']." ".$textdata['stat_anrufer_keine_anrufe_gefunden_ende']));
+  	'L_MSG_NO_CALL' => $textdata['stat_anrufer_keine_anrufe_gefunden']." ".$data_adressbuch['name_first']." ".$data_adressbuch['name_last']." ".$textdata['stat_anrufer_keine_anrufe_gefunden_ende']));
  }
 
 $template->pparse('overall_body');

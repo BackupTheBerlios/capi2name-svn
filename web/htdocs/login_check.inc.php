@@ -57,10 +57,9 @@ if ($result_userlist && !isset($password) || $password!="")
 
 	}
 	//update lastlogin_d and lastlogin_t
-	//UPDATE capi_version SET version='0.6.7.2' WHERE id='1'
 	$sqlquery=sprintf("SELECT lastlogin_d FROM users WHERE id=%s",
 		$dataB->sql_checkn($user_id));
-	$datum=$dataB->sql_fetch_assoc($sqlquery);
+	$datum=$dataB->sql_fetch_assoc($dataB->sql_query($sqlquery));
 	if ($datum['lastlogin_d']!=date("Y-m-d"))
 	{
 		$sqlquery=sprintf("UPDATE users SET lastlogin_t=NOW(),lastlogin_d=NOW() WHERE id=%s",

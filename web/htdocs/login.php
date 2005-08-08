@@ -20,7 +20,7 @@ $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 $result=$dataB->sql_query("SELECT conf,value FROM config WHERE conf='default_template'");
 $daten=$dataB->sql_fetch_assoc($result); 
 $dataB->sql_close();
-$_SESSION['template']=$daten[value];
+$_SESSION['template']=$daten['value'];
 include("./header.inc.php");
 $template->set_filenames(array('overall_body' => 'templates/'.$_SESSION['template'].'/login.tpl'));
 $loginok=0;

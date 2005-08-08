@@ -14,11 +14,10 @@
  ***************************************************************************/
 $seite=base64_encode("cs_fax.php");
 include("./login_check.inc.php");
-include("./includes/cs_functions.inc.php");
 
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"], $sql["db"]);
 $sql_query=sprintf("SELECT data FROM capisuite WHERE id=%s AND cs_user=%s AND ident='2'",
-		$dataB->sql_check($_GET[file]),
+		$dataB->sql_check($_GET['file']),
 		$dataB->sql_check($_SESSION['cs_user']));
 $result=$dataB->sql_query($sql_query);
 $data=$dataB->sql_fetch_assoc($result);
@@ -26,10 +25,15 @@ $sql_query=sprintf("SELECT cs_fax FROM users WHERE id=%s",
 	$dataB->sql_checkn($_SESSION['userid']));
 $result_file=$dataB->sql_query($sql_query);
 $daten_file=$dataB->sql_fetch_assoc($result_file);
-$fileformat=$daten_file[cs_fax];
+$fileformat=$daten_file['cs_fax'];
+$result_config=$dataB->sql_query("SELECT * FROM config WHERE conf LIKE 'cs_%'");
+ while($daten_cs=$dataB->sql_fetch_assoc($result_config))
+  {
+   $cs_conf[$daten_cs['conf']]=$daten_cs['value'];
+  }
 $dataB->sql_close();
 srand((double)microtime()*1000000);
-$tmp_file="$cs_conf[cs_temp_dir]/capi2name-";
+$tmp_file=$cs_conf['cs_temp_dir']."/capi2name-";
 for ($i=0;$i<5;$i++)
 {
 	$num = rand(48,120);
@@ -43,7 +47,7 @@ if (($file_handler=fopen($db_filename, "w+"))==FALSE)
 	echo "Could not open file $db_filename!!";
 	die();
 }
-if (!(fwrite($file_handler,base64_decode($data[data]))))
+if (!(fwrite($file_handler,base64_decode($data['data']))))
 {
 	echo "Could not write to file $db_filename!!";
 	die();
@@ -58,10 +62,10 @@ if ($fileformat==4)//pdf
 	$s_filename="FAX-$_GET[file].pdf";
 	$tif_filename=$tmp_file.".tif";
 	$fi_filename=$db_filename.".pdf";
-	exec("sfftobmp -t $db_filename -o $tif_filename");
-	exec("tiff2ps -a2 -h11 -H12 -L.5 -w8.5 $tif_filename | ps2pdf - $fi_filename");
-	exec("rm $tif_filename");
-	exec("rm $db_filename");
+	exec($cs_conf['cs_sfftobmp']." -t $db_filename -o $tif_filename");
+	exec($cs_conf['cs_tiff2ps']." -a2 -h11 -H12 -L.5 -w8.5 $tif_filename | ".$cs_conf['cs_ps2pdf']." - $fi_filename");
+	exec($cs_conf['cs_rm']." $tif_filename");
+	exec($cs_conf['cs_rm']." $db_filename");
 }
 elseif ($fileformat==3) //ps
 {
@@ -69,10 +73,10 @@ elseif ($fileformat==3) //ps
 	$s_filename="FAX-$_GET[file].ps";
 	$fi_filename=$tmp_file.".ps";
 	$tif_filename=$tmp_file.".tif";
-	exec("sfftobmp -t $db_filename -o $tif_filename");
-	exec("tiff2ps -a2 -h11 -H12 -L.5 -w8.5 $tif_filename -O $fi_filename");
-	exec("rm $tif_filename");
-	exec("rm $db_filename");
+	exec($cs_conf['cs_sfftobmp']." -t $db_filename -o $tif_filename");
+	exec($cs_conf['cs_tiff2ps']." -a2 -h11 -H12 -L.5 -w8.5 $tif_filename -O $fi_filename");
+	exec($cs_conf['cs_rm']." $tif_filename");
+	exec($cs_conf['cs_rm']." $db_filename");
 	
 }
 elseif ($fileformat==2) //tif
@@ -80,8 +84,8 @@ elseif ($fileformat==2) //tif
 	$s_Content_type="image/tiff";
 	$fi_filename=$tmp_file.".tif";
 	$s_filename="FAX-$_GET[file].tif";
-	exec("sfftobmp -t $db_filename -o $fi_filename");
-	exec("rm $db_filename");
+	exec($cs_conf['cs_sfftobmp']." -t $db_filename -o $fi_filename");
+	exec($cs_conf['cs_rm']." $db_filename");
 }
 else //sff
 {
@@ -107,5 +111,5 @@ else
 	sleep(1);
 	fpassthru($fdl);
 }
-exec("rm $fi_filename");
+exec($cs_conf['cs_rm']." $fi_filename");
 ?>

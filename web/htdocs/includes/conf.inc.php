@@ -17,6 +17,6 @@ $config['language']         = "de";
 *******************************************************************************
 ******************************************************************************/
 //VERSIONS INFO UND CODENAMEN:
-$codenamen="AN-BETA-VERSION-NI";
+$codenamen="BETA-VERSION-NI";
 $version="0.6.8";
 ?>

@@ -54,7 +54,7 @@ if (!$result)
 $last_id=$dataB->sql_return_last_id($result);
 //echo "### $last_id ----";
 //die();
-if ($_POST['btele']!="") // FIXME FIXME FIXME isset() probieren
+if (isset($_POST['btele'])&&$_POST['btele']!="") // FIXME FIXME FIXME isset() probieren
  {
    if (cellphone_number($_POST['btele']))
    {
@@ -75,7 +75,7 @@ if ($_POST['btele']!="") // FIXME FIXME FIXME isset() probieren
   exit();
  }
  }
-if ($_POST['bhandy']!="") // FIXME FIXME FIXME isset() probieren
+if (isset($_POST['bhandy'])&&$_POST['bhandy'] !="") // FIXME FIXME FIXME isset() probieren
  {
    if (cellphone_number($_POST['bhandy']))
    {
@@ -96,7 +96,7 @@ if ($_POST['bhandy']!="") // FIXME FIXME FIXME isset() probieren
   exit();
   }
  }
-if ($_POST[bfax]!="") // FIXME FIXME FIXME isset() probieren
+if (isset($_POST['bfax'])&& $_POST['bfax']!="") // FIXME FIXME FIXME isset() probieren
  {
    if (cellphone_number($_POST['bfax']))
    {

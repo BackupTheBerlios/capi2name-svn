@@ -23,8 +23,8 @@
   <td style="text-align:right;">{tab1.DATA_COUNT}</td>
   <td style="text-align:center;">{tab1.DATA_LAST_CALL}</td>
   <td style="text-align:center;">
-  <a href="./statistic_person.php?id={tab1.DATA_ID}" title="{tab1.call_from_user.L_SEARCH_ENTRY}">
-  <img src="./images/data.png" style="border-width:0px;vertical-align:middle;" alt=""/></a>
+  <a href="./statistic_person.php?id={tab1.DATA_ID}" >
+  <img src="./images/data.png" style="border-width:0px;vertical-align:middle;" alt="" title="{tab1.L_SEARCH_ENTRY}"/></a>
   </td>
  </tr>
  <!-- END tab1 -->

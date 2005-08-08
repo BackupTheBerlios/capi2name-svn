@@ -136,8 +136,10 @@ a:hover
    <!-- <div class="menuitem"><a href="./vorwahl.php">Change Prefix</a></div> -->
   <!-- <div class="menuitem"><a href="./farben.php">Colorsetup</a></div> -->
    <div class="menuitem"><a href="./msn2name.php">MSN to name</a></div>
-   <div class="menuitem"><a href="./adressbuch_bug.php">Adressbook BUG</a></div>
-   <div class="menuitem"><a href="./cs_install.php">CapiSuite Integrator</a></div>
+  <!-- <div class="menuitem"><a href="./adressbuch_bug.php">Adressbook BUG</a></div> -->
+   <div class="menuitem"><a href="./cs_install.php">CapiSuite setup</a></div>
+   <br/>
+   <div class="menuitem"><a href="./logout.php">Logout</a></div>
   </div><!-- Menupunkte Ende-->
   </div><!--Menu ENDE -->
   <div id="main"><!--	Tabelle		Anfang	-->
