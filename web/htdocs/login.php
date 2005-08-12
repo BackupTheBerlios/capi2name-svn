@@ -44,10 +44,10 @@ if ($result_userlist && $_POST['login_name']!="" && $_POST['login_passwd']!="")
 		}
 		fill_sessions($row_userlist);
 		//template suchen und schauen wegen global oder nicht ;)
-		$result_config=$dataB->sql_query("SELECT * FROM config WHERE conf='template'");
-		$daten_config=$dataB->sql_fetch_assoc($result_config);
-		$result_config1=$dataB->sql_query("SELECT * FROM config WHERE conf='default_template'");
+		$result_config=$dataB->sql_query("SELECT conf,value FROM config WHERE conf='template'");
+		$result_config1=$dataB->sql_query("SELECT conf,value FROM config WHERE conf='default_template'");
 		$daten_config1=$dataB->sql_fetch_assoc($result_config1);
+		$daten_config=$dataB->sql_fetch_assoc($result_config);
 		fill_template_session($daten_config,$daten_config1,$row_userlist['template']);
 		$loginok=1;
 		$template->assign_block_vars('tab1',array(

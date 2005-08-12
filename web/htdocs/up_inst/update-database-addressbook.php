@@ -36,7 +36,7 @@ while($daten=mysql_fetch_assoc($result))
 	}
 	$last_id=mysql_insert_id();
 	
-	$tele_array=array("tele1", "tele2", "tele3");
+	$tele_array=array('tele1', 'tele2', 'tele3');
 	for ($i=0;$i<=2;$i++)
 	{ //FOR
 		$tele=$tele_array[$i];
@@ -67,7 +67,7 @@ while($daten=mysql_fetch_assoc($result))
 	} // FOR END
 	
 	//CELL PHONE BEGIN:
-	if ($daten[handy]!= "99")
+	if ($daten['handy']!= "99")
 	{
 		echo "<br>Adding cell phone to new phonenumbers table...<br>";
 		$sql_query_phonenumber="INSERT INTO phonenumbers VALUES('','$last_id','$daten[handy]', '2', '2')";
@@ -88,12 +88,12 @@ while($daten=mysql_fetch_assoc($result))
 		$prefix=0;
 		while($vorwahl_row=mysql_fetch_assoc($tab_vorwahl))
 		{
-			$laenge=strlen($vorwahl_row'[vorwahlnr']);
+			$laenge=strlen($vorwahl_row['vorwahlnr']);
 			$vorwahl_nr=substr($daten['fax'],0,$laenge);
 			if($vorwahl_row['vorwahlnr']==$vorwahl_nr)
 			{ 
 				echo "found prefix in prefix table, addin prefix-gr.id to phonenumbers";
-				$prefix=$vorwahl_row[id];
+				$prefix=$vorwahl_row['id'];
 				break;
 			}
 		}//while vorwahl END

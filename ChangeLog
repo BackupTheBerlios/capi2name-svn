@@ -64,6 +64,7 @@ Capi2name 0.6.8 YYYY-MM-DD - Jonas Genannt - <jonas.genannt@capi2name.de> BETA
 	o PHP: Added: cs_fax.php complete rewrite now DB based
 	o PHP: Added: cs_answerphone.php complete rewrite now DB based
 	o PHP: Added: New icons
+	o PHP: Added: addressbook.php/addressbook_show.php new display mode for numbers
 	o PHP: Added: showstatnew.php warning if date is in future
 	o PHP: Added: showstatnew.php buttons for navigate through dates 
 	o C2N: removed: daemon/contrib/SuSE: incompatible with this version

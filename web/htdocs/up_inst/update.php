@@ -150,7 +150,7 @@ if ($capi_config_tabelle)
 		die();
 	}
 	$daten=mysql_fetch_assoc($result);
-	$db_layout_version=$daten[value];
+	$db_layout_version=$daten['value'];
 }
 /********************************************************************
  CAPI2NAME DB-Layout ober 0.6.7.6 FOUND END
@@ -389,7 +389,7 @@ if ($db_layout_version=="0.6.7.5")
 	while ($daten=mysql_fetch_assoc($result_user))
 	{
 		echo "User: $daten[username]<br/>";
-		if ($daten[username]=="admin")
+		if ($daten['username']=="admin")
 		{
 			$result=mysql_query("UPDATE users SET passwd='$daten[passwd]' WHERE username='admin'");
 			if (!$result)

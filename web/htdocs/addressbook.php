@@ -51,10 +51,19 @@ while($data_addr=$dataB->sql_fetch_assoc($result))
 		$color=$row_color_2;
 		$i=0; 
 	}
-	$result_tele=$dataB->sql_query("SELECT number FROM phonenumbers WHERE  typ='1' AND addr_id='$data_addr[id]' LIMIT 1");
+	$result_tele=$dataB->sql_query("SELECT t1.number,t2.vorwahlnr FROM phonenumbers as t1 LEFT JOIN vorwahl as t2 ON t1.areacode=t2.id WHERE  t1.typ='1' AND t1.addr_id='$data_addr[id]'  LIMIT 1 ");
+	echo mysql_error();
 	$data_tele=$dataB->sql_fetch_assoc($result_tele);
+	if ($data_tele)
+	{
+		$data_tele['number']=split_number($data_tele['number'],$data_tele['vorwahlnr']);
+	}
 	$result_cellphone=$dataB->sql_query("SELECT number FROM phonenumbers WHERE  typ='2' AND addr_id='$data_addr[id]' LIMIT 1");
 	$data_cellphone=$dataB->sql_fetch_assoc($result_cellphone);
+	if ($data_cellphone)
+	{
+		$data_cellphone['number']=split_cellphone($data_cellphone['number']);
+	}
 	
 	if (isset($_GET['id']) && $_GET['id']==$data_addr['id'])
 	{

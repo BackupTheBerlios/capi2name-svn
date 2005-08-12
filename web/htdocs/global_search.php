@@ -74,7 +74,7 @@ if (!empty($_POST['s_number']) && is_numeric($_POST['s_number']))
 		$sqlquery=sprintf("%s AND t1.msn=%s",$sqlquery,
 			$dataB->sql_checkn($_POST['s_msn']));
 	}
-	if ($_POST[be_dates]=="on" && is_numeric($_POST[first_d]) &&
+	if (isset($_POST['be_dates'])&&$_POST['be_dates']=="on" && is_numeric($_POST['first_d']) &&
 		is_numeric($_POST['first_m']) && is_numeric($_POST['first_j']) &&
 		is_numeric($_POST['last_d']) && is_numeric($_POST['last_m']) &&
 		is_numeric($_POST['last_y']))
@@ -96,7 +96,7 @@ else
 }
 //AUSGABE AN BROWSER SUCHERGEBNIS:
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-if ($_POST[addr_calls]=="addr")
+if ($_POST['addr_calls']=="addr")
 {
 	$i=0;
 	$template->assign_block_vars('addr',array(
@@ -131,14 +131,15 @@ if ($_POST[addr_calls]=="addr")
 				'addr_cell_phone' => $daten_cell['number'],
 				'addr_edit_entry' => $textdata['adressbuch_eintrag_bearbeiten'],
 				'addr_delete_entry' => $textdata['adressbuch_eintrag_loeschen'],
-				'addr_search_entry' => $textdata['adressbuch_suche_eintraege']
+				'addr_search_entry' => $textdata['adressbuch_suche_eintraege'],
+				'addr_search_entry' =>  $textdata['adressbuch_suche_eintraege']
   				));
 		
 			  
 		$i++;
 	}
 }//ADDR AUSGEBENE ENDE:
-if ($_POST[addr_calls]=="call")
+if ($_POST['addr_calls']=="call")
 {
 	$template->assign_block_vars('cell',array(
 		'L_DATE' => $textdata['stat_anrufer_datum'],
@@ -181,7 +182,7 @@ if ($_POST[addr_calls]=="call")
  $anz_insaddr="";
  $anz_rueckruf="";
  $anz_msn="";
-if ($daten[vorwahl]=="cell phone")
+if ($daten['vorwahl']=="cell phone")
   {
    $anz_vorwahl=$textdata['cell_pone'];
   }
@@ -228,7 +229,7 @@ if ($daten[vorwahl]=="cell phone")
       $anz_msn=$daten['msn_name'];
      }
     //MSNS überprüfen:
-    $show_entry_msns=msns_ueberpruefen($userconfig['msns'],$daten['msn']);
+    $show_entry_msns=msns_ueberpruefen($_SESSION['msn_listen'],$daten['msn']);
     //Datum umwandeln, und wegen Heute/Gestern funktion:
     $anz_datum=anzeige_datum(mysql_datum($daten['datum']));
     //ermittle Dienstkennung:
@@ -268,7 +269,7 @@ if ($_SESSION['show_callback'])
 if ($_SESSION['allow_delete'])
  {
   $template->assign_block_vars('cell.data.show_delete_func', array(
-  	'DATA_LINK_DELETE_FUNC' => $daten['id'].$loeschen_seiten,
+  	'DATA_LINK_DELETE_FUNC' => $daten['id'],
 	'L_DELETE_ENTRY_FROM_DB' => $textdata['showstatnew_loesche_db']));
  }
 		

@@ -34,6 +34,29 @@ function fill_sessions($row_userlist)
 	$_SESSION['msn_listen']=$row_userlist['msn_listen'];
 }
 
+function split_number($tel_number,$prefix_nr) //split number in $prefix / $number
+{
+	if ($prefix_nr)
+	{
+		$len_prefix=strlen($prefix_nr);
+		$teil_1=substr($tel_number,0,$len_prefix);
+		$teil_2=substr($tel_number,$len_prefix,strlen($tel_number));
+		return $teil_1. " / ".$teil_2;
+	}
+	else
+	{
+		return $tel_number;
+	}
+	
+}
+
+function split_cellphone($number)
+{
+	$teil_1=substr($number,0,4);
+	$teil_2=substr($number,4,strlen($number));
+	return $teil_1. " / ".$teil_2;
+}
+
 function fill_template_session($daten_config,$daten_config1,$u_template)
 {
 	if (!$daten_config['value'])

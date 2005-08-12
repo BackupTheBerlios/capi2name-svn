@@ -32,7 +32,7 @@ else
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 $query=sprintf("SELECT passwd FROM users WHERE id=%s", $dataB->sql_checkn($user_id));
 $result_userlist=$dataB->sql_query($query);
-if ($result_userlist && !isset($password) || $password!="")
+if ($result_userlist && !isset($password) || $password!="" && $user_id!="-1")
 {
 	$row_userlist=$dataB->sql_fetch_assoc($result_userlist);
 	if ($password==$row_userlist['passwd'])
@@ -87,7 +87,7 @@ $dataB->sql_close();
 if ($login_ok == 0)
 {
 	$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-	$result=$dataB->sql_query("SELECT conf,value FROM config WHERE conf='default_template'");
+	$result=$dataB->sql_query("SELECT value FROM config WHERE conf='default_template'");
 	$daten=$dataB->sql_fetch_assoc($result); 
 	$dataB->sql_close();
 	$_SESSION['template']=$daten['value'];

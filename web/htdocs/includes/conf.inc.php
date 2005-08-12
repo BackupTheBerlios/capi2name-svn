@@ -7,7 +7,6 @@ $config['domain']           = "www.mein-lokal.de";
 $config['capi2name_status'] = "yes";
 $config['capisuite']        = "yes";
 $config['language']         = "de";
-
 /******************************************************************************
 *******************************************************************************
                                 Do not edit belong this line
