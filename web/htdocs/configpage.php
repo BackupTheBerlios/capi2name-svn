@@ -76,7 +76,7 @@ if (!empty($_POST['old_passwd']))
  /*********************************/
 $result_config=$dataB->sql_query("SELECT * FROM config WHERE conf='template'"); 
 $daten_config=$dataB->sql_fetch_assoc($result_config);
-if ($daten_config[value]==NULL)
+if ($daten_config['value']==NULL)
  {
   $result=$dataB->sql_query("UPDATE users SET template='$_POST[template]' WHERE id='$_POST[id]'");
 if (!$result) 
@@ -139,6 +139,12 @@ if (!$result)
     $template->assign_block_vars('db_update_cs_audio',array(
     		'L_MSG_CS_AUDIO' => 'Updating cs_audio in database failed!!'));
    }   
+$result=$dataB->sql_query("UPDATE users SET cs_fax='$_POST[cs_fax]' WHERE id='$_POST[id]'");
+if (!$result) 
+   {
+    $template->assign_block_vars('db_update_cs_fax',array(
+    		'L_MSG_CS_AUDIO' => 'Updating cs_fax in database failed!!'));
+   }   
 
 $dataB->sql_close();
 $template->assign_block_vars('db_update',array(
@@ -189,7 +195,8 @@ $template->assign_block_vars('tab1', array(
 	'L_WARNING_FOR_MSN_FUNC' => $textdata['warnung_msns'],
 	'DATA_ID_FROM_DB' => $daten['id'],
 	'L_SAVE_DATA_TO_DB' => $textdata['save'],
-	'L_T_CS_AUDIO' =>$textdata['cs_type_cs_audio'])); 
+	'L_T_CS_AUDIO' =>$textdata['cs_type_cs_audio'],
+	'L_T_CS_FAX' => $textdata['cs_type_cs_fax'])); 
 
 //cs_audio selection:
 for ($i=1;$i<=3;$i++)
@@ -208,6 +215,26 @@ for ($i=1;$i<=3;$i++)
 			'DATA_ID' => $i,
 			'DATA_SELECT' => ''));
 	}
+}
+//CS_fax auswahl
+for ($i=1;$i<=4;$i++)
+{
+	if ($daten['cs_fax']==$i)
+	{
+		$template->assign_block_vars('tab1.tab4',array(
+			'DATA_NAME' => $textdata['cs_fax_'.$i],
+			'DATA_ID' => $i,
+			'DATA_SELECT' => 'selected="selected"'));
+	}
+	else
+	{
+		$template->assign_block_vars('tab1.tab4',array(
+			'DATA_NAME' => $textdata['cs_fax_'.$i],
+			'DATA_ID' => $i,
+			'DATA_SELECT' => ''));
+	}
+	
+	
 }
 if ($daten_config['value']==NULL)
  {

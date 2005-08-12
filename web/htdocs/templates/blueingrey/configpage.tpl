@@ -45,6 +45,9 @@
 <!-- BEGIN db_update_cs_audio -->
 <div class="rot_mittig">{db_update_cs_audio.L_MSG_CS_AUDIO}</div>
 <!-- END db_update_cs_audio -->
+<!-- BEGIN db_update_cs_fax -->
+<div class="rot_mittig">{db_update_cs_fax.L_MSG_CS_AUDIO}</div>
+<!-- END db_update_cs_fax -->
 <!-- BEGIN db_update -->
 <div class="blau_mittig">{db_update.L_MSG_SAVED}</div>
 <!-- END db_update -->
@@ -136,6 +139,19 @@
  </select>
  </td>
 </tr>
+<tr>
+ <td>{tab1.L_T_CS_FAX}:</td>
+ <td style="width:10px;"></td>
+ <td>
+  <select name="cs_fax">
+  <!-- BEGIN tab4 -->
+  <option {tab1.tab4.DATA_SELECT} value="{tab1.tab4.DATA_ID}">{tab1.tab4.DATA_NAME}</option>
+  <!-- END tab4 -->
+  </select>
+ </td>
+</tr>
+
+
 <tr>
  <td style="vertical-align:top;">{tab1.L_SHOW_MSN_FUNC}:</td>
  <td style="width:10px;"></td>

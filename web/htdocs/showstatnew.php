@@ -1,8 +1,7 @@
 <?php
-//error_reporting(E_ALL);
 /*
     copyright            : (C) 2002-2005 by Jonas Genannt
-    email                : jonasge@gmx.net
+    email                :  jonas.genannt@capi2name.de
  ***************************************************************************/
 
 /***************************************************************************
@@ -13,9 +12,9 @@
  *   any later version.                                  		   *
  *                                                                         *
  ***************************************************************************/
-if (isset($_GET[datum]))
+if (isset($_GET['datum']))
   { 
-   if ($_GET[datum]=="heute")
+   if ($_GET['datum']=="heute")
      {
       $seite=base64_encode("showstatnew.php?datum=heute");
      }
@@ -24,7 +23,7 @@ if (isset($_GET[datum]))
      $seite=base64_encode("showstatnew.php?datum=gestern");
     }
   }
-elseif (isset($_GET[sdatum]))
+elseif (isset($_GET['sdatum']))
   {
    $seite=base64_encode("showstatnew.php?sdatum=".$_GET['sdatum']);
   }
@@ -234,9 +233,11 @@ while($daten=$dataB->sql_fetch_assoc($result_angerufene))
 if ($daten['vorwahl']=="cell phone")
   {
    $anz_vorwahl=$textdata['cell_pone'];
+   $daten['rufnummer']=split_cellphone($daten['rufnummer']);
   }
   else
   {
+   $daten['rufnummer']=split_number($daten['rufnummer'],$daten['vorwahl']);
    $anz_vorwahl=$daten['vorwahl'];
   }
    if ($daten['rufnummer']=="unbekannt" && $daten['name']=="unbekannt")

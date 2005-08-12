@@ -102,9 +102,14 @@ Falls dieses Problem weiterhin besteht, wenden Sie sich bitte an ihren Systemadm
 
 //configpage.php Seite
 $textdata['cs_type_cs_audio']="Sende folgenden Dateityp beim Anrufbeantworter";
+$textdata['cs_type_cs_fax']="Sende folgenden Dateityp beim FAX";
 $textdata['cs_audio_1']="WAVE";
 $textdata['cs_audio_2']="MP3";
 $textdata['cs_audio_3']="OGG";
+$textdata['cs_fax_4']="PDF";
+$textdata['cs_fax_3']="PS";
+$textdata['cs_fax_2']="TIFF";
+$textdata['cs_fax_1']="SFF";
 $textdata['configpage_konfiguration']="Konfiguration";
 $textdata['configpage_nicht_berechtigt']="Sie sind nicht berechtigt, diese Seite anzuzeigen. Bitte wenden Sie sich an Ihren Administator!";
 $textdata['configpage_altes_passwd_gleich']="Altes Passwort gleich: OK!";

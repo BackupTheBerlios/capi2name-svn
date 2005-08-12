@@ -1,12 +1,12 @@
 <table border="0" style="margin-right:auto;margin-left:auto;">
 <tr>
 <td style="width:60px;text-aligen:left;">
-<a href="./showstatnew.php?{date_back}" title="{day_left}"><img src="./images/1leftarrow.png" style="border-width:0px;vertical-align:middle;"/></a></td>
+<a href="./showstatnew.php?{date_back}" title="{day_left}"><img src="./images/1leftarrow.png" style="border-width:0px;vertical-align:middle;" alt=""/></a></td>
 <td style="text-aligen:center;"><div class="ueberschrift_seite">{L_CALL_STAT_TITLE}</div></td>
 <td style="width:60px;text-aligen:right;">
 <!-- BEGIN b_right -->
 <a href="./showstatnew.php?{date_for}" title="{day_right}">
-<img src="./images/1rightarrow.png" style="border-width:0px;vertical-align:middle;" /></a>
+<img src="./images/1rightarrow.png" style="border-width:0px;vertical-align:middle;" alt="" /></a>
 <!-- END b_right -->
 </td>
 </tr>

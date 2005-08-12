@@ -19,23 +19,18 @@
    <!-- END del -->
   </tr>
   <!-- BEGIN tab2 -->
-  <tr bgcolor="{tab1.tab2.DATA_COLOR}">
+  <tr style="background-color:{tab1.tab2.DATA_COLOR}">
    <td>{tab1.tab2.DATA_DATE}</td>
    <td>{tab1.tab2.DATA_TIME}</td>
    <td>{tab1.tab2.DATA_NUMBER}</td>
    <td>{tab1.tab2.DATA_MSN}</td>
    <td>{tab1.tab2.DATA_NAME}</td>
-   <td><a href="cs_hearmessage.php?file={tab1.tab2.DATA_CS_ID}"><img src="./images/play.png" border="0"></a></td>
+   <td><a href="cs_hearmessage.php?file={tab1.tab2.DATA_CS_ID}"><img src="./images/play.png" style="border-width:0px;vertical-align:middle;" alt=""/></a></td>
   <!-- BEGIN delD -->
-  <td style="text-align:center;"><a href="./cs_answerphone.php?del={tab1.tab2.delD.DATA_ID}"><img src="./images/edittrash.png" border="0"></a></td>
+  <td style="text-align:center;"><a href="./cs_answerphone.php?del={tab1.tab2.delD.DATA_ID}"><img src="./images/edittrash.png" style="border-width:0px;vertical-align:middle;" alt=""/></a></td>
   <!-- END delD -->
   </tr>
   <!-- END tab2 -->
- </thead>
-<tbody>
+  </table>
 <!-- END tab1 -->
-
-
-<tr><td></td></tr>
-</tbody>
-</table>
+<br/>
