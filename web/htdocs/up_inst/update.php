@@ -75,7 +75,7 @@ else
 $capi_version_tabelle=false;
 $capi_config_tabelle=false;
 $db_layout_version="";
-$db_layout_neue_version="0.6.8";
+$db_layout_neue_version="0.6.7.9";
 
 echo "<br/><b>Please wait until the scrip prints out in green 'OK'</b><br/><br/>";
 
@@ -456,10 +456,10 @@ if ($db_layout_version=="0.6.7.6.1")
 /***************** VERSION 0.6.7.6.1->0.6.7.6.2 END **************************/
 
 
-/***************+ VERSION 0.6.7.6.2 -> 0.6.8  BEGIN **************************/   
+/***************+ VERSION 0.6.7.6.2 -> 0.6.7.9  BEGIN **************************/   
 if ($db_layout_version=="0.6.7.6.2")
 {
-	echo "Found Version 0.6.7.6.2 updating to 0.6.8...........<br>";
+	echo "Found Version 0.6.7.6.2 updating to 0.6.7.9...........<br>";
 	$result_db=mysql_list_tables($dbname);
 	$phone_found=0;
 	while($data=mysql_fetch_row($result_db))
@@ -475,8 +475,8 @@ if ($db_layout_version=="0.6.7.6.2")
 	if ($phone_found!=1)
 	{
 	//sql file einspielen:
-	$file=fopen("update-database-0.6.7.6.2-0.6.8.sql", "rb");
-	$inhalt= fread ($file, filesize("update-database-0.6.7.6.2-0.6.8.sql"));
+	$file=fopen("update-database-0.6.7.6.2-0.6.7.9.sql", "rb");
+	$inhalt= fread ($file, filesize("update-database-0.6.7.6.2-0.6.7.9.sql"));
 	$array_inhalt=split("(;\n|;\r)",$inhalt);
 	for($i=0;$i<sizeof($array_inhalt)-1; $i++)
 	{
@@ -523,7 +523,7 @@ if ($db_layout_version=="0.6.7.6.2")
 			}
 		}
 	}
-	$control=mysql_query("UPDATE config SET value='0.6.8' WHERE conf='db_version'");
+	$control=mysql_query("UPDATE config SET value='0.6.7.9' WHERE conf='db_version'");
 	if (!$control)
 	{
 		echo "Update failed: <br/>Mysql-Error: ". mysql_error();

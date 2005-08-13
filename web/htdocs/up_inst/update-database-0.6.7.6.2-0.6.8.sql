@@ -48,3 +48,7 @@ CREATE TABLE `capisuite` (
   `data` longblob NOT NULL,
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM AUTO_INCREMENT=13 ;
+
+
+UPDATE angerufene SET rufnummer= 'unknown' WHERE rufnummer='unbekannt';
+UPDATE angerufene SET name= 'unknown' WHERE name='unbekannt';
