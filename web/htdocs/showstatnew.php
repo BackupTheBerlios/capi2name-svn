@@ -191,7 +191,7 @@ if ($_SESSION['allow_delete'])
 }
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 $sql_query_1="SELECT  t1.id,t1.rufnummer,t1.datum,t1.uhrzeit,t1.name,t1.dienst,
-		t5.name AS vorwahl,t1.msn,
+		t5.name AS vorwahl,t1.msn,t5.vorwahlnr,
 		t3.name_first, t3.name_last,t3.id AS ADDR_ID,t2.areacode,
 		t4.name AS msn_name
 		FROM angerufene AS t1
@@ -237,19 +237,19 @@ if ($daten['vorwahl']=="cell phone")
   }
   else
   {
-   $daten['rufnummer']=split_number($daten['rufnummer'],$daten['vorwahl']);
+   $daten['rufnummer']=split_number($daten['rufnummer'],$daten['vorwahlnr']);
    $anz_vorwahl=$daten['vorwahl'];
   }
-   if ($daten['rufnummer']=="unbekannt" && $daten['name']=="unbekannt")
+   if ($daten['rufnummer']=="unknown" && $daten['name']=="unknown")
     {
      if (isset($_GET['datum'])) $submit_date="&datum=".$_GET['datum'];
      else if (isset($_GET['sdatum'])) $submit_date="&datum=".$_GET['sdatum'];
      else $submit_date=""; 
-     $anz_name="<a href=\"./showstatnew.php?unbekannt=yes&#038;einid=$daten[id]$submit_date\">unbekannt</a>";
+     $anz_name="<a href=\"./showstatnew.php?unbekannt=yes&#038;einid=$daten[id]$submit_date\">$textdata[unknown]</a>";
      $anz_rueckruf="<a href=\"./callback.php?add=yes&#038;addr=\">
    <img src=\"./images/1leftarrow.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
     }
-   elseif ($daten['rufnummer']!="unbekannt" && $daten['name_last']==NULL)
+   elseif ($daten['rufnummer']!="unknown"  && $daten['name_last']==NULL)
     {
      $anz_name=$daten['name'];
      $wertaddaddr=handynr_vorhanden($daten['rufnummer']);
@@ -257,7 +257,7 @@ if ($daten['vorwahl']=="cell phone")
      $anz_rueckruf="<a href=\"./callback.php?add=yes&#038;addr=&#038;nr=$daten[rufnummer]\">
    <img src=\"./images/1leftarrow.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
     }
-   elseif ($daten['rufnummer']=="unbekannt" && $daten['name']!="unbekannt")
+   elseif ($daten['rufnummer']=="unknown" && $daten['name']!="unknown")
     {
      $anz_name=$daten['name'];
      $anz_rueckruf="<a href=\"./callback.php?add=yes&#038;addr=\">
@@ -328,6 +328,8 @@ if ($_SESSION['allow_delete'])
  
    
 }//END WHILE $result_angerufene
+
+/*
 for ($i=1;$i<=$pages_num;$i++)
 {
 	if ($i==$cur_page)
@@ -343,6 +345,7 @@ for ($i=1;$i<=$pages_num;$i++)
 			'D_BOLD'  => ''));
 	}
 }
+*/
 $dataB->sql_close();
 $template->pparse('overall_body');
 include("./footer.inc.php");

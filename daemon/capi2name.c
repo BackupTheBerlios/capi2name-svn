@@ -21,26 +21,10 @@
 #include <stdlib.h>
 #include <getopt.h>
 #include "capiconn.h"
+#include "capi2name.h"
 #define MAIN
-#include  "capi.h"
-#include "config_api.h"
 
- char *command = "capi2name";
- char hostname[100]="";
- char username[100]="";
- char password[100]="";
- char database[100]="";
- char tkanlage[100]="";
- char use_smbclient[5]="";
- char smbclient_hosts[200]="";
- char export_joetxt[80]="";
- char export_joetxt_file[100]="";
- char rufnummer[1024]="";
- config_t conf;
- char a_rufnummer[20][80];
- char a_smbclient_hosts[20][80];
- int alles=1;
-/* -------------------------------------------------------------------- */
+char *command = "capi2name";
 
 static int opt_debug = 0;
 static char *opt_ddi = 0;
@@ -145,11 +129,12 @@ static void incoming(capi_connection *cp,
 			  char *callednumber,
 			  char *callingnumber)
 {
-
-
-
-int y=0;
 int dienstkennung=0;
+char rufnr[41];
+char msn_name[40];
+char prefix_name[40];
+int prefix_id;
+char name[1024];
 
 	switch (cipvalue) {
 	case 1: /* Speech */
@@ -189,33 +174,29 @@ int dienstkennung=0;
 	}
 
 
-
-
-
-
-if (alles==2)
- {
-     indb(callingnumber, callednumber, hostname, username, password, database, dienstkennung,tkanlage,export_joetxt,export_joetxt_file, use_smbclient, a_smbclient_hosts);
- }
- else
- {
-while(a_rufnummer[y] != NULL)
- {
-  if ( (strcmp(callednumber, a_rufnummer[y]))==0)
-   {
-     indb(callingnumber, callednumber, hostname, username, password, database,dienstkennung,tkanlage,export_joetxt,export_joetxt_file, use_smbclient, a_smbclient_hosts);
-    break;
-   }
-y++;
- }
-
-
-} //alles =="
-
-
-
-
-
+//service_number==dienstkennung
+//nummer=callingnumber
+//msn=callednumber
+if (config.tksupport==1)
+{
+	sprintf(rufnr,"%s" ,callingnumber);
+}
+else
+{
+	sprintf(rufnr,"0%s",callingnumber);
+}
+if (!strcmp(rufnr, "") || !strcmp(rufnr, "0") )
+{
+	sprintf(rufnr, "unknown");
+}
+get_name_from_msn(callednumber,msn_name);
+get_name_from_number(name, rufnr);
+if (config.export_txt==1)
+{	
+	write_to_file(name,rufnr,msn_name);
+}
+prefix_id=get_prefix_from_number(rufnr, prefix_name);
+write_data_to_db(rufnr,callednumber,prefix_id,dienstkennung);
 
 }
 
@@ -281,14 +262,7 @@ int main(int ac, char *av[])
 	unsigned err;
 	unsigned applid;
 	int c;
-int i=1, smbi=1;
-int e=0,smbe=0;
-char nbuffer[1024]="", smbnbuffer[1024]="";
-char komma=',';
 
-size_t laenge;
-char buffer[1024]="";
-char smbbuffer[1024]="";
 	for (;;) {
 	       int option_index = 0;
 	       static struct option long_options[] = {
@@ -353,129 +327,15 @@ opt_alert = 1;
 		errmsg("CAPI_REGISTER failed - 0x%04x");
 		return 2;
         }
-/*
-================================================================================================
-
-CONFI LESEN
-
-*/
-
-
- memset(rufnummer, 0, sizeof(rufnummer));
-  memset(hostname, 0, sizeof(hostname));
-  memset(username, 0, sizeof(username));
- memset(password, 0, sizeof(password));
- memset(database, 0, sizeof(database));
-
- // Aus Config lesen:
- if (!config_open(&conf, opt_conf, C_READ))
-  {
-   fprintf(stderr, "\nError: ConfigFile /etc/capi2name.conf not found!!\n");
-  // exit(-1);
-  }
-
-if (!config_read(&conf, "capi", "rufnummer", rufnummer, sizeof(rufnummer)))
- {
-  fprintf(stderr, "\nError: Config-Option, hostname not found!!!\n");
- }
-
-
-
-if (!config_read(&conf, "capi", "hostname", hostname, sizeof(hostname)))
- {
-  fprintf(stderr, "\nError: Config-Option, hostname not found!!!\n");
- }
-if (!config_read(&conf, "capi", "username", username, sizeof(username)))
- {
-  fprintf(stderr, "\nError: Config-Option, username not found!!!\n");
- }
- if (!config_read(&conf, "capi", "password", password, sizeof(password)))
- {
-  fprintf(stderr, "\nError: Config-Option, password not found!!!\n");
- }
-if (!config_read(&conf, "capi", "database", database, sizeof(database)))
- {
-  fprintf(stderr, "\nError: Config-Option, database not found!!!\n");
- }
-if (!config_read(&conf, "capi", "tkanlage", tkanlage,sizeof(tkanlage)))
- {
-  fprintf(stderr, "\nError: Config-Optopn, tkanlage not found!!!\n");
- }
-if (!config_read(&conf, "capi", "export_joetxt", export_joetxt,sizeof(export_joetxt)))
-  {
-   fprintf(stderr, "\nError: Config-Option, export_joetxt not found!!!\n");
-  }
-if (!config_read(&conf, "capi", "export_joetxt_file", export_joetxt_file, sizeof(export_joetxt_file)))
- {
-  fprintf(stderr, "\nError: Config-Option, export_joetxt_file not found!!!\n");
- }
-if (!config_read(&conf, "capi", "use_smbclient", use_smbclient, sizeof(use_smbclient)))
-   {
-    fprintf(stderr, "\nError: Config-Option, use_smbclient not found!!!\n");
-   }
-if (!config_read(&conf, "capi", "smbclient_hosts", smbclient_hosts, sizeof(smbclient_hosts)))
-  {
-   fprintf(stderr, "\nError: Config-Option, smbclient_hosts not found!!!\n");
-  }
-
-//fprintf(stderr, "\nNach option lesen!\n");
-// ENDE daten auslesen
-  config_close(&conf);
-  if ((strcmp("all", rufnummer))==0)
-   {
-    alles=2;
-   }
- else
- {
- laenge= strlen(rufnummer);
-do
- {
-  buffer[0]='\0';
-  nbuffer[0]='\0';
-   if (rufnummer[i] == komma)
-    {
-  //   fprintf(stderr, "\nIn if ()\n");
-     strncpy(buffer,rufnummer, i);
-     strcpy(a_rufnummer[e], buffer);
-     e++;
-     strncpy(nbuffer,&rufnummer[i+1], laenge-i+1);
-     sprintf(rufnummer, nbuffer);
-     i=0;
-     laenge=strlen(rufnummer);
-    }
-   i++;
-  } while(i != laenge);
-
-  *a_rufnummer[e]=NULL;
-} // ende alles
-  // ENDE COnfig lesen
-
-
-
-    laenge= strlen(smbclient_hosts);
-         do
-          {
-            smbbuffer[0]='\0';
-             smbnbuffer[0]='\0';
-             if (smbclient_hosts[smbi] == komma)
-              {
-              //   fprintf(stderr, "\nIn if ()\n");
-                strncpy(smbbuffer,smbclient_hosts, smbi);
-              strcpy(a_smbclient_hosts[smbe], smbbuffer);
-             smbe++;
-             strncpy(smbnbuffer,&smbclient_hosts[smbi+1], laenge-smbi+1);
-            sprintf(smbclient_hosts, smbnbuffer);
-             smbi=0;
-            laenge=strlen(smbclient_hosts);
-           }
-          smbi++;
-         } while(smbi != laenge);
-
-        sprintf(a_smbclient_hosts[smbe], "NULL");
-//} // ende alles
-  // ENDE COnfig lesen
-
-
+	
+	openlog("Capi2Name",LOG_ODELAY,LOG_DAEMON);
+	if (mk_daemon()!=0)
+	{
+		syslog(LOG_NOTICE,"Error on daemonize");
+		exit(-1);
+	}
+	syslog(LOG_NOTICE, "daemon started up");
+	get_conf();
 
 
 

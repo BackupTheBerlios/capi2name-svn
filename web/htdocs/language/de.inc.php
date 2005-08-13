@@ -222,6 +222,7 @@ $textdata['warning']="Achtung";
 $textdata['date_in_future']="Ausgewähltes Datum liegt in der Zukunft!";
 $textdata['day_right']="Ein Tag weiter...";
 $textdata['day_left']="Ein Tag vor...";
+$textdata['unknown']="unbekannt";
 //showstatnew.php ENDE
 
 $textdata['days7_7tage_uebersicht']="7 Tage Übersicht";

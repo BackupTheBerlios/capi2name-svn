@@ -1,24 +1,14 @@
 # Makefile for capi2name
 HTDOCS = $(CURDIR)/web/htdocs/
 DAEMON = $(CURDIR)/daemon/
-SOURCE = $(DAEMON)config_api.c $(DAEMON)find.c $(DAEMON)utils.c
-SHLIB  = $(DAEMON)config_api.o
-LIB    = -lmysqlclient -lcapi20  -L/usr/lib
-CFLAGS = -Wall -static 
+LIB    = -lmysqlclient -lcapi20  #-L/usr/lib
+CFLAGS = -Wall 
 
-capi2name:	shlib $(DAEMON)client.o $(DAEMON)indb.o $(DAEMON)capiconn.o $(DAEMON)capi2name.o
-		$(CC) -shared $(LIB) $(DAEMON)config_api.o  $(DAEMON)client.o $(DAEMON)indb.o $(DAEMON)capiconn.o $(DAEMON)capi2name.o -o $(DAEMON)capi2name
+capi2name:	$(DAEMON)c2n.o $(DAEMON)capiconn.o $(DAEMON)capi2name.o 
+		$(CC) $(CFLAGS) $(LIB) $(DAEMON)c2n.o  $(DAEMON)capiconn.o $(DAEMON)capi2name.o -o $(DAEMON)capi2name
 
-shlib:		$(SOURCE)
-		$(CC) -shared -fPIC -lpthread -o $(SHLIB) $(SOURCE)
-#		libtool $(CC) -g -o $(DAEMON)libconfig_api.la -rpath $(CURDIR)/usr/lib/ -lpthread
-		
-
-client.o:	client.c
-		$(CC) $(CFLAGS) -c client.c
-
-indb.o:		indb.c
-		$(CC) $(CFLAGS) -c indb.c
+c2n.o:		c2n.c
+		$(CC) $(CFLAGS) -c c2n.c
 
 capiconn.o:	capiconn.c
 		$(CC) $(CFLAGS)  -c capiconn.c
@@ -36,11 +26,6 @@ distclean:	clean
 		rm -f $(DAEMON)capi2name
 
 install:	capi2name
-		install -d -m 755 $(DESTDIR)/usr/lib
-		install -m 755 $(DAEMON).libs/libconfig_api.so.0.0.0 $(DESTDIR)/usr/lib
-		install -m 755 $(DAEMON)libconfig_api.la $(DESTDIR)/usr/lib
-		ln -s libconfig_api.so.0.0.0 $(DESTDIR)/usr/lib/libconfig_api.so
-		ln -s libconfig_api.so.0.0.0 $(DESTDIR)/usr/lib/libconfig_api.so.0
 		install -d -m 755 $(DESTDIR)/usr/sbin
 		install -m 755 $(DAEMON)capi2name $(DESTDIR)/usr/sbin
 		install -d -m 755 $(DESTDIR)/etc

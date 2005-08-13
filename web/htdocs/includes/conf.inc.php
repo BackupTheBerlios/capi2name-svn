@@ -5,7 +5,7 @@ $sql["dbpasswd"]            = "kljmkgd";
 $sql["db"]                  = "capidb";
 $config['domain']           = "www.mein-lokal.de";
 $config['capi2name_status'] = "yes";
-$config['capisuite']        = "yes";
+$config['capisuite']        = "no";
 $config['language']         = "de";
 /******************************************************************************
 *******************************************************************************
@@ -17,5 +17,5 @@ $config['language']         = "de";
 ******************************************************************************/
 //VERSIONS INFO UND CODENAMEN:
 $codenamen="BETA-VERSION-NI";
-$version="0.6.8";
+$version="0.6.7.9";
 ?>
