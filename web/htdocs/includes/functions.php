@@ -17,6 +17,14 @@ function check_cs_username($cs_user)
 	 $a = exec("id -g $cs_user",$a, $retval);
 	 return $retval;
 }
+function strip_number($number) 
+{
+	$number=str_replace("/","",$number);
+	$number=str_replace("-","",$number);
+	$number=str_replace(" ","",$number);
+	$number=trim($number);
+	return $number;
+}
 function fill_sessions($row_userlist)
 {
 	$_SESSION['realname']=$row_userlist['name_first']." ".$row_userlist['name_last'];

@@ -1,82 +1,27 @@
-
-CREATE TABLE `adressbuch` (
-  `id` int(11) NOT NULL auto_increment,
-  `vorname` char(100) default NULL,
-  `nachname` char(100) default NULL,
-  `strasse` char(100) default NULL,
-  `hausnr` char(100) default NULL,
-  `plz` char(100) default NULL,
-  `ort` char(100) default NULL,
-  `tele1` char(100) default NULL,
-  `tele2` char(100) default '99',
-  `tele3` char(100) default '99',
-  `handy` char(100) default '99',
-  `fax` char(100) default NULL,
-  `email` char(100) default NULL,
+CREATE TABLE `addressbook` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `name_first` char(20) default NULL,
+  `name_last` char(20) default NULL,
+  `street` char(25) default NULL,
+  `housenr` char(10) default NULL,
+  `zipcode` char(10) default NULL,
+  `city` char(30) default NULL,
+  `email` char(40) default NULL,
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM AUTO_INCREMENT=1 ;
-
+) TYPE=MyISAM;
 
 CREATE TABLE `angerufene` (
   `id` int(11) NOT NULL auto_increment,
   `rufnummer` varchar(100) default NULL,
-  `datum` varchar(10) default NULL,
+  `datum` date default NULL,
   `uhrzeit` time NOT NULL default '00:00:00',
-  `aktive` char(1) default NULL,
+  `aktive` tinyint(2) NOT NULL default '1',
   `name` text,
   `msn` varchar(100) default NULL,
-  `vorwahl` varchar(100) default NULL,
+  `vorwahl` int(10) default NULL,
   `dienst` int(11) default NULL,
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM AUTO_INCREMENT=1 ;
-
-
-
-CREATE TABLE `msnzuname` (
-  `id` int(11) NOT NULL auto_increment,
-  `msn` char(30) NOT NULL default '',
-  `name` char(100) NOT NULL default '',
-  PRIMARY KEY  (`id`)
-) TYPE=MyISAM AUTO_INCREMENT=1 ;
-
-
-CREATE TABLE `config` (
-  `id` int(10) unsigned NOT NULL auto_increment,
-  `conf` char(20) NOT NULL default '',
-  `value` char(20) default NULL,
-  PRIMARY KEY  (`id`)
 ) TYPE=MyISAM;
-
-CREATE TABLE `users` (
-  `id` int(10) unsigned NOT NULL auto_increment,
-  `username` char(8) NOT NULL default '',
-  `passwd` char(40) NOT NULL default '',
-  `lastlogin_d` date default NULL,
-  `lastlogin_t` time default NULL,
-  `name_first` char(15) default NULL,
-  `name_last` char(15) default NULL,
-  `show_lines` tinyint(3) unsigned NOT NULL default '15',
-  `msn_listen` char(30) default NULL,
-  `show_callback` tinyint(1) unsigned NOT NULL default '0',
-  `show_prefix` tinyint(1) unsigned NOT NULL default '0',
-  `show_msn` tinyint(1) unsigned NOT NULL default '0',
-  `show_type` tinyint(1) unsigned NOT NULL default '0',
-  `show_config` tinyint(1) unsigned NOT NULL default '0',
-  `allow_delete` tinyint(1) unsigned NOT NULL default '0',
-  `template` char(10) default NULL,
-  PRIMARY KEY  (`id`),
-  UNIQUE KEY `username` (`username`)
-) TYPE=MyISAM;
-
-INSERT INTO `config` VALUES (1, 'template', 'blueingrey'),
-(2, 'db_version', '0.6.7.6'),
-(3, 'default_template', 'blueingrey');
-
-
-
-INSERT INTO `users` VALUES (1, 'admin', '21232f297a57a5a743894a0e4a801fc3', NULL, NULL, NULL, NULL, 15, NULL, 0, 0, 0, 0, 0, 0, NULL);
-
-
 
 
 CREATE TABLE `callback` (
@@ -93,6 +38,78 @@ CREATE TABLE `callback` (
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM;
 
+CREATE TABLE `capisuite` (
+  `id` int(11) NOT NULL auto_increment,
+  `aktive` tinyint(2) NOT NULL default '1',
+  `date_time` timestamp(14) NOT NULL,
+  `ident` tinyint(1) NOT NULL default '0',
+  `msn` varchar(20) NOT NULL default '',
+  `from_nr` varchar(30) NOT NULL default '',
+  `cs_user` varchar(40) NOT NULL default '',
+  `data` longblob,
+  PRIMARY KEY  (`id`)
+) TYPE=MyISAM;
+
+CREATE TABLE `config` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `conf` char(20) NOT NULL default '',
+  `value` char(50) default NULL,
+  PRIMARY KEY  (`id`)
+) TYPE=MyISAM;
+
+
+INSERT INTO `config` VALUES (NULL, 'template', NULL), 
+(NULL, 'db_version', '0.6.7.9'),
+(NULL, 'default_template', 'blueingrey'),
+(NULL, 'cs_temp_dir', '/tmp'),
+(NULL, 'cs_sox', '/usr/bin/sox'),
+(NULL, 'cs_rm', '/bin/rm'),
+(NULL, 'cs_ps2pdf', '/usr/ps2pdf'),
+(NULL, 'cs_tiff2ps', '/usr/bin/tiff2ps'),
+(NULL, 'cs_sfftobmp', '/usr/bin/sfftobmp');
+
+CREATE TABLE `msnzuname` (
+  `id` int(11) NOT NULL auto_increment,
+  `msn` char(30) NOT NULL default '',
+  `name` char(100) NOT NULL default '',
+  PRIMARY KEY  (`id`)
+) TYPE=MyISAM;
+
+CREATE TABLE `phonenumbers` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `addr_id` int(10) unsigned NOT NULL default '0',
+  `number` char(30) NOT NULL default '',
+  `typ` tinyint(3) unsigned NOT NULL default '0',
+  `areacode` int(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) TYPE=MyISAM;
+
+
+CREATE TABLE `users` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `username` char(8) NOT NULL default '',
+  `cs_user` char(8) default NULL,
+  `passwd` char(40) NOT NULL default '',
+  `lastlogin_d` date default NULL,
+  `lastlogin_t` time default NULL,
+  `name_first` char(15) default NULL,
+  `name_last` char(15) default NULL,
+  `show_lines` tinyint(3) unsigned NOT NULL default '15',
+  `msn_listen` char(30) default NULL,
+  `show_callback` tinyint(1) unsigned NOT NULL default '0',
+  `show_prefix` tinyint(1) unsigned NOT NULL default '0',
+  `show_msn` tinyint(1) unsigned NOT NULL default '0',
+  `show_type` tinyint(1) unsigned NOT NULL default '0',
+  `show_config` tinyint(1) unsigned NOT NULL default '0',
+  `allow_delete` tinyint(1) unsigned NOT NULL default '0',
+  `template` char(10) default NULL,
+  `cs_audio` tinyint(2) NOT NULL default '3',
+  `cs_fax` tinyint(2) NOT NULL default '3',
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `username` (`username`)
+) TYPE=MyISAM;
+
+INSERT INTO users VALUES (NULL, 'admin', NULL, '21232f297a57a5a743894a0e4a801fc3', NULL, NULL, NULL, NULL, 15, NULL, 0, 0, 0, 0, 0, 0, NULL, 3, 3);
 
 
 CREATE TABLE `vorwahl` (
@@ -103,7 +120,7 @@ CREATE TABLE `vorwahl` (
 ) TYPE=MyISAM AUTO_INCREMENT=5239 ;
 
 
-INSERT INTO `vorwahl` VALUES (2, '0150', 'Quam'),
+INSERT INTO `vorwahl` VALUES (2, '0150', 'cell phone'),
 (3, '0151', 'Telekom D1'),
 (4, '0152', 'Vodafone D2'),
 (5, '0159', 'O2'),
@@ -5339,7 +5356,4 @@ INSERT INTO `vorwahl` VALUES (2, '0150', 'Quam'),
 (5235, '09975', 'Waldmünchen-Geigant'),
 (5236, '09976', 'Rötz'),
 (5237, '09977', 'Arnschwang'),
-(5238, '09978', 'Schönthal Oberpf');
-
-
-
+(5238, '09978', 'Schönthal Oberpf');        

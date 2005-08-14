@@ -64,12 +64,12 @@ $ges_anzahl=$dataB->sql_num_rows($result_data);
      $dataB->sql_close();
      $template->pparse('overall_body');  
      include("./footer.inc.php");
-     die();
+     exit();
     }
  
  
 
-$template->assign_vars(array(
+$template->assign_block_vars('tab0',array(
 	'L_SORT_OPTION' => $textdata['stat_gesamt_sortierung'],
 	'L_ADDR_LAST_NAME' =>  $textdata['addadress_nachname'],
 	'L_ADDR_FIRST_NAME' => $textdata['addadress_vorname'],

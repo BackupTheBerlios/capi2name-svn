@@ -107,7 +107,7 @@ if (isset($_SESSION['allow_delete']) && $_SESSION['allow_delete'])
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 $tmp=$dataB->sql_check(datum_mysql($datum[$es]));
 $sql_query="SELECT  t1.id,t1.rufnummer,t1.datum,t1.uhrzeit,t1.name,t1.dienst,
-		t5.name AS vorwahl,t1.msn,
+		t5.name AS vorwahl,t1.msn,t5.vorwahlnr,
 		t3.name_first, t3.name_last,t3.id AS ADDR_ID,t2.areacode,
 		t4.name AS msn_name
 		FROM angerufene AS t1
@@ -132,18 +132,20 @@ while($daten=$dataB->sql_fetch_assoc($result_angerufene))
 if ($daten['vorwahl']=="cell phone")
   {
    $anz_vorwahl=$textdata['cell_pone'];
+   $daten['rufnummer']=split_cellphone($daten['rufnummer']);
   }
   else
   {
+   $daten['rufnummer']=split_number($daten['rufnummer'],$daten['vorwahlnr']);
    $anz_vorwahl=$daten['vorwahl'];
   }
-   if ($daten['rufnummer']=="unbekannt" && $daten['name']=="unbekannt")
+   if ($daten['rufnummer']=="unknown" && $daten['name']=="unknown")
     {
-     $anz_name="<a href=\"./showstatnew7days.php?unbekannt=yes&#038;einid=$daten[id]\">unbekannt</a>";
+     $anz_name="<a href=\"./showstatnew7days.php?unbekannt=yes&#038;einid=$daten[id]\">$textdata[unknown]</a>";
      $anz_rueckruf="<a href=\"./callback.php?add=yes&#038;addr=\">
    <img src=\"./images/1leftarrow.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
     }
-   elseif ($daten['rufnummer']!="unbekannt" && $daten['name_last']==NULL)
+   elseif ($daten['rufnummer']!="unknown" && $daten['name_last']==NULL)
     {
      $anz_name=$daten['name'];
      $wertaddaddr=handynr_vorhanden($daten['rufnummer']);
@@ -151,7 +153,7 @@ if ($daten['vorwahl']=="cell phone")
      $anz_rueckruf="<a href=\"./callback.php?add=yes&#038;addr=\">
    <img src=\"./images/1leftarrow.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
     }
-   elseif ($daten['rufnummer']=="unbekannt" && $daten['name']!="unbekannt")
+   elseif ($daten['rufnummer']=="unknown" && $daten['name']!="unknown")
     {
      $anz_name=$daten['name'];
      $anz_rueckruf="<a href=\"./callback.php?add=yes&#038;addr=\">
@@ -185,6 +187,10 @@ if ($show_entry_msns)
    { $color=$row_color_1; }
   else
    { $color=$row_color_2; }
+  if ($daten['rufnummer']=="unknown")
+  {
+  	$daten['rufnummer']=$textdata['unknown'];
+   }
   $template->assign_block_vars('tab0.tab1', array(
   'DATA_ROW_COLOR' => $color,
   'DATA_SHOW_SINGEL_STAT' => $anz_statistik,

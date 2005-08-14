@@ -21,7 +21,7 @@ if (isset($_POST['save'])) {
   {
    $passwd=md5($_POST['passwd']);
    $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-   $query=sprintf("INSERT INTO users VALUES(NULL,%s,%s,%s,NULL,NULL,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,NULL,%s)",
+   $query=sprintf("INSERT INTO users VALUES(NULL,%s,%s,%s,NULL,NULL,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,NULL,%s,%s)",
    		$dataB->sql_check($_POST['username']),
 		$dataB->sql_check($_POST['cs_user']),
 		$dataB->sql_check($passwd),
@@ -35,7 +35,8 @@ if (isset($_POST['save'])) {
 		$dataB->sql_checkn($_POST['show_type']),
 		$dataB->sql_checkn($_POST['show_config']),
 		$dataB->sql_checkn($_POST['allow_delete']),
-		$dataB->sql_checkn($_POST['cs_audio']));
+		$dataB->sql_checkn($_POST['cs_audio']),
+		$dataB->sql_checkn($_POST['cs_fax']));
    $result=$dataB->sql_query($query);
    $dataB->sql_close();
    if ($result)
@@ -144,7 +145,6 @@ if (isset($_POST['save'])) {
      <option selected="selected" value="0">No</option></select></td>
    </tr>
    <tr>
-   </tr>
    <td style="text-align:left;">
      <span style="font-weight:bold;">[<a href="./doc.html#21" onClick="showDoc()" target="showDoc">i</a>]</span>&nbsp;send type of audio on CS answerphone:</td>
      <td style="width:5px;"></td>
@@ -153,6 +153,20 @@ if (isset($_POST['save'])) {
      <option value="2">MP3</option>
      <option value="3">OGG</option>
      </select></td>
+   </tr>
+   <tr>
+   <td style="text-align:left;">
+     <span style="font-weight:bold;">[<a href="./doc.html#21" onClick="showDoc()" target="showDoc">i</a>]</span>&nbsp;send type of file on CS FAX:</td>
+     <td style="width:5px;"></td>
+      <td style="text-align:right;"><select name="cs_fax">
+     <option value="4">PDF</option>
+     <option value="3">PS</option>
+     <option value="2">TIFF</option>
+     <option value="1">SFF</option>
+     </select></td>
+     
+     
+   </tr>
    
    <tr>
       <td style="text-align:left;"><span style="font-weight:bold;">[<a href="./doc.html#12" onClick="showDoc()" target="showDoc">i</a>]</span>&nbsp;password:</td>

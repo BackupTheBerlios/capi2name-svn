@@ -1,4 +1,4 @@
-Capi2name 0.6.8 YYYY-MM-DD - Jonas Genannt - <jonas.genannt@capi2name.de> BETA 
+Capi2name 0.6.7.9 YYYY-MM-DD - Jonas Genannt - <jonas.genannt@capi2name.de> BETA 
 	o PHP: removed: cs_capisuite_config.inc.php
 	o PHP: removed: cs_help.php
 	o PHP: removed: admin/cs_conf.inc.ini
@@ -65,11 +65,15 @@ Capi2name 0.6.8 YYYY-MM-DD - Jonas Genannt - <jonas.genannt@capi2name.de> BETA
 	o PHP: Added: cs_answerphone.php complete rewrite now DB based
 	o PHP: Added: New icons
 	o PHP: Added: addressbook.php/addressbook_show.php new display mode for numbers
+	o PHP: Added: function for addressbook_add.php for number correction
 	o PHP: Added: showstatnew.php warning if date is in future
 	o PHP: Added: showstatnew.php buttons for navigate through dates 
 	o C2N: removed: daemon/contrib/SuSE: incompatible with this version
 	o C2N: removed: daemon/contrib/isdn4linux: incompatible with this version
 	o C2N: removed: daemon/contrib/capisuite: incompatible with this version
+	o C2N: Added: rewrite of daemon program
+	o C2N: Added: dbox feature from Michael Foerster
+	o C2N: Changed: dbox feature to work with the new daemon (by me)
 
 Capi2name 0.6.7.6.2 2005-06-29 - Jonas Genannt - <jonasge@gmx.net>
 	o PHP: Fixed: header.inc.php and check for DB version found by Max

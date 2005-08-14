@@ -37,7 +37,7 @@ if (isset($_POST['btn_loeschen']) && $_SESSION['allow_delete'])
 		$dataB->sql_checkn($_POST['id']));
 	$res=$dataB->sql_query($sql);
 	$dataB->sql_close();
-	if ($_POST[datum]!="")
+	if ($_POST['datum']!="")
 	{
 		$datum="?datum=".$_POST['datum'];
 	}

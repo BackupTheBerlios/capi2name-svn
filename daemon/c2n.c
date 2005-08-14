@@ -4,11 +4,11 @@
    capi2name comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
    This is free software, and you are welcome to redistribute it
    under certain conditions; see COPYING for details. */
-   #include "capi2name.h"
+#include "capi2name.h"
    
    
    
-   void write_to_file(char *full_name, char *tele_number, char *msn)
+void write_to_file(char *full_name, char *tele_number, char *msn)
 {
 	FILE *fd;
 	char buffer[1024];
@@ -314,6 +314,26 @@ void write_data_to_db(char *number, char *msn, int prefix, int servicenr)
 	buffer[0]='\0';
 	mysql_close(&sql);
 }
+
+void write_pid()
+{
+	pid_t pid;
+	FILE *fd;
+
+	fd=fopen("/var/run/capi2name.pid", "w+");
+	if (fd!=NULL)
+	{
+		pid=getpid();
+		fprintf(fd,"%d",(int)pid);
+		fclose(fd);
+	}
+	else
+	{
+		syslog(LOG_NOTICE, "Could not create/open pid file on /var/run/capi2name.pid");
+	}
+}
+
+
 
 int mk_daemon()
 {

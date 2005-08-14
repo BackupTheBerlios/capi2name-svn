@@ -197,8 +197,12 @@ if (config.export_txt==1)
 }
 prefix_id=get_prefix_from_number(rufnr, prefix_name);
 write_data_to_db(rufnr,callednumber,prefix_id,dienstkennung);
-
+if (config.dbox_support==1)
+{	
+msg_dbox (callednumber, rufnr, " ", name);
 }
+
+}//end incomming call
 
 static void connected(capi_connection *cp, _cstruct NCPI)
 {
@@ -334,6 +338,7 @@ opt_alert = 1;
 		syslog(LOG_NOTICE,"Error on daemonize");
 		exit(-1);
 	}
+	write_pid();
 	syslog(LOG_NOTICE, "daemon started up");
 	get_conf();
 

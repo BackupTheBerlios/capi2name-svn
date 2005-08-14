@@ -291,6 +291,11 @@ if ($daten['vorwahl']=="cell phone")
       { $color=$row_color_1; }
       else
       { $color=$row_color_2; }
+      if ($daten['rufnummer']=="unknown")
+      {
+      	$daten['rufnummer']=$textdata['unknown'];
+      }
+      
       $template->assign_block_vars('tab1', array(
 	'DATA_ROW_COLOR' => $color,
 	'DATA_SHOW_SINGEL_STAT' => $anz_statistik,

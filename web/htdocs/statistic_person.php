@@ -70,9 +70,10 @@ $template->assign_block_vars('tab1',array(
 	'DATA_FIRST_NAME' => $data_adressbuch['name_first'],
 	'DATA_LAST_NAME' => $data_adressbuch['name_last']));
 
-$result=$dataB->sql_query("SELECT number FROM phonenumbers WHERE addr_id='$id' AND typ='1'");
+$result=$dataB->sql_query("SELECT t1.number,t2.vorwahlnr FROM phonenumbers AS t1 LEFT JOIN vorwahl AS t2 ON t2.id=t1.areacode WHERE addr_id='$id' AND typ='1'");
 while($daten=$dataB->sql_fetch_assoc($result))
  {
+   $daten['number']=split_number($daten['number'],$daten['vorwahlnr']);
    $template->assign_block_vars('show_tele',array(
    		'L_TELE' => $textdata['addadress_telefonnummer'],
 		'DATA_TELE' => $daten['number']));	
@@ -81,14 +82,16 @@ while($daten=$dataB->sql_fetch_assoc($result))
 $result=$dataB->sql_query("SELECT number FROM phonenumbers WHERE addr_id='$id' AND typ='2'");
 while($daten=$dataB->sql_fetch_assoc($result))
  {
+   $daten['number']=split_cellphone($daten['number']);
    $template->assign_block_vars('show_cell_phone',array(
    		'L_CELL_PHONE' => $textdata['addadress_handy'],
 		'DATA_CELL_PHONE' => $daten['number']));	
  }	
 
-$result=$dataB->sql_query("SELECT number FROM phonenumbers WHERE addr_id='$id' AND typ='3'");
+$result=$dataB->sql_query("SELECT t1.number,t2.vorwahlnr FROM phonenumbers AS t1 LEFT JOIN vorwahl AS t2 ON t2.id=t1.areacode WHERE addr_id='$id' AND typ='3'");
 while($daten=$dataB->sql_fetch_assoc($result))
  {
+   $daten['number']=split_number($daten['number'],$daten['vorwahlnr']);
    $template->assign_block_vars('show_fax',array(
    		'L_FAX' => $textdata['addadress_fax'],
 		'DATA_FAX' => $daten['number']));	

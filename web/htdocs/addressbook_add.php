@@ -64,7 +64,7 @@ if (isset($_POST['btele'])&&$_POST['btele']!="") // FIXME FIXME FIXME isset() pr
    {
     $typ=get_id_from_prefix($_POST['btele']);
    }
-  $query=sprintf("INSERT INTO phonenumbers VALUES(NULL,'$last_id',%s,'1','$typ')", $dataB->sql_check($_POST['btele']));
+  $query=sprintf("INSERT INTO phonenumbers VALUES(NULL,'$last_id',%s,'1','$typ')", $dataB->sql_check(strip_number($_POST['btele'])));
   $result=$dataB->sql_query($query);
   if (!$result)
  {
@@ -85,8 +85,9 @@ if (isset($_POST['bhandy'])&&$_POST['bhandy'] !="") // FIXME FIXME FIXME isset()
    {
     $typ=get_id_from_prefix($_POST['bhandy']);
    }
-  $query=sprintf("INSERT INTO phonenumbers VALUES(NULL,'$last_id',%s,'2','$typ')",$dataB->sql_check($_POST['bhandy']));
-  $result=$dataB->sql_query($query);
+  $query=sprintf("INSERT INTO phonenumbers VALUES(NULL,'$last_id',%s,'2','$typ')",
+  	$dataB->sql_check(strip_number($_POST['bhandy'])));
+	$result=$dataB->sql_query($query);
   if (!$result)
   {
   $template->assign_block_vars(array('show_error_msg_add_entry',
@@ -106,7 +107,8 @@ if (isset($_POST['bfax'])&& $_POST['bfax']!="") // FIXME FIXME FIXME isset() pro
    {
     $typ=get_id_from_prefix($_POST['bfax']);
    }
-  $query=sprintf("INSERT INTO phonenumbers VALUES(NULL,'$last_id',%s,'3','$typ')",$dataB->sql_check($_POST['bfax']));
+  $query=sprintf("INSERT INTO phonenumbers VALUES(NULL,'$last_id',%s,'3','$typ')",
+  $dataB->sql_check(strip_number($_POST['bfax'])));
   $result=$dataB->sql_query($query);
   if (!$result)
   {

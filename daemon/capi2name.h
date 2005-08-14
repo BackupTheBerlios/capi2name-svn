@@ -4,8 +4,8 @@
    capi2name comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
    This is free software, and you are welcome to redistribute it
    under certain conditions; see COPYING for details. */
-#ifndef CAPI_H
-#define CAPI_H
+#ifndef CAPI2NAME_H
+#define CAPI2NAME_H
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
@@ -42,6 +42,7 @@ void get_name_from_number(char *full_name, char *tele_number);
 void get_conf();
 void write_data_to_db(char *number, char *msn, int prefix, int servicenr);
 int mk_daemon();
-
+void write_pid();
+void msg_dbox (char *called, char *caller, char *areacode, char *fullname);
 
 #endif

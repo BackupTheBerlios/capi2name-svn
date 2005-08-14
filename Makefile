@@ -4,8 +4,11 @@ DAEMON = $(CURDIR)/daemon/
 LIB    = -lmysqlclient -lcapi20  #-L/usr/lib
 CFLAGS = -Wall 
 
-capi2name:	$(DAEMON)c2n.o $(DAEMON)capiconn.o $(DAEMON)capi2name.o 
-		$(CC) $(CFLAGS) $(LIB) $(DAEMON)c2n.o  $(DAEMON)capiconn.o $(DAEMON)capi2name.o -o $(DAEMON)capi2name
+capi2name:	$(DAEMON)dbox.o $(DAEMON)c2n.o $(DAEMON)capiconn.o $(DAEMON)capi2name.o 
+		$(CC) $(CFLAGS) $(LIB) $(DAEMON)c2n.o $(DAEMON)dbox.o  $(DAEMON)capiconn.o $(DAEMON)capi2name.o -o $(DAEMON)capi2name
+
+dbox.o:		dbox.c
+		$(CC) $(CFLAGS) -c dbox.c
 
 c2n.o:		c2n.c
 		$(CC) $(CFLAGS) -c c2n.c
@@ -18,9 +21,6 @@ capi2name.o:	capi2name.c
 
 clean:
 		rm -f $(DAEMON)*.o
-		rm -f $(DAEMON)*.so
-		rm -f $(DAEMON)*.la
-		rm -rf $(DAEMON).libs
 
 distclean:	clean
 		rm -f $(DAEMON)capi2name

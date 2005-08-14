@@ -33,7 +33,7 @@ for ($e=0;$e<=5;$e++) {
 	$dataB->sql_checkn($datum_monat[$e]),
 	$dataB->sql_checkn($datum_jahr[$e]));
 	$result_alle=$dataB->sql_query($query);
-	$query=sprintf("SELECT id,rufnummer FROM angerufene WHERE MONTH(datum)=%s AND YEAR(datum)=%s AND rufnummer='unbekannt'",
+	$query=sprintf("SELECT id,rufnummer FROM angerufene WHERE MONTH(datum)=%s AND YEAR(datum)=%s AND rufnummer='unknown'",
 	$dataB->sql_checkn($datum_monat[$e]),
 	$dataB->sql_checkn($datum_jahr[$e]));
 	$result_unbekannt=$dataB->sql_query($query);
