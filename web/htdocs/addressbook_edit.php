@@ -50,7 +50,7 @@ if (isset($_POST['tele_save']))
   if (is_numeric($_POST['tele_id']))
    {
     $query=sprintf("UPDATE phonenumbers SET number=%s WHERE id=%s",
-  	$dataB->sql_check($_POST['telephonnr']),
+  	$dataB->sql_check(strip_number($_POST['telephonnr'])),
 	$dataB->sql_check($_POST['tele_id']));
     $dataB->sql_query($query);
     $query=sprintf("UPDATE phonenumbers SET areacode='$typ' WHERE id=%s",
@@ -64,7 +64,7 @@ if (isset($_POST['tele_save']))
 if (isset($_POST['tele_delete']))
  {
   $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-  if (is_numeric($_POST[tele_id]))
+  if (is_numeric($_POST['tele_id']))
    {
     $query=sprintf("DELETE FROM phonenumbers WHERE id=%s", $dataB->sql_check($_POST['tele_id']));
     $dataB->sql_query($query);
@@ -89,7 +89,7 @@ if (isset($_POST['add']))
    {
     $query=sprintf("INSERT INTO phonenumbers VALUES(NULL,%s,%s,%s,'$typ')",
     	$dataB->sql_check($_POST['id']),
-	$dataB->sql_check($_POST['telephonnr']),
+	$dataB->sql_check(strip_number($_POST['telephonnr'])),
 	$dataB->sql_check($_POST['typ']));
     $result=$dataB->sql_query($query);
    }
@@ -169,36 +169,36 @@ $template->assign_block_vars('tab1', array(
 	'L_ADD_NUMBER' => $textdata['adddress_add_number']));
 
 //telephon:
-$result_tele=$dataB->sql_query("SELECT id,number FROM phonenumbers WHERE typ='1' AND addr_id='$daten[id]'");
+$result_tele=$dataB->sql_query("SELECT t1.id,t1.number,t2.vorwahlnr FROM phonenumbers AS t1 LEFT JOIN vorwahl AS t2 ON t2.id=t1.areacode WHERE typ='1' AND addr_id='$daten[id]'");
 while($daten_tele=$dataB->sql_fetch_assoc($result_tele))
  {
   $template->assign_block_vars('tab1.telephon',array(
 	'L_TELE' => $textdata['addadress_telefonnummer'],
-	'L_DB_TELE' => $daten_tele['number'],
+	'L_DB_TELE' => split_number($daten_tele['number'],$daten_tele['vorwahlnr']),
 	'L_DB_TELE_ID' => $daten_tele['id'],
 	'L_DB_ID' => $daten['id'],
 	'L_SAVE' => $textdata['save'],
 	'L_DELETE' => $textdata['delet']));
  }
 //cell phone:
-$result_cellphone=$dataB->sql_query("SELECT id,number FROM phonenumbers WHERE typ='2' AND addr_id='$daten[id]'");
+$result_cellphone=$dataB->sql_query("SELECT id,number FROM phonenumbers    WHERE typ='2' AND addr_id='$daten[id]'");
 while($daten_cellphone=$dataB->sql_fetch_assoc($result_cellphone))
  {
   $template->assign_block_vars('tab1.cellphone',array(
 	'L_CELL_PHONE' => $textdata['addadress_handy'],
-	'L_DB_TELE' => $daten_cellphone['number'],
+	'L_DB_TELE' => split_cellphone($daten_cellphone['number']),
 	'L_DB_TELE_ID' => $daten_cellphone['id'],
 	'L_DB_ID' => $daten['id'],
 	'L_SAVE' => $textdata['save'],
 	'L_DELETE' => $textdata['delet']));
  }
 //fax number:
-$result_fax=$dataB->sql_query("SELECT id,number FROM phonenumbers WHERE typ='3' AND addr_id='$daten[id]'");
+$result_fax=$dataB->sql_query("SELECT t1.id,t1.number,t2.vorwahlnr FROM phonenumbers AS t1 LEFT JOIN vorwahl AS t2 ON t2.id=t1.areacode WHERE typ='3' AND addr_id='$daten[id]'");
 while($daten_fax=$dataB->sql_fetch_assoc($result_fax))
  {
   $template->assign_block_vars('tab1.fax',array(
 	'L_FAX' => $textdata['addadress_fax'],
-	'L_DB_TELE' => $daten_fax['number'],
+	'L_DB_TELE' => split_number($daten_fax['number'],$daten_fax['vorwahlnr']),
 	'L_DB_TELE_ID' => $daten_fax['id'],
 	'L_DB_ID' => $daten['id'],
 	'L_SAVE' => $textdata['save'],

@@ -1,4 +1,4 @@
-Capi2name 0.6.7.9 YYYY-MM-DD - Jonas Genannt - <jonas.genannt@capi2name.de> BETA 
+Capi2name 0.6.7.9 2005-08-15 - Jonas Genannt - <jonas.genannt@capi2name.de>
 	o PHP: removed: cs_capisuite_config.inc.php
 	o PHP: removed: cs_help.php
 	o PHP: removed: admin/cs_conf.inc.ini
@@ -47,7 +47,7 @@ Capi2name 0.6.7.9 YYYY-MM-DD - Jonas Genannt - <jonas.genannt@capi2name.de> BETA
 	o PHP: Changed: all files work with the new sessionhandling
 	o PHP: Added: statistic_all_calls: order and sort by row
 	o PHP: Added: call from cell phone print out 'cell phone' in showstat*
-	o PHP: Added: Postgresupport REALLY BROKEN
+	o PHP: Added: Postgresupport REALLY BROKEN (NOT usable)
 	o PHP: Added: new addressbook table including phonenumbers table
 	o PHP: Added: update script for copy from old to new 'adressbuch' table
 	o PHP: Added: update script for 'vorwahl' col in 'angerufene' table
@@ -63,7 +63,7 @@ Capi2name 0.6.7.9 YYYY-MM-DD - Jonas Genannt - <jonas.genannt@capi2name.de> BETA
 	o PHP: Added: cs_viewfax.php: user/passwd checks for downloading fax
 	o PHP: Added: cs_fax.php complete rewrite now DB based
 	o PHP: Added: cs_answerphone.php complete rewrite now DB based
-	o PHP: Added: New icons
+	o PHP: Added: New icons from KDE project
 	o PHP: Added: addressbook.php/addressbook_show.php new display mode for numbers
 	o PHP: Added: function for addressbook_add.php for number correction
 	o PHP: Added: showstatnew.php warning if date is in future
@@ -74,6 +74,7 @@ Capi2name 0.6.7.9 YYYY-MM-DD - Jonas Genannt - <jonas.genannt@capi2name.de> BETA
 	o C2N: Added: rewrite of daemon program
 	o C2N: Added: dbox feature from Michael Foerster
 	o C2N: Changed: dbox feature to work with the new daemon (by me)
+	o CS:  Added: Perl script for answerphone (db imput)
 
 Capi2name 0.6.7.6.2 2005-06-29 - Jonas Genannt - <jonasge@gmx.net>
 	o PHP: Fixed: header.inc.php and check for DB version found by Max

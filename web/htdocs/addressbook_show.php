@@ -56,10 +56,9 @@ $template->assign_block_vars('tab1',array(
 $result_tele=$dataB->sql_query("SELECT t1.number,t2.vorwahlnr FROM phonenumbers AS t1 LEFT JOIN vorwahl AS t2 ON t2.id=t1.areacode WHERE typ='1' AND addr_id='$data_addr[id]'");
 while($daten_tele=$dataB->sql_fetch_assoc($result_tele))
 {
-	$daten_tele['number']=split_number($daten_tele['number'],$daten_tele['vorwahlnr']);
 	$template->assign_block_vars('tab1.telephon',array(
 		'L_TELE' => $textdata['addadress_telefonnummer'],
-		'L_DB_TELE' => $daten_tele['number']));
+		'L_DB_TELE' => split_number($daten_tele['number'],$daten_tele['vorwahlnr'])));
 }
 //cell phone
 $result_cell=$dataB->sql_query("SELECT number FROM phonenumbers WHERE typ='2' AND addr_id='$data_addr[id]'");

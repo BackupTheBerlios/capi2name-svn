@@ -49,7 +49,7 @@ for ($i=0;$i<5;$i++)
 	$tmp_file .= chr($num);
 }
 //echo "<br>$tmp_file<br>";
-$db_filename=$tmp_file.".wav";
+$db_filename=$tmp_file.".la";
 if (($file_handler=fopen($db_filename, "w+"))==FALSE)
 {
 	echo "Could not open file $db_filename!!";
@@ -73,16 +73,22 @@ if ($fileformat==3) //ogg
 elseif ($fileformat==2) //mp3
 {
 	$fi_filename=$tmp_file.".mp3";
+	$wav_filename=$tmp_file.".wav";
 	$s_Content_type="audio/mpeg";
-	exec($cs_conf['cs_lame']."  -m s -a $db_filename $fi_filename");
+	exec($cs_conf['cs_sox']." $db_filename $wav_filename");
+	exec($cs_conf['cs_lame']."  -m s -a $wav_filename $fi_filename");
 	$s_filename="CapiSuite-AB-$_GET[file].mp3";
 	exec($cs_conf['cs_rm']." -f $db_filename");
+	exec($cs_conf['cs_rm']." -f $wav_filename");
 }
 else //wav
 {
 	$s_Content_type="audio/x-wav";
+	$fi_filename=$tmp_file.".wav";
+	exec($cs_conf['cs_sox']." $db_filename $fi_filename");
+	exec($cs_conf['cs_rm']." -f $db_filename");
 	$s_filename="CapiSuite-AB-$_GET[file].wav";
-	$fi_filename=$db_filename;
+	
 }
 
 // make sure the file exists before sending headers

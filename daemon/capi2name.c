@@ -139,19 +139,14 @@ char name[1024];
 	switch (cipvalue) {
 	case 1: /* Speech */
 	dienstkennung=1;
-	fprintf(stderr, "\nsprache\n"); break;
 	case 4: /* 3.1 KHz audio */
 	dienstkennung=2;
-	fprintf(stderr, "\n3.1 khz audio\n"); break;
 	case 5: /* 7 KHz audio */
 	dienstkennung=3;
-             fprintf(stderr, "\n7jhz audio\n"); break;
 	case 16: /* Telephony */
 	dienstkennung=4;
-	 fprintf(stderr, "\ntelefony\n"); break;
 	case 26: /* 7kHz telephony */
 	dienstkennung=5;
-	  fprintf(stderr, "\n7hz telephony!\n");
 //		(void)capiconn_accept(cp, 1, 1, 0, 0, 0, 0, 0);
 		break;
 	case 2: /* unrestricted digital information */
@@ -159,14 +154,12 @@ char name[1024];
 		/* HDLC: 0,1,0 X75: 0,0,0 X75+V42Bis: 0,8,0 */
 		/* x25overx75: 0,0,2 */
 		dienstkennung=6;
-		fprintf(stderr, "\nDATA\n");
 	//	(void)capiconn_accept(cp, 0, 1, 0, 0, 0, 0, 0);
 		/*(void)capiconn_accept(cp, 0, 0, 2, 0, 0, 0, 0);*/
 		break;
 	case 17: /* Group 2/3 facsimile */
 	//	(void)capiconn_accept(cp, 4, 4, 4, 0, 0, 0, 0);
 	dienstkennung=7;
-	fprintf(stderr,"\nFAX\n");
 		break;
 	default:
 		(void)capiconn_ignore(cp);
@@ -199,7 +192,7 @@ prefix_id=get_prefix_from_number(rufnr, prefix_name);
 write_data_to_db(rufnr,callednumber,prefix_id,dienstkennung);
 if (config.dbox_support==1)
 {	
-msg_dbox (callednumber, rufnr, " ", name);
+msg_dbox (msn_name, rufnr, " ", name);
 }
 
 }//end incomming call

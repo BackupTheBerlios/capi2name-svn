@@ -17,7 +17,8 @@ quick install:
 10.) Login with the admin password 'admin' and create a now user and change the admin password
 12.) open with vi or another editor /etc/capi2name.conf 
 13.) write down your database and user inforation
-14.) call yourself and test if you can see your can in the webbrowser
+14.) start the daemon programm with /usr/sbin/capi2name (logfile is /var/log/daemon.log)
+15.) call yourself and test if you can see your can in the webbrowser
 
 
 

@@ -353,5 +353,5 @@ int mk_daemon()
 	close(STDIN_FILENO);
 	close(STDOUT_FILENO);
 	close(STDERR_FILENO);
-	return (0);	
+	return (0);
 }

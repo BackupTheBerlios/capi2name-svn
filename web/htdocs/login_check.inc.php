@@ -1,5 +1,5 @@
 <?php
-error_reporting(E_ALL);
+//error_reporting(E_ALL);
 include("./includes/conf.inc.php");
 include("./language/".$config['language'].".inc.php");
 include("./includes/functions.php");

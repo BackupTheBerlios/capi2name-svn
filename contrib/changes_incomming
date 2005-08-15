@@ -1,0 +1,3 @@
+line: 244:
+abas="/usr/lib/capisuite/c2n.pl -caller "+call_from+" -called "+call_to+" -cs_user "+curr_user+" -cs_ident 1 -cs_file "+filename
+os.system(abas);

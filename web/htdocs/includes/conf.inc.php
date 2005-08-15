@@ -1,8 +1,8 @@
 <?php
 $sql["host"]                = "localhost";
 $sql["dbuser"]              = "capi";
-$sql["dbpasswd"]            = "kljmkgd";
-$sql["db"]                  = "capidb";
+$sql["dbpasswd"]            = "your-passwd";
+$sql["db"]                  = "your-DB name";
 $config['domain']           = "www.mein-lokal.de";
 $config['capi2name_status'] = "yes";
 $config['capisuite']        = "no";
@@ -16,6 +16,6 @@ $config['language']         = "de";
 *******************************************************************************
 ******************************************************************************/
 //VERSIONS INFO UND CODENAMEN:
-$codenamen="BETA-VERSION-NI";
+$codenamen="RC-657";
 $version="0.6.7.9";
 ?>

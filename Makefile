@@ -1,7 +1,7 @@
 # Makefile for capi2name
 HTDOCS = $(CURDIR)/web/htdocs/
 DAEMON = $(CURDIR)/daemon/
-LIB    = -lmysqlclient -lcapi20  #-L/usr/lib
+LIB    = -lmysqlclient -lcapi20
 CFLAGS = -Wall 
 
 capi2name:	$(DAEMON)dbox.o $(DAEMON)c2n.o $(DAEMON)capiconn.o $(DAEMON)capi2name.o 

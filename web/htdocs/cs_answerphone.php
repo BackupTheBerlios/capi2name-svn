@@ -98,7 +98,7 @@ while($data_cs=$dataB->sql_fetch_assoc($result_cs))
 	$template->assign_block_vars('tab1.tab2',array(
 		'DATA_COLOR' => $color,
 		'DATA_DATE' => date("d.m.Y",$data_cs['TIME_DATE']),
-		'DATA_TIME' => date("H:m:s",$data_cs['TIME_DATE']),
+		'DATA_TIME' => date("H:i:s",$data_cs['TIME_DATE']),
 		'DATA_NUMBER' => $number,
 		'DATA_MSN' => $anz_msn,
 		'DATA_NAME' => $name,
