@@ -52,7 +52,7 @@ if (isset($_POST['edit']))
 	$query=sprintf("UPDATE users SET name_last=%s WHERE id=%s",
 		$dataB->sql_check($_POST['last_name']),$sql_id);
 	$result=$dataB->sql_query($query);
-	if (!result) 
+	if (!$result) 
 	{
 		echo "<div class=\"rot_mittig\">Updating last name in database failed!!</div>";
 	}
@@ -71,7 +71,7 @@ if (isset($_POST['edit']))
 		echo "<div class=\"rot_mittig\">Updating show callback in database failed!!</div>";
 	}
 	$query=sprintf("UPDATE users SET msn_listen=%s WHERE id=%s",
-		$dataB->sql_check($_POST[msn_listen]),$sql_id);
+		$dataB->sql_check($_POST['msn_listen']),$sql_id);
 	$result=$dataB->sql_query($query);
 	if (!$result)
 	{

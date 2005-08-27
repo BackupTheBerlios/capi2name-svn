@@ -15,7 +15,7 @@ if (!isset($_POST['absenden']) && !isset($_GET['update']))
  echo "<br/<br/>
  <center><font color=\"red\">please <b>backup</b> your database before you continue with the update!!</font></center>
  <br/><br/>please enter the connect informations for access the database.<br/><br/>";
-  echo "<form action=\"$PHP_SELF\" method=\"post\">
+  echo "<form action=\"update.php\" method=\"post\">
    
   <table border=\"0\" style=\"margin-right:auto;margin-left:auto;text-align:left;\">
     <tr>

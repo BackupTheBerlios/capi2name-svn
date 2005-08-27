@@ -31,6 +31,7 @@ $lines =encode_base64(join("\n", <FD>));
 close(FD);
 
 my $dsn = "DBI:mysql:$dbname:$hostname";
+#my $dbh = DBI->connect("DBI:mysql:database=$dbname;host=$hostname",$db_uname,$db_passwd) or  print "$DBI::db_errstr\n";
 my $dbh = DBI->connect($dsn,$db_uname,$db_passwd);
 my $sqlquery="INSERT INTO capisuite VALUES(NULL,'1',NOW(),'$ident','$called','$caller','$cs_user','$lines')";
 $sth = $dbh->prepare($sqlquery);

@@ -12,8 +12,11 @@ $textdata['stay_login']="Eingeloggt bleiben";
 $textdata['login']="Einloggen";
 $textdata['passwd']="Passwort";
 $textdata['id']="ID";
+$textdata['logoff']="Ausgeloggt";
 $textdata['nichtberechtigt']="Du bist nicht berechtigt diese Seite anzuschauen!<br>Bitte wenden Sie sich an den Administrator!";
 $textdata['login_OK_forward']="Passwort richtig.<br/>Sie werden weitergeleitet...";
+$textdata['msg_logoff_forward']="Sie werden weitergeleitet...";
+
 
 //stat_un_loeschen.php Seite:
 $textdata['del_unkown_db']="Einträge mit unbekant aus Datenbank löschen";
@@ -205,7 +208,7 @@ $textdata['kalender_tag_so']="So";
 //showstatnew.php SEITE
 $textdata['showstatnew_heutige_anrufe']="Heutige Anrufe";
 $textdata['showstatnew_gestrige_anrufe']="Gestrige Anrufe";
-$textdata['showstatnew_vom']="vom";
+$textdata['showstatnew_vom']="des";
 $textdata['showstatnew_aus_ort']="Aus Ort";
 $textdata['showstatnew_anrufertyp']="Anruftyp";
 $textdata['showstatnew_name']="Name";

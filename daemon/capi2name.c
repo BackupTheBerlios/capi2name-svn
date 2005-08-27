@@ -165,35 +165,33 @@ char name[1024];
 		(void)capiconn_ignore(cp);
 		break;
 	}
-
-
-//service_number==dienstkennung
-//nummer=callingnumber
-//msn=callednumber
-if (config.tksupport==1)
-{
-	sprintf(rufnr,"%s" ,callingnumber);
-}
-else
-{
-	sprintf(rufnr,"0%s",callingnumber);
-}
-if (!strcmp(rufnr, "") || !strcmp(rufnr, "0") )
-{
-	sprintf(rufnr, "unknown");
-}
-get_name_from_msn(callednumber,msn_name);
-get_name_from_number(name, rufnr);
-if (config.export_txt==1)
-{	
-	write_to_file(name,rufnr,msn_name);
-}
-prefix_id=get_prefix_from_number(rufnr, prefix_name);
-write_data_to_db(rufnr,callednumber,prefix_id,dienstkennung);
-if (config.dbox_support==1)
-{	
-msg_dbox (msn_name, rufnr, " ", name);
-}
+	//service_number==dienstkennung
+	//nummer=callingnumber
+	//msn=callednumber
+	if (config.tksupport==1)
+	{
+		sprintf(rufnr,"%s" ,callingnumber);
+	}
+	else
+	{
+		sprintf(rufnr,"0%s",callingnumber);
+	}
+	if (!strcmp(rufnr, "") || !strcmp(rufnr, "0") )
+	{
+		sprintf(rufnr, "unknown");
+	}
+	get_name_from_msn(callednumber,msn_name);
+	get_name_from_number(name, rufnr);
+	if (config.export_txt==1)
+	{
+		write_to_file(name,rufnr,msn_name);
+	}
+	prefix_id=get_prefix_from_number(rufnr, prefix_name);
+	write_data_to_db(rufnr,callednumber,prefix_id,dienstkennung);
+	if (config.dbox_support==1)
+	{
+		msg_dbox (msn_name, rufnr, " ", name);
+	}
 
 }//end incomming call
 

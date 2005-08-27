@@ -79,6 +79,7 @@ if (isset($_SESSION['show_callback_notify']) && $_SESSION['show_callback_notify'
   </script>";
  }
 //check if DB-Layout and files are the same version.
+/*
 if (isset($db_version['value']) && $db_version['value']!=$version && $login_ok ==1 )
  {
   $template->assign_block_vars('current_version',array(
@@ -88,7 +89,8 @@ if (isset($db_version['value']) && $db_version['value']!=$version && $login_ok =
 		die();
 		
  }
-
+ */
+/*
 if ( is_dir("up_inst")) {
 
 	$template->assign_block_vars('up_inst',array(
@@ -97,6 +99,6 @@ if ( is_dir("up_inst")) {
 	include("footer.inc.php");
 	die();
 }
-
+*/
 $template->pparse('overall_header');
 ?>

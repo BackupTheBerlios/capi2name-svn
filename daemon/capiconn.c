@@ -196,8 +196,7 @@ static inline capiconn_context *find_context(unsigned appid)
 	return 0;
 }
 
-int
-capiconn_addcontr(capiconn_context *ctx, unsigned contr, capi_contrinfo *cinfo)
+int capiconn_addcontr(capiconn_context *ctx, unsigned contr, capi_contrinfo *cinfo)
 {
 	capiconn_callbacks *cb = ctx->cb;
 	capi_contr *card;

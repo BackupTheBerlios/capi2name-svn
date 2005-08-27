@@ -27,11 +27,12 @@ function strip_number($number)
 }
 function fill_sessions($row_userlist)
 {
+	
 	$_SESSION['realname']=$row_userlist['name_first']." ".$row_userlist['name_last'];
-	$_SESSION['username']=$row_userlist['username'];
-	$_SESSION['password']=$row_userlist['passwd'];
-	$_SESSION['userid']=$row_userlist['id'];
-	$_SESSION['cs_user']=$row_userlist['cs_user'];
+	//$_SESSION['username']=$row_userlist['username'];
+	//$_SESSION['password']=$row_userlist['passwd'];
+	//$_SESSION['userid']=$row_userlist['id'];
+	//$_SESSION['cs_user']=$row_userlist['cs_user'];
 	$_SESSION['show_callback']=$row_userlist['show_callback'];
 	$_SESSION['show_prefix']=$row_userlist['show_prefix'];
 	$_SESSION['show_msn']=$row_userlist['show_msn'];

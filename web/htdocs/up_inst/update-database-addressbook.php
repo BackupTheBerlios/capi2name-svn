@@ -48,7 +48,7 @@ while($daten=mysql_fetch_assoc($result))
 			while($vorwahl_row=mysql_fetch_assoc($tab_vorwahl))
 			{
 				$laenge=strlen($vorwahl_row['vorwahlnr']);
-				$vorwahl_nr=substr($daten['$tele'],0,$laenge);
+				$vorwahl_nr=substr($daten[$tele],0,$laenge);
 				if($vorwahl_row['vorwahlnr']==$vorwahl_nr)
 				{ 
 					echo "found prefix in prefix table, addin prefix-gr.id to phonenumbers";

@@ -37,7 +37,7 @@ for ($e=0;$e<=9;$e++) {
 	AND rufnummer=t2.number  AND t2.addr_id=%s",
 	$dataB->sql_checkn($datum_monat[$e]),
 	$dataB->sql_checkn($datum_jahr[$e]),
-	$dataB->sql_checkn($_GET[id]));
+	$dataB->sql_checkn($_GET['id']));
 	$result_alle=$dataB->sql_query($query);
 	$anzahl_monat_alle[$e]=$dataB->sql_num_rows($result_alle);
 }

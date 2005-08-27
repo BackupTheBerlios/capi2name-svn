@@ -3,14 +3,14 @@ README OF CAPI2NAME - AN ISDN CAPI MONITOR WITH WEB INTERFACE
 
 quick install:
 -------------
-1.) create a database and user in the mysql
+1.) create a database and user in the mysql (see below)
 2.) type make and make install
 3.) Now capi2name HTDOCS-File are installed in /usr/share/capi2name
 4.) You can configure your apache Webserver (see below)
 3.) open your web browser and open http://localhost/c2n/up_inst/
 4.) Gotto the install selection
 5.) write down your database and user information and press the button
-6.) open with vi or anther editor the /usr/sharecapi2name/includes/conf.inc.php
+6.) open with vim or another editor the /usr/sharecapi2name/includes/conf.inc.php
 7.) write down your database and user information and save the file.
 8.) Delete the up_inst/ folder
 9.) open your webbrowser and open http://localhost/c2n/admin/
@@ -18,7 +18,7 @@ quick install:
 12.) open with vi or another editor /etc/capi2name.conf 
 13.) write down your database and user inforation
 14.) start the daemon programm with /usr/sbin/capi2name (logfile is /var/log/daemon.log)
-15.) call yourself and test if you can see your can in the webbrowser
+15.) call yourself and test if you can see your call in the webbrowser
 
 
 
@@ -30,6 +30,20 @@ Alias /c2n    "/usr/share/capi2name"
      Options -ExecCGI -Indexes -MultiViews -SymLinksIfOwnerMatch -FollowSymlinks</Directory>
 
 ---------------------------------
+
+
+
+Create a Mysql database and user for capi2name:
+----------------------------------------------
+1.) go to the mysql console: mysql -u root -p
+2.) now you are on the Mysql root console
+3.) type `create database capidb;` (this command without the ` creates a new database named 'capidb')
+4.) create a mysql user:
+    `GRANT SELECT,INSERT,UPDATE,DELETE,DROP,ALTER.CREATE ON capidb.* TO 'capi'@'localhost' IDENTIFIED BY 'passwd';
+    This command creates a user 'capi' that can access from localhost the database 'capidb' with the password 'passwd'
+5.) mysql musst reload the user tables: `flush privileges;
+
+
 
 ->On the Webpage you can find an better install manual and FAQ selection.
 

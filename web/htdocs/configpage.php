@@ -149,6 +149,11 @@ if (!$result)
 $dataB->sql_close();
 $template->assign_block_vars('db_update',array(
 			'L_MSG_SAVED' => 'data saved to database...'));
+//write down new values in the session:
+$query=sprintf("SELECT * FROM users WHERE id=%s",$_POST['id']);
+$result_userlist=$dataB->sql_query($query);
+$row_userlist=$dataB->sql_fetch_assoc($result_userlist);
+fill_sessions($row_userlist);
 }// Einstellungen speichern ENDE
 
 

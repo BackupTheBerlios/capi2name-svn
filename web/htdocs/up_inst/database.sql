@@ -117,7 +117,7 @@ CREATE TABLE `vorwahl` (
   `vorwahlnr` varchar(7) default NULL,
   `name` text,
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM AUTO_INCREMENT=5239 ;
+) TYPE=MyISAM;
 
 
 INSERT INTO `vorwahl` VALUES (2, '0150', 'cell phone'),

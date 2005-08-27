@@ -50,7 +50,7 @@ void get_name_from_msn(char *msn, char *msn_name)
 		buffer[0]='\0';
 	}
 	sprintf(buffer, "SELECT msn,name FROM msnzuname WHERE msn='%s'",msn);
-	if ((mysql_real_query(&sql,buffer,0))!=0)
+	if ((mysql_real_query(&sql,buffer,strlen(buffer))) != 0) 
 	{
 		buffer[0]='\0';
 		sprintf(buffer,"Error on real_query. (get_name_from_msn) Mysql: %s", mysql_error(&sql));
@@ -119,7 +119,7 @@ int get_prefix_from_number(char *tele_number, char *prefix_name)
 		buffer[0]='\0';
 	}
 	sprintf(buffer,"SELECT id,vorwahlnr,name FROM vorwahl");
-	if ((mysql_real_query(&sql,buffer,0))!=0)
+	if ((mysql_real_query(&sql,buffer,strlen(buffer)))!=0)
 	{
 		sprintf(buffer,"Error on real_query. (get_prefix_from_number) Mysql: %s", mysql_error(&sql));
 		syslog(LOG_NOTICE,buffer);
@@ -187,7 +187,7 @@ void get_name_from_number(char *full_name, char *tele_number)
 		buffer[0]='\0';
 	}
 	sprintf(buffer,"SELECT addr_id,areacode,typ FROM phonenumbers WHERE number='%s' LIMIT 1", tele_number);	
-	if ((mysql_real_query(&sql,buffer,0))!=0)
+	if ((mysql_real_query(&sql,buffer,strlen(buffer)))!=0)
 	{
 		sprintf(buffer, "Error on real_query. (get_name_from_number) Mysql: %s", mysql_error(&sql));
 		syslog(LOG_NOTICE,buffer);
@@ -203,7 +203,7 @@ void get_name_from_number(char *full_name, char *tele_number)
 		{
 			unknow=0;
 			sprintf(buffer,"SELECT name_first,name_last,id FROM addressbook WHERE id='%s' LIMIT 1", data[0]);
-			mysql_real_query(&sql,buffer,0);
+			mysql_real_query(&sql,buffer,strlen(buffer));
 			buffer[0]='\0';
 			res1 = mysql_store_result(&sql);
 			data1=mysql_fetch_row(res1);
@@ -304,7 +304,7 @@ void write_data_to_db(char *number, char *msn, int prefix, int servicenr)
 		buffer[0]='\0';
 	}
 	sprintf(buffer, "INSERT INTO angerufene VALUES(NULL,'%s',NOW(),NOW(),'1','unknown','%s','%d','%d')",number,msn,prefix,servicenr);
-	if ((mysql_real_query(&sql,buffer,0))!=0)
+	if ((mysql_real_query(&sql,buffer,strlen(buffer)))!=0)
 	{
 		buffer[0]='\0';
 		sprintf(buffer,"Error on real_query. (write_data_to_db) Mysql: %s",mysql_error(&sql));
