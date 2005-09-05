@@ -52,6 +52,9 @@ Name: <input name="newname" type="text">
   <!-- BEGIN userconfig_show_delete -->
   <td>{L_DELETE_ENTRY_TITLE}</td>
   <!-- END userconfig_show_delete -->
+  <!-- BEGIN show_cs -->
+  <td style="text-align:center;">{show_cs.L_LINK_TO_AB}</td>
+  <!-- END show_cs -->
  </tr>
 
 <!-- BEGIN tab1 -->
@@ -82,6 +85,10 @@ Name: <input name="newname" type="text">
    </a>
    </td>
   <!-- END show delete_func -->
+  
+  <!-- BEGIN show_cs_ab -->
+  <td style="text-align:center">{tab1.show_cs_ab.DATA_SHOW_AB}</td>
+  <!-- END show_cs_ab -->
    
  </tr>
 <!-- END tab1 --> 

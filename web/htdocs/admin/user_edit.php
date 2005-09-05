@@ -1,7 +1,7 @@
 <?php
 /*
     copyright            : (C) 2002-2005 by Jonas Genannt
-    email                : jonasge@gmx.net
+    email                : jonas.genannt@capi2name.de
  ***************************************************************************/
 
 /***************************************************************************
@@ -14,27 +14,32 @@
  ***************************************************************************/
 include("./check_it.php");
 include("./header.inc.php");
-
+$option['cs_audio_wave']="";
+$option['cs_audio_mp3']="";
+$option['cs_audio_ogg']="";
+$option['cs_fax_sff']="";
+$option['cs_fax_pdf']="";
+$option['cs_fax_ps']="";
+$option['cs_fax_tiff']="";
 
 if (isset($_POST['edit']))
- {
-  $username=$_POST['username'];
-  $id=$_POST['id'];
- }
- else
- {
-  $username=$_GET['username'];
-  $id=$_GET['id'];
- }
+{
+	$username=$_POST['username'];
+	$id=$_POST['id'];
+}
+else
+{
+	$username=$_GET['username'];
+	$id=$_GET['id'];
+}
 echo "<div class=\"ueberschrift_seite\">Change settings for user $username with ID $id</div>";
 
 
 //------------------- Daten in DB schreiben: ---------------------------------
-if (isset($_POST['edit']))
+if (isset($_POST['edit']) && isset($_POST['id']))
 {
-	$sql_id=$dataB->sql_checkn($_POST['id']);
-	//UPDATE userliste SET showrueckruf='$wert' WHERE id=".$_POST[id]
 	$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"]);
+	$sql_id=$dataB->sql_checkn($_POST['id']);
 	$query=sprintf("UPDATE users SET cs_user=%s WHERE id=%s",
 		$dataB->sql_check($_POST['cs_user']),$sql_id);
 	$result=$dataB->sql_query($query);
@@ -126,6 +131,13 @@ if (isset($_POST['edit']))
 	{
 		echo "<div class=\"rot_mittig\">Updating cs_audio in database failed!!</div>";
 	}
+	$query=sprintf("UPDATE users SET cs_fax=%s WHERE id=%s",
+		$dataB->sql_check($_POST['cs_fax']),$sql_id);
+	$result=$dataB->sql_query($query);
+	if (!$result) 
+	{
+		echo "<div class=\"rot_mittig\">Updating cs_fax in database failed!!</div>";
+	}
 	if (!empty($_POST['passwd']))
 	{
 		$passwd=md5($_POST['passwd']);
@@ -167,15 +179,16 @@ else   $option['show_type']="";
 if ($daten['allow_delete']=="0" or $daten['allow_delete']=="f")
 	$option['allow_delete']="selected";
 else   $option['allow_delete']="";
-if ($daten['cs_audio']=="1")
-	$option['cs_audio_wave']="selected";
-else   $option['cs_audio_wave']="";
-if ($daten['cs_audio']=="2")
-	$option['cs_audio_mp3']="selected";
-else   $option['cs_audio_mp3']="";
-if ($daten['cs_audio']=="3")
-	$option['cs_audio_ogg']="selected";
-else   $option['cs_audio_ogg']="";
+
+if ($daten['cs_audio']==1) $option['cs_audio_wave']="selected";
+else if ($daten['cs_audio']==2) $option['cs_audio_mp3']="selected";
+else  $option['cs_audio_ogg']="selected";
+
+if ($daten['cs_fax']==4) $option['cs_fax_pdf']="selected";
+else if ($daten['cs_fax']==3) $option['cs_fax_ps']="selected";
+else if ($daten['cs_fax']==2) $option['cs_fax_tiff']="selected";
+else  $option['cs_fax_sff']="selected";
+
 $dir= "../templates/";
 $dh=opendir($dir);
  while (false!== ($filename=readdir($dh)))
@@ -287,7 +300,18 @@ $dh=opendir($dir);
      <option value="3" <?=$option['cs_audio_ogg']?> >OGG</option>
      </select></td>
    </tr>
-   
+    <tr>
+   <td style="text-align:left;">
+     <span style="font-weight:bold;">[<a href="./doc.html#11" onClick="showDoc()" target="showDoc">i</a>]</span>&nbsp;send type of image type on CS FAX:</td>
+     <td style="width:5px;"></td>
+     <td style="text-align:right;"><select name="cs_fax">
+     <option value="1" <?=$option['cs_fax_sff']?> >SFF</option>
+     <option value="2" <?=$option['cs_fax_tiff']?> >TIFF</option>
+     <option value="3" <?=$option['cs_fax_ps']?> >PS</option>
+     <option value="4" <?=$option['cs_fax_pdf']?> >PDF</option>
+     </select></td>
+   </tr>
+    
    
    <tr>
     <td style="text-align:left;">
@@ -326,4 +350,3 @@ $dh=opendir($dir);
 <?php
 include("footer.inc.php");
 ?>
-

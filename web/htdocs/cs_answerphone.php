@@ -50,8 +50,7 @@ if ($_SESSION['allow_delete'])
 	$template->assign_block_vars('tab1.del',array(
 		'L_DELETE' => $textdata['showstatnew_loeschen']));
 }
-
-
+$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"], $sql["db"] );
 $sql_query=sprintf("SELECT t1.id AS cs_id,
 		UNIX_TIMESTAMP(t1.date_time)AS TIME_DATE,t1.from_nr,t1.msn,
 		t3.name_first, t3.name_last,t3.id AS ADDR_ID,t4.name AS msn_name 
@@ -61,7 +60,7 @@ $sql_query=sprintf("SELECT t1.id AS cs_id,
 		LEFT JOIN msnzuname AS t4 ON t1.msn=t4.msn
 		WHERE ident='1' AND cs_user=%s AND aktive='1' ORDER BY cs_id DESC",
 		$dataB->sql_check($_SESSION['cs_user']));
-$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"], $sql["db"] );
+
 $result_cs=$dataB->sql_query($sql_query);
 $i=0;
 while($data_cs=$dataB->sql_fetch_assoc($result_cs))

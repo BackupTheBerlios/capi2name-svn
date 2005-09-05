@@ -59,7 +59,7 @@ CREATE TABLE `config` (
 
 
 INSERT INTO `config` VALUES (NULL, 'template', NULL), 
-(NULL, 'db_version', '0.6.7.9'),
+(NULL, 'db_version', '0.6.7.9.1'),
 (NULL, 'default_template', 'blueingrey'),
 (NULL, 'cs_temp_dir', '/tmp'),
 (NULL, 'cs_sox', '/usr/bin/sox'),

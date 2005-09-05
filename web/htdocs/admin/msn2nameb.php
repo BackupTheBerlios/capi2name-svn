@@ -16,17 +16,17 @@ include("./check_it.php");
 include("./header.inc.php");
 echo "<div class=\"ueberschrift_seite\">edit MSN to Name</div>";
 
-if (isset($_POST[save]))
+if (isset($_POST['save']))
  {
   $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-  $query=sprintf("DELETE FROM msnzuname WHERE id=%s", $dataB->sql_checkn($_POST[id]));
+  $query=sprintf("DELETE FROM msnzuname WHERE id=%s", $dataB->sql_checkn($_POST['id']));
   $result=$dataB->sql_query($query);
   if ($result)
    {
     $query=sprintf("INSERT INTO msnzuname VALUES(%s,%s,%s)",
-    		$dataB->sql_checkn($_POST[id]),
-		$dataB->sql_checkn($_POST[msn]),
-		$dataB->sql_check($_POST[name]));
+    		$dataB->sql_checkn($_POST['id']),
+		$dataB->sql_checkn($_POST['msn']),
+		$dataB->sql_check($_POST['name']));
     $result=$dataB->sql_query($query);
     if ($result)
      {
@@ -45,11 +45,11 @@ if (isset($_POST[save]))
 $dataB->sql_close();
 } //SAVE TO DB
 
-if (isset($_GET[bid]))
+if (isset($_GET['bid']))
  {
   $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"]);
   $query=sprintf("SELECT id,msn,name FROM msnzuname WHERE id=%s",
-  		$dataB->sql_checkn($_GET[bid]));
+  		$dataB->sql_checkn($_GET['bid']));
   $result=$dataB->sql_query($query);
   $daten=$dataB->sql_fetch_assoc($result);
   $dataB->sql_close();

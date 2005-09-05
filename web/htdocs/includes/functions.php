@@ -29,10 +29,10 @@ function fill_sessions($row_userlist)
 {
 	
 	$_SESSION['realname']=$row_userlist['name_first']." ".$row_userlist['name_last'];
-	//$_SESSION['username']=$row_userlist['username'];
-	//$_SESSION['password']=$row_userlist['passwd'];
-	//$_SESSION['userid']=$row_userlist['id'];
-	//$_SESSION['cs_user']=$row_userlist['cs_user'];
+	$_SESSION['username']=$row_userlist['username'];
+	$_SESSION['password']=$row_userlist['passwd'];
+	$_SESSION['userid']=$row_userlist['id'];
+	$_SESSION['cs_user']=$row_userlist['cs_user'];
 	$_SESSION['show_callback']=$row_userlist['show_callback'];
 	$_SESSION['show_prefix']=$row_userlist['show_prefix'];
 	$_SESSION['show_msn']=$row_userlist['show_msn'];
@@ -152,6 +152,7 @@ function cellphone_number($number)
 function get_id_from_prefix($number)
  {
       $tab_vorwahl=mysql_query("SELECT * FROM vorwahl");
+      $typ=0;
       $prefix=0;
        while($vorwahl_row=mysql_fetch_assoc($tab_vorwahl))
         {

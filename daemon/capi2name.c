@@ -190,7 +190,7 @@ char name[1024];
 	write_data_to_db(rufnr,callednumber,prefix_id,dienstkennung);
 	if (config.dbox_support==1)
 	{
-		msg_dbox (msn_name, rufnr, " ", name);
+		msg_dbox (msn_name, rufnr, prefix_name, name);
 	}
 
 }//end incomming call

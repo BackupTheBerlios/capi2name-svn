@@ -189,6 +189,12 @@ if ($_SESSION['allow_delete'])
 	$template->assign_block_vars('userconfig_show_delete', array());
 	$template->assign_vars(array('L_DELETE_ENTRY_TITLE' => $textdata['showstatnew_loeschen']));
 }
+if ($config['capisuite'] && $_SESSION['cs_user']!="" && check_cs_username($_SESSION['cs_user'])==0)
+{
+	$template->assign_block_vars('show_cs',array('L_LINK_TO_AB' =>$textdata['anrufbeantworter']));
+}
+
+
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 $sql_query_1="SELECT  t1.id,t1.rufnummer,t1.datum,t1.uhrzeit,t1.name,t1.dienst,
 		t5.name AS vorwahl,t1.msn,t5.vorwahlnr,
@@ -224,24 +230,43 @@ $result_angerufene=$dataB->sql_query($sql_query);
 $i=0;
 while($daten=$dataB->sql_fetch_assoc($result_angerufene))
 {
- //resetten der vars:
- $anz_statistik="";
- $anz_name="";
- $anz_insaddr="";
- $anz_rueckruf="";
- $anz_msn="";
+//resetten der vars:
+$anz_statistik="";
+$anz_name="";
+$anz_insaddr="";
+$anz_rueckruf="";
+$anz_msn="";
+$anz_ab="";
+
+//link to AB
+if ($config['capisuite'] && $_SESSION['cs_user']!="" && check_cs_username($_SESSION['cs_user'])==0)
+{
+	$ab_query=sprintf("SELECT id FROM capisuite WHERE from_nr=((%s==unknown)?-:%s) AND date_time='%s %s' AND MSN='%s' ",
+	$dataB->sql_check($daten['rufnummer']), 
+	$dataB->sql_check($daten['rufnummer']), 
+	$dataB->sql_check($daten['datum']), 
+	$dataB->sql_check($daten['uhrzeit']),
+	$daten['msn'] );
+	
+	$ab_res=$dataB->sql_query($ab_query);
+	 if (is_array($ab_data=$dataB->sql_fetch_assoc($ab_res))) {
+                $anz_ab="<a href=\"./cs_hearmessage.php?file=".$ab_data['id']."\"><img src=\"./images/play.png\" border=0></a>";
+        }
+
+}
 if ($daten['vorwahl']=="cell phone")
-  {
-   $anz_vorwahl=$textdata['cell_pone'];
-   $daten['rufnummer']=split_cellphone($daten['rufnummer']);
-  }
-  else
-  {
-   $daten['rufnummer']=split_number($daten['rufnummer'],$daten['vorwahlnr']);
-   $anz_vorwahl=$daten['vorwahl'];
-  }
-   if ($daten['rufnummer']=="unknown" && $daten['name']=="unknown")
-    {
+{
+	$anz_vorwahl=$textdata['cell_pone'];
+	$daten['rufnummer']=split_cellphone($daten['rufnummer']);
+}
+else
+{
+	$daten['rufnummer']=split_number($daten['rufnummer'],$daten['vorwahlnr']);
+	$anz_vorwahl=$daten['vorwahl'];
+}
+
+if ($daten['rufnummer']=="unknown" && $daten['name']=="unknown")
+{
      if (isset($_GET['datum'])) $submit_date="&datum=".$_GET['datum'];
      else if (isset($_GET['sdatum'])) $submit_date="&datum=".$_GET['sdatum'];
      else $submit_date=""; 
@@ -304,6 +329,11 @@ if ($daten['vorwahl']=="cell phone")
 	'DATA_SHOW_NUMBER' => $daten['rufnummer'],
 	'DATA_SHOW_CALLERS_NAME' => $anz_name,
 	'DATA_TO_ADDR' => $anz_insaddr));
+
+if ($config['capisuite'] && $_SESSION['cs_user']!="" && check_cs_username($_SESSION['cs_user'])==0)
+{
+	$template->assign_block_vars('tab1.show_cs_ab', array('DATA_SHOW_AB' => $anz_ab));
+}
 
 if ($_SESSION['show_type'])
  {

@@ -54,7 +54,7 @@
 
 
 <!-- BEGIN tab1 -->
-<form action="./configpage.php" method="post" >
+<form action="./set_config.php" method="post" >
 <table border="0" style="margin-right:auto;margin-left:auto;text-align:left;">
  <tr>
   <td>{tab1.L_USER_NAME}:</td>
@@ -128,29 +128,30 @@
  </td>
 </tr>
 <!-- END template_on -->
+<!-- BEGIN cs -->
 <tr>
- <td>{tab1.L_T_CS_AUDIO}:</td>
+ <td>{tab1.cs.L_T_CS_AUDIO}:</td>
  <td style="width:10px;"></td>
  <td>
  <select name="cs_audio">
  <!-- BEGIN tab3 -->
- <option {tab1.tab3.DATA_SELECT} value="{tab1.tab3.DATA_ID}">{tab1.tab3.DATA_NAME}</option>
+ <option {tab1.cs.tab3.DATA_SELECT} value="{tab1.cs.tab3.DATA_ID}">{tab1.cs.tab3.DATA_NAME}</option>
  <!-- END tab3 -->
  </select>
  </td>
 </tr>
 <tr>
- <td>{tab1.L_T_CS_FAX}:</td>
+ <td>{tab1.cs.L_T_CS_FAX}:</td>
  <td style="width:10px;"></td>
  <td>
   <select name="cs_fax">
   <!-- BEGIN tab4 -->
-  <option {tab1.tab4.DATA_SELECT} value="{tab1.tab4.DATA_ID}">{tab1.tab4.DATA_NAME}</option>
+  <option {tab1.cs.tab4.DATA_SELECT} value="{tab1.cs.tab4.DATA_ID}">{tab1.cs.tab4.DATA_NAME}</option>
   <!-- END tab4 -->
   </select>
  </td>
 </tr>
-
+<!-- END cs -->
 
 <tr>
  <td style="vertical-align:top;">{tab1.L_SHOW_MSN_FUNC}:</td>

@@ -75,7 +75,7 @@ else
 $capi_version_tabelle=false;
 $capi_config_tabelle=false;
 $db_layout_version="";
-$db_layout_neue_version="0.6.7.9";
+$db_layout_neue_version="0.6.7.9.1";
 
 echo "<br/><b>Please wait until the scrip prints out in green 'OK'</b><br/><br/>";
 
@@ -532,6 +532,21 @@ if ($db_layout_version=="0.6.7.6.2")
 }
 /*****************VERSION 0.6.7.6.2 -> 0.6.7.9 END *************************/
 
+/*******************VERSION 0.6.7.9 -> 0.6.7.9.1 BEGIN ***********************/
+if ($db_layout_version=="0.6.7.9")
+{
+	//schauen ob es: cs_lame gibt, wenn nicht insert lame: 
+	//INSERT INTO `config` ( `id` , `conf` , `value` )VALUES ('', 'cs_lame', '/usr/bin/lame');
+	echo "Found Version 0.6.7.9 updating to 0.6.7.9.1...........<br>";
+	$control=mysql_query("UPDATE config SET value='0.6.7.9.1' WHERE conf='db_version'");
+	if (!$control)
+	{
+		echo "Update failed: <br/>Mysql-Error: ". mysql_error();
+		die();
+	}
+} 
+/*************VERSION 0.6.7.9 -> 0.6.7.9.1 END *************************/
+
 
 $control=mysql_close();
 if (!$control)
@@ -549,8 +564,6 @@ if ($db_layout_version==$db_layout_neue_version)
 }
 
 }//ende isset (absenden)
-
 ?>
-
 </body>
 </html>

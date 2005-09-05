@@ -1,18 +1,31 @@
 <?php
-$textdata['save']="Speichern";
-$textdata['delet']="Löschen";
-$textdata['add']="Hinzufügen";
-$textdata['telephon']="Telefon";
-$textdata['fax']="Fax";
-$textdata['cell_phone']="Mobiltelefon";
+/*
+    copyright            : (C) 2002-2005 by Jonas Genannt
+    email                : jonas.genannt@capi2name.de
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   any later version.                                   *
+ *                                                                         *
+ *****************************************************************************/
+$textdata['save']="save";
+$textdata['delet']="delete";
+$textdata['add']="add";
+$textdata['telephon']="telephon";
+$textdata['fax']="fax";
+$textdata['cell_phone']="cell phone";
 $textdata['saved_to_db']="Daten in Datenbank gespeichert.";
-$textdata['new_entry']="Neuer Eintrag";
+$textdata['new_entry']="new entry";
 $textdata['stat_monthly']="Monatsübersicht";
 $textdata['stay_login']="Eingeloggt bleiben";
-$textdata['login']="Einloggen";
-$textdata['passwd']="Passwort";
+$textdata['login']="login";
+$textdata['passwd']="password";
 $textdata['id']="ID";
-$textdata['logoff']="Ausgeloggt";
+$textdata['logoff']="logout";
 $textdata['nichtberechtigt']="Du bist nicht berechtigt diese Seite anzuschauen!<br>Bitte wenden Sie sich an den Administrator!";
 $textdata['login_OK_forward']="Passwort richtig.<br/>Sie werden weitergeleitet...";
 $textdata['msg_logoff_forward']="Sie werden weitergeleitet...";
@@ -226,6 +239,7 @@ $textdata['date_in_future']="Ausgewähltes Datum liegt in der Zukunft!";
 $textdata['day_right']="Ein Tag weiter...";
 $textdata['day_left']="Ein Tag vor...";
 $textdata['unknown']="unbekannt";
+$textdata['anrufbeantworter']="AB";
 //showstatnew.php ENDE
 
 $textdata['days7_7tage_uebersicht']="7 Tage Übersicht";

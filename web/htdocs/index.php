@@ -25,37 +25,36 @@ $template->assign_vars(array(
 	'DATA_C2N_VERSION' => $version));
 
 
-if ($config['capi2name_status']=="yes" && $config['capisuite'] != "yes") 
-    {
-      if (exec("ps -A | grep capi2name")!="") 
-        {
-	 $template->assign_block_vars('c2n_running',array(
-	 	'MSG_C2N_RUN' => $textdata['index_status_laeuft'],
-		'L_STAT' => $textdata['index_status_capi2name']));
-	} 
-      else 
-        {
-	 $template->assign_block_vars('c2n_not_running',array(
-	 	'MSG_C2N_RUN' => $textdata['index_status_laeft_nicht'],
-		'L_STAT' => $textdata['index_status_capi2name']));
+if ($config['capi2name_status']) 
+{
+	if (exec("ps -A | grep capi2name")!="") 
+	{
+		$template->assign_block_vars('c2n_running',array(
+			'MSG_C2N_RUN' => $textdata['index_status_laeuft'],
+			'L_STAT' => $textdata['index_status_capi2name']));
 	}
-   }
-else if($config['capi2name_status']=="yes" && $config['capisuite'] == "yes") 
-   {
-    if (exec("ps -A | grep capisuite")!="") 
-       {
-	 $template->assign_block_vars('capisuite_running',array(
-	 	'MSG_CSU_RUN' => $textdata['index_status_laeuft'],
-		'L_STAT' => $textdata['index_status_capisuite']));
+	else 
+	{
+		$template->assign_block_vars('c2n_not_running',array(
+			'MSG_C2N_RUN' => $textdata['index_status_laeft_nicht'],
+			'L_STAT' => $textdata['index_status_capi2name']));
 	}
-    else 
-        {
-	 $template->assign_block_vars('capisuite_not_running',array(
-	 	'MSG_CSU_RUN' => $textdata['index_status_laeft_nicht'],
-		'L_STAT' => $textdata['index_status_capisuite']));
+}
+if($config['capisuite']) 
+{
+	if (exec("ps -A | grep capisuite")!="") 
+	{
+		$template->assign_block_vars('capisuite_running',array(
+			'MSG_CSU_RUN' => $textdata['index_status_laeuft'],
+			'L_STAT' => $textdata['index_status_capisuite']));
 	}
-   }
-
+	else 
+	{
+		$template->assign_block_vars('capisuite_not_running',array(
+			'MSG_CSU_RUN' => $textdata['index_status_laeft_nicht'],
+			'L_STAT' => $textdata['index_status_capisuite']));
+	}
+}
 $template->pparse('overall_body');	
 include("footer.inc.php");
 ?>

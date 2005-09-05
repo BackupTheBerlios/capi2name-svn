@@ -4,9 +4,9 @@ $sql["dbuser"]              = "capi";
 $sql["dbpasswd"]            = "kljmkgd";
 $sql["db"]                  = "capi";
 $config['domain']           = "www.mein-lokal.de";
-$config['capi2name_status'] = "yes";
-$config['capisuite']        = "no";
-$config['language']         = "de";
+$config['capi2name_status'] =true;
+$config['capisuite']        =true;
+$config['language']         = "eng";
 /******************************************************************************
 *******************************************************************************
                                 Do not edit belong this line

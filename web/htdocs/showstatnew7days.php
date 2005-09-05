@@ -101,7 +101,10 @@ if (isset($_SESSION['allow_delete']) && $_SESSION['allow_delete'])
  {
   $template->assign_block_vars('tab0.userconfig_show_delete',array('L_DELETE_ENTRY_TITLE' => $textdata['showstatnew_loeschen']));
  }
- 
+if ($config['capisuite'] && $_SESSION['cs_user']!="" && check_cs_username($_SESSION['cs_user'])==0)
+{
+	$template->assign_block_vars('tab0.show_cs',array('L_LINK_TO_AB' =>$textdata['anrufbeantworter']));
+}
 
  
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
@@ -119,7 +122,6 @@ $sql_query="SELECT  t1.id,t1.rufnummer,t1.datum,t1.uhrzeit,t1.name,t1.dienst,
 
 
 $result_angerufene=$dataB->sql_query($sql_query);
-$dataB->sql_close();
 $i=0;
 while($daten=$dataB->sql_fetch_assoc($result_angerufene))
  {
@@ -129,16 +131,35 @@ while($daten=$dataB->sql_fetch_assoc($result_angerufene))
  $anz_insaddr="";
  $anz_rueckruf="";
  $anz_msn="";
+ $anz_ab="";
+
+//link to AB
+if ($config['capisuite'] && $_SESSION['cs_user']!="" && check_cs_username($_SESSION['cs_user'])==0)
+{
+	$ab_query=sprintf("SELECT id FROM capisuite WHERE from_nr=((%s==unknown)?-:%s) AND date_time='%s %s' AND MSN='%s' ",
+	$dataB->sql_check($daten['rufnummer']), 
+	$dataB->sql_check($daten['rufnummer']), 
+	$dataB->sql_check($daten['datum']), 
+	$dataB->sql_check($daten['uhrzeit']),
+	$daten['msn'] );
+	
+	$ab_res=$dataB->sql_query($ab_query);
+	 if (is_array($ab_data=$dataB->sql_fetch_assoc($ab_res))) {
+                $anz_ab="<a href=\"./cs_hearmessage.php?file=".$ab_data['id']."\"><img src=\"./images/play.png\" border=0></a>";
+        }
+
+}
+
 if ($daten['vorwahl']=="cell phone")
-  {
-   $anz_vorwahl=$textdata['cell_pone'];
-   $daten['rufnummer']=split_cellphone($daten['rufnummer']);
-  }
-  else
-  {
-   $daten['rufnummer']=split_number($daten['rufnummer'],$daten['vorwahlnr']);
-   $anz_vorwahl=$daten['vorwahl'];
-  }
+{
+	$anz_vorwahl=$textdata['cell_pone'];
+	$daten['rufnummer']=split_cellphone($daten['rufnummer']);
+}
+else
+{
+	$daten['rufnummer']=split_number($daten['rufnummer'],$daten['vorwahlnr']);
+	$anz_vorwahl=$daten['vorwahl'];
+}
    if ($daten['rufnummer']=="unknown" && $daten['name']=="unknown")
     {
      $anz_name="<a href=\"./showstatnew7days.php?unbekannt=yes&#038;einid=$daten[id]\">$textdata[unknown]</a>";
@@ -199,7 +220,10 @@ if ($show_entry_msns)
   'DATA_SHOW_NUMBER' => $daten['rufnummer'],
   'DATA_SHOW_CALLERS_NAME' => $anz_name,
   'DATA_TO_ADDR' => $anz_insaddr));
-
+if ($config['capisuite'] && $_SESSION['cs_user']!="" && check_cs_username($_SESSION['cs_user'])==0)
+{
+	$template->assign_block_vars('tab0.tab1.show_cs_ab', array('DATA_SHOW_AB' => $anz_ab));
+}
 if (isset($_SESSION['show_type']) && $_SESSION['show_type'])
  {
   $template->assign_block_vars('tab0.tab1.show_typ', array('DATA_CALLERS' =>$anz_dienst));
@@ -227,7 +251,7 @@ if (isset($_SESSION['allow_delete']) && $_SESSION['allow_delete'])
 } //WHILE ende     
 
 }//ende FOR schleife
-
+$dataB->sql_close();
 $template->pparse('overall_body');
 include("./footer.inc.php");
 ?>

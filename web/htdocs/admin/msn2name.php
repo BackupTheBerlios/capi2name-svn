@@ -24,7 +24,7 @@ You can set up names for your local MSN's. These names will you see in the calli
  if (isset($_GET['delmsn']))
   {
    $query=sprintf("DELETE FROM msnzuname WHERE id=%s",
-   	 $dataB->sql_check($_GET[delmsn]));
+   	 $dataB->sql_check($_GET['delmsn']));
    $result=$dataB->sql_query($query);
    if ($result)
     {

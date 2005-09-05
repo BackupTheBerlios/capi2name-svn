@@ -1,5 +1,5 @@
 <?php
-//error_reporting(E_ALL);
+error_reporting(E_ALL);
 include("./includes/conf.inc.php");
 include("./language/".$config['language'].".inc.php");
 include("./includes/functions.php");
@@ -30,9 +30,12 @@ else
 	$user_id="-1";
 }
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-$query=sprintf("SELECT passwd FROM users WHERE id=%s", $dataB->sql_checkn($user_id));
-$result_userlist=$dataB->sql_query($query);
-if ($result_userlist && !isset($password) || $password!="" && $user_id!="-1")
+if ($user_id!=-1)
+{
+	$query=sprintf("SELECT passwd FROM users WHERE id=%s", $dataB->sql_checkn($user_id));
+	$result_userlist=$dataB->sql_query($query);
+}
+if (isset($result_userlist)&&$result_userlist  && !isset($password) || $password!="" && $user_id!=-1)
 {
 	$row_userlist=$dataB->sql_fetch_assoc($result_userlist);
 	if ($password==$row_userlist['passwd'])

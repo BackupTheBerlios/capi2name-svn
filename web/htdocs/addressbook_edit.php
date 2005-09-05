@@ -18,16 +18,14 @@ include("./header.inc.php");
 
 $template->set_filenames(array('overall_body' => 'templates/'.$_SESSION['template'].'/addressbook_edit.tpl'));
 $template->assign_vars(array('L_SITE_TITLE' => $textdata['editadress_adressbucheintrag_editieren']));
-
+$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 
 // Eintrag loeschen:
 if (isset($_POST['wloeschen']))
  {
-  $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
   $id=$dataB->sql_checkn($_POST['loeschenID']);
   $result=$dataB->sql_query("DELETE FROM addressbook WHERE id=$id");
   $result=$dataB->sql_query("DELETE FROM phonenumbers WHERE addr_id=$id");
-  $dataB->sql_close();
   $template->assign_block_vars('delete_entry_from_db', array(
   	'L_ADDRESS_BOOK_ENTRY_REMOVED' => $textdata['editadress_eintrag_geloescht']));
   $template->pparse('overall_body');
@@ -38,7 +36,6 @@ if (isset($_POST['wloeschen']))
 //telephonenumber update BEGIN:
 if (isset($_POST['tele_save']))
  {
-  $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
   if (cellphone_number($_POST['telephonnr']))
    {
     $typ='2';
@@ -57,26 +54,23 @@ if (isset($_POST['tele_save']))
   	$dataB->sql_check($_POST['tele_id']));
     $dataB->sql_query($query);
    }
-  $dataB->sql_close();
  }
 //telephonenumber update END
 //telephonenumber delete BEGIN:
-if (isset($_POST['tele_delete']))
+if (isset($_POST['tele_delete']) && isset($_POST['tele_id']))
  {
-  $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
   if (is_numeric($_POST['tele_id']))
    {
     $query=sprintf("DELETE FROM phonenumbers WHERE id=%s", $dataB->sql_check($_POST['tele_id']));
     $dataB->sql_query($query);
+    echo mysql_error();
    }
-  $dataB->sql_close();
  }
 //telephonenumber delete END
 
 //telephonnumber add BEGIN:
 if (isset($_POST['add']))
  {
-  $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
   if (cellphone_number($_POST['telephonnr']))
    {
     $typ='2';
@@ -93,7 +87,6 @@ if (isset($_POST['add']))
 	$dataB->sql_check($_POST['typ']));
     $result=$dataB->sql_query($query);
    }
-  $dataB->sql_close();
  }
 //telephonnumber add END
  
@@ -107,7 +100,6 @@ if (isset($_POST['del']) or isset($_GET['del']))
 // Eintrag loeschen und neu mit gleicher ID reinschreiben.
 if (isset($_POST['aendern']))
  {
-  $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
   if (is_numeric($_POST['id']))
    {
     $query=sprintf("DELETE FROM addressbook WHERE id=%s", $dataB->sql_check($_POST['id']));
@@ -123,14 +115,12 @@ if (isset($_POST['aendern']))
 	$dataB->sql_check($_POST['bemail']));
     $result=$dataB->sql_query($query);
    }
-  $dataB->sql_close();
   
  }
 
 
 //===============================// auslesen, baerbeiten = muss gesetzt sein.
 $id=(isset($_POST['id']) ? $_POST['id'] : $_GET['edit']);
-$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 
 if (is_numeric($id))
  {
