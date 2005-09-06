@@ -27,6 +27,7 @@
 char *command = "capi2name";
 
 static int opt_debug = 0;
+static int opt_version =0;
 static char *opt_ddi = 0;
 static char opt_ndigits = 0;
 static int opt_contr = 1;
@@ -42,7 +43,7 @@ static void usage(void)
     fprintf(stderr, "CAPIOPTIONS:\n");
     fprintf(stderr, "   -d, --debug\n");
     fprintf(stderr, "   -c, --controller contr  (default %d)\n", opt_contr);
-    fprintf(stderr, "   -C config-file  (default /etc/capi2name.conf)\n");
+    fprintf(stderr, "   -v, --version");
 }
 
 /* -------------------------------------------------------------------- */
@@ -147,19 +148,15 @@ char name[1024];
 	dienstkennung=4;
 	case 26: /* 7kHz telephony */
 	dienstkennung=5;
-//		(void)capiconn_accept(cp, 1, 1, 0, 0, 0, 0, 0);
-		break;
+	break;
 	case 2: /* unrestricted digital information */
 	case 3: /* restricted digital infomation */
 		/* HDLC: 0,1,0 X75: 0,0,0 X75+V42Bis: 0,8,0 */
 		/* x25overx75: 0,0,2 */
 		dienstkennung=6;
-	//	(void)capiconn_accept(cp, 0, 1, 0, 0, 0, 0, 0);
-		/*(void)capiconn_accept(cp, 0, 0, 2, 0, 0, 0, 0);*/
 		break;
 	case 17: /* Group 2/3 facsimile */
-	//	(void)capiconn_accept(cp, 4, 4, 4, 0, 0, 0, 0);
-	dienstkennung=7;
+		dienstkennung=7;
 		break;
 	default:
 		(void)capiconn_ignore(cp);
@@ -266,10 +263,11 @@ int main(int ac, char *av[])
 		       {"reject", 0, 0, 'r'},
 		       {"ignore", 0, 0, 'i'},
 		       {"alert", 0, 0, 'a'},
+		       {"version",0,0,'v'},
 		       {0, 0, 0, 0}
 	       };
 
-	       c = getopt_long (ac, av, "c:C:dD:irN:",
+	       c = getopt_long (ac, av, "c:vV:dD:irN:",
 			       long_options, &option_index);
 	       if (c == -1)
 		       break;
@@ -291,8 +289,8 @@ int main(int ac, char *av[])
 		       case 'D':
 			       opt_ddi = optarg;
 			       break;
-		       case 'C':
-			       opt_conf = optarg;
+		       case 'v':
+			       opt_version = 1;
 			       break;
 		       case 'i':
 			       opt_ignore = 1;
@@ -317,17 +315,32 @@ opt_alert = 1;
 	        usage();
 		return 1;
 	}
-
+	if (opt_version==1)
+	{
+		fprintf(stderr, "Capi2Name Version: 0.6.7.9.1\n");
+		return 0;
+	}
 	if ((err = capi20_register (30, 8, 2048, &applid)) != 0) {
 		errmsg("CAPI_REGISTER failed - 0x%04x");
 		return 2;
         }
 	
 	openlog("Capi2Name",LOG_ODELAY,LOG_DAEMON);
-	if (mk_daemon()!=0)
+	if (opt_debug==1)
 	{
-		syslog(LOG_NOTICE,"Error on daemonize");
-		exit(-1);
+		syslog(LOG_NOTICE, "Running in DEBUG mode");
+	}
+	else
+	{
+		if (mk_daemon()!=0)
+		{
+			syslog(LOG_NOTICE,"Error on daemonize");
+			exit(-1);
+		}
+		else
+		{
+				syslog(LOG_NOTICE, "Running in daemon mode");
+		}
 	}
 	write_pid();
 	syslog(LOG_NOTICE, "daemon started up");

@@ -62,7 +62,14 @@ if (isset($_GET['id']) && $_SESSION['allow_delete'])
 	$dataB->sql_close();
 	$daten=$dataB->sql_fetch_assoc($result);
 	$datum1=mysql_datum($daten['datum']);
-	
+	if (isset( $_GET['datum']))
+	{
+		$to_date=$_GET['datum'];
+	}
+	else
+	{
+		$to_date="";
+	}
 	$template->assign_block_vars('check_if_del',array(
     		'L_MSG_CHECK_TO_DEL' => $textdata['stat_del_1'].$_GET['id']. $textdata['stat_del_2'],
 		'L_ID' => $textdata['id'],
@@ -73,7 +80,7 @@ if (isset($_GET['id']) && $_SESSION['allow_delete'])
 		'DATA_DATE' => $datum1,
 		'DATA_TIME' => $daten['uhrzeit'],
 		'DATA_NUMBER' => $daten['rufnummer'],
-		'DATA_FROM_GET' => $_GET['datum'],
+		'DATA_FROM_GET' => $to_date,
 		'L_DELETE' => $textdata['delet']));
 }
 $template->pparse('overall_body');  

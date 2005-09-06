@@ -34,7 +34,7 @@ $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
  if ($_POST['alle_unbekannten']=="on") 
  //loesche alle unbekannten Eintraege
   {
-   $result_loeschen=$dataB->sql_query("DELETE FROM angerufene WHERE rufnummer='unbekannt'");
+   $result_loeschen=$dataB->sql_query("DELETE FROM angerufene WHERE rufnummer='unknown'");
    if ($result_loeschen)
     { 
      $template->assign_block_vars('delete_ok',array(
@@ -50,7 +50,7 @@ $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
  else if ($_POST['nur_ruf_unbekannten']=="on") 
  //loesche alle unbekannten Eintraege und lasse die eintraege mit namen
   {
-   $result_loeschen=$dataB->sql_connect("DELETE FROM angerufene WHERE rufnummer='unbekannt' AND name='unbekannt'");
+   $result_loeschen=$dataB->sql_connect("DELETE FROM angerufene WHERE rufnummer='unknown' AND name='unkown'");
    if ($result_loeschen)
     { 
      $template->assign_block_vars('delete_ok',array(
@@ -66,7 +66,7 @@ $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
   else
   {
    $sqlabfrage="DELETE FROM angerufene WHERE";
-   $result=$dataB->sql_query("SELECT id FROM angerufene WHERE rufnummer='unbekannt'");
+   $result=$dataB->sql_query("SELECT id FROM angerufene WHERE rufnummer='unknown'");
    $first=true;
    while($daten=$dataB->sql_fetch_assoc($result))
     {
@@ -107,7 +107,7 @@ $template->assign_block_vars('tab2',array(
 		'L_NAME' => $textdata['showstatnew_name']));
 $i=0;
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-$result_angerufene=$dataB->sql_query("SELECT id,rufnummer,msn,name,datum,uhrzeit FROM angerufene WHERE rufnummer='unbekannt' ORDER BY 'id'  DESC");
+$result_angerufene=$dataB->sql_query("SELECT id,rufnummer,msn,name,datum,uhrzeit FROM angerufene WHERE rufnummer='unknown' ORDER BY 'id'  DESC");
 if ($result_angerufene)
   {
    while($daten=$dataB->sql_fetch_assoc($result_angerufene))

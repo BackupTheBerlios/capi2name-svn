@@ -26,8 +26,7 @@ if ($_POST['passwd1']==$_POST['passwd2'] && ! empty($_POST['passwd1']))
  $daten=$dataB->sql_fetch_assoc($result);
   if (md5($_POST['altespasswd']) == $daten['passwd'])
    {
-    $passwd_md5=md5($_POST[passwd2]);
-    $query=sprintf("UPDATE users SET passwd=%s", $dataB->sql_check($passwd_md5));
+    $query=sprintf("UPDATE users SET passwd=%s", $dataB->sql_check(md5($_POST['passwd2'])));
     $result=$dataB->sql_query($query);
     if ($result)
      {

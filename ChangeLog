@@ -3,12 +3,15 @@ Capi2Name 0.6.9.1 YYYY-MM-DD - Jonas Genannt - <jonas.genannt@capi2name.de>
 	o PHP: Fixed: cs_answerphone.php some php warnings
 	o PHP: Fixed: admin/msn2name.php some php warnings
 	o PHP: Fixed: configpage.php no relogin after configvalue changes
+	o PHP: Fixed: admin/passwd.php some php warnings
 	o PHP: Added: logout.php -> forward to index.php
 	o PHP: Added: new eng transaltion by Dirk Hebel
 	o PHP: Added: showstat* direct link to answering phone by Dirk Hebel
 	o PHP: Added: new installation mode for database and user
 	o C2N: Fixed: mysql_real_query() parameters with MySQL 4.1
 	o C2N: Fixed: send prefix name to dbox
+	o C2N: Added: debug mode with option -d
+	o C2N: Added: -v option for version information
 
 Capi2name 0.6.7.9 2005-08-15 - Jonas Genannt - <jonas.genannt@capi2name.de>
 	o PHP: removed: cs_capisuite_config.inc.php
