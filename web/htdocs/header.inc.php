@@ -46,13 +46,13 @@ $template->assign_vars(array('L_CALL_STAT_TODAY' => $textdata['header_inc_heute_
 $template->assign_vars(array('L_CALL_STAT_YESTERDAY' => $textdata['header_inc_gestrige_anrufe']));
 $template->assign_vars(array('L_CALL_STAT_7_DAYS' => $textdata['header_inc_7tage']));
 $template->assign_vars(array('L_CALL_ALL_STAT' => $textdata['header_inc_gesamtstatistik']));
-$template->assign_vars(array('L_CALL_STAT_MONTH' => 'Monatsübersicht'));
-$template->assign_vars(array('L_SEARCH' => 'Suche'));
+$template->assign_vars(array('L_CALL_STAT_MONTH' => $textdata['header_inc_monthly_overview']));
+$template->assign_vars(array('L_SEARCH' => $textdata['search']));
 $template->assign_vars(array('L_CALENDAR' => $textdata['header_inc_kalender']));
 if (isset($_SESSION['allow_delete'])&&$_SESSION['allow_delete'])
 {
 	$template->assign_block_vars('show_delete_page_unkown_calls_on', array());
-	$template->assign_vars(array('L_DELETE_FUNCTION' => 'Löschfunktion'));
+	$template->assign_vars(array('L_DELETE_FUNCTION' => $textdata['header_inc_delete_function']));
 }
 if (isset($_SESSION['show_callback'])&&$_SESSION['show_callback'])
 {

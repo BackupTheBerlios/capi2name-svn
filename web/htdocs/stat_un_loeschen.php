@@ -31,7 +31,7 @@ $template->assign_vars(array('SITE_TITLE' => $textdata['del_unkown_db']));
 if (isset($_POST['absenden']) && $_SESSION['allow_delete'])
 {
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
- if ($_POST['alle_unbekannten']=="on") 
+ if (isset($_POST['alle_unbekannten']) &&$_POST['alle_unbekannten']=="on") 
  //loesche alle unbekannten Eintraege
   {
    $result_loeschen=$dataB->sql_query("DELETE FROM angerufene WHERE rufnummer='unknown'");
@@ -47,7 +47,7 @@ $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
     }
     
   }
- else if ($_POST['nur_ruf_unbekannten']=="on") 
+ else if (isset($_POST['nur_ruf_unbekannten']) && $_POST['nur_ruf_unbekannten']=="on") 
  //loesche alle unbekannten Eintraege und lasse die eintraege mit namen
   {
    $result_loeschen=$dataB->sql_connect("DELETE FROM angerufene WHERE rufnummer='unknown' AND name='unkown'");
@@ -70,7 +70,7 @@ $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
    $first=true;
    while($daten=$dataB->sql_fetch_assoc($result))
     {
-     if ($_POST[$daten[id]]=="on")
+     if (isset($_POST[$daten['id']]) && $_POST[$daten['id']]=="on")
       {
        if ($first)
         {

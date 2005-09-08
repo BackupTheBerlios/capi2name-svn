@@ -198,7 +198,7 @@ else
     //MSNS überprüfen:
     $show_entry_msns=msns_ueberpruefen($_SESSION['msn_listen'],$daten['msn']);
     //Datum umwandeln, und wegen Heute/Gestern funktion:
-    $anz_datum=anzeige_datum(mysql_datum($daten['datum']));
+    $anz_datum=anzeige_datum(mysql_datum($daten['datum']),$textdata['today'],$textdata['yesterday']);
     //ermittle Dienstkennung:
     $anz_dienst=ermittle_typ_anruf($daten['dienst']); 
 

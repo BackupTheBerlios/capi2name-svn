@@ -13,6 +13,7 @@
  *                                                                         *
  ***************************************************************************/
 include("./includes/conf.inc.php");
+include("./language/".$config['language'].".inc.php");
 include("./includes/functions.php");
 
 //Bilddaten:
@@ -69,11 +70,11 @@ $col_blau= imagecolorallocate($im, 0,0,255);
 $col_gruen= imagecolorallocate($im, 0,255,0);
 	
 //Rot,gruen,blau definieren:
-$is =imagestring($im, 2,35,410, "Alle Anrufe:" , $col );
+$is =imagestring($im, 2,35,410, $textdata['all_calls'].":" , $col );
 $rc =imagefilledrectangle($im,115,412,150,425, $col_rot);
-$is =imagestring($im, 2,180,410, "Bekannte Anrufe:" , $col );
+$is =imagestring($im, 2,180,410, $textdata['only_known'].":" , $col );
 $rc =imagefilledrectangle($im,280,412,315,425, $col_blau);
-$is =imagestring($im, 2,345,410, "Unbekannte Anrufe:" , $col );
+$is =imagestring($im, 2,345,410, $textdata['only_unknown'].":" , $col );
 $rc =imagefilledrectangle($im,460,412,495,425, $col_gruen);
 
 $e=10;

@@ -205,7 +205,7 @@ $template->assign_block_vars('tab1.add',array(
  
 $template->assign_block_vars('cancel_edit',array(
 			'CANCEL_EDIT_ADDR' => $textdata['editadress_abbrechen']));
-if (isset($_POST['loeschen_OK']) or isset($_GET['loeschen']))
+if (isset($_POST['loeschen_OK']) or isset($_GET['del']))
  {
   $template->assign_block_vars('now_delete_really_entry', array(
   		'ID_FROM_ADDR' => $daten['id'],

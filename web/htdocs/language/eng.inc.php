@@ -15,7 +15,12 @@
 $textdata['save']="save";
 $textdata['delet']="delete";
 $textdata['add']="add";
+$textdata['today']="today";
+$textdata['yesterday']="yesterday";
 $textdata['telephon']="telephone";
+$textdata['all_calls']="all calls";
+$textdata['only_known']="known calls";
+$textdata['only_unknown']="unknown calls";
 $textdata['fax']="fax";
 $textdata['cell_phone']="cell phone";
 $textdata['saved_to_db']="data saved to database.";
@@ -43,7 +48,8 @@ $textdata['del_OK_forward']="Entry deleted successfully.<br/>You'll be forwarded
 
 //global search:
 $textdata['site_search_title']="Search";
-$textdata['search']="Search";
+$textdata['search']="search";
+$textdata['search_between']="search between";
 $textdata['search_on_msn']="Search using MSN";
 $textdata['in_call_stat']="Search the call stats";
 $textdata['in_addr_book']="Search the address book";
@@ -66,6 +72,8 @@ $textdata['header_inc_gestrige_anrufe']="yesterday's calls";
 $textdata['header_inc_gesamtstatistik']="all time stats";
 $textdata['header_inc_kalender']="calendar";
 $textdata['header_inc_7tage']="weekly overview";
+$textdata['header_inc_monthly_overview']="monthly overview";
+$textdata['header_inc_delete_function']="delete function";
 $textdata['header_inc_rueckruf']="call-back";
 $textdata['header_inc_neuer_eintrag']="new entry";
 $textdata['header_inc_adressbuch']="address book";

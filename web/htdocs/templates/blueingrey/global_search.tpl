@@ -23,7 +23,7 @@
 </tr>
 <tr>
 <td style="vertical-align:top;text-align:left;">
-Suche zwischen:
+{tab1.L_SEARCH_BETWEEN}:
 </td>
 <td style="width:10px;"></td>
 <td style="text-align:left;">

@@ -25,7 +25,8 @@ $template->assign_block_vars('tab1',array(
 	'L_NUMBER' => $textdata['stat_anrufer_rufnummer'],
 	'L_SEARCH_MSN' => $textdata['search_on_msn'],
 	'L_IN_CALL_STAT' => $textdata['in_call_stat'],
-	'L_IN_ADDR' => $textdata['in_addr_book']
+	'L_IN_ADDR' => $textdata['in_addr_book'],
+	'L_SEARCH_BETWEEN' =>$textdata['search_between']
 	));
 
 for ($i=1;$i<=31;$i++)
@@ -190,7 +191,7 @@ if ($daten['vorwahl']=="cell phone")
   {
    $anz_vorwahl=$daten['vorwahl'];
   }
-   if ($daten['rufnummer']=="unbekannt" && $daten['name']=="unbekannt")
+   if ($daten['rufnummer']=="unknown" && $daten['name']=="unknown")
     {
      if (isset($_GET['datum'])) $submit_date="&datum=".$_GET['datum'];
      else if (isset($_GET['sdatum'])) $submit_date="&datum=".$_GET['sdatum'];
@@ -199,7 +200,7 @@ if ($daten['vorwahl']=="cell phone")
      $anz_rueckruf="<a href=\"./callback.php?add=yes&#038;addr=\">
    <img src=\"./images/1leftarrow.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
     }
-   elseif ($daten['rufnummer']!="unbekannt" && $daten['name_last']==NULL)
+   elseif ($daten['rufnummer']!="unknown" && $daten['name_last']==NULL)
     {
      $anz_name=$daten['name'];
      $wertaddaddr=handynr_vorhanden($daten_cell['rufnummer']);
@@ -207,7 +208,7 @@ if ($daten['vorwahl']=="cell phone")
      $anz_rueckruf="<a href=\"./callback.php?add=yes&#038;addr=&#038;nr=$daten[rufnummer]\">
    <img src=\"./images/1leftarrow.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
     }
-   elseif ($daten['rufnummer']=="unbekannt" && $daten['name']!="unbekannt")
+   elseif ($daten['rufnummer']=="unknown" && $daten['name']!="unknown")
     {
      $anz_name=$daten['name'];
      $anz_rueckruf="<a href=\"./callback.php?add=yes&#038;addr=\">
@@ -231,7 +232,7 @@ if ($daten['vorwahl']=="cell phone")
     //MSNS überprüfen:
     $show_entry_msns=msns_ueberpruefen($_SESSION['msn_listen'],$daten['msn']);
     //Datum umwandeln, und wegen Heute/Gestern funktion:
-    $anz_datum=anzeige_datum(mysql_datum($daten['datum']));
+    $anz_datum=anzeige_datum(mysql_datum($daten['datum']),$textdata['today'],$textdata['yesterday']);
     //ermittle Dienstkennung:
     $anz_dienst=ermittle_typ_anruf($daten['dienst']);
     //TEMPLATE FUELLEN ANFANG:
@@ -283,12 +284,6 @@ if ($_SESSION['allow_delete'])
 
 $dataB->sql_close();
 }//isset search set!
-
-
-
-
-
-
 $template->pparse('overall_body');
 include("./footer.inc.php");
 ?>

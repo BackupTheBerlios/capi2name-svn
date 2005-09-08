@@ -19,23 +19,31 @@ session_start();
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 $result=$dataB->sql_query("SELECT conf,value FROM config WHERE conf='default_template'");
 $daten=$dataB->sql_fetch_assoc($result); 
-$dataB->sql_close();
 $_SESSION['template']=$daten['value'];
-include("./header.inc.php");
-$template->set_filenames(array('overall_body' => 'templates/'.$_SESSION['template'].'/login.tpl'));
 $loginok=0;
-
-if (isset($_POST['absenden']))
+if (isset($_POST['absenden']) OR isset($_SESSION['L_id']) OR isset($_SESSION['L_pw']))
 {
-
+if (isset($_POST['absenden']) && $_POST['login_name']!="" && $_POST['login_passwd']!="")
+{
+	$sql_query=sprintf("SELECT * FROM users WHERE username=%s",
+		$dataB->sql_check($_POST['login_name']));
+	$ck_passwd=md5($_POST['login_passwd']);
+}
+else
+{
+	$sql_query=sprintf("SELECT * FROM users WHERE id=%s",
+		$dataB->sql_checkn($_SESSION['L_id']));
+	$ck_passwd=$_SESSION['L_pw'];
+	$_SESSION['L_pw']=NULL;
+}
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
-$sql_query=sprintf("SELECT * FROM users WHERE username=%s", $dataB->sql_check($_POST[login_name]));
 $result_userlist=$dataB->sql_query($sql_query);
-if ($result_userlist && $_POST['login_name']!="" && $_POST['login_passwd']!="")
+echo mysql_error();
+if ($result_userlist)
 {
-	$passwd_ggg=md5($_POST['login_passwd']);
+	//$passwd_ggg=md5($_POST['login_passwd']);
 	$row_userlist=$dataB->sql_fetch_assoc($result_userlist);
-	if (md5($_POST['login_passwd'])==$row_userlist['passwd'])
+	if ($ck_passwd==$row_userlist['passwd'])
 	{
 		$seite=base64_decode($_POST['seite']);
 		if ($_POST['remember_login']=="on")
@@ -50,6 +58,8 @@ if ($result_userlist && $_POST['login_name']!="" && $_POST['login_passwd']!="")
 		$daten_config=$dataB->sql_fetch_assoc($result_config);
 		fill_template_session($daten_config,$daten_config1,$row_userlist['template']);
 		$loginok=1;
+		include("./header.inc.php");
+		$template->set_filenames(array('overall_body' => 'templates/'.$_SESSION['template'].'/login.tpl'));
 		$template->assign_block_vars('tab1',array(
 			'L_PASSWD_OK' => $textdata['login_OK_forward'],
 			'DATA_SITE_FORWARD' => $seite));
@@ -58,6 +68,7 @@ if ($result_userlist && $_POST['login_name']!="" && $_POST['login_passwd']!="")
 	}
 	else
 	{
+		
 		$loginok=0;
 	}
 }
@@ -70,6 +81,8 @@ $dataB->sql_close();
 } //isset ende
 else
 {
+	include("./header.inc.php");
+	$template->set_filenames(array('overall_body' => 'templates/'.$_SESSION['template'].'/login.tpl'));
 	$template->assign_block_vars('tab2', array('L_MSG_ERROR' => 'Bad syntax for open login.php'));
 	$template->pparse('overall_body');
 	include("./footer.inc.php");
@@ -77,6 +90,8 @@ else
 }
 if ($loginok==0)
 {
+	include("./header.inc.php");
+	$template->set_filenames(array('overall_body' => 'templates/'.$_SESSION['template'].'/login.tpl'));
 	$template->assign_block_vars('tab3',array(
 		'L_LOGIN_FAILED' => 'Login failed, username or password wrong. Please go back!',
 		'L_BACK' => 'go back'));

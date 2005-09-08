@@ -212,15 +212,15 @@ function ermittle_typ_anruf($nummer) {
 	return $wert;
 }
 
-function anzeige_datum($wert)
+function anzeige_datum($wert, $today,$yesterday)
  {
   if ($wert==date("d.m.Y"))
   {
-   $anz_datum="Heute";
+   $anz_datum=$today;
   }
 else if ($wert== date("d.m.Y", mktime(0, 0, 0, date("m"), date("d")-1, date("Y"))))
   {
-   $anz_datum="Gestern";
+   $anz_datum=$yesterday;
   }
 else
   {
