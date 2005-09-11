@@ -11,7 +11,7 @@
 <br/>
 
 <?php
-error_reporting(E_ALL);
+//error_reporting(E_ALL);
 if (!isset($_POST['install']))
 {
 	$c2n_passwd="";

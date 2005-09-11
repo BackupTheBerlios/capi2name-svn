@@ -28,8 +28,9 @@ distclean:	clean
 install:	capi2name
 		install -d -m 755 $(DESTDIR)/usr/sbin
 		install -m 755 $(DAEMON)capi2name $(DESTDIR)/usr/sbin
-		install -d -m 755 $(DESTDIR)/etc
-		install -m 600 $(DAEMON)capi2name.conf $(DESTDIR)/etc
+		install -d -m 755 $(DESTDIR)/etc/capi2name/
+		install -m 600 $(DAEMON)capi2name.conf $(DESTDIR)/etc/capi2name/
+		install -m 640 $(HTDOCS)includes/conf.inc.php $(DESTDIR)/etc/capi2name/
 		install -d -m 755 $(DESTDIR)/usr/share/capi2name
 		install -m 640 $(HTDOCS)*.php $(DESTDIR)/usr/share/capi2name
 		install -d -m 755 $(DESTDIR)/usr/share/capi2name/admin
@@ -37,7 +38,10 @@ install:	capi2name
 		install -d -m 755 $(DESTDIR)/usr/share/capi2name/images
 		install -m 640 $(HTDOCS)images/* $(DESTDIR)/usr/share/capi2name/images
 		install -d -m 755 $(DESTDIR)/usr/share/capi2name/includes
-		install -m 640 $(HTDOCS)includes/* $(DESTDIR)/usr/share/capi2name/includes
+		install -m 640 $(HTDOCS)includes/functions.php $(DESTDIR)/usr/share/capi2name/includes
+		install -m 640 $(HTDOCS)includes/index.html $(DESTDIR)/usr/share/capi2name/includes
+		install -m 640 $(HTDOCS)includes/template.php $(DESTDIR)/usr/share/capi2name/includes
+		ln -s $(DESTDIR)/etc/capi2name/conf.inc.php $(DESTDIR)/usr/share/capi2name/includes/conf.inc.php
 		install -d -m 755 $(DESTDIR)/usr/share/capi2name/language
 		install -m 640 $(HTDOCS)language/* $(DESTDIR)/usr/share/capi2name/language
 		install -d -m 755 $(DESTDIR)/usr/share/capi2name/up_inst

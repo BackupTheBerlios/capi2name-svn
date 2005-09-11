@@ -66,7 +66,8 @@ INSERT INTO `config` VALUES (NULL, 'template', NULL),
 (NULL, 'cs_rm', '/bin/rm'),
 (NULL, 'cs_ps2pdf', '/usr/ps2pdf'),
 (NULL, 'cs_tiff2ps', '/usr/bin/tiff2ps'),
-(NULL, 'cs_sfftobmp', '/usr/bin/sfftobmp');
+(NULL, 'cs_sfftobmp', '/usr/bin/sfftobmp'),
+(NULL, 'cs_lame', '/usr/bin/lame');
 
 CREATE TABLE `msnzuname` (
   `id` int(11) NOT NULL auto_increment,

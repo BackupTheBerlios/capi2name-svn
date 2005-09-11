@@ -35,6 +35,7 @@ else
 		$dataB->sql_checkn($_SESSION['L_id']));
 	$ck_passwd=$_SESSION['L_pw'];
 	$_SESSION['L_pw']=NULL;
+	$_SESSION['L_id']=NULL;
 }
 $dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"] );
 $result_userlist=$dataB->sql_query($sql_query);

@@ -1,5 +1,8 @@
-Capi2Name 0.6.9.1 YYYY-MM-DD - Jonas Genannt - <jonas.genannt@capi2name.de>
+Capi2Name 0.6.9.1 2005-09-11 - Jonas Genannt - <jonas.genannt@capi2name.de>
 	o PHP: Fixed: admin/edit_user.php some php warnings
+	o PHP: Fixed: userconfig.php some php warnings
+	o PHP: Fixed: userconfig.php no relogin after config change
+	o PHP: Added: set_config.php to work with new userconfig.php
 	o PHP: Fixed: cs_answerphone.php some php warnings
 	o PHP: Fixed: admin/msn2name.php some php warnings
 	o PHP: Fixed: configpage.php no relogin after configvalue changes

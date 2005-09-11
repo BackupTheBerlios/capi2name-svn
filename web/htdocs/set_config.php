@@ -19,9 +19,13 @@ if (isset($_POST['save_data']) && $_SESSION['show_config'])
 	$array=array('show_callback','show_prefix','show_msn','show_type');
 	for ($i=0;$i<=3;$i++)
 	{
-		if ($_POST[$array[$i]]=="on")
+		if (isset($_POST[$array[$i]]) && $_POST[$array[$i]]=="on")
 		{
 			$_POST[$array[$i]]=1;
+		}
+		else
+		{
+			$_POST[$array[$i]]="0";
 		}
 	}
 	$userid=$_SESSION['userid'];
@@ -32,10 +36,6 @@ if (isset($_POST['save_data']) && $_SESSION['show_config'])
 	$show_config=$_SESSION['show_config'];
 	$allow_delete=$_SESSION['allow_delete'];
 	$_SESSION = array();
-	//session_unset();
-	//setcookie(session_name(), '', time()-42000, '/');
-	//session_destroy();
-	//session_start();
 	$_SESSION['template']=$template;
 	$_SESSION['L_id']=$userid;
 	$_SESSION['L_pw']=$password;
@@ -61,7 +61,7 @@ if (isset($_POST['save_data']) && $_SESSION['show_config'])
 	$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"]);
 	$sql_query=sprintf("DELETE FROM users WHERE id=%s", $userid);
 	$res_del=$dataB->sql_query($sql_query);
-	$sql_query=sprintf("INSERT INTO users VALUES(%s,%s,%s,%s,NULL,NULL,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,NULL,%s,%s)",
+	$sql_query=sprintf("INSERT INTO users VALUES(%s,%s,%s,%s,NULL,NULL,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
 	$dataB->sql_check($userid),
 	$dataB->sql_check($username),
 	$dataB->sql_check($cs_user),
@@ -76,13 +76,14 @@ if (isset($_POST['save_data']) && $_SESSION['show_config'])
 	$dataB->sql_checkn($_POST['show_type']),
 	$show_config,
 	$allow_delete,
+	$dataB->sql_check($_POST['template']),
 	$dataB->sql_checkn($_POST['cs_audio']),
 	$dataB->sql_checkn($_POST['cs_fax']));
 	$res_submit=$dataB->sql_query($sql_query);
 	echo mysql_error();
-	echo $sql_query;
-	echo "ID:". $_SESSION['L_id']  . "</br>";
-	echo "<meta http-equiv=\"refresh\" content=\"8; URL=./login.php\">";
+//	echo $sql_query;
+//	echo "ID:". $_SESSION['L_id']  . "</br>";
+	echo "<meta http-equiv=\"refresh\" content=\"0; URL=./login.php\">";
 	$dataB->sql_close();
 	
 }

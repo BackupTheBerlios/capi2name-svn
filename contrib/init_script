@@ -11,31 +11,16 @@ SCRIPTNAME=/etc/init.d/$NAME
 
 test -x $DAEMON || exit 0
 
-# Read config file if it is present.
-#if [ -r /etc/default/$NAME ]
-#then
-#	. /etc/default/$NAME
-#fi
-
-#
-#	Function that starts the daemon/service.
-#
 d_start() {
 	start-stop-daemon --start --quiet --pidfile $PIDFILE \
 		--exec $DAEMON
 }
 
-#
-#	Function that stops the daemon/service.
-#
 d_stop() {
 	start-stop-daemon --stop --quiet --pidfile $PIDFILE \
 		--name $NAME
 }
 
-#
-#	Function that sends a SIGHUP to the daemon/service.
-#
 d_reload() {
 	start-stop-daemon --stop --quiet --pidfile $PIDFILE \
 		--name $NAME --signal 1
@@ -52,25 +37,7 @@ case "$1" in
 	d_stop
 	echo "."
 	;;
-  #reload)
-	#
-	#	If the daemon can reload its configuration without
-	#	restarting (for example, when it is sent a SIGHUP),
-	#	then implement that here.
-	#
-	#	If the daemon responds to changes in its config file
-	#	directly anyway, make this an "exit 0".
-	#
-	# echo -n "Reloading $DESC configuration..."
-	# d_reload
-	# echo "done."
-  #;;
   restart|force-reload)
-	#
-	#	If the "reload" option is implemented, move the "force-reload"
-	#	option to the "reload" entry above. If not, "force-reload" is
-	#	just the same as "restart".
-	#
 	echo -n "Restarting $DESC: $NAME"
 	d_stop
 	sleep 1
@@ -78,7 +45,6 @@ case "$1" in
 	echo "."
 	;;
   *)
-	# echo "Usage: $SCRIPTNAME {start|stop|restart|reload|force-reload}" >&2
 	echo "Usage: $SCRIPTNAME {start|stop|restart|force-reload}" >&2
 	exit 1
 	;;
