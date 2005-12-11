@@ -6,8 +6,6 @@
    under certain conditions; see COPYING for details. */
 #include "capi2name.h"
    
-   
-   
 void write_to_file(char *full_name, char *tele_number, char *msn)
 {
 	FILE *fd;
@@ -238,7 +236,7 @@ void get_conf()
 	int laenge;
 	int i=0;
 	//printf("Parsing config-FIle\n");
-	fd = fopen("/etc/capi2name.conf","r");
+	fd = fopen(opt_conf,"r");
 	if (fd==NULL)
 	{
 		syslog(LOG_NOTICE,"Could not open ConfigFile: EXIT NOW");
@@ -262,18 +260,29 @@ void get_conf()
 						strncpy(line,&line[i+1],laenge-1+1);
 						laenge=strlen(line);
 						line[laenge-1]='\0';
-						 if (!strcmp(buffer, "hostname")) sprintf(config.hostname, "%s",line);
-						 if (!strcmp(buffer, "username")) sprintf(config.username, "%s",line);
-						 if (!strcmp(buffer, "password")) sprintf(config.password, "%s",line);
-						 if (!strcmp(buffer, "database")) sprintf(config.database, "%s",line);
-						 if (!strcmp(buffer, "export_txt_file")) sprintf(config.export_txt_file, "%s",line);
-						 if (!strcmp(buffer, "ip_addr"))  sprintf(config.ip_addr, "%s",line);
-						 if (!strcmp(buffer, "ip_port"))  sprintf(config.ip_port, "%s",line);
-						 if (!strcmp(buffer, "dbox_host")) sprintf(config.dbox_host, "%s",line);
-						 if (!strcmp(buffer, "tksupport")) config.tksupport=atoi(line);
-						 if (!strcmp(buffer, "export_txt")) config.export_txt=atoi(line);
-						 if (!strcmp(buffer, "dbox_support")) config.dbox_support=atoi(line);
-						//printf("Buffer:%s---%s-%d\n",buffer, line, laenge);
+						 if (!strcmp(buffer, "hostname"))
+						 sprintf(config.hostname, "%s",line);
+						 if (!strcmp(buffer, "username"))
+						 sprintf(config.username, "%s",line);
+						 if (!strcmp(buffer, "password"))
+						 sprintf(config.password, "%s",line);
+						 if (!strcmp(buffer, "database"))
+						 sprintf(config.database, "%s",line);
+						 if (!strcmp(buffer, "export_txt_file"))
+						 sprintf(config.export_txt_file, "%s",line);
+						 if (!strcmp(buffer, "ip_addr")) 
+						 sprintf(config.ip_addr, "%s",line);
+						 if (!strcmp(buffer, "ip_port")) 
+						 sprintf(config.ip_port, "%s",line);
+						 if (!strcmp(buffer, "dbox_host"))
+						 sprintf(config.dbox_host, "%s",line);
+						 if (!strcmp(buffer, "tksupport"))
+						 config.tksupport=atoi(line);
+						 if (!strcmp(buffer, "export_txt"))
+						 config.export_txt=atoi(line);
+						 if (!strcmp(buffer, "dbox_support"))
+						 config.dbox_support=atoi(line);
+					//printf("Buffer:%s---%s-%d\n",buffer, line, laenge);
 						i=0;
 						laenge=0;
 					}

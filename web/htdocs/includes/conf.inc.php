@@ -5,7 +5,7 @@ $sql["dbpasswd"]            = "kljmkgd";
 $sql["db"]                  = "capi";
 $config['domain']           = "My Site Title... Call STAT";
 $config['capi2name_status'] =true;
-$config['capisuite']        =false;
+$config['capisuite']        =true;
 $config['language']         = "eng";
 /******************************************************************************
 *******************************************************************************

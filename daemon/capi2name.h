@@ -18,7 +18,7 @@
 #include <unistd.h>
 #include <mysql/mysql.h>
 #include <time.h>
-
+#define CAPI2NAME_VERSION "0.6.7.9.2"
 
 typedef struct {
 	char hostname[20];
@@ -29,7 +29,7 @@ typedef struct {
 	int  export_txt;
 	char export_txt_file[50];
 	int dbox_support;
-	char dbox_host[20];
+	char dbox_host[60];
 	char ip_addr[20];
 	char ip_port[20];
 }confFile;
@@ -44,5 +44,5 @@ void write_data_to_db(char *number, char *msn, int prefix, int servicenr);
 int mk_daemon();
 void write_pid();
 void msg_dbox (char *called, char *caller, char *areacode, char *fullname);
-
+static char *opt_conf ="/etc/capi2name/capi2name.conf";
 #endif

@@ -1,3 +1,5 @@
+/*
+
 body
 {
 	 background-color:		#9EA3A3;
@@ -28,8 +30,8 @@ a:hover
 	 border-style:			solid;
 	 border-color:			#294C6B;
 	 width:				148px;
-	 position:			absolute;
-	/* position:			fixed; */
+	 position:			absolute; */
+	/* position:			fixed; */ /*
 }
 *.header
 {
@@ -119,4 +121,101 @@ input,textarea,select
 	background-color:		#6DA5D6;
 	border-color:			#9EA3A3;
 	border:				2px solid;
+}*/
+body {
+    background-color:      #FFFFFF;
+    position:         static;
+    font-family:         Verdana,Arial;
+    font-size:         small;
+}
+a:link, a:visited, a:active {
+   font-weight:         normal;
+   color:            #000000;
+}
+a:hover {
+   color:            #000000;
+   background:         #FFFFFF;
+}
+#mainframe {
+    padding:         3px;
+    padding-top:         0.6cm;
+    min-height:         630px;
+    padding-bottom:      20px;
+}
+#menu {
+    background-color:      #FAFAFA;
+    width:            160px;
+    position:         absolute;
+}
+*.header, *.header2 {
+    font-family:         sans-serif;
+    font-size:         16px;
+    font-weight:         bold;
+    background-color:      #FFFFFF;
+    border-bottom:         1px;
+    border-bottom-style:      solid;
+         color:            #19242A;
+    text-align:         left;
+    margin:         0cm;
+    height:         18px;
+}
+*.menulist {
+    font-family:         Verdana,Arial;
+    font-size:         12px;
+    font-weight:         bold;
+    background-color:      #F0F0F0;
+    padding:         3px;
+    padding-left:         10px;
+    margin:         0cm;
+}
+*.menuitem {
+   
+   margin:            0px;
+   padding:         0px;
+   font-size:                      11px;
+}
+*.menuitem:before {
+   content:         "  ";
+   font-size:         large;
+   font-weight:normal;
+}
+#main {
+    font-family:         Verdana,Arial;
+    background-color:      #F0F0F0;
+    font-size:         small;
+    margin-left:         172px;
+    text-align:         center;
+    padding-bottom:      7px;
+}
+.ueberschrift_seite {
+    font-family:         Verdana,Arial;   
+    text-align:         center;
+    font-size:         22pt;
+    font-weight:         bold;
+    padding-top:         23px;
+    padding-bottom:      23px;
+}
+.rot_mittig {
+    text-align:         center;
+    color:            red;
+}
+.blau_mittig {
+    text-align:         center;
+    color:            blue;
+}
+input , select {
+    border: 1px solid #000000;
+    background-color: #E6E6E6;
+}
+input[type=submit], input[type=reset], input[type=button],button {
+    position: relative;
+    background-color: #E6E6E6;
+    color: #000000;
+}
+input:focus, select:focus, textarea:focus {
+    background-color: #ffffff;
+} 
+
+img {
+	border:0px;
 }

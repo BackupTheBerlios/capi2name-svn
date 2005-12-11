@@ -542,7 +542,7 @@ if ($db_layout_version=="0.6.7.9")
 		echo "Update failed: <br/>Mysql-Error: ". mysql_error();
 		die();
 	}
-	$control=mysql_query("INSERT INTO config VALUES(NULL,'cs_lame','/usr/bin/lame''");
+	$control=mysql_query("INSERT INTO config VALUES(NULL,'cs_lame','/usr/bin/lame') ");
 	if (!$control)
 	{
 		echo "Update failed: <br/>Mysql-Error: ". mysql_error();
@@ -550,6 +550,44 @@ if ($db_layout_version=="0.6.7.9")
 	}
 } 
 /*************VERSION 0.6.7.9 -> 0.6.7.9.1 END *************************/
+
+/*******************VERSION 0.6.7.9.1 -> 0.6.7.9.2 BEGIN****************/
+if ($db_layout_version=="0.6.7.9.1") //NEU NEU NEU
+{
+	echo "Found Version 0.6.7.9.1 updating to 0.6.7.9.2...........<br>";
+	$control=mysql_query("UPDATE config SET value='0.6.7.9.2' WHERE conf='db_version'");
+	if (!$control)
+	{
+		echo "Update failed: <br/>Mysql-Error: ". mysql_error();
+		die();
+	}
+	$control=mysql_query("DELETE FROM config WHERE conf='cs_rm'");
+	if (!$control)
+	{
+		echo "Update failed: <br/>Mysql-Error: ". mysql_error();
+		die();
+	}
+	$control=mysql_query("ALTER TABLE `users` ADD `show_sfcallnr` TINYINT( 1 ) UNSIGNED DEFAULT '0' AFTER `show_config`");
+	if (!$control)
+	{
+		echo "Update failed: <br/>Mysql-Error: ". mysql_error();
+		die();
+	}
+	$control=mysql_query("ALTER TABLE `users` ADD `show_linktoam` TINYINT( 1 ) UNSIGNED DEFAULT '0' AFTER `show_sfcallnr`");
+	if (!$control)
+	{
+		echo "Update failed: <br/>Mysql-Error: ". mysql_error();
+		die();
+	}
+	$control=mysql_query("ALTER TABLE `users` ADD `refresh_time` INT DEFAULT '0' NOT NULL");
+	if (!$control)
+	{
+		echo "Update failed: <br/>Mysql-Error: ". mysql_error();
+		die();
+	}
+
+} 
+/*************VERSION 0.6.7.9.1 -> 0.6.7.9.2 END *************************/
 
 
 $control=mysql_close();

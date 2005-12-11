@@ -189,9 +189,9 @@ if ($_SESSION['allow_delete'])
 	$template->assign_block_vars('userconfig_show_delete', array());
 	$template->assign_vars(array('L_DELETE_ENTRY_TITLE' => $textdata['showstatnew_loeschen']));
 }
-if ($config['capisuite'] && $_SESSION['cs_user']!="" && check_cs_username($_SESSION['cs_user'])==0)
+if ($config['capisuite'] && $_SESSION['cs_user']!="" && check_cs_username($_SESSION['cs_user'])==0 && $_SESSION['show_linktoam'])
 {
-	$template->assign_block_vars('show_cs',array('L_LINK_TO_AB' =>$textdata['anrufbeantworter']));
+	$template->assign_block_vars('show_cs_link',array('L_LINK_TO_AB' =>$textdata['anrufbeantworter']));
 }
 
 
@@ -237,9 +237,10 @@ $anz_insaddr="";
 $anz_rueckruf="";
 $anz_msn="";
 $anz_ab="";
+$sfcallnr="";
 
 //link to AB
-if ($config['capisuite'] && $_SESSION['cs_user']!="" && check_cs_username($_SESSION['cs_user'])==0)
+if ($config['capisuite'] && $_SESSION['cs_user']!="" && check_cs_username($_SESSION['cs_user'])==0 && $_SESSION['show_linktoam'])
 {
 	$ab_query=sprintf("SELECT id FROM capisuite WHERE from_nr=((%s==unknown)?-:%s) AND date_time='%s %s' AND MSN='%s' ",
 	$dataB->sql_check($daten['rufnummer']), 
@@ -257,11 +258,11 @@ if ($config['capisuite'] && $_SESSION['cs_user']!="" && check_cs_username($_SESS
 if ($daten['vorwahl']=="cell phone")
 {
 	$anz_vorwahl=$textdata['cell_pone'];
-	$daten['rufnummer']=split_cellphone($daten['rufnummer']);
+	$anz_rufnr=split_cellphone($daten['rufnummer']);
 }
 else
 {
-	$daten['rufnummer']=split_number($daten['rufnummer'],$daten['vorwahlnr']);
+	$anz_rufnr=split_number($daten['rufnummer'],$daten['vorwahlnr']);
 	$anz_vorwahl=$daten['vorwahl'];
 }
 
@@ -277,9 +278,13 @@ if ($daten['rufnummer']=="unknown" && $daten['name']=="unknown")
    elseif ($daten['rufnummer']!="unknown"  && $daten['name_last']==NULL)
     {
      $anz_name=$daten['name'];
+     if($_SESSION['show_sfcallnr'])
+	{
+	$sfcallnr=$daten['rufnummer'];
+	}
      $wertaddaddr=handynr_vorhanden($daten['rufnummer']);
      $anz_insaddr="<a href=\"./addressbook_add.php?$wertaddaddr\"><img src=\"./images/1rightarrow.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\" /></a>";
-     $anz_rueckruf="<a href=\"./callback.php?add=yes&#038;addr=&#038;nr=$daten[rufnummer]\">
+     $anz_rueckruf="<a href=\"./callback.php?add=yes&#038;addr=&#038;nr=$anz_rufnr\">
    <img src=\"./images/1leftarrow.png\" style=\"border-width:0px;vertical-align:middle;\" alt=\"\"/></a>";
     }
    elseif ($daten['rufnummer']=="unknown" && $daten['name']!="unknown")
@@ -326,11 +331,16 @@ if ($daten['rufnummer']=="unknown" && $daten['name']=="unknown")
 	'DATA_SHOW_SINGEL_STAT' => $anz_statistik,
 	'DATA_SHOW_DATE' => $anz_datum,
 	'DATA_SHOW_CLOCK' => $daten['uhrzeit'],
-	'DATA_SHOW_NUMBER' => $daten['rufnummer'],
+	'DATA_SHOW_NUMBER' => $anz_rufnr,
 	'DATA_SHOW_CALLERS_NAME' => $anz_name,
 	'DATA_TO_ADDR' => $anz_insaddr));
 
-if ($config['capisuite'] && $_SESSION['cs_user']!="" && check_cs_username($_SESSION['cs_user'])==0)
+if ($_SESSION['show_sfcallnr']&& !empty($sfcallnr))
+{
+	$template->assign_block_vars('tab1.show_sfcallnr',
+		array('DATA_NUMBERTOSF' => $sfcallnr));
+}
+if ($config['capisuite'] && $_SESSION['cs_user']!="" && check_cs_username($_SESSION['cs_user'])==0 && $_SESSION['show_linktoam'])
 {
 	$template->assign_block_vars('tab1.show_cs_ab', array('DATA_SHOW_AB' => $anz_ab));
 }

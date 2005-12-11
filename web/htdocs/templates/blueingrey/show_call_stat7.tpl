@@ -40,9 +40,9 @@ Name: <input name="newname" type="text">
   <!-- BEGIN userconfig_show_delete -->
   <td>{tab0.userconfig_show_delete.L_DELETE_ENTRY_TITLE}</td>
   <!-- END userconfig_show_delete -->
-   <!-- BEGIN show_cs -->
-  <td style="text-align:center;">{tab0.show_cs.L_LINK_TO_AB}</td>
-  <!-- END show_cs -->
+   <!-- BEGIN show_cs_link -->
+  <td style="text-align:center;">{tab0.show_cs_link.L_LINK_TO_AB}</td>
+  <!-- END show_cs_link -->
  </tr>
 
 <!-- BEGIN tab1 -->
@@ -60,7 +60,13 @@ Name: <input name="newname" type="text">
   <!-- BEGIN show_msn -->
   <td>{tab0.tab1.show_msn.DATA_SHOW_MSN}</td>
   <!-- END show_msn -->
-  <td style="text-align:center">{tab0.tab1.DATA_SHOW_CALLERS_NAME}</td>
+  <td style="text-align:center">{tab0.tab1.DATA_SHOW_CALLERS_NAME}
+	<!-- BEGIN show_sfcallnr -->
+	<a href="http://www.dasoertliche.de/DB4Web/es/oetb2suche/home.htm?kw_invers={tab0.tab1.show_sfcallnr.DATA_NUMBERTOSF}&main=Antwort&AKTION=START_INVERS_SUCHE&SEITE=INVERSSUCHE_V&s=2&rg=1&taoid=&SKN=0&SEITE=INVERSSUCHE_V&AKTION=START_SUCHE" target="_blank">
+	<img src="./images/launch.png" alt="" /></a>
+	<!-- END show_sfcallnr -->
+
+</td>
   <!-- BEGIN show_call_back -->
   <td style="text-align:center">{tab0.tab1.show_call_back.DATA_SHOW_CALL_BACK}</td>
   <!-- END show_call_back -->

@@ -1,3 +1,15 @@
+Capi2Name 0.6.9.2 YYYY-MM-DD - Jonas Genannt - <jonas.genannt@capi2name.de>
+	o C2N: Added: -C option for configfile
+	o PHP: Added: images/launch.png for link to dasoertliche.de
+	o PHP: removed from config table the cs_rm entry->unlink()
+	o PHP: cs_hearmessage.php check if the program exists
+	o PHP: Added: show_sfcallnr in table users (query dasoertliche.de)
+	o PHP: Added: set_config.php/configpage.php support show_sfcallnr
+	o PHP: Added: showstat* support show_sfcallnr
+	o PHP: Added: show_linktoam in table users (show link to am on showstat*)
+	o PHP: Added: refresh_time in table users (for refresh showstat*)
+	o PHP: Added: showstat* support for show_linktoam
+
 Capi2Name 0.6.9.1 2005-09-11 - Jonas Genannt - <jonas.genannt@capi2name.de>
 	o PHP: Fixed: admin/edit_user.php some php warnings
 	o PHP: Fixed: userconfig.php some php warnings

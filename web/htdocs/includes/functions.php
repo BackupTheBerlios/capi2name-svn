@@ -12,6 +12,15 @@
  *   any later version.                                                    *
  *                                                                         *
  ***************************************************************************/
+function check_exec_prog($prog_name)
+{
+	if (!is_executable($prog_name))
+	{
+		echo "Not Found: ". $prog_name;
+		echo " ->> Check path to program!";
+		die();
+	}
+}
 function check_cs_username($cs_user)
 {
 	 $a = exec("id -g $cs_user",$a, $retval);
@@ -41,6 +50,9 @@ function fill_sessions($row_userlist)
 	$_SESSION['allow_delete']=$row_userlist['allow_delete'];
 	$_SESSION['show_lines']=$row_userlist['show_lines'];
 	$_SESSION['msn_listen']=$row_userlist['msn_listen'];
+	$_SESSION['show_linktoam']=$row_userlist['show_linktoam'];
+	$_SESSION['show_sfcallnr']=$row_userlist['show_sfcallnr'];
+	$_SESSION['refresh_time']=$row_userlist['refresh_time'];
 }
 
 function split_number($tel_number,$prefix_nr) //split number in $prefix / $number

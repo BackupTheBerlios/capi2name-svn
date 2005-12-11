@@ -34,7 +34,6 @@ static int opt_contr = 1;
 static int opt_reject = 0;
 static int opt_ignore = 0;
 static int opt_alert = 0;
-static char *opt_conf ="/etc/capi2name.conf";
 int cmp;
 static void usage(void)
 {
@@ -44,6 +43,7 @@ static void usage(void)
     fprintf(stderr, "   -d, --debug\n");
     fprintf(stderr, "   -c, --controller contr  (default %d)\n", opt_contr);
     fprintf(stderr, "   -v, --version");
+    fprintf(stderr, "   -C, configfile (default: /etc/capi2name/capi2name.conf");
 }
 
 /* -------------------------------------------------------------------- */
@@ -253,6 +253,7 @@ int main(int ac, char *av[])
 	static capi_contrinfo cinfo = { 0 , 0, 0 };
 	unsigned err;
 	unsigned applid;
+	char buffer[255];
 	int c;
 
 	for (;;) {
@@ -267,7 +268,7 @@ int main(int ac, char *av[])
 		       {0, 0, 0, 0}
 	       };
 
-	       c = getopt_long (ac, av, "c:vV:dD:irN:",
+	       c = getopt_long (ac, av, "cC:vV:dD:irN:",
 			       long_options, &option_index);
 	       if (c == -1)
 		       break;
@@ -283,6 +284,8 @@ int main(int ac, char *av[])
 		       case 'c':
 			       opt_contr = atoi(optarg);
 			       break;
+		       case 'C':
+		       	       opt_conf =optarg;
 		       case 'd':
 			       opt_debug = 1;
 			       break;
@@ -317,7 +320,8 @@ opt_alert = 1;
 	}
 	if (opt_version==1)
 	{
-		fprintf(stderr, "Capi2Name Version: 0.6.7.9.1\n");
+		sprintf(buffer, "Capi2Name Version: %s\n",CAPI2NAME_VERSION);
+		fprintf(stderr, buffer);
 		return 0;
 	}
 	if ((err = capi20_register (30, 8, 2048, &applid)) != 0) {
@@ -345,7 +349,6 @@ opt_alert = 1;
 	write_pid();
 	syslog(LOG_NOTICE, "daemon started up");
 	get_conf();
-
 
 
 

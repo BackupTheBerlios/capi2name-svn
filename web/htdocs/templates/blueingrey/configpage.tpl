@@ -114,6 +114,12 @@
  <td style="width:10px;"></td>
  <td><input type="checkbox" name="show_msn" {tab1.DATA_SHOW_MSN} /></td>
 </tr>
+<tr>
+ <td>{tab1.L_SHOW_SFCALLNR}</td>
+ <td style="width:10px;"></td>
+ <td><input type="checkbox" name="show_sfcallnr" {tab1.DATA_SHOW_SFCALLNR} /></td>
+</tr>
+
 <!-- BEGIN template_on -->
 <tr>
  <td>{tab1.template_on.L_SET_TEMPLATE}:</td>

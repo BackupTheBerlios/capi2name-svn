@@ -37,8 +37,8 @@ $result_config=$dataB->sql_query("SELECT * FROM config WHERE conf='template'");
 $daten_config=$dataB->sql_fetch_assoc($result_config); 
 $dataB->sql_close();
 //Xhtml konform das checkboxen gechecked sind.
-$array=array('show_callback','show_prefix','show_msn','show_type');
-for ($i=0;$i<=3;$i++)
+$array=array('show_callback','show_prefix','show_msn','show_type','show_sfcallnr','show_linktoam');
+for ($i=0;$i<=5;$i++)
 {
 	if ($daten[$array[$i]])
 	{
@@ -67,6 +67,8 @@ $template->assign_block_vars('tab1', array(
 	'DATA_SHOW_TYP_FROM_CALL' => $daten['show_type'],
 	'L_SHOW_MSN' => $textdata['option_splate_msn'],
 	'DATA_SHOW_MSN' => $daten['show_msn'],
+	'L_SHOW_SFCALLNR' => $textdata['option_spalte_sfcallnr'],
+	'DATA_SHOW_SFCALLNR' =>  $daten['show_sfcallnr'],
 	'L_SHOW_MSN_FUNC' => $textdata['zeige_msns'],
 	'DATA_SHOW_MSN_FUNC' => $daten['msn_listen'],
 	'L_WARNING_FOR_MSN_FUNC' => $textdata['warnung_msns'],

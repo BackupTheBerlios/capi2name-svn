@@ -67,26 +67,30 @@ if ($fileformat==3) //ogg
 	$s_filename="CapiSuite-AB-$_GET[file].ogg";
 	$fi_filename=$tmp_file.".ogg";
 	$s_Content_type="application/ogg";
+	check_exec_prog($cs_conf['cs_sox']);
 	exec($cs_conf['cs_sox']." -v 1.9 $db_filename $fi_filename");
-	exec($cs_conf['cs_rm']." -f $db_filename");
+	unlink($db_filename);
 }
 elseif ($fileformat==2) //mp3
 {
 	$fi_filename=$tmp_file.".mp3";
 	$wav_filename=$tmp_file.".wav";
 	$s_Content_type="audio/mpeg";
+	check_exec_prog($cs_conf['cs_sox']);
+	check_exec_prog($cs_conf['cs_lame']);
 	exec($cs_conf['cs_sox']." $db_filename $wav_filename");
 	exec($cs_conf['cs_lame']."  -m s -a $wav_filename $fi_filename");
 	$s_filename="CapiSuite-AB-$_GET[file].mp3";
-	exec($cs_conf['cs_rm']." -f $db_filename");
-	exec($cs_conf['cs_rm']." -f $wav_filename");
+	unlink($db_filename);
+	unlink($wav_filename);
 }
 else //wav
 {
 	$s_Content_type="audio/x-wav";
 	$fi_filename=$tmp_file.".wav";
+	check_exec_prog($cs_conf['cs_sox']);
 	exec($cs_conf['cs_sox']." $db_filename $fi_filename");
-	exec($cs_conf['cs_rm']." -f $db_filename");
+	unlink($db_filename);
 	$s_filename="CapiSuite-AB-$_GET[file].wav";
 	
 }

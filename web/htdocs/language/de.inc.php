@@ -156,6 +156,7 @@ $textdata['option_splate_msn']="Zeige in der Anrufstatistik auf welcher MSN ange
 $textdata['zeige_msns']="Zeige nur Anrufe von folgenden MSNs in der Anrufstatistik";
 $textdata['warnung_msns']="Achtung: Achte auf richtige Schreibweise. 12345,12345 Dann werden nur diese Nummer angezeigt.<br>
 Achtung: Um alle Nummern anzeigen zu lassen, Feld ganz leeren, und Speichern.";
+$textdata['option_spalte_sfcallnr']="Zeige Spalte: Suche NR in dasoertliche.de";
 //configpage.php ENDE
 
 

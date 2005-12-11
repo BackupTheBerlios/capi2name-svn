@@ -7,9 +7,7 @@
  *  modify it under the terms of the GNU General Public License
  *  as published by the Free Software Foundation; either version
  *  2 of the License, or (at your option) any later version.
- * 
- * Revision 1.7 2005/04/25 Jonas
- *  - bugfix for new capi20 lib
+ *
  *
  * Revision 1.6  2004/09/25 21:03:23  Jonas
  * - bugfix in capi_fill_ALERT_REQ
@@ -35,7 +33,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "capiconn.h"
-
+#include "capi2name.h"
 static char *revision = "$Revision: 1.1.1.1 $";
 
 /* xxxxxxxxxxxxxxxxxx */
@@ -198,8 +196,7 @@ static inline capiconn_context *find_context(unsigned appid)
 	return 0;
 }
 
-int
-capiconn_addcontr(capiconn_context *ctx, unsigned contr, capi_contrinfo *cinfo)
+int capiconn_addcontr(capiconn_context *ctx, unsigned contr, capi_contrinfo *cinfo)
 {
 	capiconn_callbacks *cb = ctx->cb;
 	capi_contr *card;
@@ -982,8 +979,8 @@ static void check_incoming_complete(capi_connection *plcip)
 			    	0,	/* BChannelinformation */
 			    	0,	/* Keypadfacility */
 			    	0,	/* Useruserdata */
-			    	0,	/* Facilitydataarray */
-				0       /* Sending Complete */
+			    	0//,	/* Facilitydataarray */
+				//0       /* Sending Complete */
 				);
 		plcip->msgid = cmsg.Messagenumber;
 		send_message(card, &cmsg);
@@ -1029,7 +1026,6 @@ ignore:
 			       card->msgid++,
 			       cmsg->adr.adrPLCI,
 			       1,	/* ignore call */
-			       0,
 			       0,
 			       0,
 			       0,
@@ -1553,15 +1549,13 @@ capi_connection *capiconn_connect(
 			      plcip->conninfo.b1config,
 			      plcip->conninfo.b2config,
 			      plcip->conninfo.b3config,
-			      0,        /* config mode ??*/
 			      0,	/* BC */
 			      0,	/* LLC */
 			      0,	/* HLC */
 			      plcip->conninfo.bchaninfo, /* BChannelinformation */
 			      0,	/* Keypadfacility */
 			      0,	/* Useruserdata */
-			      0,      /* Facilitydataarray */
-			      0     /* sending */
+			      0		/* Facilitydataarray */
 			    );
 
 	plcip->msgid = cmdcmsg.Messagenumber;
@@ -1613,7 +1607,6 @@ int capiconn_accept(
 			       plcip->conninfo.b1config,
 			       plcip->conninfo.b2config,
 			       plcip->conninfo.b3config,
-			       0, 	/* global config*/
 			       0,	/* ConnectedNumber */
 			       0,	/* ConnectedSubaddress */
 			       0,	/* LLC */
@@ -1647,7 +1640,6 @@ int capiconn_ignore(capi_connection *plcip)
 			       0,
 			       0,
 			       0,
-			       0,	/* global conf ?? */
 			       0,	/* ConnectedNumber */
 			       0,	/* ConnectedSubaddress */
 			       0,	/* LLC */
@@ -1681,7 +1673,6 @@ int capiconn_reject(capi_connection *plcip)
 			       0,
 			       0,
 			       0,
-			       0,	/* global conf? ? */
 			       0,	/* ConnectedNumber */
 			       0,	/* ConnectedSubaddress */
 			       0,	/* LLC */

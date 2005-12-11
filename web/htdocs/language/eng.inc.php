@@ -153,6 +153,7 @@ $textdata['option_splate_msn']="Show destination MSN in the call stats";
 $textdata['zeige_msns']="Only display the following MSNs' calls";
 $textdata['warnung_msns']="Attention: please stick to the following format: MSN1,MSN2 (only calls to MSN1 or MSN2 will be displayed)<br>
 Attention: to display all calls to any MSN, leave this field completely empty and click \"Save\".";
+$textdata['option_spalte_sfcallnr']="Show the column find NR in dasoertliche.de";
 //configpage.php ENDE
 
 

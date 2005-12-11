@@ -16,8 +16,8 @@ $seite=base64_encode("configpage.php");
 include("./login_check.inc.php");
 if (isset($_POST['save_data']) && $_SESSION['show_config'])
 {
-	$array=array('show_callback','show_prefix','show_msn','show_type');
-	for ($i=0;$i<=3;$i++)
+	$array=array('show_callback','show_prefix','show_msn','show_type','show_sfcallnr','show_linktoam');
+	for ($i=0;$i<=5;$i++)
 	{
 		if (isset($_POST[$array[$i]]) && $_POST[$array[$i]]=="on")
 		{
@@ -61,7 +61,7 @@ if (isset($_POST['save_data']) && $_SESSION['show_config'])
 	$dataB->sql_connect($sql["host"],$sql["dbuser"],$sql["dbpasswd"],$sql["db"]);
 	$sql_query=sprintf("DELETE FROM users WHERE id=%s", $userid);
 	$res_del=$dataB->sql_query($sql_query);
-	$sql_query=sprintf("INSERT INTO users VALUES(%s,%s,%s,%s,NULL,NULL,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+	$sql_query=sprintf("INSERT INTO users VALUES(%s,%s,%s,%s,NULL,NULL,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
 	$dataB->sql_check($userid),
 	$dataB->sql_check($username),
 	$dataB->sql_check($cs_user),
@@ -75,10 +75,13 @@ if (isset($_POST['save_data']) && $_SESSION['show_config'])
 	$dataB->sql_checkn($_POST['show_msn']),
 	$dataB->sql_checkn($_POST['show_type']),
 	$show_config,
+	$dataB->sql_checkn($_POST['show_sfcallnr']),
+	$dataB->sql_checkn($_POST['show_linktoam']),
 	$allow_delete,
 	$dataB->sql_check($_POST['template']),
 	$dataB->sql_checkn($_POST['cs_audio']),
-	$dataB->sql_checkn($_POST['cs_fax']));
+	$dataB->sql_checkn($_POST['cs_fax']),
+	$dataB->sql_checkn($_POST['refresh_time']));
 	$res_submit=$dataB->sql_query($sql_query);
 	echo mysql_error();
 //	echo $sql_query;
